@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = '資料請求はあるのに、商談にならないとき｜Meandle';
+const description = '近くまでは届いている。しかし最後の一歩で意味が噛み合わない。ニアミスを生む3つの構造を実例を交えて整理します。';
+const datePublished = '2026-04-15';
+const dateModified = '2026-04-15';
+const url = 'https://meandle.jp/blog/02-nearmiss/';
+
+const postLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "資料請求はあるのに、商談にならないとき",
+  "description": description,
+  "datePublished": datePublished,
+  "dateModified": dateModified,
+  "author": { "@type": "Organization", "name": "Meandle" },
+  "publisher": { "@type": "Organization", "name": "Meandle", "logo": { "@type": "ImageObject", "url": "https://meandle.jp/images/logo.png" } },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": url },
+  "inLanguage": "ja"
+};
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://meandle.jp/" },
+    { "@type": "ListItem", "position": 2, "name": "読み物", "item": "https://meandle.jp/blog/" },
+    { "@type": "ListItem", "position": 3, "name": "資料請求はあるのに、商談にならないとき", "item": url }
+  ]
+};
+---
+<BaseLayout title={title} description={description} type="article" jsonLd={[postLd, breadcrumbLd]}>
+  <article class="section">
+    <div class="article">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　<a href="/blog/">読み物</a>　/　No. 02</nav>
+      <span class="eyebrow">Essay · No. 02</span>
+      <h1>資料請求はあるのに、<br/>商談にならないとき</h1>
+      <p class="muted" style="font-size:13px">2026年4月15日　Meandle</p>
+
+      <p>資料請求は来る。でも、その先で詰まる。これを我々は <strong>ニアミス</strong> と呼ぶ。近くまでは届いている。しかし、最後の一歩で意味が噛み合わない。</p>
+
+      <h2>ニアミスを生む 3 つの構造</h2>
+
+      <h3>1. 意味が広すぎる</h3>
+      <p>「DX 支援」「業務効率化」「マーケティング高度化」。語が抽象に振れた瞬間、顧客は自分の文脈で勝手に解釈する。解釈は人それぞれだから、入口で関心は集まる。ただし、商談に入った途端「思っていたものと違う」が連発する。</p>
+
+      <h3>2. 比較軸が、顧客の比較軸と違う</h3>
+      <p>我々が「速さ」を訴えても、顧客は「再現性」で迷っている。我々が「価格」を出しても、顧客は「内製化のしやすさ」で揺れている。比較軸のズレは、提案書を厚くしても埋まらない。意味の地図に「比較軸」のフィールドが無いから起きる。</p>
+
+      <h3>3. must_not が空白</h3>
+      <p>何を引き受けないか、を表明していないと、顧客は「全部やってくれそう」と期待する。期待が膨らんだあとの商談は、必ず縮む。must_not は、商談に入る前から関係性の輪郭を引く道具だ。</p>
+
+      <h2>ニアミスは、数字に直接出てこない</h2>
+      <p>資料請求数は順調に伸びる。流入のトレンドも悪くない。それでも商談化率だけが鈍く沈んだままだとしたら、不調は数字の手前で起きている。意味の地図が空白だと、数字は健康そうに見えながら、橋が架かっていない。</p>
+
+      <h2>直すための、はじめの問い</h2>
+      <ul>
+        <li>我々のサービスを一文で書いたとき、その文に「やらないこと」は含まれているか</li>
+        <li>比較軸は、顧客が実際に並べているものと一致しているか</li>
+        <li>資料請求した人と、商談化しなかった人の差を、言語化できているか</li>
+      </ul>
+      <p>これらに答えにくい組織ほど、ニアミスの構造を抱えやすい。直し方は、追加施策ではなく、意味の再定義から始まる。</p>
+
+      <hr/>
+      <p class="muted" style="font-size:13px">関連: <a href="/blog/03-mustnot/">must_notを書く勇気</a>　／　<a href="/blog/05-eightfields/">8フィールド構造の使い方</a></p>
+      <div class="flex-row mt-4">
+        <a href="/contact/" class="btn btn--brand">まずは30分、状況を聞かせてください</a>
+        <a href="/blog/" class="btn btn--ghost">読み物一覧</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

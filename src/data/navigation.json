@@ -1,0 +1,31 @@
+{
+  "primary": [
+    { "label": "Meandleとは", "href": "/#about" },
+    { "label": "効果データ", "href": "/#results" },
+    { "label": "進め方", "href": "/#process" },
+    { "label": "料金", "href": "/#pricing" },
+    { "label": "読み物", "href": "/blog/" },
+    { "label": "相談する", "href": "/contact/", "cta": true }
+  ],
+  "footer": {
+    "service": [
+      { "label": "Meandleとは", "href": "/#about" },
+      { "label": "8フィールド構造", "href": "/#eightfields" },
+      { "label": "効果データ", "href": "/#results" },
+      { "label": "料金", "href": "/#pricing" },
+      { "label": "進め方", "href": "/#process" }
+    ],
+    "resources": [
+      { "label": "読み物", "href": "/blog/" },
+      { "label": "相談する", "href": "/contact/" }
+    ]
+  },
+  "blog": [
+    { "slug": "01-meaning",    "title": "意味を定義するということ",                       "summary": "売り場の上に「意味」を一枚かぶせる。8フィールド構造の出発点を解説します。" },
+    { "slug": "02-nearmiss",   "title": "資料請求はあるのに、商談にならないとき",        "summary": "ニアミスを生む3つの構造を、実例を交えて整理します。" },
+    { "slug": "03-mustnot",    "title": "must_notを書く勇気",                              "summary": "やらないことを定義する。それが意味の輪郭を強くする理由。" },
+    { "slug": "04-ai-search",  "title": "AI検索で選ばれるとは、文脈で選ばれること",       "summary": "AIO時代に求められる「意味の供給」を技術と運用の両面から。" },
+    { "slug": "05-eightfields","title": "8フィールド構造の使い方",                         "summary": "実務に落とすための記入の順序と、よくあるつまずきポイント。" },
+    { "slug": "06-growing",    "title": "事業を拓くとはどういうことか",                   "summary": "拡張ではなく拓くこと。意味の更新が事業の地平を広げます。" }
+  ]
+}

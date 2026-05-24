@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'AI検索で選ばれるとは、文脈で選ばれること｜Meandle';
+const description = 'AIO時代に求められる「意味の供給」を、技術と運用の両面から整理します。';
+const datePublished = '2026-04-29';
+const dateModified = '2026-04-29';
+const url = 'https://meandle.jp/blog/04-ai-search/';
+
+const postLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI検索で選ばれるとは、文脈で選ばれること",
+  "description": description,
+  "datePublished": datePublished,
+  "dateModified": dateModified,
+  "author": { "@type": "Organization", "name": "Meandle" },
+  "publisher": { "@type": "Organization", "name": "Meandle", "logo": { "@type": "ImageObject", "url": "https://meandle.jp/images/logo.png" } },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": url },
+  "inLanguage": "ja"
+};
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://meandle.jp/" },
+    { "@type": "ListItem", "position": 2, "name": "読み物", "item": "https://meandle.jp/blog/" },
+    { "@type": "ListItem", "position": 3, "name": "AI検索で選ばれるとは、文脈で選ばれること", "item": url }
+  ]
+};
+---
+<BaseLayout title={title} description={description} type="article" jsonLd={[postLd, breadcrumbLd]}>
+  <article class="section">
+    <div class="article">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　<a href="/blog/">読み物</a>　/　No. 04</nav>
+      <span class="eyebrow">Essay · No. 04</span>
+      <h1>AI検索で選ばれるとは、<br/>文脈で選ばれること</h1>
+      <p class="muted" style="font-size:13px">2026年4月29日　Meandle</p>
+
+      <p>AI 検索が情報の媒介者になった。これまで「検索エンジン → 自社サイト」だった流入の流れに、「ユーザー → AI → 自社の意味」という新しい経路が加わった。</p>
+      <p>ここで起きている変化は、キーワード最適化の単なる延長ではない。AI は、文脈の整合性で対象を選ぶ。だから、AIO（AI Optimization）の設計の中心は、情報の量でも装飾でもなく、意味の供給の構造になる。</p>
+
+      <h2>キーワード最適化の限界</h2>
+      <p>キーワードを散りばめても、AI は文章の前後関係を読む。「誰が、どんな状況で、何の代わりに、どう判断するか」が一貫していない文章は、AI の中で文脈として組み立てられないまま、要約から外れる。</p>
+
+      <h2>AI が評価しているもの</h2>
+      <p>AI 検索は、従来の検索エンジンに比べてはるかに広く「意味の隣接」を見る。</p>
+      <ul>
+        <li>ジョブと提供価値の整合</li>
+        <li>代替案との差分の明確さ</li>
+        <li>比較軸の自然さ</li>
+        <li>must と must_not の輪郭</li>
+      </ul>
+      <p>これらが揃った文章は、AI から「ある主題について引用に値する文脈」として扱われやすい。</p>
+
+      <h2>意味の供給を設計する 3 層</h2>
+      <ol>
+        <li><strong>基層</strong>: 8 フィールド構造で意味を定義する</li>
+        <li><strong>記述層</strong>: 各ページが、その意味のどの面を映しているかを明確にする</li>
+        <li><strong>連結層</strong>: ページ間の関係性を、リンクと用語の選び方で示す</li>
+      </ol>
+      <p>この 3 層が噛み合うと、AI から見たときに「文脈の島」として認識されるようになる。個別ページのテクニックではない。事業全体の意味の地図が、そのまま検索体験になる。</p>
+
+      <h2>AIO 時代の文書のかたち</h2>
+      <ul>
+        <li>短く、明確な定義文を持つ</li>
+        <li>「やらないこと」を書く</li>
+        <li>比較軸を、自分の言葉で提示する</li>
+      </ul>
+
+      <blockquote>AI 検索で選ばれることは、特別な技術ではない。文脈で選ばれる事業を、誠実に書くことだ。</blockquote>
+
+      <hr/>
+      <p class="muted" style="font-size:13px">関連: <a href="/blog/01-meaning/">意味を定義するということ</a>　／　<a href="/blog/05-eightfields/">8フィールド構造の使い方</a></p>
+      <div class="flex-row mt-4">
+        <a href="/contact/" class="btn btn--brand">まずは30分、状況を聞かせてください</a>
+        <a href="/blog/" class="btn btn--ghost">読み物一覧</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

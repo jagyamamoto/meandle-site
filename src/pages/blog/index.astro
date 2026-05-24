@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import nav from '../../data/navigation.json';
+
+const title = '読み物｜Meandle';
+const description = '意味設計、must_not、8フィールド構造、AI検索（AIO）に関する論考。Meandleの読み物一覧。';
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://meandle.jp/" },
+    { "@type": "ListItem", "position": 2, "name": "読み物", "item": "https://meandle.jp/blog/" }
+  ]
+};
+const posts = nav.blog;
+---
+<BaseLayout title={title} description={description} jsonLd={[breadcrumbLd]}>
+  <section class="section">
+    <div class="container">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　読み物</nav>
+      <span class="eyebrow">Reading</span>
+      <h1>読み物</h1>
+      <p class="lead">意味設計と、AI検索時代の事業の語り方についての論考。</p>
+      <div class="cards mt-6">
+        {posts.map((p, i) => (
+          <a class="acard" href={`/blog/${p.slug}/`}>
+            <div class="acard__index">No. {String(i+1).padStart(2,'0')}</div>
+            <h3>{p.title}</h3>
+            <p>{p.summary}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

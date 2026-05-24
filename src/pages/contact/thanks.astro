@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const title = '送信ありがとうございました｜Meandle';
+const description = 'お問い合わせを受け付けました。担当よりご連絡いたします。';
+---
+<BaseLayout title={title} description={description}>
+  <section class="section">
+    <div class="container" style="max-width:640px; text-align:center">
+      <span class="eyebrow">Thank you</span>
+      <h1>受け付けました。</h1>
+      <p class="lead">内容を拝見し、2営業日以内にご連絡いたします。<br/>ご記入いただいたメールアドレスに、自動返信を送信しています。</p>
+      <a href="/" class="btn btn--ghost mt-4">トップに戻る</a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,381 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import nav from '../data/navigation.json';
+
+const title = '資料請求は来る。でも、商談にならない｜Meandle';
+const description = '売るべき意味を定義し、事業を拓くための補助線。Meandleは8フィールド構造で意味設計と運用を支援する、B2B向けのコンサルティングサービスです。';
+
+const orgLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Meandle",
+  "url": "https://meandle.jp",
+  "logo": "https://meandle.jp/images/logo.png",
+  "description": description,
+  "areaServed": "JP",
+  "sameAs": []
+};
+
+const serviceLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "意味設計コンサルティング",
+  "provider": { "@type": "Organization", "name": "Meandle", "url": "https://meandle.jp" },
+  "areaServed": "JP",
+  "description": "売るべき意味を8フィールド構造で定義し、AI検索時代の発見と商談化を後押しする伴走・パッケージサービス。",
+  "offers": [
+    { "@type": "Offer", "name": "Lite",       "price": "500000",  "priceCurrency": "JPY", "description": "意味設計の初動パッケージ" },
+    { "@type": "Offer", "name": "Standard",   "price": "1500000", "priceCurrency": "JPY", "description": "標準パッケージ／6週間" },
+    { "@type": "Offer", "name": "Enterprise", "price": "5000000", "priceCurrency": "JPY", "description": "複数事業／12週間" },
+    { "@type": "Offer", "name": "Continuous", "price": "600000",  "priceCurrency": "JPY", "description": "月次伴走" },
+    { "@type": "Offer", "name": "Embedded",   "price": "1500000", "priceCurrency": "JPY", "description": "週次伴走" }
+  ]
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Web制作も依頼できますか？", "acceptedAnswer": { "@type": "Answer", "text": "MeandleはWeb制作会社ではありません。意味の定義と運用設計に特化しています。制作の実行が必要な場合は、お付き合いのある制作パートナーをご紹介可能です。" }},
+    { "@type": "Question", "name": "SEO記事の代行はしてもらえますか？", "acceptedAnswer": { "@type": "Answer", "text": "個別記事の代筆は行いません。代わりに8フィールド構造で意味の地図を引き、貴社の制作チームが自走できる設計図を残します。" }},
+    { "@type": "Question", "name": "効果はどれくらいで出ますか？", "acceptedAnswer": { "@type": "Answer", "text": "意味の再定義そのものは4週間〜の設計で完了します。市場での反応は、運用反映から1〜3か月で現れ始めるケースが多い領域です。" }},
+    { "@type": "Question", "name": "AI検索（AIO）にどのように対応しますか？", "acceptedAnswer": { "@type": "Answer", "text": "個別最適化のテクニックではなく、AIが文脈の整合性を取りやすい意味の供給を設計します。結果としてAI検索でも引用・要約されやすい状態を狙います。" }},
+    { "@type": "Question", "name": "途中で方向を変えたくなったら？", "acceptedAnswer": { "@type": "Answer", "text": "方向転換は前提です。各フェーズの末尾で意味モデルを再点検し、must / must_not を更新する作りになっています。" }}
+  ]
+};
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://meandle.jp/" }
+  ]
+};
+
+const eightFields = [
+  { name: "ジョブ",     desc: "顧客が片づけたい本当の用件",                         type: "ctx" },
+  { name: "シーン",     desc: "その用件が立ち上がる場面と時間",                     type: "ctx" },
+  { name: "代替案",     desc: "現在使われている解決手段（含: 何もしない）",         type: "ctx" },
+  { name: "比較軸",     desc: "選ばれるときに使われる判断のものさし",               type: "ctx" },
+  { name: "価値",       desc: "比較軸の上で我々が固有に提供できる便益",             type: "ctx" },
+  { name: "証拠",       desc: "信じてもらうための根拠と数字",                       type: "ctx" },
+  { name: "must",       desc: "決して外せない約束。文脈の中核",                     type: "must" },
+  { name: "must_not",   desc: "決して該当しない／提供しないこと",                   type: "mustnot" }
+];
+
+const blogPosts = nav.blog;
+---
+<BaseLayout title={title} description={description} jsonLd={[orgLd, serviceLd, faqLd, breadcrumbLd]}>
+
+  <!-- 1. Hero -->
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">B2B 意味設計 × AIO</span>
+      <h1>資料請求は来る。<br/>でも、<span class="accent">商談にならない。</span></h1>
+      <p class="lead">原因は流入でも、デザインでもありません。<br/>「売るべき意味」が定義されていないからです。</p>
+      <p class="lead">Meandleは、8フィールド構造で事業の意味を再定義し、<br/>勝ち筋を増幅する補助線を引き直します。</p>
+      <div class="flex-row mt-4">
+        <a href="/contact/" class="btn btn--brand btn--lg">まずは30分、状況を聞かせてください</a>
+        <a href="#about" class="btn btn--ghost">Meandleとは</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Meandleがユニークな理由 -->
+  <section class="section section--paper" id="about">
+    <div class="container">
+      <span class="eyebrow">Why Meandle</span>
+      <h2>must と must_not を、同じ重みで併記する。</h2>
+      <p class="lead">多くのブランド戦略は「やること（must）」だけを語ります。<br/>Meandleは「決してやらないこと（must_not）」を、同じ強さで定義します。</p>
+      <div class="grid grid--2 mt-4">
+        <div class="card">
+          <h3 class="brand-fg" style="margin-top:0">なぜ must だけでは不十分なのか</h3>
+          <p>提供価値の足し算では、競合と意味が混ざります。「やらないこと」が無い意味の地図は、顧客にとってもAI検索にとっても、輪郭が見えません。</p>
+        </div>
+        <div class="card">
+          <h3 class="brand-fg" style="margin-top:0">must_not がもたらす効果</h3>
+          <p>輪郭が立ち上がり、商談化率が変わります。誤った入口を減らし、本当に響く相手に深く届く構造へ移行できます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 自己診断4タイプ -->
+  <section class="section" id="diagnose">
+    <div class="container">
+      <span class="eyebrow">Self-check</span>
+      <h2>あてはまるものに、チェックしてみてください。</h2>
+      <p class="lead">1つでも当てはまるなら、意味の輪郭がぼやけている兆候です。</p>
+      <div class="checks mt-4">
+        <label class="check"><input type="checkbox"/><div class="check__body"><strong>A. 資料請求はあるが、商談にならない</strong><span>関心は喚起できているが、意味の輪郭が立っていない。</span></div></label>
+        <label class="check"><input type="checkbox"/><div class="check__body"><strong>B. KPIは追えているがKGIが動かない</strong><span>露出と売上のあいだに、因果の橋がかかっていない。</span></div></label>
+        <label class="check"><input type="checkbox"/><div class="check__body"><strong>C. AI検索からの流入が読めない</strong><span>個別最適化ではなく、文脈の供給設計が必要な状態。</span></div></label>
+        <label class="check"><input type="checkbox"/><div class="check__body"><strong>D. コンテンツを量産したが事業が動かない</strong><span>must_not が無く、意味が拡散している。</span></div></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. KPI/KGIが動かない理由 -->
+  <section class="section section--card">
+    <div class="container">
+      <span class="eyebrow">Why KGI not moving</span>
+      <h2>KPI/KGIが動かない3段階</h2>
+      <p class="lead">数字が動かないとき、原因はたいてい上流にあります。</p>
+      <div class="viz-flow mt-4">
+        <div class="viz-flow__node">① 意味の不在<small>「何を売っているか」の定義がない</small></div>
+        <div class="viz-flow__arrow">→</div>
+        <div class="viz-flow__node">② 文脈の空洞化<small>露出は増えても、検索意図に届かない</small></div>
+        <div class="viz-flow__arrow">→</div>
+        <div class="viz-flow__node">③ KGIの停滞<small>流入はあるが、商談化しない</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 効果データ -->
+  <section class="section section--mint" id="results">
+    <div class="container">
+      <span class="eyebrow">Evidence</span>
+      <h2>意味の再定義は、検索結果の正解率を変える。</h2>
+      <div class="grid grid--2 mt-4" style="align-items:center">
+        <div>
+          <div class="bignum"><span>63.3%</span><sub>→</sub><span>90.0%</span></div>
+          <p class="mt-2" style="font-weight:700; font-size:17px">Top-1 正解率の改善</p>
+          <p class="muted" style="font-size:13.5px">同一クエリ集合に対する、意味再定義の前後でのTop-1正解率の比較。</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">検定結果</h3>
+          <ul style="list-style:none; padding:0; margin:0; font-size:14.5px; line-height:1.95">
+            <li><strong>Boschloo検定</strong>　p = 0.015</li>
+            <li><strong>Cohen's h</strong>　0.657（中〜大の効果量）</li>
+            <li><strong>サンプル</strong>　単一カテゴリ・対称設計</li>
+          </ul>
+          <p class="muted mt-2" style="font-size:12.5px; margin-bottom:0">※ 数値は内部検証に基づく一例であり、すべての事業で同じ結果が得られることを保証するものではありません。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 8フィールド構造 -->
+  <section class="section" id="eightfields">
+    <div class="container">
+      <span class="eyebrow">8 Fields</span>
+      <h2>意味は、8つのフィールドで定義できる。</h2>
+      <p class="lead">この8項目を埋めると、誰が見ても同じ「意味の地図」が現れます。<br/>とくにオレンジで強調された <strong>must / must_not</strong> が、輪郭をつくる芯です。</p>
+      <div class="table-wrap mt-4">
+        <table class="table">
+          <thead><tr><th style="width:28%">フィールド</th><th>定義</th></tr></thead>
+          <tbody>
+            {eightFields.map((f) => (
+              <tr class={f.type === 'must' ? 'row-must' : f.type === 'mustnot' ? 'row-mustnot' : ''}>
+                <td><strong>{f.name}</strong></td>
+                <td>{f.desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. 権威性 -->
+  <section class="section section--paper">
+    <div class="container">
+      <span class="eyebrow">Authority</span>
+      <h2>設計の根拠</h2>
+      <div class="notice mt-4">
+        <div>
+          <h3>特許出願中</h3>
+          <p>意味設計と検索文脈の整合に関する方法について、2026年5月付で特許を出願しました。</p>
+        </div>
+        <div>
+          <h3>教育現場での実装</h3>
+          <p>武蔵野美術大学にて非常勤講師として、意味設計と表現の接続を実践的に指導しています。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. 比較表 -->
+  <section class="section" id="compare">
+    <div class="container">
+      <span class="eyebrow">What we are not</span>
+      <h2>Web制作でも、SEO/AIO支援でもありません。</h2>
+      <div class="table-wrap mt-4">
+        <table class="table">
+          <thead>
+            <tr><th></th><th>Web制作</th><th>SEO/AIO支援</th><th style="background:var(--brand); color:#fff">Meandle</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>主に届けるもの</td><td>サイトと体験</td><td>記事と最適化</td><td>意味の地図と運用設計</td></tr>
+            <tr><td>判断の単位</td><td>画面・実装</td><td>クエリ・順位</td><td>事業の言語</td></tr>
+            <tr><td>成果物</td><td>サイト一式</td><td>記事群／施策レポート</td><td>8フィールド意味モデル</td></tr>
+            <tr><td>運用の主体</td><td>制作チーム</td><td>運用代行</td><td>貴社内の意思決定者</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. 2つの入り口 -->
+  <section class="section section--card" id="pricing">
+    <div class="container">
+      <span class="eyebrow">How we engage</span>
+      <h2>2つの入り口があります。</h2>
+
+      <div class="subhead">A. パッケージ ─ 期間と成果物を固定して導入</div>
+      <div class="pricing">
+        <div class="price">
+          <h3>Lite</h3>
+          <div class="price__amount">50万円〜</div>
+          <p class="muted" style="font-size:13px; margin:0">単一事業／3週間／意味モデルの初期化</p>
+          <ul><li>8フィールドの初稿</li><li>must / must_not の確定</li><li>運用への引き渡しメモ</li></ul>
+        </div>
+        <div class="price">
+          <h3>Standard</h3>
+          <div class="price__amount">150万円〜</div>
+          <p class="muted" style="font-size:13px; margin:0">2〜3事業／6週間／検証込み</p>
+          <ul><li>意味モデル＋検証ワークショップ</li><li>競合・代替案調査</li><li>初回1ヶ月の運用伴走</li></ul>
+        </div>
+        <div class="price">
+          <h3>Enterprise</h3>
+          <div class="price__amount">500万円〜</div>
+          <p class="muted" style="font-size:13px; margin:0">複数事業／12週間／統合設計</p>
+          <ul><li>事業ポートフォリオ単位の整合</li><li>社内ワークショップ複数回</li><li>運用ガイドの内製化支援</li></ul>
+        </div>
+      </div>
+
+      <div class="subhead">B. 伴走 ─ 月次で意味を更新し続ける</div>
+      <div class="pricing pricing--2">
+        <div class="price">
+          <h3>Continuous</h3>
+          <div class="price__amount">月60万円〜</div>
+          <p class="muted" style="font-size:13px; margin:0">月2回・約4時間／意味の点検と更新</p>
+          <ul><li>月次レビュー</li><li>意思決定への壁打ち</li><li>運用ドキュメントの更新</li></ul>
+        </div>
+        <div class="price">
+          <h3>Embedded</h3>
+          <div class="price__amount">月150万円〜</div>
+          <p class="muted" style="font-size:13px; margin:0">週次／チームの内側で意思決定に参加</p>
+          <ul><li>定例参加＋個別議論</li><li>意味の運用基盤づくり</li><li>採用・教育設計への接続</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. 簡易見積もり診断 -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Quick estimate</span>
+      <h2>3問で、目安をお出しします。</h2>
+      <p class="lead">あくまで初動の目安です。最終的なご提案は対話の中で個別に組みます。</p>
+
+      <div class="estimate mt-4" id="estimateBox">
+        <fieldset class="estimate__q">
+          <legend>Q1. 対象となる事業数は？</legend>
+          <div class="estimate__opts">
+            <label><input type="radio" name="biz" value="1"/><span>1事業</span></label>
+            <label><input type="radio" name="biz" value="2"/><span>2〜3事業</span></label>
+            <label><input type="radio" name="biz" value="3"/><span>4事業以上</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="estimate__q">
+          <legend>Q2. かけられる期間は？</legend>
+          <div class="estimate__opts">
+            <label><input type="radio" name="dur" value="1"/><span>〜3週間</span></label>
+            <label><input type="radio" name="dur" value="2"/><span>4〜6週間</span></label>
+            <label><input type="radio" name="dur" value="3"/><span>12週間以上</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="estimate__q">
+          <legend>Q3. 運用は誰が担いますか？</legend>
+          <div class="estimate__opts">
+            <label><input type="radio" name="ops" value="1"/><span>自社で</span></label>
+            <label><input type="radio" name="ops" value="2"/><span>月次で半伴走</span></label>
+            <label><input type="radio" name="ops" value="3"/><span>週次で深く入ってほしい</span></label>
+          </div>
+        </fieldset>
+        <div class="estimate__result" id="estimateResult">3問にお答えいただくと、目安プランを表示します。</div>
+      </div>
+    </div>
+  </section>
+  <script is:inline>
+    (function () {
+      var box = document.getElementById('estimateBox');
+      var out = document.getElementById('estimateResult');
+      if (!box || !out) return;
+      function score() {
+        var biz = box.querySelector('input[name="biz"]:checked');
+        var dur = box.querySelector('input[name="dur"]:checked');
+        var ops = box.querySelector('input[name="ops"]:checked');
+        if (!biz || !dur || !ops) return;
+        var b = +biz.value, d = +dur.value, o = +ops.value;
+        var sum = b + d;
+        var plan;
+        if (o === 3) plan = 'Embedded（月150万円〜）';
+        else if (o === 2) plan = 'Continuous（月60万円〜）';
+        else if (sum >= 5) plan = 'Enterprise（500万円〜）';
+        else if (sum >= 3) plan = 'Standard（150万円〜）';
+        else plan = 'Lite（50万円〜）';
+        out.textContent = '目安：' + plan + '　─ 詳細はお話ししながら最適化します。';
+      }
+      box.addEventListener('change', score);
+    })();
+  </script>
+
+  <!-- 11. 4週間タイムライン -->
+  <section class="section section--paper" id="process">
+    <div class="container">
+      <span class="eyebrow">How we work</span>
+      <h2>標準は4週間。順序がそのまま品質になります。</h2>
+      <div class="steps steps--w4 mt-4">
+        <div class="step"><h3>現状の輪郭をつかむ</h3><p>事業の歴史・既存資料・顧客接点を読み込み、意味の不整合を炙り出します。</p></div>
+        <div class="step"><h3>8フィールドの草案</h3><p>ジョブから must / must_not まで、意味の骨格を一度描き切ります。</p></div>
+        <div class="step"><h3>検証と再定義</h3><p>社内の意思決定者と現場の双方で読み合わせ、輪郭を強くします。</p></div>
+        <div class="step"><h3>運用への引き渡し</h3><p>更新の頻度・判断者・点検観点を文書化し、貴社内で動く形にします。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <span class="eyebrow">FAQ</span>
+      <h2>よくある問い</h2>
+      <div class="faq mt-4">
+        <details><summary>Web制作も依頼できますか？</summary><div>MeandleはWeb制作会社ではありません。意味の定義と運用設計に特化しています。制作の実行が必要な場合は、お付き合いのある制作パートナーをご紹介可能です。</div></details>
+        <details><summary>SEO記事の代行はしてもらえますか？</summary><div>個別記事の代筆は行いません。代わりに8フィールド構造で意味の地図を引き、貴社の制作チームが自走できる設計図を残します。</div></details>
+        <details><summary>効果はどれくらいで出ますか？</summary><div>意味の再定義そのものは4週間〜の設計で完了します。市場での反応は、運用反映から1〜3か月で現れ始めるケースが多い領域です。</div></details>
+        <details><summary>AI検索（AIO）にどう対応しますか？</summary><div>個別最適化のテクニックではなく、AIが文脈の整合性を取りやすい意味の供給を設計します。結果としてAI検索でも引用・要約されやすい状態を狙います。</div></details>
+        <details><summary>途中で方向を変えたくなったら？</summary><div>方向転換は前提です。各フェーズの末尾で意味モデルを再点検し、must / must_not を更新する作りになっています。</div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. 関連する読み物 -->
+  <section class="section section--card">
+    <div class="container">
+      <span class="eyebrow">Reading</span>
+      <h2>関連する読み物</h2>
+      <div class="cards mt-4">
+        {blogPosts.map((p, i) => (
+          <a class="acard" href={`/blog/${p.slug}/`}>
+            <div class="acard__index">No. {String(i+1).padStart(2,'0')}</div>
+            <h3>{p.title}</h3>
+            <p>{p.summary}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 14. CTA -->
+  <section class="section section--ink" id="cta">
+    <div class="container center">
+      <span class="eyebrow" style="color:var(--brand)">Contact</span>
+      <h2 style="color:var(--paper)">まずは30分、状況を聞かせてください。</h2>
+      <p class="lead" style="color:var(--mint); max-width:640px; margin:16px auto 28px">提案や売り込みはしません。事業の言語を整理する壁打ちとして、お気軽にお使いください。</p>
+      <a href="/contact/" class="btn btn--brand btn--lg">相談を申し込む</a>
+    </div>
+  </section>
+
+</BaseLayout>

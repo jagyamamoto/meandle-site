@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = '事業を拓くとはどういうことか｜Meandle';
+const description = '拡張ではなく拓くこと。意味の更新が事業の地平を広げる、その理屈と見分け方。';
+const datePublished = '2026-05-13';
+const dateModified = '2026-05-13';
+const url = 'https://meandle.jp/blog/06-growing/';
+
+const postLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "事業を拓くとはどういうことか",
+  "description": description,
+  "datePublished": datePublished,
+  "dateModified": dateModified,
+  "author": { "@type": "Organization", "name": "Meandle" },
+  "publisher": { "@type": "Organization", "name": "Meandle", "logo": { "@type": "ImageObject", "url": "https://meandle.jp/images/logo.png" } },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": url },
+  "inLanguage": "ja"
+};
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://meandle.jp/" },
+    { "@type": "ListItem", "position": 2, "name": "読み物", "item": "https://meandle.jp/blog/" },
+    { "@type": "ListItem", "position": 3, "name": "事業を拓くとはどういうことか", "item": url }
+  ]
+};
+---
+<BaseLayout title={title} description={description} type="article" jsonLd={[postLd, breadcrumbLd]}>
+  <article class="section">
+    <div class="article">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　<a href="/blog/">読み物</a>　/　No. 06</nav>
+      <span class="eyebrow">Essay · No. 06</span>
+      <h1>事業を拓くとは<br/>どういうことか</h1>
+      <p class="muted" style="font-size:13px">2026年5月13日　Meandle</p>
+
+      <p>事業を「拡張する」と「拓く」は、似て非なる動詞だ。拡張は、既存の意味のまま、量を増やすこと。拓くは、意味そのものを更新し、新しい地平を取りに行くこと。この違いは、KGI の動き方に直接現れる。</p>
+
+      <h2>拡張の罠</h2>
+      <p>拡張は、最初は心地よい。チャネルを増やす。地域を広げる。プランを増やす。売上は伸びる。だがある時点から、CAC が静かに上がり、商談化率が鈍る。意味を更新しないまま物量を増やすと、意味は希釈される。希釈された意味は、もはや誰の意思決定にも触れない。</p>
+
+      <h2>拓くとは、意味の輪郭を引き直すこと</h2>
+      <p>拓くとは、これまで「ジョブ」「シーン」「比較軸」と思っていたものを、別の場所に置き直す作業だ。新しい顧客像を見つけたから拓くのではない。意味を更新したから、新しい顧客像が浮かび上がる、という順序だ。</p>
+
+      <h2>拓くトリガーは 3 つある</h2>
+
+      <h3>1. 顧客のジョブが変わったとき</h3>
+      <p>顧客の置かれた環境（規制、技術、競合）が変わったら、ジョブも変わる。ジョブが変わったのに意味の地図が古いままなら、商談はずれていく。</p>
+
+      <h3>2. 代替案が変わったとき</h3>
+      <p>新しい代替案（AI、内製、新興プレイヤー）が現れたら、比較軸そのものを引き直す必要がある。</p>
+
+      <h3>3. 自社の must_not に違和感が出たとき</h3>
+      <p>「これは引き受けない」と書いていたものが、気がつくと小さく引き受けていたら、それは意味が更新を求めているサインだ。</p>
+
+      <h2>拓いた事業の見分け方</h2>
+      <ul>
+        <li>商談化率が、量の増加に比例して維持されている</li>
+        <li>顧客の言葉と、社内の言葉が一致している</li>
+        <li>「やらないこと」が、半年前より具体的になっている</li>
+      </ul>
+
+      <blockquote>拓くは、派手な転換ではない。意味の更新を、退屈なほど誠実に続ける作業だ。</blockquote>
+
+      <hr/>
+      <p class="muted" style="font-size:13px">関連: <a href="/blog/03-mustnot/">must_notを書く勇気</a>　／　<a href="/blog/04-ai-search/">AI検索で選ばれるとは、文脈で選ばれること</a></p>
+      <div class="flex-row mt-4">
+        <a href="/contact/" class="btn btn--brand">まずは30分、状況を聞かせてください</a>
+        <a href="/blog/" class="btn btn--ghost">読み物一覧</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

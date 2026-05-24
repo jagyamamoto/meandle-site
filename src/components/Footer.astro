@@ -1,0 +1,26 @@
+---
+import nav from '../data/navigation.json';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__cols">
+      <div class="site-footer__brand">
+        <h3>Meandle<span style="color:var(--brand)">.</span></h3>
+        <p>売るべき意味を定義し、事業を拓くための補助線。</p>
+      </div>
+      <div class="site-footer__col">
+        <h4>サービス</h4>
+        <ul>{nav.footer.service.map((it) => <li><a href={it.href}>{it.label}</a></li>)}</ul>
+      </div>
+      <div class="site-footer__col">
+        <h4>もっと知る</h4>
+        <ul>{nav.footer.resources.map((it) => <li><a href={it.href}>{it.label}</a></li>)}</ul>
+      </div>
+    </div>
+    <div class="site-footer__legal">
+      <span>© {year} Meandle. All rights reserved.</span>
+      <span>meandle.jp</span>
+    </div>
+  </div>
+</footer>

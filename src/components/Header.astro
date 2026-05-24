@@ -1,0 +1,39 @@
+---
+import nav from '../data/navigation.json';
+const items = nav.primary;
+---
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="/" class="site-header__logo" aria-label="Meandle ホーム">Meandle<span class="dot">.</span></a>
+    <nav class="site-nav" aria-label="主要メニュー">
+      {items.map((item) => (
+        <a href={item.href} class={item.cta ? 'cta' : ''}>{item.label}</a>
+      ))}
+    </nav>
+    <button class="site-nav__toggle" aria-label="メニューを開く" aria-controls="mobile-nav" aria-expanded="false" id="navToggle" type="button">
+      <span></span>
+    </button>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="モバイルメニュー">
+    {items.map((item) => (
+      <a href={item.href} class={item.cta ? 'cta' : ''}>{item.label}</a>
+    ))}
+  </nav>
+</header>
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('navToggle');
+    var menu = document.getElementById('mobile-nav');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function () {
+      var open = menu.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        menu.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+</script>

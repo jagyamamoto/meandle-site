@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = '意味を定義するということ｜Meandle';
+const description = '売り場の上に「意味」を一枚かぶせる。なぜ意味は書かれないまま運用されてしまうのか。8フィールド構造の出発点を解説します。';
+const datePublished = '2026-04-08';
+const dateModified = '2026-04-08';
+const url = 'https://meandle.jp/blog/01-meaning/';
+
+const postLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "意味を定義するということ",
+  "description": description,
+  "datePublished": datePublished,
+  "dateModified": dateModified,
+  "author": { "@type": "Organization", "name": "Meandle" },
+  "publisher": { "@type": "Organization", "name": "Meandle", "logo": { "@type": "ImageObject", "url": "https://meandle.jp/images/logo.png" } },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": url },
+  "inLanguage": "ja"
+};
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://meandle.jp/" },
+    { "@type": "ListItem", "position": 2, "name": "読み物", "item": "https://meandle.jp/blog/" },
+    { "@type": "ListItem", "position": 3, "name": "意味を定義するということ", "item": url }
+  ]
+};
+---
+<BaseLayout title={title} description={description} type="article" jsonLd={[postLd, breadcrumbLd]}>
+  <article class="section">
+    <div class="article">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　<a href="/blog/">読み物</a>　/　No. 01</nav>
+      <span class="eyebrow">Essay · No. 01</span>
+      <h1>意味を定義するということ</h1>
+      <p class="muted" style="font-size:13px">2026年4月8日　Meandle</p>
+
+      <p>私たちは「何を売っているか」を、本当に言葉にできているだろうか。売上目標や KPI は語れる。プロダクトの機能も列挙できる。しかし「なぜ我々が選ばれるべきなのか」という意味の地図を、誰が、どこで管理しているだろう。</p>
+
+      <h2>意味は、いつも誰かの頭の中にある</h2>
+      <p>ほとんどの組織で、意味は創業者や事業責任者の頭の中にしか存在しない。そこに無いものは、過去の提案書の片隅に散らばっている。言葉として整理されていないため、人が変われば消える。コンテンツを量産しても、輪郭はぼやけ続ける。</p>
+      <p>そして、輪郭がぼやけたまま運用される事業は、「資料請求は来るのに、商談にならない」という症状を抱えることになる。</p>
+
+      <h2>「定義する」とは、書ける言葉として残すこと</h2>
+      <p>意味を定義するとは、誰が、どんな場面で、何の代わりに我々を選ぶのか──そして「何のためには選ばないでほしいのか」までを、書ける言葉として残す作業だ。</p>
+      <p>頭の中にあるうちは「言える」状態でも、「書ける」までには段差がある。書く瞬間にこそ、輪郭の不鮮明さが暴かれる。</p>
+
+      <h2>意味は、文脈の橋渡しである</h2>
+      <p>意味の定義は、機能の説明ではない。顧客の文脈と、我々の提供価値のあいだに、橋を架ける作業だ。橋が無い事業は、流入が増えても渡る人がいない。橋が脆い事業は、AI 検索という新しい媒介者からも見落とされる。</p>
+
+      <h2>8 フィールド構造という出発点</h2>
+      <p>Meandle はこの「橋を架ける作業」を、8 つのフィールドに分解する。ジョブ、シーン、代替案、比較軸、価値、証拠、must、must_not。最後の二つ──やることと、やらないこと──を同じ重みで書くこと。それが、Meandle が他のフレームと最も違う点だ。</p>
+
+      <blockquote>意味を定義することは、何かを売るための前段ではない。「事業の言語そのもの」を整える作業だ。言語が整ったとき、戦略は読み合わせ可能なものになる。</blockquote>
+
+      <hr/>
+      <p class="muted" style="font-size:13px">関連: <a href="/blog/05-eightfields/">8フィールド構造の使い方</a>　／　<a href="/blog/03-mustnot/">must_notを書く勇気</a></p>
+      <div class="flex-row mt-4">
+        <a href="/contact/" class="btn btn--brand">まずは30分、状況を聞かせてください</a>
+        <a href="/blog/" class="btn btn--ghost">読み物一覧</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

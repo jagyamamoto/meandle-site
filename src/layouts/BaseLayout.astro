@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Analytics from '../components/Analytics.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  jsonLd?: object | object[];
+  type?: string;
+}
+
+const {
+  title,
+  description = '売るべき意味を定義し、事業を拓くための補助線。Meandleは8フィールド構造で意味を設計し、AI検索時代の発見と意思決定をなめらかにします。',
+  canonical,
+  ogImage = '/images/ogp.png',
+  jsonLd = [],
+  type = 'website',
+} = Astro.props as Props;
+
+const SITE = 'https://meandle.jp';
+const pathname = Astro.url.pathname;
+const canonicalUrl = canonical || new URL(pathname, SITE).toString();
+const ogImageUrl = new URL(ogImage, SITE).toString();
+const ldArr: object[] = (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).filter(Boolean) as object[];
+---
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#F3F0E7" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Meandle" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet" />
+
+    {ldArr.map((ld) => (
+      <script type="application/ld+json" set:html={JSON.stringify(ld)}></script>
+    ))}
+    <Analytics />
+  </head>
+  <body>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

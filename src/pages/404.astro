@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="ページが見つかりません｜Meandle" description="お探しのページは見つかりませんでした。">
+  <section class="section">
+    <div class="container" style="max-width:640px; text-align:center">
+      <span class="eyebrow">404</span>
+      <h1>そのページは、もうここにはありません。</h1>
+      <p class="lead">URLが変わったか、削除された可能性があります。<br/>トップから探してみてください。</p>
+      <div class="flex-row" style="justify-content:center" class="mt-4">
+        <a href="/" class="btn btn--brand">トップへ戻る</a>
+        <a href="/blog/" class="btn btn--ghost">読み物一覧</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

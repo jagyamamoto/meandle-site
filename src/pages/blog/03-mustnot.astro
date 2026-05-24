@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'must_notを書く勇気｜Meandle';
+const description = 'やらないことを定義する。それが意味の輪郭を強くする理由と、書き方の作法を整理します。';
+const datePublished = '2026-04-22';
+const dateModified = '2026-04-22';
+const url = 'https://meandle.jp/blog/03-mustnot/';
+
+const postLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "must_notを書く勇気",
+  "description": description,
+  "datePublished": datePublished,
+  "dateModified": dateModified,
+  "author": { "@type": "Organization", "name": "Meandle" },
+  "publisher": { "@type": "Organization", "name": "Meandle", "logo": { "@type": "ImageObject", "url": "https://meandle.jp/images/logo.png" } },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": url },
+  "inLanguage": "ja"
+};
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://meandle.jp/" },
+    { "@type": "ListItem", "position": 2, "name": "読み物", "item": "https://meandle.jp/blog/" },
+    { "@type": "ListItem", "position": 3, "name": "must_notを書く勇気", "item": url }
+  ]
+};
+---
+<BaseLayout title={title} description={description} type="article" jsonLd={[postLd, breadcrumbLd]}>
+  <article class="section">
+    <div class="article">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　<a href="/blog/">読み物</a>　/　No. 03</nav>
+      <span class="eyebrow">Essay · No. 03</span>
+      <h1>must_notを書く勇気</h1>
+      <p class="muted" style="font-size:13px">2026年4月22日　Meandle</p>
+
+      <p>「やること」を書くのは難しくない。「やらないこと」を書くのは、なぜかとても難しい。must_not を書く作業に着手すると、組織は途端に手が止まる。これは怠慢ではない。やらないことを書くという行為そのものに、特有の心理的負荷がかかるからだ。</p>
+
+      <h2>なぜ must_not は書きにくいのか</h2>
+
+      <h3>機会損失への恐れ</h3>
+      <p>「やらない」と書いた瞬間、その仕事は二度と来なくなる、という錯覚。実際には逆で、引き受けるべきでない仕事を断れる組織のほうが、本来引き受けるべき仕事を厚く積み上げられる。</p>
+
+      <h3>過去の自分との不整合</h3>
+      <p>これまで請けてきた仕事の一部を「もう請けない」と宣言することは、過去の判断を否定するように感じられる。だが意味は、時間とともに更新される。過去を否定するのではなく、現在の輪郭を強くする作業として書く。</p>
+
+      <h3>組織内の合意の難しさ</h3>
+      <p>「我々はこれをやらない」は、強い宣言だ。must は人を集めるが、must_not は時に人を選び直す。must_not の議論は、戦略議論であると同時に、組織の輪郭の議論でもある。</p>
+
+      <h2>書き方の作法</h2>
+      <ol>
+        <li>主語は事業（または部門）。個人の好き嫌いではない。</li>
+        <li>「やらない」だけでなく、「なぜやらないか」を一行添える。</li>
+        <li>must_not は 1 〜 3 個でよい。多すぎると守れなくなる。</li>
+      </ol>
+
+      <h2>must_not が機能している組織の見分け方</h2>
+      <ul>
+        <li>営業が、提案の段階で要件を断ることがある</li>
+        <li>マーケが、当てに行かない言葉を持っている</li>
+        <li>採用面接で、自社が「向いていない」候補に率直に伝えている</li>
+      </ul>
+
+      <blockquote>must_not は、最も外向きにも、最も内向きにも機能する。書く勇気を持つ組織は、書いた直後から、輪郭が立ち上がる。</blockquote>
+
+      <hr/>
+      <p class="muted" style="font-size:13px">関連: <a href="/blog/01-meaning/">意味を定義するということ</a>　／　<a href="/blog/02-nearmiss/">資料請求はあるのに、商談にならないとき</a></p>
+      <div class="flex-row mt-4">
+        <a href="/contact/" class="btn btn--brand">まずは30分、状況を聞かせてください</a>
+        <a href="/blog/" class="btn btn--ghost">読み物一覧</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
