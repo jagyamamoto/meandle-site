@@ -65,10 +65,26 @@ const eightFields = [
 ];
 
 const domains = [
-  { idx: "01", label: "事業",         title: "事業・事業課題をみんどる",              desc: "事業全体の「売るべき意味」を再定義する出発点。経営判断と現場運用の言語を揃え、KGIに接続する地図を引き直します。" },
-  { idx: "02", label: "プロダクト",   title: "ソリューション・プロダクトをみんどる", desc: "個別プロダクトの輪郭を立て直す層。代替案との差分・must/must_notを明確にし、誤った商談を入口で減らします。" },
-  { idx: "03", label: "マーケティング", title: "Webマーケティング／B2Bマーケティングをみんどる", desc: "発見から商談化までの動線を、意味の供給で組み直す層。施策の選択と運用の判断軸が定まります。" },
-  { idx: "04", label: "コンテンツ",   title: "Webコンテンツをみんどる",              desc: "個々のページ・記事・資料の文脈整合を高める層。AI検索時代に引用・要約される構造を持たせます。" }
+  {
+    idx: "01", label: "事業",
+    title: "事業・事業課題をみんどる",
+    desc: "事業の見える化をするうえで、何が見えていないかも明確にします。変えるべき部分と、そのままの部分を整理し、社内・事業部内・顧客に対して方向性を共通言語化。どこがズレると成功するのか、どうズレると上手くいかないのか――その構造を把握することで、事業の最大効果が出せる形に導きます。"
+  },
+  {
+    idx: "02", label: "プロダクト",
+    title: "ソリューション・プロダクトをみんどる",
+    desc: "競合製品との差別化において、競合にあって自社にない部分を弱みではなく意味として捉え直します。単純な比較ではなく、プロダクトの「個性」をエンドユーザー・バイヤー・ディストリビュータに「強さ」として伝わる形に整えます。"
+  },
+  {
+    idx: "03", label: "マーケティング",
+    title: "Webマーケティング／B2Bマーケティングをみんどる",
+    desc: "競合・ベンチマーク・市場背景をみんどり、自社をみんどったものと比較・分析。ブレない方向性をつくり、ブレていく様子自体もみんどっていくことで、どこが成功方程式かを見つけ、成功確率を高めていきます。"
+  },
+  {
+    idx: "04", label: "コンテンツ",
+    title: "Webコンテンツをみんどる",
+    desc: "潜在的なユーザーに正しく届くために、AIがしっかり把握できる形に整えます。必要のない問い合わせを減らし、これまでリーチできていなかった層にも、誤解なく適切に届けることが可能になります。"
+  }
 ];
 
 const blogPosts = nav.blog;
@@ -131,12 +147,12 @@ const blogPosts = nav.blog;
       <span class="eyebrow">4 Domains</span>
       <h2>4つの領域で、意味を引き直す。</h2>
       <p class="lead">同じ「意味」を、解像度を変えて4つの層で扱います。<br/>どの層から始めても、隣の層に必ず接続します。</p>
-      <div class="grid grid--4 mt-4">
+      <div class="grid grid--2 mt-4">
         {domains.map((d) => (
           <div class="card">
-            <div style="font-size:11px; color:var(--brand-deep); letter-spacing:.18em; font-weight:700; margin-bottom:6px">DOMAIN {d.idx}　{d.label}</div>
-            <h3 style="margin-top:6px; font-size:16px; line-height:1.55; min-height:50px">{d.title}</h3>
-            <p style="font-size:13.5px; color:var(--ink-soft); margin:8px 0 0; line-height:1.8">{d.desc}</p>
+            <div style="font-size:11px; color:var(--brand-deep); letter-spacing:.18em; font-weight:700; margin-bottom:8px">DOMAIN {d.idx}　{d.label}</div>
+            <h3 style="margin-top:6px; font-size:18px; line-height:1.55">{d.title}</h3>
+            <p style="font-size:14px; color:var(--ink-soft); margin:12px 0 0; line-height:1.85">{d.desc}</p>
           </div>
         ))}
       </div>
