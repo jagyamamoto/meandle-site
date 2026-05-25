@@ -7,6 +7,8 @@ import Analytics from '../components/Analytics.astro';
 interface Props {
   title: string;
   description?: string;
+  ogTitle?: string;
+  ogDescription?: string;
   canonical?: string;
   ogImage?: string;
   jsonLd?: object | object[];
@@ -16,6 +18,8 @@ interface Props {
 const {
   title,
   description = '売るべき意味を定義し、事業を拓くための補助線。Meandleは8フィールド構造で意味を設計し、AI検索時代の発見と意思決定をなめらかにします。',
+  ogTitle,
+  ogDescription,
   canonical,
   ogImage = '/images/ogp.png',
   jsonLd = [],
@@ -26,6 +30,8 @@ const SITE = 'https://meandle.jp';
 const pathname = Astro.url.pathname;
 const canonicalUrl = canonical || new URL(pathname, SITE).toString();
 const ogImageUrl = new URL(ogImage, SITE).toString();
+const finalOgTitle = ogTitle || title;
+const finalOgDescription = ogDescription || description;
 const ldArr: object[] = (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).filter(Boolean) as object[];
 ---
 <!doctype html>
@@ -34,7 +40,7 @@ const ldArr: object[] = (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).filter(Boole
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#F3F0E7" />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content="index, follow" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
@@ -44,14 +50,14 @@ const ldArr: object[] = (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).filter(Boole
 
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content="Meandle" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={finalOgTitle} />
+    <meta property="og:description" content={finalOgDescription} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={finalOgTitle} />
+    <meta name="twitter:description" content={finalOgDescription} />
     <meta name="twitter:image" content={ogImageUrl} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -1,28 +1,26 @@
-# 特許出願準備中のため、現在はすべてのクローラ・AIエージェントの巡回を禁止しています。
-# 解除予定時期は OPERATIONS.md §11 を参照（公開時に Disallow を Allow に戻す）。
-
 User-agent: *
-Disallow: /
+Allow: /
 
+# AI クローラ（明示的に許可）
 User-agent: GPTBot
-Disallow: /
+Allow: /
 
 User-agent: PerplexityBot
-Disallow: /
+Allow: /
 
 User-agent: ClaudeBot
-Disallow: /
+Allow: /
 
 User-agent: Claude-Web
-Disallow: /
+Allow: /
 
 User-agent: CCBot
-Disallow: /
+Allow: /
 
 User-agent: Google-Extended
-Disallow: /
+Allow: /
 
 User-agent: Applebot-Extended
-Disallow: /
+Allow: /
 
-# sitemap は preview 中は公開しない
+Sitemap: https://meandle.jp/sitemap.xml

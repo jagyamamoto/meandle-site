@@ -169,3 +169,66 @@ git push origin HEAD
 - 新規ページは sitemap に登録したか
 - 色は CSS 変数を経由しているか（ハードコード禁止）
 - スマホ幅 320px で破綻していないか
+
+---
+
+## 11. v1.1 改修ログ（2026-05-25）
+
+「最終公開版」化のための一括改修。今後の編集時はこの方向を踏襲する。
+
+### 11-1. 公開モードへの切替
+- `functions/_middleware.ts` を **削除**（パスワードゲート解除）
+- `public/robots.txt` を `Disallow: /` → **`Allow: /`**（AIクローラ含めて巡回許可）
+- `src/layouts/BaseLayout.astro` の meta robots を **`index, follow`** に変更（`noindex, nofollow` は絶対に書かない）
+- Cloudflare Pages の `PREVIEW_PASSWORD` 環境変数も削除済み
+
+### 11-2. ポジショニングの明確化
+**Meandle は AIO ツール／SEO 支援／Web 制作／記事代行に絶対に見せない。** 「Jag Yamamoto / Jag Project が提唱する『意味へのハンドル付け』を B2B 事業に実装する高単価 B2B ソリューション」として書くこと。伝えたい一文：**「売るべき意味を定義し、事業を拓く。」**
+
+### 11-3. LP（`src/pages/index.astro`）の確定構成（19 ブロック）
+1 Hero / 2 Meandleとは（語源） / 3 must·must_not / 4 Self-check（記号なし） / 5 4 Domains / 6 KPI/KGI3段階 / 7 Evidence（みんどる接続） / 8 8 Fields（must/must_notオレンジ強調） / 9 Authority / 10 Story / 11 Compare / 12 Pricing（A./B.記号なし） / 13 Quick estimate / 14 Process / 15 FAQ / **16 CTA** / 17 License / 18 Reading / 19 Footer
+
+**順序の原則**：相談 CTA は License・Reading より前。Reading はフッター直前。
+
+### 11-4. メタ情報の確定
+- **title**: 資料請求は来る。でも商談にならない理由を、意味から整える｜Meandle
+- **meta description**: Meandleは、Jag Yamamoto / Jag Projectが開発・監修する意味設計ソリューションです。事業・プロダクト・マーケティング・コンテンツの4領域で、8フィールド構造により売るべき意味を定義し、商談化、営業導線、AI検索時代の文脈整合を支援します。
+- **og:title**: 資料請求は来る。でも、商談にならない。｜Meandle
+- **og:description**: 原因は流入でもデザインでもありません。売るべき意味が定義されていないからです。Meandleは、8フィールド構造で事業の意味を整えるB2B意味設計ソリューションです。
+- BaseLayout に `ogTitle` `ogDescription` プロパティが追加された。OG だけ別文を出したいページはこれを使う。
+
+### 11-5. コピーの確定文
+- Hero eyebrow: **「Business Meaning Design / Meandle」**（旧「B2B 意味設計 × AIO」は廃止）
+- Process H2: **「最初の4週間で、意味の輪郭を立ち上げる。」**
+- Quick estimate H2: **「3問で、最初の入り口を見立てます。」**
+- Evidence H2: **「意味を整えると、AIに引き当てられやすくなる。」**
+
+### 11-6. 禁止表現（既存§1-1 に加えて）
+- 「特許取得済み」「独占技術」「他社不可」は**書かない**（出願中までしか書けない）
+- 「固定価格」「標準価格」「上限価格」「成功報酬保証」は使わない（料金は**下限のみ**表記）
+- Self-check の「A.」「B.」「C.」、Pricing の「A. パッケージ」「B. 伴走」のような **指示書風の記号は可視テキストに出さない**
+
+### 11-7. URL とリンク
+- Jag Project の URL は **`https://jagproject.com/`** に統一（`www.` 付きは廃止）
+- セクション ID 一覧：`#about` / `#mustnot` / `#diagnose` / `#domains` / `#kpi` / `#results` / `#eightfields` / `#authority` / `#story` / `#compare` / `#pricing` / `#estimate` / `#process` / `#faq` / `#cta` / `#license` / `#reading`
+
+### 11-8. レスポンシブの追加ルール
+- Hero リード2文目は `.lead--pc`（長文）と `.lead--sp`（短文）を出し分け
+- Self-check の各項目の説明文（`.check__body span`）は **モバイル時に非表示**
+- 8 Fields 表（`.fields-table`）は **モバイル時にカード化**
+- Reading カードは **モバイル時に3件まで表示**＋常設「読み物一覧へ」リンク
+
+### 11-9. 公開前チェックリスト（毎回確認）
+- [ ] `<meta name="robots" content="noindex...">` がどこにも残っていない
+- [ ] FAQPage 構造化データと可視 FAQ が **完全一致**
+- [ ] Offer 構造化データと可視価格が一致
+- [ ] AIO が主役になっていない
+- [ ] Web 制作会社／SEO 記事代行に見えていない
+- [ ] A./B./C. などの指示書風表現が可視テキストに残っていない
+- [ ] 「無料相談」を使っていない
+- [ ] 料金は下限のみ
+- [ ] 特許表現が過剰でない（「特許出願中」のみ）
+- [ ] Jag Project リンクは **`https://jagproject.com/`**
+- [ ] 相談 CTA が License や Reading より前にある
+- [ ] スマホで長文が畳まれている、CTA が見つけやすい
+- [ ] セクション順序が §11-3 の通り

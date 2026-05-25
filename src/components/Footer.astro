@@ -1,6 +1,7 @@
 ---
 import nav from '../data/navigation.json';
 const year = new Date().getFullYear();
+const SUPERVISOR = { name: 'Jag Yamamoto', org: 'Jag Project', url: 'https://jagproject.com/' };
 ---
 <footer class="site-footer">
   <div class="container">
@@ -8,6 +9,9 @@ const year = new Date().getFullYear();
       <div class="site-footer__brand">
         <h3>Meandle<span style="color:var(--brand)">.</span></h3>
         <p>売るべき意味を定義し、事業を拓くための補助線。</p>
+        <p style="margin-top:14px; font-size:13px; opacity:0.7; line-height:1.7">
+          Meandleは、<a href={SUPERVISOR.url} rel="noopener" target="_blank" style="color:var(--paper); text-decoration:underline">{SUPERVISOR.name} / {SUPERVISOR.org}</a> が開発・監修する意味設計ソリューションです。
+        </p>
       </div>
       <div class="site-footer__col">
         <h4>サービス</h4>
@@ -15,11 +19,11 @@ const year = new Date().getFullYear();
       </div>
       <div class="site-footer__col">
         <h4>もっと知る</h4>
-        <ul>{nav.footer.resources.map((it) => <li><a href={it.href}>{it.label}</a></li>)}</ul>
+        <ul>{nav.footer.more.map((it) => <li><a href={it.href}>{it.label}</a></li>)}</ul>
       </div>
     </div>
     <div class="site-footer__legal">
-      <span>© {year} Meandle. All rights reserved.</span>
+      <span>© {year} {SUPERVISOR.org}. All rights reserved.</span>
       <span>meandle.jp</span>
     </div>
   </div>
