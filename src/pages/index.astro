@@ -5,6 +5,8 @@ import nav from '../data/navigation.json';
 const title = '資料請求は来る。でも、商談にならない｜Meandle';
 const description = '売るべき意味を定義し、事業を拓くための補助線。事業・プロダクト・マーケティング・コンテンツの4領域で、8フィールド構造で意味設計と運用を支援するB2Bコンサルティング。';
 
+const SUPERVISOR = { name: 'Jag Yamamoto', org: 'Jag Project', url: 'https://www.jagproject.com/' };
+
 const orgLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -13,7 +15,9 @@ const orgLd = {
   "logo": "https://meandle.jp/images/logo.png",
   "description": description,
   "areaServed": "JP",
-  "sameAs": []
+  "founder": { "@type": "Person", "name": SUPERVISOR.name },
+  "parentOrganization": { "@type": "Organization", "name": SUPERVISOR.org, "url": SUPERVISOR.url },
+  "sameAs": [SUPERVISOR.url]
 };
 
 const serviceLd = {
@@ -175,27 +179,31 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 6. 効果データ -->
+  <!-- 6. 効果データ（みんどる効果） -->
   <section class="section section--mint" id="results">
     <div class="container">
       <span class="eyebrow">Evidence</span>
-      <h2>意味の再定義は、検索結果の正解率を変える。</h2>
+      <h2>みんどると、AIに引き当てられる確率が、ここまで変わる。</h2>
+      <p class="lead">8 フィールドで意味を <strong>みんどり</strong>、文脈の島を組み直したあと──同じクエリ集合に対して、AI が「この主題の正解はここ」と引き当てる確率は、<strong>63.3% から 90.0%</strong> へ。検定で有意な差です。</p>
       <div class="grid grid--2 mt-4" style="align-items:center">
         <div>
           <div class="bignum"><span>63.3%</span><sub>→</sub><span>90.0%</span></div>
-          <p class="mt-2" style="font-weight:700; font-size:17px">Top-1 正解率の改善</p>
-          <p class="muted" style="font-size:13.5px">同一クエリ集合に対する、意味再定義の前後でのTop-1正解率の比較。</p>
+          <p class="mt-2" style="font-weight:700; font-size:17px">Top-1 正解率（AI が最初に引き当てた率）</p>
+          <p class="muted" style="font-size:13.5px">同一クエリ集合に対する、<strong>みんどる前後</strong>の比較。母集団・設計を揃えた対称検証。</p>
         </div>
         <div class="card">
           <h3 style="margin-top:0">検定結果</h3>
           <ul style="list-style:none; padding:0; margin:0; font-size:14.5px; line-height:1.95">
             <li><strong>Boschloo検定</strong>　p = 0.015</li>
-            <li><strong>Cohen's h</strong>0.657（中〜大の効果量）</li>
-            <li><strong>サンプル</strong>単一カテゴリ・対称設計</li>
+            <li><strong>Cohen's h</strong>　0.657（中〜大の効果量）</li>
+            <li><strong>サンプル</strong>　単一カテゴリ・対称設計</li>
           </ul>
           <p class="muted mt-2" style="font-size:12.5px; margin-bottom:0">※ 数値は内部検証に基づく一例であり、すべての事業で同じ結果が得られることを保証するものではありません。</p>
         </div>
       </div>
+      <p class="muted mt-3" style="font-size:13px; max-width:780px">
+        <strong>読み方</strong>：「Top-1 正解率」とは、AI が「ある主題の正解はこのサイト／このページ」と最初に提示する割合。これが上がるほど、AI 検索の入口で <strong>誤って素通りされる確率</strong> が下がります。意味をみんどることは、機能の追加ではなく <strong>引き当てられやすさそのもの</strong> を変える行為です。
+      </p>
     </div>
   </section>
 
@@ -221,7 +229,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 8. 権威性 -->
+  <!-- 8. 権威性 + 監修/運営元 -->
   <section class="section section--paper">
     <div class="container">
       <span class="eyebrow">Authority</span>
@@ -229,18 +237,40 @@ const blogPosts = nav.blog;
       <div class="notice mt-4">
         <div>
           <h3>６年以上の運用実績</h3>
-          <p>meandleは理論実装として上場企業・外資系企業のwebマーケティングにて運用してきた実績があります。SEO/AIO/リード獲得に高い効果を得ています。</p>
+          <p>Meandleは理論実装として上場企業・外資系企業のWebマーケティングにて運用してきた実績があります。SEO/AIO/リード獲得に高い効果を得ています。</p>
         </div>
         <div>
           <h3>教育現場での実装</h3>
           <p>武蔵野美術大学にて非常勤講師として、意味設計と表現の接続を実践的に指導しています。</p>
         </div>
       </div>
+
+      <div style="margin-top:20px; padding:16px 22px; background:var(--card); border-radius:12px; border:1px solid var(--line); display:flex; flex-wrap:wrap; gap:8px 28px; align-items:baseline; font-size:14px">
+        <span><strong>監修</strong>：{SUPERVISOR.name}</span>
+        <span><strong>運営元</strong>：<a href={SUPERVISOR.url} rel="noopener" target="_blank" style="color:var(--brand-deep); font-weight:700; text-decoration:underline">{SUPERVISOR.org}</a></span>
+        <a href="/about/" style="color:var(--brand-deep); font-weight:700; margin-left:auto">監修者・運営元について →</a>
+      </div>
     </div>
   </section>
 
-  <!-- 9. 比較表 -->
-  <section class="section" id="compare">
+  <!-- 9. Story / Meandle が生まれた背景 -->
+  <section class="section" id="story">
+    <div class="container" style="max-width:820px">
+      <span class="eyebrow">Story</span>
+      <h2>Meandle が生まれた背景</h2>
+      <p>「資料請求はある。でも商談化しない」──何十社の B2B サイトを設計・運用するなかで、繰り返し見てきた症状です。原因はトラフィックでもクリエイティブでもなく、<strong>「売るべき意味」が定義されないまま走り続けている</strong>ことでした。</p>
+      <p>顧客のジョブ・シーン・代替案・比較軸を書き起こすと、売り手の言語と買い手の言語が、しばしば全く違うことが分かりました。must（決して外せない約束）と must_not（決して該当しないこと）を同じ重みで併記したとき、ようやく意味の輪郭が立ち上がりました。</p>
+      <p>その実務を 8 フィールド構造として体系化したのが Meandle のはじまりです。AI 検索が情報の主な媒介者となった今、意味設計は「事業の言語そのものを整える作業」として、本来の重みを取り戻しています。2026 年 5 月、意味設計と検索文脈の整合に関する方法について特許を出願しました。</p>
+      <p style="margin-top:24px; padding-top:20px; border-top:1px solid var(--line); font-size:14.5px; color:var(--ink-soft)">
+        <strong>監修</strong>：{SUPERVISOR.name}（<a href={SUPERVISOR.url} rel="noopener" target="_blank" style="color:var(--brand-deep); font-weight:700; text-decoration:underline">{SUPERVISOR.org}</a> 代表）<br/>
+        <strong>運営元</strong>：<a href={SUPERVISOR.url} rel="noopener" target="_blank" style="color:var(--brand-deep); font-weight:700; text-decoration:underline">{SUPERVISOR.org}</a><br/>
+        <a href="/about/" style="color:var(--brand-deep); font-weight:700">監修者と運営元について、さらに詳しく →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- 10. 比較表 -->
+  <section class="section section--card" id="compare">
     <div class="container">
       <span class="eyebrow">What we are not</span>
       <h2>Web制作でも、SEO/AIO支援でもありません。</h2>
@@ -260,8 +290,8 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 10. 料金（2つの入り口） -->
-  <section class="section section--card" id="pricing">
+  <!-- 11. 料金（2つの入り口） -->
+  <section class="section" id="pricing">
     <div class="container">
       <span class="eyebrow">How we engage</span>
       <h2>2つの入り口があります。</h2>
@@ -306,8 +336,8 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 11. 簡易見積もり診断 -->
-  <section class="section">
+  <!-- 12. 簡易見積もり診断 -->
+  <section class="section section--card">
     <div class="container">
       <span class="eyebrow">Quick estimate</span>
       <h2>3問で、目安をお出しします。</h2>
@@ -365,7 +395,7 @@ const blogPosts = nav.blog;
       box.addEventListener('change', score);
     })();</script>
 
-  <!-- 12. 4週間タイムライン -->
+  <!-- 13. 4週間タイムライン -->
   <section class="section section--paper" id="process">
     <div class="container">
       <span class="eyebrow">How we work</span>
@@ -379,7 +409,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 13. FAQ -->
+  <!-- 14. FAQ -->
   <section class="section" id="faq">
     <div class="container">
       <span class="eyebrow">FAQ</span>
@@ -395,7 +425,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 14. ライセンス -->
+  <!-- 15. ライセンス -->
   <section class="section" id="license" style="border-top:3px solid var(--brand);">
     <div class="container">
       <span class="eyebrow" style="color:var(--brand)">License</span>
@@ -444,7 +474,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 15. 関連する読み物 -->
+  <!-- 16. 関連する読み物 -->
   <section class="section section--card">
     <div class="container">
       <span class="eyebrow">Reading</span>
@@ -461,7 +491,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 16. CTA -->
+  <!-- 17. CTA -->
   <section class="section section--ink" id="cta">
     <div class="container center">
       <span class="eyebrow" style="color:var(--brand)">Contact</span>

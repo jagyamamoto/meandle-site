@@ -4,6 +4,7 @@
     { "label": "効果データ", "href": "/#results" },
     { "label": "進め方", "href": "/#process" },
     { "label": "料金", "href": "/#pricing" },
+    { "label": "監修", "href": "/about/" },
     { "label": "ライセンス", "href": "/#license" },
     { "label": "読み物", "href": "/blog/" },
     { "label": "相談する", "href": "/contact/", "cta": true }
@@ -19,6 +20,8 @@
       { "label": "ライセンス", "href": "/#license" }
     ],
     "resources": [
+      { "label": "監修・運営元", "href": "/about/" },
+      { "label": "Meandleの背景", "href": "/#story" },
       { "label": "読み物", "href": "/blog/" },
       { "label": "相談する", "href": "/contact/" }
     ]

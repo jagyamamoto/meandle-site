@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = '監修者・運営元について｜Meandle';
+const description = 'Meandle は Jag Project が運営する意味設計の実装プロジェクトです。監修者 Jag Yamamoto の実務的背景と、Meandle 方法論が生まれた経緯。';
+const url = 'https://meandle.jp/about/';
+
+const SUPERVISOR = { name: 'Jag Yamamoto', org: 'Jag Project', url: 'https://www.jagproject.com/' };
+
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": SUPERVISOR.name,
+  "jobTitle": "監修者・実装者",
+  "worksFor": { "@type": "Organization", "name": SUPERVISOR.org, "url": SUPERVISOR.url },
+  "knowsAbout": ["意味設計", "B2B マーケティング", "AI検索（AIO）最適化", "8 フィールド構造", "Webコンテンツ設計"],
+  "url": SUPERVISOR.url
+};
+
+const aboutPageLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": title,
+  "url": url,
+  "inLanguage": "ja",
+  "mainEntity": { "@type": "Organization", "name": "Meandle", "url": "https://meandle.jp" },
+  "publisher": { "@type": "Organization", "name": SUPERVISOR.org, "url": SUPERVISOR.url }
+};
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://meandle.jp/" },
+    { "@type": "ListItem", "position": 2, "name": "監修者・運営元", "item": url }
+  ]
+};
+---
+<BaseLayout title={title} description={description} jsonLd={[aboutPageLd, personLd, breadcrumbLd]}>
+  <article class="section">
+    <div class="article">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　監修・運営</nav>
+      <span class="eyebrow">About</span>
+      <h1>Meandle を、誰が、なぜ作っているのか。</h1>
+      <p class="lead">Meandle は <a href={SUPERVISOR.url} rel="noopener" target="_blank" style="color:var(--brand-deep); font-weight:700">{SUPERVISOR.org}</a> が運営する、意味設計の実装プロジェクトです。監修は {SUPERVISOR.name}。</p>
+
+      <h2>監修者：{SUPERVISOR.name}</h2>
+      <p>B2B Web マーケティングの実装責任者として、上場企業・外資系企業の運用を 6 年以上担ってきた実践者です。SEO/AIO／リード獲得／商談化の現場で「意味の定義がないまま走り続ける事業」を数十社見てきた経験から、Meandle の 8 フィールド構造を体系化しました。</p>
+      <p>武蔵野美術大学にて非常勤講師として、意味設計と表現の接続を実践的に指導しています。理論ではなく、実務の言語で意味を引き直すアプローチを得意とします。</p>
+
+      <h2>運営元：<a href={SUPERVISOR.url} rel="noopener" target="_blank" style="color:var(--brand-deep); font-weight:700">{SUPERVISOR.org}</a></h2>
+      <p>Meandle を含む、意味設計をベースにした B2B 支援プロジェクトを運営する組織です。「事業の言語そのものを整える」を共通テーマに、ツール提供・支援・教育を展開しています。Meandle はその中で、方法論を最も体系的に展開する旗艦プロジェクトです。</p>
+      <p>詳しくは公式サイト → <a href={SUPERVISOR.url} rel="noopener" target="_blank" style="color:var(--brand-deep); font-weight:700; text-decoration:underline">{SUPERVISOR.url}</a></p>
+
+      <h2>Meandle が生まれるまで</h2>
+
+      <h3>1. 観察：症状はいつも似ている</h3>
+      <p>「資料請求はある。でも商談化しない」。数十社の B2B Web マーケティングを設計・運用するなかで、同じ症状を繰り返し見てきました。原因はトラフィックでもクリエイティブでもなく、もっと上流──「売るべき意味」が言語化されないまま運用されていることでした。</p>
+
+      <h3>2. 仮説：意味の地図を書き起こす</h3>
+      <p>顧客のジョブ・シーン・代替案・比較軸を 1 つずつ書き起こすと、売り手の言語と買い手の言語が、しばしば全く違うことが分かりました。多くの場合、売り手は「機能と価値」を語り、買い手は「比較軸と must_not」で判断していました。</p>
+
+      <h3>3. 体系化：8 フィールド構造</h3>
+      <p>この実務知を、誰でも書ける形に整えたのが 8 フィールド構造です。ジョブ・シーン・代替案・比較軸・価値・証拠、そして must と must_not。とくに「やらないこと」を同じ重みで併記したとき、意味の輪郭がはじめて立ち上がりました。</p>
+
+      <h3>4. 特許出願</h3>
+      <p>2026 年 5 月、意味設計と検索文脈の整合に関する方法について特許を出願しました。手法そのものの新規性と、AI 検索時代における実装の実用性が、出願の根拠です。</p>
+
+      <h2>なぜ「今」なのか</h2>
+      <p>AI 検索が情報の主な媒介者となり、ユーザーは検索エンジンの順位ではなく、AI の要約と引用で意思決定を始めています。AI が「文脈の整合性」で対象を選ぶ以上、個別最適化のテクニックではもう間に合いません。事業の言語そのものを整え、AI に引き当てられる文脈を供給する。Meandle はそのための補助線として、本来必要だった時代に届いたと考えています。</p>
+
+      <h2>どんな方とご一緒したいか</h2>
+      <ul>
+        <li>自社事業の「言語」を、いちど真ん中から整え直したい経営者・事業責任者</li>
+        <li>AI 検索時代の発見・選定の文脈設計を本気で考えるマーケティング／プロダクト責任者</li>
+        <li>周辺サービスに方法論を組み込みたい SEO/AIO ツール会社・コンサルファーム・研修会社</li>
+      </ul>
+
+      <h2>ご連絡</h2>
+      <p>30 分の打診からお気軽にどうぞ。</p>
+      <div class="flex-row mt-2">
+        <a href="/contact/" class="btn btn--brand">相談を申し込む</a>
+        <a href="/" class="btn btn--ghost">トップに戻る</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

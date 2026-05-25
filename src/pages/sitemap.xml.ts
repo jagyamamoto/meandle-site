@@ -8,6 +8,7 @@ const SITE = 'https://meandle.jp';
 // 公開ページ一覧。新規ページ追加時はここに登録する（自動生成）。
 const pages: { path: string; priority: number; changefreq: string }[] = [
   { path: '/',         priority: 1.0, changefreq: 'weekly' },
+  { path: '/about/',   priority: 0.9, changefreq: 'monthly' },
   { path: '/contact/', priority: 0.8, changefreq: 'monthly' },
   { path: '/blog/',    priority: 0.7, changefreq: 'weekly' },
   ...nav.blog.map((b) => ({ path: `/blog/${b.slug}/`, priority: 0.6, changefreq: 'monthly' })),
