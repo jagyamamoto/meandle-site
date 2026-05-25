@@ -95,13 +95,17 @@ Meandle は「売るべき意味を定義し、事業を拓くための補助線
 
 ## 6. サービス価格（公式）
 
-| 形式 | プラン | 価格 |
+| 形式 | プラン名 | 価格 |
 |---|---|---|
-| パッケージ | Lite | 50万円〜 |
-| パッケージ | Standard | 150万円〜 |
-| パッケージ | Enterprise | 500万円〜 |
-| 伴走 | Continuous | 月60万円〜 |
-| 伴走 | Embedded | 月150万円〜 |
+| Meandle Package（パッケージ） | **Meandle Package S** | 50万円〜 |
+| Meandle Package（パッケージ） | **Meandle Package M** | 150万円〜 |
+| Meandle Package（パッケージ） | **Meandle Package L** | 500万円〜 |
+| Be Meandling（伴走） | **Be Meandling Basic** | 月60万円〜 |
+| Be Meandling（伴走） | **Be Meandling Full** | 月150万円〜 |
+
+旧名（Lite / Standard / Enterprise / Continuous / Embedded）は廃止。`grep -rn -E "\\b(Lite|Standard|Enterprise|Continuous|Embedded)\\b" src/` がゼロであることを毎回コミット前に確認すること。
+
+別途、方法論を組み込みたい法人向けの **License**（OEM／認定パートナー／監修アドバイザリー）あり。詳細は LP 第14セクション。
 
 価格は本文と JSON-LD（Service）の両方に表記。変更時は両方を必ず同時更新。
 

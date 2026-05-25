@@ -4,16 +4,19 @@
     { "label": "効果データ", "href": "/#results" },
     { "label": "進め方", "href": "/#process" },
     { "label": "料金", "href": "/#pricing" },
+    { "label": "ライセンス", "href": "/#license" },
     { "label": "読み物", "href": "/blog/" },
     { "label": "相談する", "href": "/contact/", "cta": true }
   ],
   "footer": {
     "service": [
       { "label": "Meandleとは", "href": "/#about" },
+      { "label": "4領域", "href": "/#domains" },
       { "label": "8フィールド構造", "href": "/#eightfields" },
       { "label": "効果データ", "href": "/#results" },
       { "label": "料金", "href": "/#pricing" },
-      { "label": "進め方", "href": "/#process" }
+      { "label": "進め方", "href": "/#process" },
+      { "label": "ライセンス", "href": "/#license" }
     ],
     "resources": [
       { "label": "読み物", "href": "/blog/" },
