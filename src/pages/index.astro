@@ -11,6 +11,7 @@ const orgLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Meandle",
+  "alternateName": ["みんどる", "Mean Handle"],
   "url": "https://meandle.jp",
   "logo": "https://meandle.jp/images/logo.png",
   "description": description,
@@ -40,6 +41,7 @@ const faqLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
+    { "@type": "Question", "name": "「Meandle（みんどる）」とは何ですか？", "acceptedAnswer": { "@type": "Answer", "text": "Mean（意味）に Handle（取り扱う）を組み合わせた造語で、「意味にハンドルを付けて、扱える形にする」という行為そのものを指します。動詞化したものが「みんどる」です。" }},
     { "@type": "Question", "name": "Web制作も依頼できますか？", "acceptedAnswer": { "@type": "Answer", "text": "MeandleはWeb制作会社ではありません。意味の定義と運用設計に特化しています。制作の実行が必要な場合は、お付き合いのある制作パートナーをご紹介可能です。" }},
     { "@type": "Question", "name": "SEO記事の代行はしてもらえますか？", "acceptedAnswer": { "@type": "Answer", "text": "個別記事の代筆は行いません。代わりに8フィールド構造で意味の地図を引き、貴社の制作チームが自走できる設計図を残します。" }},
     { "@type": "Question", "name": "効果はどれくらいで出ますか？", "acceptedAnswer": { "@type": "Answer", "text": "意味の再定義そのものは4週間〜の設計で完了します。市場での反応は、運用反映から1〜3か月で現れ始めるケースが多い領域です。" }},
@@ -104,12 +106,33 @@ const blogPosts = nav.blog;
       <p class="lead">Meandleは、8フィールド構造で事業の意味を再定義し、<br/><strong>事業・プロダクト・マーケティング・コンテンツの4領域</strong>で、勝ち筋を増幅する補助線を引き直します。</p>
       <div class="flex-row mt-4">
         <a href="/contact/" class="btn btn--brand btn--lg">まずは30分、状況を聞かせてください</a>
-        <a href="#about" class="btn btn--ghost">Meandleとは</a>
+        <a href="#naming" class="btn btn--ghost">「みんどる」とは？</a>
       </div>
     </div>
   </section>
 
-  <!-- 2. Meandleがユニークな理由 -->
+  <!-- 2. Naming / 語源 -->
+  <section class="section section--mint" id="naming">
+    <div class="container" style="max-width:840px">
+      <span class="eyebrow">Naming</span>
+      <h2 style="font-size:clamp(24px, 4.4vw, 36px)">Meandle ＝ Mean ＋ Handle<br/><span style="color:var(--brand)">──意味に、ハンドルを付ける。</span></h2>
+
+      <p class="lead" style="margin-top:20px">
+        <strong>Mean</strong>（意味）に <strong>Handle</strong>（取っ手・取り扱う）を組み合わせた造語。<br/>
+        動詞化したものが、Meandle のコア動詞 <strong style="color:var(--brand-deep)">「みんどる」</strong>です。
+      </p>
+
+      <p>意味は、頭のなかにあるうちは触れません。書き出して、並べ替えて、運用に渡せる形になって、ようやく事業を動かせます。Meandle は「意味にハンドルを付ける」という、ひとつの作業を指す動詞でもあります。</p>
+
+      <p>ハンドルが付いた意味は、誰が握っても同じ方向へ進められる。属人化された価値観ではなく、社内・パートナー・AI 検索の三者が同じ地図を共有できる状態へ。<strong>「みんどる」</strong>は、その状態をつくる行為のことです。</p>
+
+      <p class="muted" style="font-size:13.5px; margin-top:24px; padding-top:16px; border-top:1px solid rgba(18,36,44,0.15)">
+        ※ 伴走サービス名「<strong>Be Meandling</strong>」は、「ずっと Meandle し続けている状態」を指します。意味の地図は一度引いて終わりではなく、市場・顧客・自社の更新を反映させ続ける運用前提のものです。
+      </p>
+    </div>
+  </section>
+
+  <!-- 3. Meandleがユニークな理由 -->
   <section class="section section--paper" id="about">
     <div class="container">
       <span class="eyebrow">Why Meandle</span>
@@ -128,7 +151,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 3. 自己診断（6項目） -->
+  <!-- 4. 自己診断（6項目） -->
   <section class="section" id="diagnose">
     <div class="container">
       <span class="eyebrow">Self-check</span>
@@ -145,7 +168,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 4. 4領域カード -->
+  <!-- 5. 4領域カード -->
   <section class="section section--paper" id="domains">
     <div class="container">
       <span class="eyebrow">4 Domains</span>
@@ -163,7 +186,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 5. KPI/KGIが動かない理由 -->
+  <!-- 6. KPI/KGIが動かない理由 -->
   <section class="section section--card">
     <div class="container">
       <span class="eyebrow">Why KGI not moving</span>
@@ -179,7 +202,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 6. 効果データ（みんどる効果） -->
+  <!-- 7. 効果データ（みんどる効果） -->
   <section class="section section--mint" id="results">
     <div class="container">
       <span class="eyebrow">Evidence</span>
@@ -207,7 +230,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 7. 8フィールド構造 -->
+  <!-- 8. 8フィールド構造 -->
   <section class="section" id="eightfields">
     <div class="container">
       <span class="eyebrow">8 Fields</span>
@@ -229,7 +252,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 8. 権威性 + 監修/運営元 -->
+  <!-- 9. 権威性 + 監修/運営元 -->
   <section class="section section--paper">
     <div class="container">
       <span class="eyebrow">Authority</span>
@@ -253,7 +276,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 9. Story / Meandle が生まれた背景 -->
+  <!-- 10. Story / Meandle が生まれた背景 -->
   <section class="section" id="story">
     <div class="container" style="max-width:820px">
       <span class="eyebrow">Story</span>
@@ -269,7 +292,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 10. 比較表 -->
+  <!-- 11. 比較表 -->
   <section class="section section--card" id="compare">
     <div class="container">
       <span class="eyebrow">What we are not</span>
@@ -290,7 +313,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 11. 料金（2つの入り口） -->
+  <!-- 12. 料金（2つの入り口） -->
   <section class="section" id="pricing">
     <div class="container">
       <span class="eyebrow">How we engage</span>
@@ -336,7 +359,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 12. 簡易見積もり診断 -->
+  <!-- 13. 簡易見積もり診断 -->
   <section class="section section--card">
     <div class="container">
       <span class="eyebrow">Quick estimate</span>
@@ -395,7 +418,7 @@ const blogPosts = nav.blog;
       box.addEventListener('change', score);
     })();</script>
 
-  <!-- 13. 4週間タイムライン -->
+  <!-- 14. 4週間タイムライン -->
   <section class="section section--paper" id="process">
     <div class="container">
       <span class="eyebrow">How we work</span>
@@ -409,12 +432,13 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 14. FAQ -->
+  <!-- 15. FAQ -->
   <section class="section" id="faq">
     <div class="container">
       <span class="eyebrow">FAQ</span>
       <h2>よくある問い</h2>
       <div class="faq mt-4">
+        <details><summary>「Meandle（みんどる）」とは何ですか？</summary><div>Mean（意味）に Handle（取り扱う）を組み合わせた造語で、「意味にハンドルを付けて、扱える形にする」という行為そのものを指します。動詞化したものが「みんどる」です。詳しくは <a href="#naming" style="color:var(--brand-deep); font-weight:700">Naming セクション</a> を参照。</div></details>
         <details><summary>Web制作も依頼できますか？</summary><div>MeandleはWeb制作会社ではありません。意味の定義と運用設計に特化しています。制作の実行が必要な場合は、お付き合いのある制作パートナーをご紹介可能です。</div></details>
         <details><summary>SEO記事の代行はしてもらえますか？</summary><div>個別記事の代筆は行いません。代わりに8フィールド構造で意味の地図を引き、貴社の制作チームが自走できる設計図を残します。</div></details>
         <details><summary>効果はどれくらいで出ますか？</summary><div>意味の再定義そのものは4週間〜の設計で完了します。市場での反応は、運用反映から1〜3か月で現れ始めるケースが多い領域です。</div></details>
@@ -425,7 +449,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 15. ライセンス -->
+  <!-- 16. ライセンス -->
   <section class="section" id="license" style="border-top:3px solid var(--brand);">
     <div class="container">
       <span class="eyebrow" style="color:var(--brand)">License</span>
@@ -474,7 +498,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 16. 関連する読み物 -->
+  <!-- 17. 関連する読み物 -->
   <section class="section section--card">
     <div class="container">
       <span class="eyebrow">Reading</span>
@@ -491,7 +515,7 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 17. CTA -->
+  <!-- 18. CTA -->
   <section class="section section--ink" id="cta">
     <div class="container center">
       <span class="eyebrow" style="color:var(--brand)">Contact</span>

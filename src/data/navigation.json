@@ -1,6 +1,6 @@
 {
   "primary": [
-    { "label": "Meandleとは", "href": "/#about" },
+    { "label": "Meandleとは", "href": "/#naming" },
     { "label": "効果データ", "href": "/#results" },
     { "label": "進め方", "href": "/#process" },
     { "label": "料金", "href": "/#pricing" },
@@ -11,7 +11,8 @@
   ],
   "footer": {
     "service": [
-      { "label": "Meandleとは", "href": "/#about" },
+      { "label": "Meandleとは（語源）", "href": "/#naming" },
+      { "label": "Why Meandle", "href": "/#about" },
       { "label": "4領域", "href": "/#domains" },
       { "label": "8フィールド構造", "href": "/#eightfields" },
       { "label": "効果データ", "href": "/#results" },
