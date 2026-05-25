@@ -73,26 +73,18 @@ const eightFields = [
 ];
 
 const domains = [
-  {
-    idx: "01", label: "事業",
+  { idx: "01", label: "事業",          motif: "kikko",
     title: "事業・事業課題をみんどる",
-    desc: "事業の見える化をするうえで、何が見えていないかも明確にします。変えるべき部分と、そのままの部分を整理し、社内・事業部内・顧客に対して方向性を共通言語化。どこがズレると成功するのか、どうズレると上手くいかないのか――その構造を把握することで、事業の最大効果が出せる形に導きます。"
-  },
-  {
-    idx: "02", label: "プロダクト",
+    desc: "事業の見える化をするうえで、何が見えていないかも明確にします。変えるべき部分と、そのままの部分を整理し、社内・事業部内・顧客に対して方向性を共通言語化。どこがズレると成功するのか、どうズレると上手くいかないのか――その構造を把握することで、事業の最大効果が出せる形に導きます。" },
+  { idx: "02", label: "プロダクト",    motif: "seed",
     title: "ソリューション・プロダクトをみんどる",
-    desc: "競合製品との差別化において、競合にあって自社にない部分を弱みではなく意味として捉え直します。単純な比較ではなく、プロダクトの「個性」をエンドユーザー・バイヤー・ディストリビュータに「強さ」として伝わる形に整えます。"
-  },
-  {
-    idx: "03", label: "マーケティング",
+    desc: "競合製品との差別化において、競合にあって自社にない部分を弱みではなく意味として捉え直します。単純な比較ではなく、プロダクトの「個性」をエンドユーザー・バイヤー・ディストリビュータに「強さ」として伝わる形に整えます。" },
+  { idx: "03", label: "マーケティング", motif: "flow",
     title: "Webマーケティング／B2Bマーケティングをみんどる",
-    desc: "競合・ベンチマーク・市場背景をみんどり、自社をみんどったものと比較・分析。ブレない方向性をつくり、ブレていく様子自体もみんどっていくことで、どこが成功方程式かを見つけ、成功確率を高めていきます。"
-  },
-  {
-    idx: "04", label: "コンテンツ",
+    desc: "競合・ベンチマーク・市場背景をみんどり、自社をみんどったものと比較・分析。ブレない方向性をつくり、ブレていく様子自体もみんどっていくことで、どこが成功方程式かを見つけ、成功確率を高めていきます。" },
+  { idx: "04", label: "コンテンツ",    motif: "leaf",
     title: "Webコンテンツをみんどる",
-    desc: "潜在的なユーザーに正しく届くために、AIがしっかり把握できる形に整えます。必要のない問い合わせを減らし、これまでリーチできていなかった層にも、誤解なく適切に届けることが可能になります。"
-  }
+    desc: "潜在的なユーザーに正しく届くために、AIがしっかり把握できる形に整えます。必要のない問い合わせを減らし、これまでリーチできていなかった層にも、誤解なく適切に届けることが可能になります。" }
 ];
 
 const blogPosts = nav.blog;
@@ -105,37 +97,81 @@ const blogPosts = nav.blog;
   jsonLd={[orgLd, serviceLd, faqLd, breadcrumbLd]}
 >
 
-  <!-- 1. Hero -->
-  <section class="hero">
+  <!-- ============================================================ -->
+  <!-- 1. Hero (深墨 + 八角ハンドル羅盤) -->
+  <!-- ============================================================ -->
+  <section class="hero hero--dark">
+    <div class="bg-decor hero__bg" aria-hidden="true">
+      <svg class="compass compass--ghost" style="color:var(--mint); width:min(90vw, 720px); right:-12%; top:50%; transform:translateY(-50%)" viewBox="0 0 280 320" fill="none">
+        <path d="M 124 36 Q 140 -2 156 36" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="140" cy="36" r="2.5" fill="currentColor"/>
+        <polygon points="140,50 200,82 224,148 200,214 140,246 80,214 56,148 80,82" stroke="currentColor" stroke-width="1.4" fill="none"/>
+        <polygon points="140,90 178,110 192,148 178,186 140,206 102,186 88,148 102,110" stroke="currentColor" stroke-width="0.7" fill="none" opacity="0.6"/>
+        <line x1="140" y1="50" x2="140" y2="246" stroke="currentColor" stroke-width="0.4" opacity="0.5"/>
+        <line x1="56"  y1="148" x2="224" y2="148" stroke="currentColor" stroke-width="0.4" opacity="0.5"/>
+        <line x1="80"  y1="82"  x2="200" y2="214" stroke="currentColor" stroke-width="0.4" opacity="0.5"/>
+        <line x1="200" y1="82"  x2="80"  y2="214" stroke="currentColor" stroke-width="0.4" opacity="0.5"/>
+        <g fill="currentColor">
+          <circle cx="140" cy="50"  r="3.5"/><circle cx="200" cy="82"  r="3.5"/>
+          <circle cx="224" cy="148" r="3.5"/><circle cx="200" cy="214" r="3.5"/>
+          <circle cx="140" cy="246" r="3.5"/><circle cx="80"  cy="214" r="3.5"/>
+          <circle cx="56"  cy="148" r="3.5"/><circle cx="80"  cy="82"  r="3.5"/>
+        </g>
+        <circle cx="140" cy="148" r="9" fill="#E98F22" opacity="0.9"/>
+      </svg>
+    </div>
+
     <div class="container">
-      <span class="eyebrow">Business Meaning Design / Meandle</span>
+      <span class="eyebrow" style="color:var(--brand)">Business Meaning Design / Meandle</span>
       <h1>資料請求は来る。<br/>でも、<span class="accent">商談にならない。</span></h1>
-      <p class="lead">原因は流入でも、デザインでもありません。<br/>「売るべき意味」が、まだ定義されていないからです。</p>
+      <p class="lead">原因は流入でも、デザインでもありません。<br/><strong style="color:var(--paper)">「売るべき意味」</strong>が、まだ定義されていないからです。</p>
       <p class="lead lead--pc">Meandleは、事業・プロダクト・マーケティング・コンテンツの4領域で、売るべき意味を8フィールドに分解し、社内・顧客・営業・Web・AIが同じ意味を扱える状態をつくる意味設計ソリューションです。</p>
       <p class="lead lead--sp">資料請求は来る。でも商談にならない。<br/>その原因は、売るべき意味がまだ定義されていないことかもしれません。</p>
       <div class="flex-row mt-4">
         <a href="/contact/" class="btn btn--brand btn--lg">まずは30分、状況を聞かせてください</a>
-        <a href="#about" class="btn btn--ghost">「みんどる」とは？</a>
+        <a href="#about" class="btn btn--ghost btn--ghost-light">「みんどる」とは？</a>
       </div>
     </div>
   </section>
 
-  <!-- 2. Meandleとは -->
+  <!-- ============================================================ -->
+  <!-- 2. Meandleとは (青磁ミント + Mean+Handle 線図) -->
+  <!-- ============================================================ -->
   <section class="section section--mint" id="about">
-    <div class="container" style="max-width:840px">
+    <div class="container" style="max-width:880px">
       <span class="eyebrow">About Meandle</span>
       <h2>Meandleとは、意味にハンドルを付けること。</h2>
 
-      <p>意味は、頭のなかにあるうちは触れません。<br/>書き出して、並べ替えて、運用に渡せる形になって、ようやく事業を動かせます。</p>
+      <!-- Mean + Handle 線図 -->
+      <div class="mh-figure" aria-hidden="true">
+        <svg viewBox="0 0 420 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="20" y="60" font-family="'Noto Sans JP'" font-size="34" font-weight="800" fill="#12242C">Mean</text>
+          <text x="290" y="60" font-family="'Noto Sans JP'" font-size="34" font-weight="800" fill="#12242C">Handle</text>
+          <line x1="135" y1="52" x2="178" y2="52" stroke="#12242C" stroke-width="2" stroke-linecap="round"/>
+          <path d="M 178 52 C 178 30, 218 30, 218 52 C 218 74, 178 74, 178 52 Z" fill="none" stroke="#E98F22" stroke-width="2.5"/>
+          <line x1="218" y1="52" x2="282" y2="52" stroke="#12242C" stroke-width="2" stroke-linecap="round"/>
+          <text x="198" y="92" text-anchor="middle" font-family="'Noto Sans JP'" font-size="11" fill="#6F7777">取っ手をつける</text>
+        </svg>
+      </div>
+
+      <p style="margin-top:24px">意味は、頭のなかにあるうちは触れません。<br/>書き出して、並べ替えて、運用に渡せる形になって、ようやく事業を動かせます。</p>
 
       <p>Meandleは、誰に、何を、なぜ選ばれるのか。<br/>何を約束し、何を約束しないのか。<br/>競合と何が違い、どの文脈なら商談になるのか。</p>
 
       <p>その輪郭を <strong>8フィールドで定義し、事業・プロダクト・マーケティング・コンテンツへ渡せる形にする</strong> ための方法です。</p>
 
-      <div class="card mt-4" style="background:rgba(255,249,237,0.7); border-color:rgba(18,36,44,0.12)">
-        <div class="subhead" style="margin-top:0">語源</div>
-        <p style="margin:0; font-size:17px"><strong>Meandle ＝ Mean ＋ Handle</strong>　<span style="color:var(--brand-deep)">意味に、ハンドルを付ける。</span></p>
-        <p style="margin:8px 0 0; font-size:14.5px; color:var(--ink-soft)">動詞化したものが、Meandle のコア動詞「みんどる」です。</p>
+      <!-- 語源カード（八角ミニ羅盤付き）-->
+      <div class="origin-card mt-4">
+        <svg class="origin-card__mark" viewBox="0 0 80 90" fill="none" aria-hidden="true">
+          <path d="M 36 6 Q 40 -2 44 6" stroke="#12242C" stroke-width="1.2" fill="none"/>
+          <polygon points="40,10 60,22 66,46 60,70 40,80 20,70 14,46 20,22" stroke="#12242C" stroke-width="1.2" fill="#FFF9ED"/>
+          <circle cx="40" cy="46" r="5" fill="#E98F22"/>
+        </svg>
+        <div>
+          <div class="subhead" style="margin-top:0">語源</div>
+          <p style="margin:0; font-size:17px"><strong>Meandle ＝ Mean ＋ Handle</strong>　<span style="color:var(--brand-deep)">意味に、ハンドルを付ける。</span></p>
+          <p style="margin:8px 0 0; font-size:14.5px; color:var(--ink-soft)">動詞化したものが、Meandle のコア動詞「みんどる」です。</p>
+        </div>
       </div>
 
       <p class="muted" style="font-size:13.5px; margin-top:18px">
@@ -144,32 +180,63 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 3. must / must_not -->
+  <!-- ============================================================ -->
+  <!-- 3. must / must_not (生成り + 左右の門 + 中央輪郭線) -->
+  <!-- ============================================================ -->
   <section class="section section--paper" id="mustnot">
     <div class="container">
       <span class="eyebrow">Principle</span>
       <h2>must と must_not を、同じ重みで併記する。</h2>
       <p class="lead">多くのブランド戦略は「やること」だけを語ります。<br/>Meandleは「決してやらないこと」を、同じ強さで定義します。</p>
-      <p class="lead" style="font-weight:600; color:var(--brand-deep)">意味は、足すだけでは強くなりません。削ることで、はじめて輪郭が立ちます。</p>
-      <div class="grid grid--2 mt-4">
-        <div class="card">
-          <h3 class="brand-fg" style="margin-top:0">なぜ must だけでは不十分なのか</h3>
+      <p style="font-weight:600; color:var(--brand-deep); font-size:17px">意味は、足すだけでは強くなりません。削ることで、はじめて輪郭が立ちます。</p>
+
+      <!-- 左右の門 + 中央線 -->
+      <div class="gate-figure mt-4" aria-hidden="true">
+        <div class="gate-figure__pillar"></div>
+        <svg class="gate-figure__line" viewBox="0 0 40 200" fill="none">
+          <line x1="20" y1="0" x2="20" y2="200" stroke="#E98F22" stroke-width="2"/>
+          <circle cx="20" cy="100" r="6" fill="#E98F22"/>
+          <circle cx="20" cy="100" r="2" fill="#FFF9ED"/>
+        </svg>
+        <div class="gate-figure__pillar"></div>
+      </div>
+
+      <div class="grid grid--2 mt-4 gate-cards">
+        <div class="card gate-card gate-card--left">
+          <div class="gate-card__label">must</div>
+          <h3 style="margin-top:0">なぜ must だけでは不十分なのか</h3>
           <p>提供価値の足し算では、競合と意味が混ざります。「やらないこと」がない意味の地図は、顧客にとってもAI検索にとっても、輪郭が見えません。</p>
         </div>
-        <div class="card">
-          <h3 class="brand-fg" style="margin-top:0">must_not がもたらす効果</h3>
+        <div class="card gate-card gate-card--right">
+          <div class="gate-card__label">must_not</div>
+          <h3 style="margin-top:0">must_not がもたらす効果</h3>
           <p>輪郭が立ち上がると、誤った入口が減ります。本当に響く相手に深く届き、商談化しやすい文脈へ移行できます。</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 4. Self-check -->
-  <section class="section" id="diagnose">
+  <!-- ============================================================ -->
+  <!-- 4. Self-check (カード色 + 梟の目) -->
+  <!-- ============================================================ -->
+  <section class="section section--card" id="diagnose">
     <div class="container">
       <span class="eyebrow">Self-check</span>
       <h2>あてはまるものに、チェックしてみてください。</h2>
       <p class="lead">ひとつでも当てはまるなら、施策を増やす前に、意味の輪郭を整える価値があります。</p>
+
+      <!-- 梟の目モチーフ -->
+      <svg class="owl-mark" viewBox="0 0 80 40" fill="none" aria-hidden="true">
+        <g stroke="#12242C" stroke-width="1.2" fill="none">
+          <ellipse cx="25" cy="20" rx="14" ry="16"/>
+          <ellipse cx="55" cy="20" rx="14" ry="16"/>
+          <circle cx="25" cy="20" r="5" fill="#12242C"/>
+          <circle cx="55" cy="20" r="5" fill="#12242C"/>
+        </g>
+        <circle cx="27" cy="18" r="1.5" fill="#FFC47E"/>
+        <circle cx="57" cy="18" r="1.5" fill="#FFC47E"/>
+      </svg>
+
       <div class="checks mt-4">
         <label class="check"><input type="checkbox"/><div class="check__body"><strong>資料請求はあるが、商談にならない</strong><span>関心は喚起できているが、意味の輪郭が立っていない。</span></div></label>
         <label class="check"><input type="checkbox"/><div class="check__body"><strong>KPIは追えているが、KGIが動かない</strong><span>露出と売上のあいだに、因果の橋がかかっていない。</span></div></label>
@@ -181,17 +248,58 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 5. 4 Domains -->
-  <section class="section section--paper" id="domains">
+  <!-- ============================================================ -->
+  <!-- 5. 4 Domains (補助紙色 + 4つの小モチーフ) -->
+  <!-- ============================================================ -->
+  <section class="section section--paper-2" id="domains">
     <div class="container">
       <span class="eyebrow">4 Domains</span>
       <h2>4つの領域で、意味を引き直す。</h2>
       <p class="lead">同じ「意味」を、解像度を変えて4つの層で扱います。<br/>どの層から始めても、隣の層に必ず接続します。</p>
-      <div class="grid grid--2 mt-4">
+      <div class="grid grid--2 mt-4 domain-cards">
         {domains.map((d) => (
-          <div class="card">
-            <div style="font-size:11px; color:var(--brand-deep); letter-spacing:.18em; font-weight:700; margin-bottom:8px">DOMAIN {d.idx}　{d.label}</div>
-            <h3 style="margin-top:6px; font-size:18px; line-height:1.55">{d.title}</h3>
+          <div class="card domain-card">
+            <div class="domain-card__top"></div>
+            <svg class="domain-card__icon" viewBox="0 0 60 60" fill="none" aria-hidden="true">
+              {d.motif === 'kikko' && (
+                <g stroke="#12242C" stroke-width="1.2" fill="none">
+                  <polygon points="30,8 48,18 48,38 30,48 12,38 12,18"/>
+                  <polygon points="30,18 38,23 38,33 30,38 22,33 22,23" opacity="0.5"/>
+                  <line x1="30" y1="8" x2="30" y2="18" opacity="0.3"/>
+                  <line x1="48" y1="18" x2="38" y2="23" opacity="0.3"/>
+                  <line x1="48" y1="38" x2="38" y2="33" opacity="0.3"/>
+                  <line x1="30" y1="48" x2="30" y2="38" opacity="0.3"/>
+                  <line x1="12" y1="38" x2="22" y2="33" opacity="0.3"/>
+                  <line x1="12" y1="18" x2="22" y2="23" opacity="0.3"/>
+                </g>
+              )}
+              {d.motif === 'seed' && (
+                <g stroke="#12242C" stroke-width="1.2" fill="none">
+                  <polygon points="30,6 44,20 40,46 20,46 16,20" stroke-linejoin="round"/>
+                  <line x1="30" y1="6" x2="30" y2="46"/>
+                  <line x1="16" y1="20" x2="44" y2="20" opacity="0.5"/>
+                </g>
+              )}
+              {d.motif === 'flow' && (
+                <g stroke="#12242C" stroke-width="1.5" fill="none" stroke-linecap="round">
+                  <path d="M 6 16 Q 18 6 30 16 T 54 16"/>
+                  <path d="M 6 30 Q 18 20 30 30 T 54 30" opacity="0.7"/>
+                  <path d="M 6 44 Q 18 34 30 44 T 54 44" opacity="0.45"/>
+                </g>
+              )}
+              {d.motif === 'leaf' && (
+                <g stroke="#12242C" stroke-width="1.2" fill="none">
+                  <path d="M 12 30 Q 30 6 48 30 Q 30 54 12 30 Z"/>
+                  <line x1="12" y1="30" x2="48" y2="30"/>
+                  <line x1="22" y1="20" x2="30" y2="30" opacity="0.5"/>
+                  <line x1="22" y1="40" x2="30" y2="30" opacity="0.5"/>
+                  <line x1="38" y1="20" x2="30" y2="30" opacity="0.5"/>
+                  <line x1="38" y1="40" x2="30" y2="30" opacity="0.5"/>
+                </g>
+              )}
+            </svg>
+            <div style="font-size:11px; color:var(--brand-deep); letter-spacing:.18em; font-weight:700; margin-top:14px">DOMAIN {d.idx}　{d.label}</div>
+            <h3 style="margin:6px 0 0; font-size:18px; line-height:1.55">{d.title}</h3>
             <p style="font-size:14px; color:var(--ink-soft); margin:12px 0 0; line-height:1.85">{d.desc}</p>
           </div>
         ))}
@@ -199,74 +307,157 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 6. KPI/KGIが動かない3段階 -->
-  <section class="section section--card" id="kpi">
+  <!-- ============================================================ -->
+  <!-- 6. KPI / KGI 3段階 (地層・流れ・橋) -->
+  <!-- ============================================================ -->
+  <section class="section section--paper" id="kpi">
     <div class="container">
       <span class="eyebrow">Why KGI not moving</span>
       <h2>数字が動かないとき、原因はたいてい上流にあります。</h2>
       <p class="lead">流入を増やしても、記事を増やしても、商談が増えない。<br/>そのとき見るべきなのは、数字の手前にある<strong>意味の構造</strong>です。</p>
-      <div class="viz-flow mt-4">
-        <div class="viz-flow__node">意味の不在<small>「何を売っているか」の定義がない</small></div>
-        <div class="viz-flow__arrow">→</div>
-        <div class="viz-flow__node">文脈の空洞化<small>露出は増えても、検索意図に届かない</small></div>
-        <div class="viz-flow__arrow">→</div>
-        <div class="viz-flow__node">KGIの停滞<small>流入はあるが、商談化しない</small></div>
+
+      <!-- 地層フロー -->
+      <div class="stratum mt-4">
+        <div class="stratum__row">
+          <div class="stratum__step">
+            <div class="stratum__num">01</div>
+            <div class="stratum__label">意味の不在</div>
+            <p>「何を売っているか」の定義がない</p>
+          </div>
+          <svg class="stratum__bridge" viewBox="0 0 60 40" fill="none" aria-hidden="true">
+            <path d="M 4 22 Q 30 8 56 22" stroke="#E98F22" stroke-width="1.8" fill="none"/>
+            <circle cx="30" cy="14" r="3" fill="#E98F22"/>
+          </svg>
+          <div class="stratum__step">
+            <div class="stratum__num">02</div>
+            <div class="stratum__label">文脈の空洞化</div>
+            <p>露出は増えても、検索意図に届かない</p>
+          </div>
+          <svg class="stratum__bridge" viewBox="0 0 60 40" fill="none" aria-hidden="true">
+            <path d="M 4 22 Q 30 8 56 22" stroke="#E98F22" stroke-width="1.8" fill="none"/>
+            <circle cx="30" cy="14" r="3" fill="#E98F22"/>
+          </svg>
+          <div class="stratum__step">
+            <div class="stratum__num">03</div>
+            <div class="stratum__label">KGIの停滞</div>
+            <p>流入はあるが、商談化しない</p>
+          </div>
+        </div>
+        <svg class="stratum__strata" viewBox="0 0 600 50" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 0 10 Q 150 4 300 10 T 600 10" stroke="#12242C" stroke-width="0.6" fill="none" opacity="0.25"/>
+          <path d="M 0 24 Q 150 18 300 24 T 600 24" stroke="#12242C" stroke-width="0.6" fill="none" opacity="0.2"/>
+          <path d="M 0 38 Q 150 32 300 38 T 600 38" stroke="#12242C" stroke-width="0.6" fill="none" opacity="0.15"/>
+        </svg>
       </div>
+
       <p class="mt-3" style="text-align:center; font-weight:600; color:var(--brand-deep)">Meandleが扱うのは、数字の手前にある「意味の構造」です。</p>
     </div>
   </section>
 
-  <!-- 7. Evidence -->
-  <section class="section section--mint" id="results">
+  <!-- ============================================================ -->
+  <!-- 7. Evidence (深墨 + 亀甲グリッド + 琥珀の数値) -->
+  <!-- ============================================================ -->
+  <section class="section section--ink-deep" id="results">
+    <!-- 背景：亀甲グリッド -->
+    <svg class="bg-decor kikko-bg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;color:var(--mint);opacity:0.08">
+      <defs>
+        <pattern id="kikkoEv" x="0" y="0" width="44" height="38" patternUnits="userSpaceOnUse">
+          <polygon points="22,2 42,12 42,28 22,38 2,28 2,12" fill="none" stroke="currentColor" stroke-width="0.6"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#kikkoEv)"/>
+    </svg>
+
     <div class="container">
       <span class="eyebrow">Evidence</span>
       <h2>意味を整えると、AIに引き当てられやすくなる。</h2>
       <p class="lead">8フィールドで意味を <strong>みんどり</strong>、文脈の島を組み直したあと、同じクエリ集合に対して、AIが主題を正しく引き当てる確率が変化しました。</p>
       <div class="grid grid--2 mt-4" style="align-items:center">
         <div>
-          <div class="bignum"><span>63.3%</span><sub>→</sub><span>90.0%</span></div>
-          <p class="mt-2" style="font-weight:700; font-size:17px">Top-1 正解率</p>
-          <p class="muted" style="font-size:13.5px">同一クエリ集合に対する、みんどる前後の比較。母集団・設計を揃えた対称検証。</p>
+          <div class="bignum" style="color:var(--peach)"><span>63.3%</span><sub style="color:rgba(243,240,231,0.5)">→</sub><span>90.0%</span></div>
+          <p class="mt-2" style="font-weight:700; font-size:17px; color:var(--paper)">Top-1 正解率</p>
+          <p style="color:rgba(243,240,231,0.6); font-size:13.5px">同一クエリ集合に対する、みんどる前後の比較。母集団・設計を揃えた対称検証。</p>
         </div>
-        <div class="card">
-          <h3 style="margin-top:0">検定結果</h3>
+        <div class="card" style="background:rgba(243,240,231,0.06); border-color:rgba(243,240,231,0.12); color:var(--paper)">
+          <h3 style="margin-top:0; color:var(--paper)">検定結果</h3>
           <ul style="list-style:none; padding:0; margin:0; font-size:14.5px; line-height:1.95">
             <li><strong>Boschloo検定</strong>　p = 0.015</li>
             <li><strong>Cohen's h</strong>　0.657</li>
             <li><strong>サンプル</strong>　単一カテゴリ・対称設計</li>
           </ul>
-          <p class="muted mt-2" style="font-size:12px; margin-bottom:0">※ この数値は特定条件下の内部検証であり、すべての事業・検索環境で同じ結果を保証するものではありません。</p>
+          <p style="color:rgba(243,240,231,0.55); font-size:12px; margin:14px 0 0">※ この数値は特定条件下の内部検証であり、すべての事業・検索環境で同じ結果を保証するものではありません。</p>
         </div>
       </div>
-      <p class="mt-3" style="font-size:14.5px; max-width:780px; color:var(--ink-soft)">
-        AIは、単語の量だけでなく、<strong>文脈の整合</strong>を見ています。8フィールドで意味の供給構造を整えることで、AIが主題を拾いやすい状態を作ります。
+      <p class="mt-3" style="font-size:14.5px; max-width:780px; color:rgba(243,240,231,0.75)">
+        AIは、単語の量だけでなく、<strong style="color:var(--peach)">文脈の整合</strong>を見ています。8フィールドで意味の供給構造を整えることで、AIが主題を拾いやすい状態を作ります。
       </p>
     </div>
   </section>
 
-  <!-- 8. 8 Fields -->
-  <section class="section" id="eightfields">
+  <!-- ============================================================ -->
+  <!-- 8. 8 Fields (生成り + 八角ハンドル羅盤の本体図) -->
+  <!-- ============================================================ -->
+  <section class="section section--paper" id="eightfields">
     <div class="container">
       <span class="eyebrow">8 Fields</span>
       <h2>意味は、8つのフィールドで定義できる。</h2>
       <p class="lead">この8項目は、社内会議のためだけの表ではありません。<br/>営業、マーケティング、Web制作、AI検索が、<strong>同じ意味を扱うための地図</strong>です。</p>
-      <div class="table-wrap mt-4">
-        <table class="table fields-table">
-          <thead><tr><th style="width:28%">フィールド</th><th>定義</th></tr></thead>
-          <tbody>
-            {eightFields.map((f) => (
-              <tr class={f.type === 'must' ? 'row-must' : f.type === 'mustnot' ? 'row-mustnot' : ''}>
-                <td><strong>{f.name}</strong></td>
-                <td>{f.desc}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+
+      <div class="fields-grid mt-4">
+        <!-- 羅盤本体 -->
+        <div class="fields-compass">
+          <svg viewBox="0 0 320 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="compassTitle" role="img">
+            <title id="compassTitle">8フィールド意味モデルの羅盤</title>
+            <!-- Handle -->
+            <path d="M 144 24 Q 160 -10 176 24" stroke="#12242C" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <circle cx="160" cy="24" r="2.5" fill="#12242C"/>
+            <!-- Outer octagon -->
+            <polygon points="160,38 224,72 250,148 224,224 160,258 96,224 70,148 96,72" stroke="#12242C" stroke-width="1.8" fill="#FFF9ED"/>
+            <!-- Inner octagon -->
+            <polygon points="160,86 200,108 216,148 200,188 160,210 120,188 104,148 120,108" stroke="#12242C" stroke-width="1" fill="#F3F0E7"/>
+            <!-- Radial -->
+            <line x1="160" y1="38" x2="160" y2="258" stroke="#12242C" stroke-width="0.5" opacity="0.3"/>
+            <line x1="70"  y1="148" x2="250" y2="148" stroke="#12242C" stroke-width="0.5" opacity="0.3"/>
+            <line x1="96"  y1="72"  x2="224" y2="224" stroke="#12242C" stroke-width="0.5" opacity="0.3"/>
+            <line x1="224" y1="72"  x2="96"  y2="224" stroke="#12242C" stroke-width="0.5" opacity="0.3"/>
+            <!-- Labels and nodes -->
+            <g font-family="'Noto Sans JP', sans-serif" font-size="11.5" font-weight="700" fill="#12242C" text-anchor="middle">
+              <circle cx="160" cy="38"  r="6" fill="#12242C"/><text x="160" y="20">ジョブ</text>
+              <circle cx="224" cy="72"  r="6" fill="#12242C"/><text x="244" y="60">シーン</text>
+              <circle cx="250" cy="148" r="6" fill="#12242C"/><text x="278" y="152">代替案</text>
+              <circle cx="224" cy="224" r="6" fill="#12242C"/><text x="244" y="244">比較軸</text>
+              <circle cx="160" cy="258" r="6" fill="#12242C"/><text x="160" y="282">価値</text>
+              <circle cx="96"  cy="224" r="6" fill="#12242C"/><text x="76" y="244">証拠</text>
+              <circle cx="70"  cy="148" r="9" fill="#E98F22"/><text x="42" y="152" fill="#B66E15">must</text>
+              <circle cx="96"  cy="72"  r="9" fill="#E98F22"/><text x="64" y="60" fill="#B66E15">must_not</text>
+            </g>
+            <!-- Center -->
+            <circle cx="160" cy="148" r="26" fill="#E98F22"/>
+            <text x="160" y="146" text-anchor="middle" font-family="'Noto Sans JP'" font-size="10" font-weight="700" fill="#FFF9ED">売るべき</text>
+            <text x="160" y="158" text-anchor="middle" font-family="'Noto Sans JP'" font-size="10" font-weight="700" fill="#FFF9ED">意味</text>
+          </svg>
+        </div>
+        <!-- 表 -->
+        <div class="fields-table-wrap">
+          <table class="table fields-table">
+            <thead><tr><th style="width:30%">フィールド</th><th>定義</th></tr></thead>
+            <tbody>
+              {eightFields.map((f) => (
+                <tr class={f.type === 'must' ? 'row-must' : f.type === 'mustnot' ? 'row-mustnot' : ''}>
+                  <td><strong>{f.name}</strong></td>
+                  <td>{f.desc}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 9. Authority + 監修/運営元 -->
+  <!-- ============================================================ -->
+  <!-- 9. Authority (生成り + 印章 + 黒い台紙) -->
+  <!-- ============================================================ -->
   <section class="section section--paper" id="authority">
     <div class="container">
       <span class="eyebrow">Authority</span>
@@ -282,22 +473,47 @@ const blogPosts = nav.blog;
         </div>
       </div>
 
-      <div style="margin-top:20px; padding:16px 22px; background:var(--card); border-radius:12px; border:1px solid var(--line); display:flex; flex-wrap:wrap; gap:8px 28px; align-items:baseline; font-size:14px">
-        <span><strong>監修</strong>：{SUPERVISOR.name}</span>
-        <span><strong>運営元</strong>：<a href={SUPERVISOR.url} rel="noopener" target="_blank" style="color:var(--brand-deep); font-weight:700; text-decoration:underline">{SUPERVISOR.org}</a></span>
-        <a href="/about/" style="color:var(--brand-deep); font-weight:700; margin-left:auto">監修者・運営元について →</a>
+      <!-- 監修・運営元プレート（黒台紙＋印章）-->
+      <div class="seal-plate mt-4">
+        <svg class="seal-plate__seal" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <circle cx="32" cy="32" r="28" stroke="#E98F22" stroke-width="2" fill="none"/>
+          <circle cx="32" cy="32" r="22" stroke="#E98F22" stroke-width="1" fill="none" opacity="0.6"/>
+          <text x="32" y="36" text-anchor="middle" font-family="'Noto Sans JP'" font-size="10" font-weight="700" fill="#E98F22">監修</text>
+        </svg>
+        <div class="seal-plate__body">
+          <div class="seal-plate__row"><span class="seal-plate__k">監修</span><span>{SUPERVISOR.name}</span></div>
+          <div class="seal-plate__row"><span class="seal-plate__k">運営元</span><a href={SUPERVISOR.url} rel="noopener" target="_blank">{SUPERVISOR.org}</a></div>
+          <a class="seal-plate__more" href="/about/">監修者・運営元について →</a>
+        </div>
       </div>
 
       <!-- 関連論考：「意味へのハンドル付け理論」公開後にリンク追加 -->
     </div>
   </section>
 
-  <!-- 10. Story -->
-  <section class="section" id="story">
+  <!-- ============================================================ -->
+  <!-- 10. Story (生成り + 地層線 + 引用カード) -->
+  <!-- ============================================================ -->
+  <section class="section section--paper-2" id="story">
+    <svg class="bg-decor" aria-hidden="true" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice" style="opacity:0.25; color:var(--ink-soft); width:100%; height:100%">
+      <g fill="none" stroke="currentColor" stroke-width="0.8">
+        <path d="M 0 120 Q 350 90 700 110 T 1400 100"/>
+        <path d="M 0 180 Q 350 150 700 170 T 1400 160" opacity="0.7"/>
+        <path d="M 0 250 Q 350 220 700 240 T 1400 230" opacity="0.55"/>
+        <path d="M 0 340 Q 350 310 700 330 T 1400 320" opacity="0.4"/>
+        <path d="M 0 440 Q 350 410 700 430 T 1400 420" opacity="0.3"/>
+      </g>
+    </svg>
+
     <div class="container" style="max-width:820px">
       <span class="eyebrow">Story</span>
       <h2>Meandleが生まれた背景</h2>
-      <p style="font-style:italic; color:var(--brand-deep); font-size:17px">私は、Webの数字だけを見ていても、商談にならない理由は分からないと思っています。</p>
+
+      <blockquote class="story-quote">
+        <p>私は、Webの数字だけを見ていても、商談にならない理由は分からないと思っています。</p>
+        <footer>— {SUPERVISOR.name}</footer>
+      </blockquote>
+
       <p>「資料請求はある。でも商談化しない」。何十社のB2Bサイトを設計・運用するなかで、繰り返し見てきた症状です。</p>
       <p>原因はトラフィックでも、クリエイティブでもありません。<strong>売るべき意味が定義されないまま、走り続けている</strong>ことでした。</p>
       <p>売り手が言っていることと、買い手が探していること。この二つがズレたまま、記事を増やしても、広告を増やしても、商談は近づきません。</p>
@@ -312,34 +528,49 @@ const blogPosts = nav.blog;
     </div>
   </section>
 
-  <!-- 11. Compare -->
-  <section class="section section--card" id="compare">
+  <!-- ============================================================ -->
+  <!-- 11. Compare (墨色 + Meandle列を琥珀で立たせる) -->
+  <!-- ============================================================ -->
+  <section class="section section--ink" id="compare">
     <div class="container">
-      <span class="eyebrow">What we are not</span>
+      <span class="eyebrow" style="color:var(--peach)">What we are not</span>
       <h2>Web制作でも、SEO/AIO支援でもありません。</h2>
       <div class="table-wrap mt-4">
-        <table class="table">
+        <table class="table table--dark">
           <thead>
-            <tr><th>比較軸</th><th>Web制作</th><th>SEO/AIO支援</th><th style="background:var(--brand); color:#fff">Meandle</th></tr>
+            <tr>
+              <th>比較軸</th>
+              <th>Web制作</th>
+              <th>SEO/AIO支援</th>
+              <th class="th-meandle">Meandle</th>
+            </tr>
           </thead>
           <tbody>
-            <tr><td>主に届けるもの</td><td>サイトと体験</td><td>記事と最適化</td><td style="font-weight:600">意味の地図と、事業が動くための判断軸</td></tr>
-            <tr><td>判断の単位</td><td>画面・実装</td><td>クエリ・順位</td><td style="font-weight:600">事業の言語</td></tr>
-            <tr><td>成果物</td><td>サイト一式</td><td>記事群／施策レポート</td><td style="font-weight:600">8フィールド意味モデル</td></tr>
-            <tr><td>運用の主体</td><td>制作チーム</td><td>運用代行</td><td style="font-weight:600">貴社内の意思決定者</td></tr>
+            <tr><td>主に届けるもの</td><td>サイトと体験</td><td>記事と最適化</td><td class="td-meandle">意味の地図と、事業が動くための判断軸</td></tr>
+            <tr><td>判断の単位</td><td>画面・実装</td><td>クエリ・順位</td><td class="td-meandle">事業の言語</td></tr>
+            <tr><td>成果物</td><td>サイト一式</td><td>記事群／施策レポート</td><td class="td-meandle">8フィールド意味モデル</td></tr>
+            <tr><td>運用の主体</td><td>制作チーム</td><td>運用代行</td><td class="td-meandle">貴社内の意思決定者</td></tr>
           </tbody>
         </table>
       </div>
     </div>
   </section>
 
-  <!-- 12. Pricing -->
-  <section class="section" id="pricing">
+  <!-- ============================================================ -->
+  <!-- 12. Pricing (カード + 取っ手意匠) -->
+  <!-- ============================================================ -->
+  <section class="section section--card" id="pricing">
     <div class="container">
       <span class="eyebrow">How we engage</span>
       <h2>2つの入り口があります。</h2>
 
-      <div class="subhead" style="font-size:17px">Meandle Package</div>
+      <div class="subhead" style="font-size:17px; display:flex; align-items:center; gap:10px">
+        <svg viewBox="0 0 32 22" width="32" height="22" aria-hidden="true">
+          <rect x="2" y="6" width="28" height="14" rx="2" stroke="#12242C" stroke-width="1.4" fill="none"/>
+          <path d="M 10 6 Q 16 -4 22 6" stroke="#E98F22" stroke-width="1.8" fill="none"/>
+        </svg>
+        Meandle Package
+      </div>
       <p class="muted" style="font-size:14px; margin:0 0 16px">期間と成果物を定めて、意味の輪郭を立ち上げる</p>
       <div class="pricing">
         <div class="price">
@@ -362,7 +593,13 @@ const blogPosts = nav.blog;
         </div>
       </div>
 
-      <div class="subhead" style="font-size:17px; margin-top:40px">Be Meandling</div>
+      <div class="subhead" style="font-size:17px; margin-top:44px; display:flex; align-items:center; gap:10px">
+        <svg viewBox="0 0 32 22" width="32" height="22" aria-hidden="true">
+          <circle cx="16" cy="13" r="7" stroke="#12242C" stroke-width="1.4" fill="none"/>
+          <path d="M 9 13 Q 16 0 23 13" stroke="#E98F22" stroke-width="1.8" fill="none"/>
+        </svg>
+        Be Meandling
+      </div>
       <p class="muted" style="font-size:14px; margin:0 0 16px">月次で意味を更新し続ける</p>
       <div class="pricing pricing--2">
         <div class="price">
@@ -379,17 +616,27 @@ const blogPosts = nav.blog;
         </div>
       </div>
 
-      <p class="muted mt-4" style="font-size:13px">
-        金額は下限です。対象事業数、関係者数、調査範囲、運用範囲により個別に設計します。
-      </p>
+      <p class="muted mt-4" style="font-size:13px">金額は下限です。対象事業数、関係者数、調査範囲、運用範囲により個別に設計します。</p>
     </div>
   </section>
 
-  <!-- 13. Quick estimate -->
-  <section class="section section--card" id="estimate">
+  <!-- ============================================================ -->
+  <!-- 13. Quick estimate (生成り + 小さな羅盤) -->
+  <!-- ============================================================ -->
+  <section class="section section--paper" id="estimate">
     <div class="container">
-      <span class="eyebrow">Quick estimate</span>
-      <h2>3問で、最初の入り口を見立てます。</h2>
+      <div class="estimate-head">
+        <svg viewBox="0 0 80 90" fill="none" aria-hidden="true" style="flex-shrink:0">
+          <path d="M 36 6 Q 40 -2 44 6" stroke="#12242C" stroke-width="1.2" fill="none"/>
+          <polygon points="40,10 60,22 66,46 60,70 40,80 20,70 14,46 20,22" stroke="#12242C" stroke-width="1.2" fill="#FFF9ED"/>
+          <polygon points="40,22 52,30 56,46 52,62 40,68 28,62 24,46 28,30" stroke="#12242C" stroke-width="0.5" fill="none" opacity="0.5"/>
+          <circle cx="40" cy="46" r="5" fill="#E98F22"/>
+        </svg>
+        <div>
+          <span class="eyebrow">Quick estimate</span>
+          <h2 style="margin-top:8px">3問で、最初の入り口を見立てます。</h2>
+        </div>
+      </div>
       <p class="lead">あくまで初動の目安です。<br/>最終的な提案は、事業の状態を聞いたうえで個別に組みます。</p>
 
       <div class="estimate mt-4" id="estimateBox">
@@ -446,23 +693,55 @@ const blogPosts = nav.blog;
       box.addEventListener('change', score);
     })();</script>
 
-  <!-- 14. Process -->
-  <section class="section section--paper" id="process">
+  <!-- ============================================================ -->
+  <!-- 14. Process (補助紙色 + 竹の節) -->
+  <!-- ============================================================ -->
+  <section class="section section--paper-2" id="process">
     <div class="container">
       <span class="eyebrow">How we work</span>
       <h2>最初の4週間で、意味の輪郭を立ち上げる。</h2>
       <p class="lead">その後、必要に応じて月次伴走へ移行し、意味を更新し続けます。</p>
       <div class="steps steps--w4 mt-4">
-        <div class="step"><h3>現状の輪郭をつかむ</h3><p>事業の歴史・既存資料・顧客接点を読み込み、意味の不整合を炙り出します。</p></div>
-        <div class="step"><h3>8フィールドの草案</h3><p>ジョブから must / must_not まで、意味の骨格を一度描き切ります。</p></div>
-        <div class="step"><h3>検証と再定義</h3><p>社内の意思決定者と現場の双方で読み合わせ、輪郭を強くします。</p></div>
-        <div class="step"><h3>運用への引き渡し</h3><p>更新の頻度・判断者・点検観点を文書化し、貴社内で動く形にします。</p></div>
+        <div class="step">
+          <svg class="step__bamboo" viewBox="0 0 28 60" aria-hidden="true">
+            <line x1="14" y1="4" x2="14" y2="56" stroke="#12242C" stroke-width="1.4"/>
+            <ellipse cx="14" cy="18" rx="6" ry="2.5" stroke="#12242C" stroke-width="1.4" fill="var(--paper-2)"/>
+            <ellipse cx="14" cy="42" rx="6" ry="2.5" stroke="#12242C" stroke-width="1.4" fill="var(--paper-2)"/>
+          </svg>
+          <h3>現状の輪郭をつかむ</h3><p>事業の歴史・既存資料・顧客接点を読み込み、意味の不整合を炙り出します。</p>
+        </div>
+        <div class="step">
+          <svg class="step__bamboo" viewBox="0 0 28 60" aria-hidden="true">
+            <line x1="14" y1="4" x2="14" y2="56" stroke="#12242C" stroke-width="1.4"/>
+            <ellipse cx="14" cy="18" rx="6" ry="2.5" stroke="#12242C" stroke-width="1.4" fill="var(--paper-2)"/>
+            <ellipse cx="14" cy="42" rx="6" ry="2.5" stroke="#12242C" stroke-width="1.4" fill="var(--paper-2)"/>
+          </svg>
+          <h3>8フィールドの草案</h3><p>ジョブから must / must_not まで、意味の骨格を一度描き切ります。</p>
+        </div>
+        <div class="step">
+          <svg class="step__bamboo" viewBox="0 0 28 60" aria-hidden="true">
+            <line x1="14" y1="4" x2="14" y2="56" stroke="#12242C" stroke-width="1.4"/>
+            <ellipse cx="14" cy="18" rx="6" ry="2.5" stroke="#12242C" stroke-width="1.4" fill="var(--paper-2)"/>
+            <ellipse cx="14" cy="42" rx="6" ry="2.5" stroke="#12242C" stroke-width="1.4" fill="var(--paper-2)"/>
+          </svg>
+          <h3>検証と再定義</h3><p>社内の意思決定者と現場の双方で読み合わせ、輪郭を強くします。</p>
+        </div>
+        <div class="step">
+          <svg class="step__bamboo" viewBox="0 0 28 60" aria-hidden="true">
+            <line x1="14" y1="4" x2="14" y2="56" stroke="#E98F22" stroke-width="1.6"/>
+            <ellipse cx="14" cy="18" rx="6" ry="2.5" stroke="#E98F22" stroke-width="1.4" fill="var(--paper-2)"/>
+            <ellipse cx="14" cy="42" rx="6" ry="2.5" stroke="#E98F22" stroke-width="1.4" fill="var(--paper-2)"/>
+          </svg>
+          <h3>運用への引き渡し</h3><p>更新の頻度・判断者・点検観点を文書化し、貴社内で動く形にします。</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 15. FAQ -->
-  <section class="section" id="faq">
+  <!-- ============================================================ -->
+  <!-- 15. FAQ (生成り + 小さなランタン) -->
+  <!-- ============================================================ -->
+  <section class="section section--paper" id="faq">
     <div class="container">
       <span class="eyebrow">FAQ</span>
       <h2>よくある問い</h2>
@@ -472,18 +751,30 @@ const blogPosts = nav.blog;
         <details><summary>SEO記事の代行はしてもらえますか？</summary><div>個別記事の代筆を主目的にはしていません。代わりに、8フィールド構造で意味の地図を引き、貴社や制作チームが一貫した意味で発信できる設計図を残します。</div></details>
         <details><summary>効果はどれくらいで出ますか？</summary><div>意味の再定義そのものは4週間〜の設計で輪郭を立ち上げます。市場での反応は、運用反映から1〜3か月で現れ始めるケースが多い領域です。ただし成果を保証するものではありません。</div></details>
         <details><summary>AI検索（AIO）にどう対応しますか？</summary><div>個別最適化のテクニックではなく、AIが文脈の整合性を取りやすい意味の供給を設計します。結果としてAI検索でも引用・要約されやすい状態を狙います。</div></details>
-        <details><summary>AIに正しく引き当てられない場合は対応できますか？</summary><div>対応します。AIに引き当てられない原因の多くは、コンテンツの量や個別最適化のテクニックではなく、意味の供給構造そのものにあります。8フィールドで自社の文脈の島を組み直し、AI検索から引用・要約される状態へ設計し直します。</div></details>
+        <details><summary>AIに正しく引き当てられない場合は対応できますか？</summary><div>対応します。AIに引き当てられない原因の多くは、コンテンツの量や個別最適化のテクニックではなく、意味の供給構造そのものにあります。8フィールドで自社の「文脈の島」を組み直し、AI検索から引用・要約される状態へ設計し直します。</div></details>
         <details><summary>途中で方向を変えたくなったら？</summary><div>方向転換は前提です。各フェーズの末尾で意味モデルを再点検し、must / must_not を更新する作りになっています。</div></details>
       </div>
     </div>
   </section>
 
-  <!-- 16. CTA -->
-  <section class="section section--ink" id="cta">
+  <!-- ============================================================ -->
+  <!-- 16. CTA (深墨 + 中心オレンジ点) -->
+  <!-- ============================================================ -->
+  <section class="section section--ink-deep" id="cta">
+    <div class="bg-decor" aria-hidden="true">
+      <svg style="width:min(70vw,520px); left:50%; top:50%; transform:translate(-50%,-50%); opacity:0.16; color:var(--mint)" viewBox="0 0 280 280" fill="none">
+        <polygon points="140,20 232,60 260,140 232,220 140,260 48,220 20,140 48,60" stroke="currentColor" stroke-width="1.2" fill="none"/>
+        <polygon points="140,70 192,92 210,140 192,188 140,210 88,188 70,140 88,92" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.5"/>
+      </svg>
+    </div>
     <div class="container center">
+      <!-- 中央の小さなオレンジ点 -->
+      <div class="cta-spark" aria-hidden="true">
+        <span></span>
+      </div>
       <span class="eyebrow" style="color:var(--brand)">Contact</span>
       <h2 style="color:var(--paper)">まずは30分、状況を聞かせてください。</h2>
-      <p class="lead" style="color:var(--mint); max-width:640px; margin:14px auto 22px">提案や売り込みはしません。<br/>事業の言語を整理する壁打ちとして使ってください。</p>
+      <p class="lead" style="color:rgba(243,240,231,0.75); max-width:640px; margin:14px auto 22px">提案や売り込みはしません。<br/>事業の言語を整理する壁打ちとして使ってください。</p>
 
       <p style="color:var(--paper); font-size:17px; line-height:1.85; max-width:640px; margin:0 auto 28px">
         資料請求は来る。でも商談にならない。<br/>
@@ -494,16 +785,18 @@ const blogPosts = nav.blog;
         <a href="/contact/" class="btn btn--brand btn--lg">相談を申し込む</a>
       </div>
       <p style="margin-top:18px; font-size:13.5px">
-        <a href="#pricing" style="color:var(--mint); margin-right:18px">料金を見る</a>
-        <a href="/about/" style="color:var(--mint)">監修者・運営元を見る</a>
+        <a href="#pricing" style="color:rgba(201,222,220,0.85); margin-right:18px">料金を見る</a>
+        <a href="/about/" style="color:rgba(201,222,220,0.85)">監修者・運営元を見る</a>
       </p>
     </div>
   </section>
 
-  <!-- 17. License (CTAの後) -->
-  <section class="section" id="license" style="border-top:3px solid var(--brand);">
+  <!-- ============================================================ -->
+  <!-- 17. License (生成り + 印章意匠) -->
+  <!-- ============================================================ -->
+  <section class="section section--paper" id="license">
     <div class="container">
-      <span class="eyebrow" style="color:var(--brand)">License</span>
+      <span class="eyebrow">License</span>
       <h2>Meandleの方法論を、貴社のサービスに組み込む。</h2>
       <p class="lead">8フィールド構造と Be Meandling の方法論は、SEO/AIOツール、コンサル、研修などの周辺サービスに組み込んで提供することもできます。</p>
 
@@ -511,7 +804,7 @@ const blogPosts = nav.blog;
         <table class="table">
           <thead>
             <tr>
-              <th style="width:22%; background:var(--brand); color:#fff">形態</th>
+              <th style="width:22%">形態</th>
               <th>内容</th>
               <th style="width:30%">主な対象</th>
             </tr>
@@ -536,17 +829,15 @@ const blogPosts = nav.blog;
         </table>
       </div>
 
-      <p class="muted mt-3" style="font-size:13.5px">
-        意味設計と検索文脈の整合に関する方法について、<strong>特許出願中</strong>です。
-      </p>
-      <p class="mt-3">
-        <a href="/contact/" class="btn btn--ghost">ライセンスについて相談する</a>
-      </p>
+      <p class="muted mt-3" style="font-size:13.5px">意味設計と検索文脈の整合に関する方法について、<strong>特許出願中</strong>です。</p>
+      <p class="mt-3"><a href="/contact/" class="btn btn--ghost">ライセンスについて相談する</a></p>
     </div>
   </section>
 
-  <!-- 18. Reading (フッター直前) -->
-  <section class="section section--paper" id="reading">
+  <!-- ============================================================ -->
+  <!-- 18. Reading (補助紙色) -->
+  <!-- ============================================================ -->
+  <section class="section section--paper-2" id="reading">
     <div class="container">
       <span class="eyebrow">Reading</span>
       <h2>関連する読み物</h2>
@@ -559,25 +850,221 @@ const blogPosts = nav.blog;
           </a>
         ))}
       </div>
-      <p class="mt-3" style="text-align:center">
-        <a href="/blog/" class="btn btn--ghost">読み物一覧へ →</a>
-      </p>
+      <p class="mt-3" style="text-align:center"><a href="/blog/" class="btn btn--ghost">読み物一覧へ →</a></p>
     </div>
   </section>
 
 </BaseLayout>
 
 <style is:inline>
+  /* ========== Hero (深墨) ========== */
+  .hero--dark {
+    background: linear-gradient(180deg, #071014 0%, #12242C 100%);
+    color: var(--paper);
+    padding: clamp(80px, 14vw, 140px) 0 clamp(56px, 9vw, 100px);
+    position: relative; overflow: hidden;
+  }
+  .hero--dark .container { position: relative; z-index: 1; }
+  .hero--dark h1 { color: var(--paper); font-size: clamp(30px, 6vw, 56px); line-height: 1.35; }
+  .hero--dark h1 .accent { color: var(--brand); }
+  .hero--dark .lead { color: rgba(243,240,231,0.78); }
+  .hero--dark .lead strong { color: var(--paper); }
+  .btn--ghost-light {
+    background: transparent; color: var(--paper);
+    border: 1px solid rgba(243,240,231,0.32);
+  }
+  .btn--ghost-light:hover { background: rgba(243,240,231,0.08); }
+
   /* PC / SP リード文の出し分け */
   .lead--sp { display: none; }
   @media (max-width: 720px) {
     .lead--pc { display: none; }
     .lead--sp { display: block; }
-    /* Self-check 説明文を畳む */
     .check__body span { display: none; }
   }
 
-  /* 8 Fields 表をスマホでカード化 */
+  /* ========== Mean+Handle 線図 ========== */
+  .mh-figure {
+    margin-top: 28px;
+    background: rgba(255,255,255,0.45);
+    border: 1px solid rgba(18,36,44,0.08);
+    border-radius: 16px;
+    padding: 18px;
+    text-align: center;
+  }
+  .mh-figure svg { max-width: 420px; width: 100%; height: auto; }
+
+  /* ========== 語源カード ========== */
+  .origin-card {
+    background: rgba(255,249,237,0.85);
+    border: 1px solid rgba(18,36,44,0.10);
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex; align-items: center; gap: 18px;
+  }
+  .origin-card__mark { width: 64px; height: 72px; flex-shrink: 0; }
+  @media (max-width: 560px) {
+    .origin-card { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* ========== must/must_not 門 ========== */
+  .gate-figure {
+    display: flex; align-items: center; justify-content: center;
+    gap: 24px; margin: 8px auto 0; height: 60px; max-width: 320px;
+  }
+  .gate-figure__pillar {
+    flex: 1; height: 1px; background: rgba(18,36,44,0.15);
+  }
+  .gate-figure__line { width: 40px; height: 60px; }
+  .gate-cards .gate-card { position: relative; }
+  .gate-cards .gate-card__label {
+    position: absolute; top: -12px; left: 20px;
+    background: var(--brand); color: #fff;
+    padding: 4px 12px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; letter-spacing: .05em;
+  }
+  .gate-card--right .gate-card__label { left: auto; right: 20px; }
+
+  /* ========== 4 Domains アイコン ========== */
+  .domain-card { position: relative; }
+  .domain-card__top {
+    position: absolute; top: 0; left: 24px; right: 24px;
+    height: 2px; background: var(--brand); border-radius: 2px;
+  }
+  .domain-card__icon { width: 52px; height: 52px; margin-top: 4px; }
+
+  /* ========== KGI/KPI 地層 ========== */
+  .stratum { position: relative; padding: 12px 0; }
+  .stratum__row {
+    display: flex; align-items: flex-start; gap: 14px;
+    flex-wrap: nowrap;
+  }
+  .stratum__step {
+    flex: 1; min-width: 0;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; padding: 18px 16px; box-shadow: var(--shadow);
+    position: relative; z-index: 1;
+  }
+  .stratum__num {
+    font-size: 11px; font-weight: 700; letter-spacing: .15em;
+    color: var(--brand-deep);
+  }
+  .stratum__label {
+    font-size: 16px; font-weight: 700; margin: 6px 0 8px;
+  }
+  .stratum__step p { font-size: 13px; color: var(--ink-soft); margin: 0; line-height: 1.7; }
+  .stratum__bridge { width: 60px; height: 40px; flex-shrink: 0; align-self: center; }
+  .stratum__strata {
+    position: absolute; left: 0; right: 0; bottom: -10px;
+    width: 100%; height: 50px; z-index: 0; pointer-events: none;
+  }
+  @media (max-width: 720px) {
+    .stratum__row { flex-direction: column; gap: 8px; }
+    .stratum__bridge { transform: rotate(90deg); width: 40px; align-self: center; }
+  }
+
+  /* ========== Evidence (深墨) ========== */
+  .section--ink-deep .bignum { color: var(--peach); }
+  .section--ink-deep .bignum sub { color: rgba(243,240,231,0.45); }
+  .kikko-bg { z-index: 0; }
+
+  /* ========== 8 Fields 羅盤 ========== */
+  .fields-grid {
+    display: grid; gap: 32px;
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .fields-compass { display: flex; justify-content: center; }
+  .fields-compass svg { width: 100%; max-width: 360px; height: auto; }
+  @media (min-width: 880px) {
+    .fields-grid { grid-template-columns: minmax(280px, 360px) 1fr; gap: 40px; }
+  }
+
+  /* ========== Authority 印章プレート ========== */
+  .seal-plate {
+    background: var(--ink-deep); color: var(--paper);
+    border-radius: 16px; padding: 22px 26px;
+    display: flex; align-items: center; gap: 22px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+  }
+  .seal-plate__seal { width: 64px; height: 64px; flex-shrink: 0; }
+  .seal-plate__body { flex: 1; font-size: 14.5px; }
+  .seal-plate__row { display: flex; gap: 10px; margin-bottom: 4px; }
+  .seal-plate__k {
+    color: var(--brand); font-weight: 700; font-size: 12px;
+    letter-spacing: .1em; min-width: 56px; padding-top: 3px;
+  }
+  .seal-plate__row a { color: var(--paper); text-decoration: underline; }
+  .seal-plate__more {
+    display: block; margin-top: 10px; color: var(--brand);
+    font-weight: 700; font-size: 13.5px;
+  }
+  @media (max-width: 520px) {
+    .seal-plate { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+
+  /* ========== Story 引用カード ========== */
+  .story-quote {
+    margin: 24px 0 28px; padding: 22px 26px;
+    background: var(--card); border-left: 4px solid var(--brand);
+    border-radius: 8px; box-shadow: var(--shadow);
+    font-style: italic;
+  }
+  .story-quote p {
+    margin: 0; font-size: 18px; line-height: 1.7; color: var(--ink);
+  }
+  .story-quote footer {
+    margin-top: 10px; font-size: 13px; font-style: normal;
+    color: var(--muted); letter-spacing: .04em;
+  }
+
+  /* ========== Compare 墨色 ========== */
+  .table--dark { background: rgba(243,240,231,0.04); border: 1px solid rgba(243,240,231,0.12); }
+  .table--dark th, .table--dark td {
+    background: transparent !important; color: var(--paper);
+    border-bottom: 1px solid rgba(243,240,231,0.10);
+  }
+  .table--dark th { background: rgba(243,240,231,0.06) !important; }
+  .table--dark .th-meandle {
+    background: rgba(255,196,126,0.18) !important; color: var(--peach);
+    font-weight: 800;
+  }
+  .table--dark .td-meandle {
+    background: rgba(255,196,126,0.08) !important; color: var(--peach);
+    border-left: 2px solid var(--brand);
+  }
+
+  /* ========== Quick estimate 羅盤付き見出し ========== */
+  .estimate-head {
+    display: flex; align-items: flex-start; gap: 20px;
+  }
+  .estimate-head svg { width: 64px; height: 72px; margin-top: 8px; }
+  @media (max-width: 520px) {
+    .estimate-head { gap: 14px; }
+    .estimate-head svg { width: 52px; height: 58px; }
+  }
+
+  /* ========== Process 竹 ========== */
+  .step { position: relative; }
+  .step__bamboo {
+    position: absolute; top: 18px; right: 18px;
+    width: 22px; height: 50px; opacity: 0.75;
+  }
+
+  /* ========== CTA 火 ========== */
+  .cta-spark {
+    width: 18px; height: 18px; margin: 0 auto 16px;
+    position: relative;
+  }
+  .cta-spark span {
+    position: absolute; inset: 0; border-radius: 50%;
+    background: var(--brand);
+    box-shadow: 0 0 0 6px rgba(233,143,34,0.18),
+                0 0 0 14px rgba(233,143,34,0.08),
+                0 0 24px rgba(233,143,34,0.6);
+  }
+
+  /* ========== 8 Fields 表をスマホでカード化 ========== */
   @media (max-width: 640px) {
     .fields-table, .fields-table thead, .fields-table tbody, .fields-table tr, .fields-table td, .fields-table th { display: block; }
     .fields-table thead { display: none; }
@@ -593,20 +1080,20 @@ const blogPosts = nav.blog;
       border-left-color: var(--brand);
       background: rgba(233,143,34,0.10);
     }
-    .fields-table td {
-      padding: 3px 0;
-      border: none !important;
-      background: transparent !important;
-    }
+    .fields-table td { padding: 3px 0; border: none !important; background: transparent !important; }
     .fields-table td:first-child {
-      font-size: 12.5px;
-      color: var(--brand-deep);
-      letter-spacing: .04em;
-      margin-bottom: 4px;
+      font-size: 12.5px; color: var(--brand-deep);
+      letter-spacing: .04em; margin-bottom: 4px;
     }
   }
 
-  /* Reading：スマホは3件まで表示 */
+  /* ========== Self-check 梟マーク ========== */
+  .owl-mark {
+    width: 64px; height: 32px; margin-top: 8px; margin-bottom: 4px;
+    opacity: 0.7;
+  }
+
+  /* ========== Reading：スマホは3件まで表示 ========== */
   @media (max-width: 720px) {
     .reading-cards .acard:nth-child(n+4) { display: none; }
   }

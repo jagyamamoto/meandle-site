@@ -1,13 +1,17 @@
 :root {
   --brand: #E98F22;
   --brand-deep: #B66E15;
+  --peach: #FFC47E;
   --paper: #F3F0E7;
+  --paper-2: #ECE8DC;
   --mint: #C9DEDC;
   --ink: #12242C;
+  --ink-deep: #071014;
   --ink-soft: #2A3B43;
   --card: #FFF9ED;
   --muted: #6F7777;
   --line: rgba(18,36,44,0.10);
+  --line-light: rgba(243,240,231,0.15);
   --shadow: 0 2px 14px rgba(18,36,44,0.06);
 
   --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Meiryo', sans-serif;
@@ -36,12 +40,31 @@ small { font-size: 0.85em; }
 
 .container { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
 
-.section { padding: clamp(56px, 9vw, 96px) 0; }
+.section { padding: clamp(56px, 9vw, 96px) 0; position: relative; overflow: hidden; }
 .section--tight { padding: clamp(40px, 6vw, 64px) 0; }
 .section--paper { background: var(--paper); }
+.section--paper-2 { background: var(--paper-2); }
 .section--card { background: var(--card); }
 .section--mint { background: var(--mint); }
 .section--ink { background: var(--ink); color: var(--paper); }
+.section--ink-deep { background: var(--ink-deep); color: var(--paper); }
+.section--ink-deep .eyebrow { color: var(--brand); }
+.section--ink-deep .lead, .section--ink .lead { color: rgba(243,240,231,0.82); }
+.section--ink-deep h2, .section--ink h2 { color: var(--paper); }
+
+/* SVG 装飾レイヤー（背景に置く） */
+.bg-decor {
+  position: absolute; inset: 0; pointer-events: none;
+  z-index: 0; overflow: hidden;
+}
+.bg-decor > * { position: absolute; }
+.section > .container { position: relative; z-index: 1; }
+
+/* 八角羅盤 SVG の current color 制御 */
+.compass { color: var(--ink); }
+.compass--mint { color: var(--mint); }
+.compass--ghost { opacity: 0.08; }
+.compass--accent { color: var(--brand); }
 
 h1, h2, h3, h4 { font-weight: 700; line-height: 1.4; letter-spacing: 0.01em; }
 h1 { font-size: clamp(28px, 5.5vw, 44px); }
