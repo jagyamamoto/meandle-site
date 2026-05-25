@@ -214,7 +214,82 @@ SSGform 管理画面側でも：
 
 ---
 
-## 11. このマニュアルの更新
+## 11. Preview モード（パスワードゲート）
+
+特許出願準備中のため、現在 **全ページがパスワード認証** で覆われ、検索エンジン・AI クローラから完全に遮断されている。
+
+### 11-1. 動作の仕組み
+
+- `functions/_middleware.ts` が全リクエストに割り込み、認証 Cookie が無ければログイン HTML を返す
+- パスワードは Cloudflare Pages 環境変数 `PREVIEW_PASSWORD`（**secret_text 型**）に格納。リポジトリには絶対に書かない
+- 認証成功時に `meandle_preview=v1` Cookie（HttpOnly / Secure / 30 日）を発行
+- 全レスポンスに `X-Robots-Tag: noindex, nofollow` ヘッダと `<meta name="robots" content="noindex,nofollow">` を付加
+- `public/robots.txt` は全 User-agent を `Disallow: /`
+- 公開パス（`/robots.txt`, `/favicon.svg`, `/favicon.ico`）は認証なしで素通し
+
+### 11-2. パスワードの確認・変更
+
+```bash
+export TOKEN='<API TOKEN>'
+export ACCT='defdc076fe8ea8bf80a3003db8b8a38d'
+
+# 現在の値を確認（secret_text は値が伏せられる）
+curl -s -H "Authorization: Bearer $TOKEN" \
+  "https://api.cloudflare.com/client/v4/accounts/$ACCT/pages/projects/meandle" \
+  | node -e 'let d="";process.stdin.on("data",c=>d+=c);process.stdin.on("end",()=>{const j=JSON.parse(d);console.log(JSON.stringify(j.result.deployment_configs.production.env_vars,null,2))})'
+
+# 値を変更（meandle と meandle-site 両方）
+for proj in meandle meandle-site; do
+  curl -s -X PATCH "https://api.cloudflare.com/client/v4/accounts/$ACCT/pages/projects/$proj" \
+    -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+    -d '{"deployment_configs":{"production":{"env_vars":{"PREVIEW_PASSWORD":{"type":"secret_text","value":"<新パスワード>"}}}}}'
+done
+```
+
+変更後は **次回 deploy で反映** される（既存デプロイには反映されない）。即時反映するには `wrangler pages deploy dist --project-name=meandle` を再実行。
+
+### 11-3. 公開時の解除手順（特許出願後）
+
+```bash
+cd /Users/JAG/meandle-site
+
+# 1) ミドルウェアを削除
+rm -rf functions
+
+# 2) robots.txt を全許可に戻す（v1 リリース時の内容を git 履歴から復元）
+git show 51effef:public/robots.txt > public/robots.txt
+
+# 3) BaseLayout.astro から noindex メタを削除
+#    手動で <meta name="robots" content="noindex, nofollow" /> の 1 行を削除
+
+# 4) 環境変数を削除（任意。残しても無害だが整理目的）
+for proj in meandle meandle-site; do
+  curl -s -X PATCH "https://api.cloudflare.com/client/v4/accounts/$ACCT/pages/projects/$proj" \
+    -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+    -d '{"deployment_configs":{"production":{"env_vars":{"PREVIEW_PASSWORD":null}}}}'
+done
+
+# 5) ビルド & デプロイ & コミット
+npm run build
+npx wrangler pages deploy dist --project-name=meandle --branch=main --commit-dirty=true
+git add -A && git commit -m "feat: end preview mode — open to public" && git push origin main
+
+# 6) Google Search Console / Bing Webmaster Tools にサイトマップを再登録
+#    （preview 中は sitemap を実質提示していないため、改めて送信する）
+```
+
+### 11-4. 共有可能なログイン情報（社内・パートナー向け）
+
+> **URL**: https://meandle.jp/
+> **パスワード**: お問い合わせください
+>
+> ※ 一度ログインすれば 30 日間は再入力不要（同じブラウザに限る）
+
+パスワードを共有メール・チャットに直書きしない。可能なら口頭・別チャネル・ボールト経由で伝える。
+
+---
+
+## 12. このマニュアルの更新
 
 実運用で気づいたコツや落とし穴は、このファイルに追記して GitHub に push する。
 バージョン管理は git に任せる（別途バージョン番号は持たない）。
