@@ -13,16 +13,25 @@ const posts = [
 ---
 <BaseLayout
   title="Self Do.meandle - 検証ノート｜Meandle"
-  description="Meandleを使った検証事例を、1記事1テーマで公開します。"
+  description="Meandleチームが実際のソリューション・サービス・商品を対象に、みんどり最適化を実施。その前後のみんどりスコア変化・AIマッチング状況の変化・実際に出てきた問い合わせ変化などをリアルに公開します。"
 >
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow hero__eyebrow">Self Do.meandle</span>
+      <h1 class="hero-copy">Meandleチームが<br/>「生きた実験場」をお見せします</h1>
+      <p style="margin-top:24px">Meandleチームが実際のソリューション・サービス・商品を対象に、みんどり最適化を実施。その<strong>前後のみんどりスコア変化・AIマッチング状況の変化・実際に出てきた問い合わせ変化</strong>などをリアルに公開します。</p>
+      <p>「本当に効果があるのか？」「どのくらいの期間で変化するのか？」<br/>そんな疑問に、実験データで答えます。</p>
+      <div class="hero__badges">
+        <span class="badge">検証実例</span>
+        <span class="badge">みんどりスコア変化</span>
+        <span class="badge">AIO・Perplexity・ChatGPT推薦率</span>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container container--narrow">
-      <nav class="breadcrumb"><a href="/">ホーム</a>　/　Blog</nav>
-      <span class="eyebrow">Self Do.meandle</span>
-      <h1>Self Do.meandle - 検証ノート</h1>
-      <p class="lead">Meandleを使った検証事例を、1記事1テーマで公開します。<br/>自社の商材、求人、PRに置き換えて読めるよう、<br/>結果だけでなく方法も残します。</p>
-
-      <div style="display:grid; gap:18px; margin-top:48px">
+      <div style="display:grid; gap:18px">
         {posts.map((p) => (
           <a class="service-card" href={`/blog/${p.slug}/`}>
             <div style="display:flex; gap:10px; align-items:center; font-size:12px; margin-bottom:10px">

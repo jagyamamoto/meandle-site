@@ -2,76 +2,83 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout
-  title="Meandle recruit — 採用・求人票改善｜Meandle"
-  description="求人票の条件ではなく、応募者が選ぶ意味を整える採用設計サービス。向く人と向かない人を明示し、ミスマッチを減らします。"
+  title="Meandle Recruit — 転職エージェントに頼む前に、AIに「最適な候補者」を見つけてもらう｜Meandle"
+  description="求人票・採用ページをみんどり最適化。潜在的な最適候補者とAIを介してマッチングさせます。転職エージェント費用比 約70%コスト削減の試算。"
 >
   <section class="hero">
     <div class="container">
-      <span class="eyebrow hero__eyebrow">Meandle recruit</span>
-      <h1>求人票の条件ではなく、応募者が選ぶ意味を整える。</h1>
-      <p class="lead">「年収」「勤務地」「必須スキル」だけでは、応募者の選び方は変わりません。Meandle recruit は、向く人と向かない人を明示し、人事 PR の意味の作りから整えます。</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container container--narrow">
-      <h2>対象</h2>
-      <p>応募数はあるがミスマッチが多い企業、専門職採用、カルチャーフィットが重要な職種、人事PRを強化したい企業。</p>
+      <span class="eyebrow hero__eyebrow">Meandle Recruit</span>
+      <h1 class="hero-copy">転職エージェントに頼む前に、<br/>AIに「最適な候補者」を見つけてもらう。</h1>
+      <p style="margin-top:24px">採用コストが高い最大の理由は、<strong>「あなたの会社が本当に求めている人材像」がAIに正確に伝わっていないから</strong>です。</p>
+      <p>Meandle Recruitは、求人票・求人ページの内容を「みんどる」ことで、潜在的な最適候補者とAIを介してマッチングさせます。さらに、人事部としてのPR方法もみんどることで、マッチ精度をさらに高めます。</p>
     </div>
   </section>
 
   <section class="section section--alt">
-    <div class="container container--narrow">
-      <h2>メリット</h2>
-      <ul style="font-size:16px; line-height:2; margin-top:16px">
-        <li>求人票だけでなく、人事部としてのPR方針もみんどります</li>
-        <li>向く人と向かない人を明示し、ミスマッチを減らします</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section">
     <div class="container">
-      <h2>3ステップで反映します。</h2>
-      <div class="three-steps">
-        <div class="step-card">
-          <div class="step-number">1</div>
-          <h3>URL診断</h3>
-          <p>既存ページのURLを送るだけ。意味のズレを抽出します。</p>
+      <span class="eyebrow">Cost Simulation</span>
+      <h2>従来採用サービスとのコスト比較シミュレーション</h2>
+
+      <div class="sim-box">
+        <span class="sim-label">⚠️ SIMULATION — 参考試算値</span>
+        <h4>前提：年収500万円前後の人材を3名採用する場合の試算</h4>
+
+        <div class="table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>採用手法</th>
+                <th>費用</th>
+                <th>特徴・注意点</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>転職エージェント</strong><br/><small style="color:var(--muted)">（人材紹介会社）</small></td>
+                <td>年収の30〜35%<br/>= 150〜175万円/人<br/><strong>3名で約450〜525万円</strong></td>
+                <td>採用後の早期退職でも返金要件あり／候補者の質は高いが費用も高額</td>
+              </tr>
+              <tr>
+                <td><strong>求人広告</strong><br/><small style="color:var(--muted)">（Indeed等）</small></td>
+                <td>月3〜30万円/掲載<br/>+採用担当者工数</td>
+                <td>露出はあるが的外れな応募が多く、スクリーニング工数が大きい</td>
+              </tr>
+              <tr>
+                <td><strong>採用特化SNS</strong><br/><small style="color:var(--muted)">（Wantedly等）</small></td>
+                <td>月3〜10万円</td>
+                <td>スタートアップ向け。採用単価は最終的に高くなりがち</td>
+              </tr>
+              <tr class="highlight">
+                <td><strong>Meandle Recruit</strong></td>
+                <td><strong>50万円/求人項目</strong><br/><small style="color:var(--muted)">3職種の場合150万円</small></td>
+                <td>AIが「本当に合う候補者」だけを引き寄せる<br/><strong>エージェント費用比：約70%コスト削減の試算</strong></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="step-card">
-          <div class="step-number">2</div>
-          <h3>みんどりIndex</h3>
-          <p>must / must_not / 典型例 / 反例 を整理し、改善点をスコア化します。</p>
+
+        <div class="fact-bar fact-bar--highlight" style="margin-top:14px">
+          <span class="fact-bar__icon">💡</span>
+          <div><strong>試算：</strong>転職エージェント3名採用コスト約525万円に対し、Meandle Recruit（3職種）は150万円。差額<strong>375万円</strong>のコスト削減が見込める試算。採用後の定着率向上（ミスマッチ減）による採用やり直しコストも低減。</div>
         </div>
-        <div class="step-card">
-          <div class="step-number">3</div>
-          <h3>ページ反映</h3>
-          <p>社内で運用できる形で納品。AIと顧客に拾われやすい状態へ。</p>
+
+        <div class="sim-disclaimer">
+          ※転職エージェント相場：年収の30〜35%（人材紹介業界標準）。求人広告相場：Indeed等公開料金。Meandle Recruitの効果は個別案件により異なります。3名採用できることを保証するものではありません。
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--alt">
+  <section class="section">
     <div class="container">
+      <span class="eyebrow">Pricing</span>
       <h2>料金</h2>
-      <div class="service-grid" style="margin-top:24px">
-        <div class="service-card">
-          <h3>1求人項目</h3>
-          <p style="color:var(--muted); font-size:14px">3〜6週間</p>
-          <div class="price">50万円</div>
-          <ul style="font-size:14px; color:var(--muted)">
-            <li>求人1項目のみんどりIndex</li>
-            <li>修正版の求人票</li>
-            <li>掲載媒体ごとの調整</li>
-            <li>応募導線の改善案</li>
-          </ul>
-        </div>
-        <div class="service-card">
-          <h3>採用ページ＋人事PR</h3>
-          <p style="color:var(--muted); font-size:14px">個別に組みます</p>
-          <div class="price">個別見積もり</div>
+      <div class="price-card">
+        <div class="price-label">Meandle Recruit</div>
+        <div class="price">¥500,000<span class="price-unit">〜 / 求人項目</span></div>
+        <div class="price-note">
+          求人ページのみんどりIndex構造化＋コンテンツ最適化＋人事PR設計一式<br/>
+          求人職種が増えるほど費用対効果が高まります
         </div>
       </div>
     </div>
@@ -80,9 +87,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="cta-block">
     <h2>いま難航している求人を、1つ教えてください。</h2>
     <p>求人票の意味の作りを、無理のない範囲で30分壁打ちします。</p>
-    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap">
-      <a href="/contact/" class="btn btn--primary">求人票を診断する</a>
-      <a href="/contact/" class="btn btn--on-dark">採用ページを相談する</a>
-    </div>
+    <a href="/contact/" class="btn btn--primary">採用を相談する</a>
   </section>
 </BaseLayout>
