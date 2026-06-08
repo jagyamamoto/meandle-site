@@ -1,41 +1,104 @@
 ---
-import nav from '../data/navigation.json';
-const items = nav.primary;
+import navItems from '../data/navigation.json';
+const currentPath = Astro.url.pathname;
 ---
 <header class="site-header">
   <div class="container site-header__inner">
-    <a href="/" class="site-header__logo" aria-label="Meandle ホーム">
-      <img src="/images/meandle-logo.png" alt="Meandle" />
+    <a href="/" class="site-header__logo">
+      <img src="/images/meandle-logo.png" alt="Meandle" height="36" width="auto">
     </a>
-    <nav class="site-nav" aria-label="主要メニュー">
-      {items.map((item) => (
-        <a href={item.href} class={item.cta ? 'cta' : ''}>{item.label}</a>
+    <nav class="site-header__nav" id="global-nav">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class={`site-header__nav-link ${currentPath.startsWith(item.href) && item.href !== '/' ? 'is-active' : ''}`}
+        >
+          {item.label}
+        </a>
       ))}
     </nav>
-    <button class="site-nav__toggle" aria-label="メニューを開く" aria-controls="mobile-nav" aria-expanded="false" id="navToggle" type="button">
-      <span></span>
+    <button class="site-header__hamburger" id="hamburger" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
     </button>
   </div>
-  <nav class="mobile-nav" id="mobile-nav" aria-label="モバイルメニュー">
-    {items.map((item) => (
-      <a href={item.href} class={item.cta ? 'cta' : ''}>{item.label}</a>
-    ))}
-  </nav>
 </header>
+
+<style>
+.site-header {
+  background: var(--paper);
+  border-bottom: 1px solid rgba(18,36,44,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.site-header__logo img {
+  display: block;
+  height: 36px;
+  width: auto;
+}
+.site-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.site-header__nav-link {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.site-header__nav-link:hover,
+.site-header__nav-link.is-active {
+  background: var(--ice-blue);
+  text-decoration: none;
+}
+.site-header__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+.site-header__hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+}
+@media (max-width: 900px) {
+  .site-header__nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--paper);
+    border-bottom: 1px solid rgba(18,36,44,0.1);
+    padding: 16px;
+    gap: 0;
+  }
+  .site-header__nav.is-open { display: flex; }
+  .site-header__hamburger { display: flex; }
+}
+</style>
 <script is:inline>
-  (function () {
-    var btn = document.getElementById('navToggle');
-    var menu = document.getElementById('mobile-nav');
-    if (!btn || !menu) return;
-    btn.addEventListener('click', function () {
-      var open = menu.classList.toggle('is-open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    menu.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        menu.classList.remove('is-open');
-        btn.setAttribute('aria-expanded', 'false');
-      });
-    });
-  })();
+  const btn = document.getElementById('hamburger');
+  const nav = document.getElementById('global-nav');
+  btn?.addEventListener('click', () => nav?.classList.toggle('is-open'));
+  nav?.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => nav.classList.remove('is-open'));
+  });
 </script>

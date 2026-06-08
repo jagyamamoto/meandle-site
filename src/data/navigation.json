@@ -1,44 +1,11 @@
-{
-  "primary": [
-    { "label": "do.meandle", "href": "/do-meandle/" },
-    { "label": "PR", "href": "/pr/" },
-    { "label": "get lead", "href": "/get-lead/" },
-    { "label": "recruit", "href": "/recruit/" },
-    { "label": "OEM", "href": "/oem/" },
-    { "label": "認定代理店", "href": "/partner/" },
-    { "label": "Blog", "href": "/blog/" },
-    { "label": "お問い合わせ", "href": "/contact/", "cta": true }
-  ],
-  "services": [
-    { "label": "do.meandle", "href": "/do-meandle/", "desc": "既存ページ改善・汎用" },
-    { "label": "Meandle PR", "href": "/pr/", "desc": "PR専用" },
-    { "label": "Meandle get lead", "href": "/get-lead/", "desc": "リード獲得専用" },
-    { "label": "Meandle recruit", "href": "/recruit/", "desc": "採用専用" },
-    { "label": "Meandle OEM", "href": "/oem/", "desc": "技術提供" },
-    { "label": "Meandle認定代理店制度", "href": "/partner/", "desc": "パートナー" }
-  ],
-  "footer": {
-    "services": [
-      { "label": "do.meandle", "href": "/do-meandle/" },
-      { "label": "Meandle PR", "href": "/pr/" },
-      { "label": "Meandle get lead", "href": "/get-lead/" },
-      { "label": "Meandle recruit", "href": "/recruit/" },
-      { "label": "Meandle OEM", "href": "/oem/" },
-      { "label": "認定代理店", "href": "/partner/" }
-    ],
-    "more": [
-      { "label": "Blog", "href": "/blog/" },
-      { "label": "お問い合わせ", "href": "/contact/" },
-      { "label": "Jag Project", "href": "https://jagproject.com/", "external": true }
-    ]
-  },
-  "blog": [
-    {
-      "slug": "temperature-sensing-ink",
-      "title": "温度×時間センシングインクは、検索とLLMに「しっかり届く」か",
-      "subtitle": "名称だけの露出と、meandle式iフレームで文脈化した露出の差を、文字バイグラムoverlapで検証する実験記事",
-      "category": "仮説シミュレーション",
-      "date": "2026-05-26"
-    }
-  ]
-}
+[
+  { "label": "仕組み", "href": "/how-it-works/" },
+  { "label": "do.meandle", "href": "/do-meandle/" },
+  { "label": "PR", "href": "/pr/" },
+  { "label": "リード獲得", "href": "/get-lead/" },
+  { "label": "採用", "href": "/recruit/" },
+  { "label": "OEM", "href": "/oem/" },
+  { "label": "代理店", "href": "/partner/" },
+  { "label": "Blog", "href": "/blog/" },
+  { "label": "相談する", "href": "/contact/" }
+]

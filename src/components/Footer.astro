@@ -1,35 +1,73 @@
 ---
-import nav from '../data/navigation.json';
-const year = new Date().getFullYear();
+import navItems from '../data/navigation.json';
 ---
 <footer class="site-footer">
-  <div class="container">
-    <div class="site-footer__cols">
-      <div class="site-footer__brand">
-        <h3>Meandle<span class="dot">.</span></h3>
-        <p>広告費を増やす前に、売るべき意味を整える。</p>
-        <p class="note">
-          Meandleは、<a href="https://jagproject.com/" rel="noopener" target="_blank">Jag Yamamoto / Jag Project</a> が開発・監修するB2B意味設計サービスです。
-        </p>
-      </div>
-      <div class="site-footer__col">
-        <h4>サービス</h4>
-        <ul>{nav.footer.services.map((it) => <li><a href={it.href}>{it.label}</a></li>)}</ul>
-      </div>
-      <div class="site-footer__col">
-        <h4>もっと知る</h4>
-        <ul>{nav.footer.more.map((it) => (
-          <li>
-            {it.external
-              ? <a href={it.href} rel="noopener" target="_blank">{it.label} ↗</a>
-              : <a href={it.href}>{it.label}</a>}
-          </li>
-        ))}</ul>
-      </div>
+  <div class="container site-footer__inner">
+    <div class="site-footer__brand">
+      <img src="/images/meandle-logo.png" alt="Meandle" height="28">
+      <p class="site-footer__tagline">広告費を増やす前に、売るべき意味を整える。</p>
+      <p class="site-footer__credit">
+        Meandleは、Jag Yamamoto / Jag Project が開発・監修するB2B意味設計サービスです。
+      </p>
+      <p class="site-footer__credit">
+        <a href="https://jagproject.com/" target="_top" rel="noopener">Jag Project 合同会社</a>
+      </p>
     </div>
-    <div class="site-footer__legal">
-      <span>© {year} Jag Project. All rights reserved.</span>
-      <span>meandle.jp</span>
+    <nav class="site-footer__nav">
+      {navItems.map((item) => (
+        <a href={item.href} class="site-footer__nav-link">{item.label}</a>
+      ))}
+    </nav>
+  </div>
+  <div class="site-footer__bottom">
+    <div class="container">
+      <small>© 2026 Jag Project LLC / Meandle. All rights reserved.</small>
     </div>
   </div>
 </footer>
+
+<style>
+.site-footer {
+  background: var(--dark);
+  color: var(--white);
+  padding: 56px 0 0;
+}
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+}
+.site-footer__brand img { height: 28px; width: auto; filter: brightness(0) invert(1); }
+.site-footer__tagline {
+  font-size: 15px;
+  color: rgba(255,255,255,0.8);
+  margin: 16px 0 8px;
+}
+.site-footer__credit {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 4px;
+}
+.site-footer__credit a { color: var(--ice-blue); }
+.site-footer__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.site-footer__nav-link {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+}
+.site-footer__nav-link:hover { color: var(--hero-orange); }
+.site-footer__bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 16px 0;
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+}
+@media (max-width: 768px) {
+  .site-footer__inner { grid-template-columns: 1fr; }
+}
+</style>

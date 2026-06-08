@@ -1,127 +1,88 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BeforeAfter from '../components/BeforeAfter.astro';
-import PriceCard from '../components/PriceCard.astro';
-import CompareSimulator from '../components/CompareSimulator.astro';
-import FAQCard from '../components/FAQCard.astro';
-
-const title = 'Meandle get lead｜リード獲得専用｜Meandle';
-const description = 'Meandle get lead は、量より商談化率で見るリード獲得の設計サービスです。フォーム項目までみんどり、商談に進む理由を持ったリードを増やします。';
-
-const faqs = [
-  { q: 'リード数の目標を保証してもらえますか。', a: '保証はしません。商談化率を中心指標にして、相談前の段階で誤解を減らす設計をします。' },
-  { q: '広告運用は依頼できますか。', a: '広告そのものの運用代行はしていません。広告から着地する LP とフォームの意味の作りを担当します。広告会社と連携して進めます。' },
-  { q: 'フィーシェア型は可能ですか。', a: '事業内容によって個別にご相談です。商談から成約までの粒度が見える商材で、検討対象になります。' },
-];
 ---
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title="Meandle get lead — 高単価BtoBリード獲得｜Meandle"
+  description="量より商談化率で見るリード獲得の設計サービス。フォーム項目までみんどり、商談に進む理由を持ったリードを増やします。"
+>
   <section class="hero">
-    <div class="container container--narrow">
-      <nav class="breadcrumb"><a href="/">ホーム</a>　/　Meandle get lead</nav>
-      <span class="eyebrow">Meandle get lead</span>
-      <h1>数の多いリードより、<br/>商談に進む理由を持ったリードへ。</h1>
+    <div class="container">
+      <span class="eyebrow hero__eyebrow">Meandle get lead</span>
+      <h1>数の多いリードより、商談に進む理由を持ったリードへ。</h1>
       <p class="lead">資料請求の件数を増やすより、相談前に「自社に合う／合わない」を判断してもらう設計に投資します。フォーム項目までみんどり、相談前の誤解を減らします。</p>
-      <div class="flex-row">
-        <a href="#simulate" class="btn btn--lg">リード獲得を試算する</a>
-        <a href="/contact/" class="btn btn--ghost btn--lg">フォーム設計を相談する</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <h2>対象</h2>
+      <p>平均単価が高いBtoBソリューション、ニッチな専門商材、資料請求サービスや広告の費用対効果に課題がある企業。</p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <h2>メリット</h2>
+      <ul style="font-size:16px; line-height:2; margin-top:16px">
+        <li>リードの量ではなく、商談化の理由を作ります</li>
+        <li>フォーム項目もみんどり、相談前の誤解を減らします</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>3ステップで反映します。</h2>
+      <div class="three-steps">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>URL診断</h3>
+          <p>既存ページのURLを送るだけ。意味のズレを抽出します。</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>みんどりIndex</h3>
+          <p>must / must_not / 典型例 / 反例 を整理し、改善点をスコア化します。</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>ページ反映</h3>
+          <p>社内で運用できる形で納品。AIと顧客に拾われやすい状態へ。</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container container--narrow">
-      <span class="eyebrow">For whom</span>
-      <h2>こんな事業に向きます。</h2>
-      <ul style="line-height:2; font-size:15.5px">
-        <li>平均単価が高い BtoB ソリューション</li>
-        <li>ニッチな専門商材、業界特化型のサービス</li>
-        <li>資料請求サービスや広告の費用対効果に課題がある企業</li>
-        <li>「リードは多いが商談化が低い」状態が続いている事業</li>
-      </ul>
-    </div>
-  </section>
-
   <section class="section section--alt">
-    <div class="container container--narrow">
-      <span class="eyebrow">Symptom</span>
-      <h2>一般的なリード獲得の問題</h2>
-      <BeforeAfter
-        before={{ title: '量を最適化する', body: 'CPL を下げるためにオファーや LP を緩める。結果、相談に来る人の母集団が広がり、商談化率が落ちる。' }}
-        after={{ title: '商談化の理由を最適化する', body: 'must / must_not で対象を明示し、合う人だけが残る設計に。商談化率と平均単価の両方が動く。' }}
-      />
-    </div>
-  </section>
-
-  <section class="section" id="simulate">
     <div class="container">
-      <span class="eyebrow">Simulation</span>
-      <h2>商談化率の改善で、月いくら変わるか。</h2>
-      <CompareSimulator />
-    </div>
-  </section>
-
-  <section class="section section--alt">
-    <div class="container container--narrow">
-      <span class="eyebrow">Deliverables</span>
-      <h2>納品物</h2>
-      <ul style="line-height:2; font-size:15.5px">
-        <li>リード LP のみんどりIndex</li>
-        <li>フォーム項目の再設計（誤解を減らす設計）</li>
-        <li>サンキューページとメール文の改善案</li>
-        <li>商談化率レポート（みんどり値の前後比較）</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <span class="eyebrow">Price</span>
       <h2>料金</h2>
-      <div class="grid grid--2 mt-4">
-        <PriceCard
-          name="1 lead ページ"
-          subtitle="4 〜 8 週間"
-          price="200万円前後"
-          features={[
-            'LP のみんどりIndex',
-            'フォーム項目の再設計',
-            'サンキューページとメール文',
-            '商談化率レポート'
-          ]}
-          ctaLabel="1 ページから相談する"
-          ctaHref="/contact/"
-          featured
-        />
-        <PriceCard
-          name="フィーシェア型"
-          subtitle="商談・成約に応じて設定"
-          price="個別ご相談"
-          features={[
-            '成約粒度が見える商材が対象',
-            '初期費用＋成果連動',
-            '事業状況のヒアリングが前提',
-            '対象は厳選してご相談'
-          ]}
-          ctaLabel="フィーシェア型を相談する"
-          ctaHref="/contact/"
-        />
+      <div class="service-grid" style="margin-top:24px">
+        <div class="service-card">
+          <h3>1 leadページ</h3>
+          <p style="color:var(--muted); font-size:14px">4〜8週間</p>
+          <div class="price">200万円前後</div>
+          <ul style="font-size:14px; color:var(--muted)">
+            <li>LPのみんどりIndex</li>
+            <li>フォーム項目の再設計</li>
+            <li>サンキューページとメール文</li>
+            <li>商談化率レポート</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <h3>フィーシェア型</h3>
+          <p style="color:var(--muted); font-size:14px">成約粒度が見える商材が対象</p>
+          <div class="price">個別ご相談</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--alt">
-    <div class="container container--narrow">
-      <span class="eyebrow">FAQ</span>
-      <h2>よくある問い</h2>
-      <FAQCard items={faqs} />
-    </div>
-  </section>
-
-  <section class="section section--dark">
-    <div class="container container--narrow center">
-      <h2 style="color:#fff">現在の LP を 1 つ、教えてください。</h2>
-      <p style="max-width:560px; margin:14px auto 28px">商談化率を阻んでいる箇所を、無理のない範囲で 30 分壁打ちします。</p>
-      <a href="/contact/" class="btn btn--lg">リード獲得を相談する</a>
+  <section class="cta-block">
+    <h2>現在のLPを1つ、教えてください。</h2>
+    <p>商談化率を阻んでいる箇所を、無理のない範囲で30分壁打ちします。</p>
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap">
+      <a href="/contact/" class="btn btn--primary">リード獲得を試算する</a>
+      <a href="/contact/" class="btn btn--on-dark">フォーム設計を相談する</a>
     </div>
   </section>
 </BaseLayout>

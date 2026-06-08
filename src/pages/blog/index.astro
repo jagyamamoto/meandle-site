@@ -1,53 +1,40 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import nav from '../../data/navigation.json';
 
-const title = 'Self Do.meandle - 検証ノート｜Meandle';
-const description = 'Meandle を使った検証事例を、1 記事 1 テーマで公開します。自社の商材、求人、PR に置き換えて読めるよう、結果だけでなく方法も残します。';
-
-const posts = nav.blog;
+const posts = [
+  {
+    slug: 'temperature-sensing-ink',
+    title: '温度×時間センシングインクは、検索とLLMに「しっかり届く」か',
+    subtitle: '日立産機システムのPRリリースをサンプルに、名称だけの露出と、meandle式iフレームで文脈化した露出の差を、文字バイグラムoverlapで検証する実験記事',
+    category: '仮説シミュレーション',
+    date: '2026-05-26',
+  },
+];
 ---
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title="Self Do.meandle - 検証ノート｜Meandle"
+  description="Meandleを使った検証事例を、1記事1テーマで公開します。"
+>
   <section class="section">
     <div class="container container--narrow">
       <nav class="breadcrumb"><a href="/">ホーム</a>　/　Blog</nav>
       <span class="eyebrow">Self Do.meandle</span>
-      <h1>検証ノート</h1>
-      <p class="lead">Meandle を使った検証事例を、1 記事 1 テーマで公開します。<br/>自社の商材、求人、PR に置き換えて読めるよう、結果だけでなく方法も残します。</p>
+      <h1>Self Do.meandle - 検証ノート</h1>
+      <p class="lead">Meandleを使った検証事例を、1記事1テーマで公開します。<br/>自社の商材、求人、PRに置き換えて読めるよう、<br/>結果だけでなく方法も残します。</p>
 
-      <div class="post-cards mt-6">
+      <div style="display:grid; gap:18px; margin-top:48px">
         {posts.map((p) => (
-          <a class="post-card" href={`/blog/${p.slug}/`}>
-            <div class="post-card__meta">
-              <span class="badge badge--accent">{p.category}</span>
-              <span class="post-card__date">{p.date}</span>
+          <a class="service-card" href={`/blog/${p.slug}/`}>
+            <div style="display:flex; gap:10px; align-items:center; font-size:12px; margin-bottom:10px">
+              <span class="badge">{p.category}</span>
+              <span style="color:var(--muted); margin-left:auto">{p.date}</span>
             </div>
-            <h3 class="post-card__title">{p.title}</h3>
-            <p class="post-card__sub">{p.subtitle}</p>
-            <span class="post-card__more">記事を読む →</span>
+            <h3>{p.title}</h3>
+            <p style="color:var(--muted); font-size:14px">{p.subtitle}</p>
+            <span>記事を読む →</span>
           </a>
         ))}
       </div>
     </div>
   </section>
 </BaseLayout>
-
-<style is:inline>
-  .post-cards { display: grid; gap: 18px; }
-  .post-card {
-    display: block;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 22px 24px;
-    text-decoration: none;
-    color: var(--ink);
-    transition: border-color .15s ease, box-shadow .15s ease;
-  }
-  .post-card:hover { border-color: var(--accent); box-shadow: var(--shadow); color: var(--ink); }
-  .post-card__meta { display: flex; gap: 10px; align-items: center; font-size: 12px; margin-bottom: 10px; }
-  .post-card__date { color: var(--muted); }
-  .post-card__title { font-size: 19px; margin: 6px 0 8px; line-height: 1.55; }
-  .post-card__sub { font-size: 14px; color: var(--muted); margin: 0 0 14px; line-height: 1.85; }
-  .post-card__more { font-size: 13px; color: var(--accent); font-weight: 700; }
-</style>

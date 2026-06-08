@@ -1,12 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import nav from '../data/navigation.json';
-import ThreeStepFlow from '../components/ThreeStepFlow.astro';
-import CompareSimulator from '../components/CompareSimulator.astro';
-import MindoriMeter from '../components/MindoriMeter.astro';
-import FAQCard from '../components/FAQCard.astro';
 
-const services = nav.services;
+const services = [
+  { name: 'do.meandle',          tag: '専門商材・既存ページ改善', price: '50万円〜',          href: '/do-meandle/' },
+  { name: 'Meandle PR',          tag: 'PR・記事化・AI引き当て',   price: '50万円〜',          href: '/pr/' },
+  { name: 'Meandle get lead',    tag: '高単価BToBリード獲得',     price: '200万円前後',       href: '/get-lead/' },
+  { name: 'Meandle recruit',     tag: '採用・求人票改善',         price: '50万円〜/求人項目', href: '/recruit/' },
+  { name: 'Meandle OEM',         tag: '技術・エンジン提供',       price: '要見積もり',        href: '/oem/' },
+  { name: '認定代理店制度',      tag: '制作会社・代理店向け',     price: '要見積もり',        href: '/partner/' },
+];
 
 const faqs = [
   { q: 'MeandleはSEO対策ですか。', a: 'SEOだけではありません。検索順位を直接保証するサービスではなく、商品、PR、求人の意味を整理し、AIと顧客に誤解されにくいページへ整えるサービスです。' },
@@ -17,146 +19,113 @@ const faqs = [
 ];
 ---
 <BaseLayout>
-
-  <!-- 1. Hero -->
   <section class="hero">
     <div class="container">
-      <span class="eyebrow">B2B Meaning Design / Meandle</span>
-      <h1>広告費を増やす前に、<br/>AIと見込み客が拾える<br class="d-sp"/>「<span style="color:var(--accent)">売る意味</span>」を整える。</h1>
+      <span class="eyebrow hero__eyebrow">Business Meaning Design / Meandle</span>
+      <h1>広告費を増やす前に、<br/>AIと見込み客が拾える「売る意味」を整える。</h1>
       <p class="lead">Meandleは、専門商材、PR、求人票の内容を、AIと見込み客に誤解されにくい形へ整えるサービスです。既存URLを診断し、みんどり値で改善点を見える化します。</p>
-      <div class="flex-row">
-        <a href="/contact/" class="btn btn--lg">既存URLで診断する</a>
-        <a href="#simulate" class="btn btn--ghost btn--lg">費用対効果を試算する</a>
-      </div>
-      <div class="badges">
-        <span class="badge badge--accent">既存URLから開始</span>
-        <span class="badge badge--accent">みんどり値で可視化</span>
-        <span class="badge badge--warn">特許出願関連技術</span>
+      <div class="hero__badges">
+        <span class="badge">既存URLから開始</span>
+        <span class="badge">みんどり値で可視化</span>
+        <span class="badge">特許出願関連技術</span>
         <span class="badge">BtoB支援実績あり</span>
       </div>
+      <div class="hero__cta-group">
+        <a href="/contact/" class="btn btn--primary">既存URLで診断する</a>
+        <a href="/contact/" class="btn btn--secondary">費用対効果を試算する</a>
+      </div>
     </div>
   </section>
 
-  <!-- 2. 悩み -->
   <section class="section section--alt">
-    <div class="container container--narrow center">
-      <span class="eyebrow">Symptom</span>
-      <h2>広告、資料請求、求人媒体。<br/>増やすほど、ズレも増えていませんか。</h2>
-      <p class="lead">予算を増やしても、商談化率は上がらない。<br/>応募は来るが、ミスマッチが減らない。<br/>その原因は、量ではなく、ページ側の「意味の作り」にあります。</p>
+    <div class="container container--narrow">
+      <h2>広告、資料請求、求人媒体。増やすほど、ズレも増えていませんか。</h2>
+      <p>広告費を足しても、商談にならないリードが増えるだけ。<br/>資料請求サービスに出しても、温度の低い問い合わせが来るだけ。<br/>求人媒体を増やしても、ミスマッチが増えるだけ。</p>
+      <p>原因は施策の量ではありません。<br/>「何を売っているか」の意味が、AIにも顧客にも正確に届いていないことです。</p>
     </div>
   </section>
 
-  <!-- 3. 解決 -->
-  <section class="section">
-    <div class="container container--narrow center">
-      <span class="eyebrow">Approach</span>
-      <h2>意味を分ける。ズレを消す。<br/>AIに拾われる形にする。</h2>
-      <p class="lead">Meandle は、ページの中の「言うべきこと」と「決して誤解されたくないこと」を、別の項目として整理します。AI も見込み客も、同じ意味で読めるページへ整え直します。</p>
-    </div>
-  </section>
-
-  <!-- 4. 3 Step -->
-  <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">How</span>
-      <h2>3 ステップで、意味を整える。</h2>
-      <ThreeStepFlow />
-    </div>
-  </section>
-
-  <!-- 5. サービス一覧 -->
   <section class="section">
     <div class="container">
-      <span class="eyebrow">Services</span>
-      <h2>目的別に、6 つの入り口があります。</h2>
-      <div class="grid grid--3 mt-4">
+      <h2>意味を分ける。ズレを消す。AIに拾われる形にする。</h2>
+      <div class="three-steps">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>URL診断</h3>
+          <p>既存ページのURLを送るだけ。意味のズレを抽出します。</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>みんどりIndex</h3>
+          <p>must / must_not / 典型例 / 反例 を整理し、改善点をスコア化します。</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>ページ反映</h3>
+          <p>社内で運用できる形で納品。AIと顧客に拾われやすい状態へ。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2>目的別に選べるMeandleサービス</h2>
+      <div class="service-grid" style="margin-top:24px">
         {services.map((s) => (
-          <a href={s.href} class="svc-card">
-            <h3 class="svc-card__name">{s.label}</h3>
-            <p class="svc-card__desc">{s.desc}</p>
-            <span class="svc-card__more">詳細を見る →</span>
+          <a href={s.href} class="service-card">
+            <h3>{s.name}</h3>
+            <p style="color:var(--muted); font-size:14px">{s.tag}</p>
+            <div class="price">{s.price}</div>
+            <span>詳しくみる →</span>
           </a>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- 6. シミュレーション -->
-  <section class="section section--alt" id="simulate">
-    <div class="container">
-      <span class="eyebrow">Simulation</span>
-      <h2>商談化率が 50% 改善した場合の試算。</h2>
-      <div class="grid grid--2 mt-4" style="align-items:start">
-        <CompareSimulator />
-        <div>
-          <h3 style="margin-top:0">みんどり値で、改善点を数値化</h3>
-          <p class="muted">既存ページの「意味の作り」を 100 点満点でスコア化します。must、must_not、典型例、反例の 4 軸での欠落をひと目で確認できます。</p>
-          <div class="mt-3">
-            <MindoriMeter value={42} label="現状の例" caption="must_not が空欄、典型例が不足" />
-          </div>
-          <div class="mt-2">
-            <MindoriMeter value={86} label="改善後の例" caption="4 軸が揃い、AI が拾いやすい状態に" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. 根拠 -->
   <section class="section">
-    <div class="container container--narrow">
-      <span class="eyebrow">Background</span>
+    <div class="container">
+      <span class="eyebrow">Evidence</span>
       <h2>研究と実装から生まれた、意味照合の技術です。</h2>
-      <p>Meandle は、Jag Yamamoto / Jag Project が、BtoB Web マーケティングの実装と検証を 6 年以上積み重ねてきた中で体系化したものです。</p>
-      <p>意味設計と検索文脈の整合に関する方法について、特許出願中の技術です。武蔵野美術大学では、非常勤講師として意味設計と表現の接続を実践的に指導しています。</p>
-      <p class="muted" style="font-size:13px">※ 数値や事例は内部検証に基づくものを含みます。すべての事業・検索環境で同じ結果を保証するものではありません。</p>
+      <p>Top-1 正解率（同一クエリ集合に対する、Before/Afterの比較）</p>
+      <div style="max-width:720px; margin-top:20px">
+        <div class="evidence-bar evidence-bar--before">
+          <span style="min-width:200px">Before（名称のみ）</span>
+          <span>63.3%</span>
+        </div>
+        <div class="evidence-bar evidence-bar--after">
+          <span style="min-width:200px">After（8フィールド適用）</span>
+          <span>90.0%</span>
+        </div>
+        <p style="font-size:13px; color:var(--muted); margin-top:12px">
+          Boschloo検定 p=0.015 / Cohen's h=0.657
+        </p>
+      </div>
+      <div class="note">
+        ※この数値は特定条件下の内部検証です。すべての事業・検索環境で同じ結果を保証するものではありません。
+      </div>
+      <p style="margin-top:24px"><a href="/how-it-works/">詳しい仕組みと検証 →</a></p>
     </div>
   </section>
 
-  <!-- 8. FAQ -->
   <section class="section section--alt">
     <div class="container container--narrow">
-      <span class="eyebrow">FAQ</span>
       <h2>よくある問い</h2>
-      <FAQCard items={faqs} />
-    </div>
-  </section>
-
-  <!-- 9. 最終CTA -->
-  <section class="section section--dark">
-    <div class="container container--narrow center">
-      <span class="eyebrow" style="color:#ffc47e">Contact</span>
-      <h2 style="color:#fff">まずは、既存URLを1つ送ってください。</h2>
-      <p style="max-width:560px; margin:14px auto 28px">提案や売り込みはしません。事業のページの意味を整理する壁打ちとして使ってください。</p>
-      <div class="flex-row" style="justify-content:center">
-        <a href="/contact/" class="btn btn--lg">既存URLで診断する</a>
-        <a href="/do-meandle/" class="btn btn--ghost-light btn--lg">do.meandle を見る</a>
+      <div style="margin-top:24px">
+        {faqs.map((f) => (
+          <div class="faq-item">
+            <div class="faq-q">{f.q}</div>
+            <div class="faq-a">{f.a}</div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
+  <section class="cta-block">
+    <h2>まずは、既存URLを1つ送ってください。</h2>
+    <p>提案や売り込みはしません。事業のページの意味を整理する壁打ちとして使ってください。</p>
+    <a href="/contact/" class="btn btn--primary">既存URLで診断する</a>
+  </section>
 </BaseLayout>
-
-<style is:inline>
-  .d-sp { display: none; }
-  @media (max-width: 640px) { .d-sp { display: inline; } }
-  .svc-card {
-    display: block;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 22px 22px 18px;
-    text-decoration: none;
-    color: var(--ink);
-    transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
-  }
-  .svc-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-    color: var(--ink);
-  }
-  .svc-card__name { margin: 0 0 4px; font-size: 17px; color: var(--accent-deep); }
-  .svc-card__desc { margin: 0 0 14px; font-size: 14px; color: var(--muted); }
-  .svc-card__more { font-size: 13px; color: var(--accent); font-weight: 700; }
-</style>

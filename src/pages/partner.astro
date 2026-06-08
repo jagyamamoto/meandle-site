@@ -1,76 +1,42 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import FAQCard from '../components/FAQCard.astro';
-
-const title = 'Meandle認定代理店制度｜パートナー｜Meandle';
-const description = '感覚提案から、みんどり値で説明できる提案へ。Web 制作・広告・PR・採用支援・コンサル各社向けのパートナー制度です。';
-
-const faqs = [
-  { q: '認定にかかる期間と費用は。', a: '初期研修は 2 〜 4 週間です。費用は領域・規模により個別にご相談です。' },
-  { q: 'クライアントへの提供価格は決まっていますか。', a: '参考価格はありますが、貴社の提案体系に合わせて設定可能です。' },
-  { q: 'みんどりツールはどう提供されますか。', a: '認定代理店向けのみんどりIndex テンプレートと運用ガイドを提供します。社内研修も含みます。' },
-];
 ---
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title="認定代理店制度 — 制作会社・代理店向け｜Meandle"
+  description="提案を感覚から、みんどり値で説明できる形へ。Web 制作・広告・PR・採用支援・コンサル各社向けのパートナー制度です。"
+>
   <section class="hero">
-    <div class="container container--narrow">
-      <nav class="breadcrumb"><a href="/">ホーム</a>　/　認定代理店</nav>
-      <span class="eyebrow">Partner</span>
-      <h1>提案を感覚から、<br/>みんどり値で説明できる形へ。</h1>
+    <div class="container">
+      <span class="eyebrow hero__eyebrow">Partner</span>
+      <h1>提案を感覚から、みんどり値で説明できる形へ。</h1>
       <p class="lead">Web 制作・広告・PR・採用支援・コンサル各社が、クライアント提案時に「なぜこのページを改善するべきか」を数値と構造で説明できる状態を作ります。</p>
-      <div class="flex-row">
-        <a href="/contact/" class="btn btn--lg">代理店制度を相談する</a>
-      </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container container--narrow">
-      <span class="eyebrow">For whom</span>
       <h2>対象</h2>
-      <ul style="line-height:2; font-size:15.5px">
-        <li>Web 制作会社</li>
-        <li>広告代理店</li>
-        <li>PR 会社</li>
-        <li>採用支援会社</li>
-        <li>BtoB コンサルティング会社</li>
-      </ul>
+      <p>Web制作会社、広告代理店、PR会社、採用支援会社、BtoBコンサルティング会社。</p>
     </div>
   </section>
 
   <section class="section section--alt">
     <div class="container container--narrow">
-      <span class="eyebrow">Symptom</span>
-      <h2>代理店側の課題</h2>
-      <ul style="line-height:2; font-size:15.5px">
-        <li>クライアントに「なぜ改善が必要か」を数字で説明できない</li>
-        <li>制作物の良し悪しが、最終的にクライアントの好みに寄りがち</li>
-        <li>運用後の効果検証で、議論の起点がない</li>
+      <h2>メリット</h2>
+      <ul style="font-size:16px; line-height:2; margin-top:16px">
+        <li>クライアント提案時に、ページ改善を数値で説明できます</li>
+        <li>みんどりツールの提供を受けられます</li>
       </ul>
     </div>
   </section>
 
   <section class="section">
     <div class="container container--narrow">
-      <span class="eyebrow">Value</span>
-      <h2>認定でできること</h2>
-      <ul style="line-height:2; font-size:15.5px">
-        <li>みんどり値で提案根拠を数値化できる</li>
-        <li>みんどりツール（Index テンプレート＋運用ガイド）を社内で使える</li>
-        <li>共同提案で、上位レイヤーの相談を取りに行ける</li>
-        <li>事例・教材を、貴社名義で活用できる</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section section--alt">
-    <div class="container container--narrow">
-      <span class="eyebrow">Tools & Training</span>
-      <h2>提供ツール／研修・共同提案</h2>
-      <ul style="line-height:2; font-size:15.5px">
+      <h2>提供ツール・研修</h2>
+      <ul style="font-size:16px; line-height:2; margin-top:16px">
         <li>みんどりIndex テンプレート（パートナー版）</li>
         <li>運用ガイド・チェックリスト</li>
-        <li>初期研修（2 〜 4 週間、社内向け）</li>
+        <li>初期研修（2〜4 週間、社内向け）</li>
         <li>共同提案サポート（年数件）</li>
       </ul>
     </div>
@@ -78,17 +44,17 @@ const faqs = [
 
   <section class="section section--alt">
     <div class="container container--narrow">
-      <span class="eyebrow">FAQ</span>
-      <h2>よくある問い</h2>
-      <FAQCard items={faqs} />
+      <h2>料金</h2>
+      <div class="service-card" style="max-width:380px">
+        <h3>要見積もり</h3>
+        <p style="color:var(--muted); font-size:14px; margin-bottom:0">業態・規模・主なクライアント像に応じて個別に組みます</p>
+      </div>
     </div>
   </section>
 
-  <section class="section section--dark">
-    <div class="container container--narrow center">
-      <h2 style="color:#fff">パートナー要件を、お送りください。</h2>
-      <p style="max-width:560px; margin:14px auto 28px">業態・規模・主なクライアント像を伺ったうえで、最適な制度を組みます。</p>
-      <a href="/contact/" class="btn btn--lg">代理店制度を相談する</a>
-    </div>
+  <section class="cta-block">
+    <h2>パートナー要件を、お送りください。</h2>
+    <p>業態・規模・主なクライアント像を伺ったうえで、最適な制度を組みます。</p>
+    <a href="/contact/" class="btn btn--primary">代理店制度を相談する</a>
   </section>
 </BaseLayout>

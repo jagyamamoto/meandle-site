@@ -1,21 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const title = 'お問い合わせ｜Meandle';
-const description = 'まずは、既存URLを 1 つ送ってください。提案や売り込みはしません。事業のページの意味を整理する壁打ちとして使ってください。';
-
-// SSGform の送信先 — 実 URL が決まったらここを書き換える
 const FORM_ENDPOINT = '#';
 ---
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title="お問い合わせ｜Meandle"
+  description="まずは、既存URLを1つ送ってください。提案や売り込みはしません。事業のページの意味を整理する壁打ちとして使ってください。"
+>
   <section class="section">
     <div class="container container--narrow">
       <nav class="breadcrumb"><a href="/">ホーム</a>　/　お問い合わせ</nav>
       <span class="eyebrow">Contact</span>
-      <h1>まずは、既存URLを 1 つ送ってください。</h1>
+      <h1>まずは、既存URLを1つ送ってください。</h1>
       <p class="lead">提案や売り込みはしません。<br/>事業のページの意味を整理する壁打ちとして使ってください。</p>
 
-      <form class="form mt-6" action={FORM_ENDPOINT} method="POST">
+      <form class="form" style="margin-top:32px" action={FORM_ENDPOINT} method="POST">
         <div class="form-field">
           <label for="company">会社名 <span class="req">必須</span></label>
           <input id="company" name="会社名" type="text" required autocomplete="organization"/>
@@ -29,8 +28,8 @@ const FORM_ENDPOINT = '#';
           <input id="email" name="メールアドレス" type="email" required autocomplete="email"/>
         </div>
         <div class="form-field">
-          <label for="url">対象URL <span class="muted" style="font-weight:400; font-size:11px">（任意・URLがない場合でも相談できます）</span></label>
-          <input id="url" name="対象URL" type="url" placeholder="https://..." />
+          <label for="url">対象URL <span class="opt">（任意・URLがない場合でも相談できます）</span></label>
+          <input id="url" name="対象URL" type="url" placeholder="https://..."/>
         </div>
         <div class="form-field">
           <label for="type">相談区分 <span class="req">必須</span></label>
@@ -45,33 +44,31 @@ const FORM_ENDPOINT = '#';
           </select>
         </div>
         <div class="form-field">
-          <label>現在使っている施策 <span class="muted" style="font-weight:400; font-size:11px">（任意・複数選択可）</span></label>
+          <label>現在使っている施策 <span class="opt">（任意・複数選択可）</span></label>
           <div class="checkbox-row">
-            <label><input type="checkbox" name="施策" value="広告" /> 広告</label>
-            <label><input type="checkbox" name="施策" value="資料請求サービス" /> 資料請求サービス</label>
-            <label><input type="checkbox" name="施策" value="展示会" /> 展示会</label>
-            <label><input type="checkbox" name="施策" value="求人媒体" /> 求人媒体</label>
-            <label><input type="checkbox" name="施策" value="人材紹介" /> 人材紹介</label>
-            <label><input type="checkbox" name="施策" value="PR配信" /> PR 配信</label>
-            <label><input type="checkbox" name="施策" value="その他" /> その他</label>
+            <label><input type="checkbox" name="施策" value="広告"/> 広告</label>
+            <label><input type="checkbox" name="施策" value="資料請求サービス"/> 資料請求サービス</label>
+            <label><input type="checkbox" name="施策" value="展示会"/> 展示会</label>
+            <label><input type="checkbox" name="施策" value="求人媒体"/> 求人媒体</label>
+            <label><input type="checkbox" name="施策" value="人材紹介"/> 人材紹介</label>
+            <label><input type="checkbox" name="施策" value="PR配信"/> PR配信</label>
+            <label><input type="checkbox" name="施策" value="その他"/> その他</label>
           </div>
         </div>
         <div class="form-field">
-          <label for="budget">月額費用または年間費用 <span class="muted" style="font-weight:400; font-size:11px">（任意・数字が分からなくても相談できます）</span></label>
-          <input id="budget" name="費用" type="text" placeholder="例：月 300 万円 / 年 4,000 万円" />
+          <label for="budget">月額費用または年間費用 <span class="opt">（任意）</span></label>
+          <input id="budget" name="費用" type="text" placeholder="例：月300万円 / 年4,000万円"/>
         </div>
         <div class="form-field">
-          <label for="msg">自由記述 <span class="muted" style="font-weight:400; font-size:11px">（任意）</span></label>
+          <label for="msg">自由記述 <span class="opt">（任意）</span></label>
           <textarea id="msg" name="自由記述" rows="6" placeholder="現在の状況や、感じている課題などを率直にお書きください。"></textarea>
         </div>
         <input type="hidden" name="送信元" value="meandle.jp/contact/"/>
-        <button type="submit" class="btn btn--lg">送信する</button>
-        <p class="muted" style="font-size:12.5px; margin-top:0">送信前に、当ページ末尾の取り扱いについて同意いただいたものとみなします。</p>
+        <button type="submit" class="btn btn--primary">送信する</button>
       </form>
 
-      <hr style="margin:48px 0 32px; border:0; border-top:1px solid var(--line)"/>
-      <h3 style="font-size:16px">取り扱いについて</h3>
-      <p class="muted" style="font-size:13px; margin-bottom:0">いただいたご相談内容は、ご返信およびサービス案内の目的のみに使用し、第三者への提供は行いません。</p>
+      <hr style="margin:48px 0 24px; border:0; border-top:1px solid rgba(18,36,44,0.1)"/>
+      <p class="muted" style="font-size:13px; color:var(--muted); margin-bottom:0">いただいたご相談内容は、ご返信およびサービス案内の目的のみに使用し、第三者への提供は行いません。</p>
     </div>
   </section>
 </BaseLayout>
