@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ThreeStepFlow from '../components/ThreeStepFlow.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import PriceCard from '../components/PriceCard.astro';
+import FAQCard from '../components/FAQCard.astro';
+
+const title = 'do.meandle｜既存ページ改善・汎用 ｜Meandle';
+const description = 'do.meandle は、既存URLから始める意味設計サービスです。must / must_not を分けて、説明が難しい商材ほど差が出る1ページを設計します。';
+
+const faqs = [
+  { q: '既存ページがあれば、どんな商材でも対応できますか。', a: '専門商材・BtoBサービス・説明に時間がかかる商品を中心にしています。既存ページがある場合は診断から始めるのが最短です。' },
+  { q: '何ページから依頼できますか。', a: '単発は 1 ページから可能です。複数ページの統合や運用設計が必要な場合は伴走型をご案内します。' },
+  { q: '社内で運用できる形で残りますか。', a: 'はい。みんどりIndex と運用メモを納品します。次回更新時に判断軸として使える状態で渡します。' },
+];
+---
+<BaseLayout title={title} description={description}>
+  <section class="hero">
+    <div class="container container--narrow">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　do.meandle</nav>
+      <span class="eyebrow">do.meandle</span>
+      <h1>説明が難しい商材ほど、<br/>1ページで差が出ます。</h1>
+      <p class="lead">既存ページの意味を分けて、誤解と機会損失を減らします。must、must_not、典型例、反例の 4 つに整理し、AI と見込み客の双方に拾われやすい状態を作ります。</p>
+      <div class="flex-row">
+        <a href="/contact/" class="btn btn--lg">1 ページだけ診断する</a>
+        <a href="#price" class="btn btn--ghost btn--lg">伴走プランを相談する</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">For whom</span>
+      <h2>こんなページに向きます。</h2>
+      <ul style="line-height:2; font-size:15.5px">
+        <li>専門商材、BtoB サービス、説明に時間がかかる商品</li>
+        <li>営業資料と Web 表現がずれている企業</li>
+        <li>資料請求はあるが、商談化までに離脱が多いページ</li>
+        <li>名前のない価値・新しい用途を持つ商品</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Before / After</span>
+      <h2>意味の作りを変えると、ページの受け取られ方が変わります。</h2>
+      <BeforeAfter
+        before={{ title: '機能と価値が並列で並ぶ', body: '担当者は「何が違うのか」を読み取れず、社内稟議で曖昧に説明される。AI 検索は文脈を組み立てられず、要約から外れる。' }}
+        after={{ title: 'must / must_not で輪郭が立つ', body: '担当者は「自社に合う／合わない」を一読で判断できる。AI は意味の島として認識し、引用に拾いやすい状態になる。' }}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">How</span>
+      <h2>3 ステップで反映します。</h2>
+      <ThreeStepFlow />
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Deliverables</span>
+      <h2>納品物</h2>
+      <ul style="line-height:2; font-size:15.5px">
+        <li>みんどりIndex（must / must_not / 典型例 / 反例 の整理シート）</li>
+        <li>改善前後の比較レポート（みんどり値スコア付き）</li>
+        <li>修正案テキスト（LP 本文、見出し、FAQ）</li>
+        <li>運用メモ（次回更新時の判断軸）</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="price">
+    <div class="container">
+      <span class="eyebrow">Price</span>
+      <h2>料金</h2>
+      <div class="grid grid--2 mt-4">
+        <PriceCard
+          name="単発"
+          subtitle="1 ページ／3 週間"
+          price="50万円〜"
+          features={[
+            '既存URL の診断',
+            'みんどりIndex の作成',
+            '修正案テキスト',
+            '運用メモの納品'
+          ]}
+          ctaLabel="1 ページだけ相談する"
+          ctaHref="/contact/"
+        />
+        <PriceCard
+          name="伴走型"
+          subtitle="3 ヶ月〜"
+          price="月 120 万円〜"
+          features={[
+            '月次でのページ更新',
+            '複数ページの統合設計',
+            '社内ワークショップ',
+            '運用ガイドの内製化支援'
+          ]}
+          ctaLabel="伴走プランを相談する"
+          ctaHref="/contact/"
+          featured
+        />
+      </div>
+      <p class="muted mt-3" style="font-size:13px">金額は下限です。対象ページ数、関係者数、調査範囲により個別に設計します。</p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">FAQ</span>
+      <h2>よくある問い</h2>
+      <FAQCard items={faqs} />
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container container--narrow center">
+      <h2 style="color:#fff">既存URL を 1 つ、教えてください。</h2>
+      <p style="max-width:560px; margin:14px auto 28px">そのページの意味の作りを、無理のない範囲で 30 分壁打ちします。</p>
+      <a href="/contact/" class="btn btn--lg">既存URLで診断する</a>
+    </div>
+  </section>
+</BaseLayout>

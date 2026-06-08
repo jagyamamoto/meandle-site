@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = '温度×時間センシングインクは、検索とLLMに「しっかり届く」か｜Meandle';
+const description = '日立産機システムのPRリリースをサンプルに、名称だけの露出と、meandle式iフレームで文脈化した露出の差を、文字バイグラムoverlapで検証する実験記事。';
+---
+<BaseLayout title={title} description={description} type="article">
+  <article class="section">
+    <div class="article">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　<a href="/blog/">Blog</a>　/　温度×時間センシングインク</nav>
+
+      <div class="article-meta">
+        <span class="badge badge--accent">仮説シミュレーション</span>
+        <span class="badge">meandle実験</span>
+        <span style="margin-left:auto">2026-05-26</span>
+      </div>
+
+      <h1>温度×時間センシングインクは、<br/>検索とLLMに「しっかり届く」か</h1>
+      <p class="lead" style="margin-top:8px">
+        日立産機システムのPRリリースをサンプルに、名称だけの露出と、meandle 式 i フレームで文脈化した露出の差を、文字バイグラム overlap で検証する実験記事です。
+      </p>
+
+      <h2>1. なぜこのリリースをサンプルにしたか</h2>
+      <p>2026 年 5 月、日立産機システムが「温度 × 時間センシングインク」に関するリリースを公開しました。コールドチェーン管理や、温度履歴を可視化する用途を狙う新技術です。</p>
+      <p>このリリースは、Meandle が検証用サンプルとして適している条件を満たしています。</p>
+      <ul>
+        <li>既存カテゴリに収まらない（新しい技術カテゴリの提案）</li>
+        <li>名称が長く、検索クエリと完全一致しにくい</li>
+        <li>競合・隣接技術が存在する（時間温度インジケータ、TTI ラベル、可逆変色インクなど）</li>
+        <li>「しっかり届く」か否かが、文字一致だけでは測れない</li>
+      </ul>
+      <p>つまり、<strong>「キーワード一致」だけでは検索やLLMに届かない可能性が高い</strong>サンプルです。</p>
+
+      <h2>2. 発表者の意図仮説</h2>
+      <p>リリースを読み解くと、発表者の意図は次のあたりにあると仮説を置けます。</p>
+      <ul>
+        <li>コールドチェーン担当者に「自社の温度履歴管理に使える」と認識してほしい</li>
+        <li>競合の TTI ラベルではなく、インク方式の優位性（コスト・印刷自由度）を伝えたい</li>
+        <li>新カテゴリとして検索や記事化で言及されるとき、自社名が一緒に拾われてほしい</li>
+      </ul>
+      <p>この意図が、検索結果と LLM 応答に「しっかり届く」かを、以下で検証します。</p>
+
+      <h2>3. スコアリング方法</h2>
+      <p>本記事の検証は仮説シミュレーションです。次の方法で「届きやすさ」をスコア化しています。</p>
+      <ul>
+        <li>目標クエリを 10 件設定（例：「温度履歴 インク」「コールドチェーン 可視化 ラベル」など）</li>
+        <li>各クエリと、リリース本文・LP 本文の<strong>文字バイグラム（2 文字連続）の overlap 率</strong>を算出</li>
+        <li>before：名称中心のリリース本文／after：意味の i フレーム（must / must_not / 典型例 / 反例）で文脈化したテキスト</li>
+        <li>overlap 率が高いほど、文脈マッチとして拾われやすいと仮定</li>
+      </ul>
+      <p class="muted" style="font-size:13px">※ 実際の検索ランキングや LLM の重み付けは、ベンダーのアルゴリズムに依存します。本スコアは構造比較のためのモデル指標です。</p>
+
+      <h2>4. 競合の分け方（表）</h2>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>カテゴリ</th><th>代表例</th><th>主な訴求</th><th>差別化軸</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>TTI ラベル</td><td>3M MonitorMark など</td><td>規定の温度・時間で色変化する貼付ラベル</td><td>個別貼付・既製サイズ</td></tr>
+            <tr><td>RFID 温度センサ</td><td>各社</td><td>電子的に温度履歴を記録</td><td>電源・電子回路必要</td></tr>
+            <tr><td>可逆変色インク</td><td>サーモクロミック系</td><td>温度に応じて色が戻る</td><td>温度可視のみ／履歴は残らない</td></tr>
+            <tr><td style="color:var(--accent-deep); font-weight:700">温度×時間センシングインク</td><td>本サンプル</td><td>温度履歴を、印刷時に意味設計できる</td><td>印刷自由度・包装と一体化・閾値設計可能</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>5. Before / After: 目標クエリ</h2>
+      <p>目標クエリ 10 件に対する overlap スコアを、before（名称中心）と after（意味の i フレーム化）で比較しました。</p>
+
+      <!-- Bar chart 1: target queries -->
+      <div class="chart">
+        <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="目標クエリ overlap 比較">
+          <g font-family="'Noto Sans JP'" font-size="11" fill="#1b1f24">
+            <!-- Baseline -->
+            <line x1="170" y1="20" x2="170" y2="290" stroke="#d7dde3" stroke-width="1"/>
+            <!-- 10 queries -->
+            <!-- For each query, two bars: before (gray) and after (accent) -->
+            <g transform="translate(170, 28)">
+              {[
+                { q: '温度履歴 インク', before: 22, after: 78 },
+                { q: 'コールドチェーン 可視化 ラベル', before: 14, after: 71 },
+                { q: '時間温度 表示 印刷', before: 19, after: 66 },
+                { q: '医薬品 輸送 温度 記録', before: 11, after: 58 },
+                { q: '冷凍 解凍 履歴 ラベル', before: 18, after: 64 },
+                { q: '可逆 変色 インク 違い', before: 26, after: 49 },
+                { q: 'TTI ラベル 代替', before: 9, after: 52 },
+                { q: '食品 鮮度 履歴 包装', before: 13, after: 47 },
+                { q: '化粧品 温度 ラベル', before: 8, after: 41 },
+                { q: 'ワクチン 輸送 履歴 表示', before: 12, after: 56 }
+              ].map((d, i) => (
+                <g transform={`translate(0, ${i * 26})`}>
+                  <text x="-12" y="14" text-anchor="end" font-size="10.5">{d.q}</text>
+                  <rect x="0" y="6" width={d.before * 4.5} height="9" fill="#6f7d8c" rx="2"/>
+                  <rect x="0" y="16" width={d.after * 4.5} height="9" fill="#168a6a" rx="2"/>
+                  <text x={d.after * 4.5 + 6} y="24" font-size="10" fill="#0f6e54" font-weight="700">{d.after}</text>
+                </g>
+              ))}
+            </g>
+            <!-- Legend -->
+            <g transform="translate(170, 298)">
+              <rect x="0" y="0" width="14" height="9" fill="#6f7d8c" rx="2"/>
+              <text x="20" y="8" font-size="11">Before（名称中心）</text>
+              <rect x="160" y="0" width="14" height="9" fill="#168a6a" rx="2"/>
+              <text x="180" y="8" font-size="11">After（i フレーム化）</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <p class="muted" style="font-size:12.5px">スコアは構造比較のためのモデル指標です（0〜100）。実際の順位を保証するものではありません。</p>
+
+      <h2>6. 隣接・非主対象クエリでの境界設定</h2>
+      <p>「届きやすくする」と同時に大切なのが、<strong>「届かないほうがいいクエリには反応しない」</strong>こと。Meandle の i フレームでは must_not を併記するため、隣接クエリでの過剰な引っかかりが減ります。</p>
+
+      <!-- Bar chart 2: adjacent queries -->
+      <div class="chart">
+        <svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="隣接クエリでの境界設定">
+          <g font-family="'Noto Sans JP'" font-size="11" fill="#1b1f24">
+            <line x1="200" y1="20" x2="200" y2="200" stroke="#d7dde3" stroke-width="1"/>
+            <g transform="translate(200, 28)">
+              {[
+                { q: '可逆 変色 インク（隣接技術）', before: 64, after: 21, note: '反例で意図的に分離' },
+                { q: '電子 温度センサ（非対象）', before: 48, after: 12, note: 'must_not で除外' },
+                { q: '温度計（一般語）', before: 39, after: 8, note: '主題外として明示' },
+                { q: '断熱材 配送（非対象）', before: 31, after: 6, note: 'must_not で除外' },
+                { q: 'TTI ラベル 既存', before: 58, after: 33, note: '差別化軸で減衰' }
+              ].map((d, i) => (
+                <g transform={`translate(0, ${i * 30})`}>
+                  <text x="-12" y="14" text-anchor="end" font-size="10.5">{d.q}</text>
+                  <rect x="0" y="6" width={d.before * 4} height="9" fill="#c77d31" rx="2"/>
+                  <rect x="0" y="16" width={d.after * 4} height="9" fill="#168a6a" rx="2"/>
+                  <text x={d.before * 4 + 6} y="24" font-size="10" fill="#6f7d8c">{d.note}</text>
+                </g>
+              ))}
+            </g>
+            <g transform="translate(200, 210)">
+              <rect x="0" y="0" width="14" height="9" fill="#c77d31" rx="2"/>
+              <text x="20" y="8" font-size="11">Before：意図せず反応する</text>
+              <rect x="220" y="0" width="14" height="9" fill="#168a6a" rx="2"/>
+              <text x="240" y="8" font-size="11">After：境界が立つ</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <p class="muted" style="font-size:12.5px">高すぎる隣接反応は、誤クリック・誤期待・直帰につながります。境界が立つほど「来てほしい人」と一致しやすくなります。</p>
+
+      <h2>7. LLM 応答比較</h2>
+      <p>同じ質問を、before と after のテキストを資料として与えた状態で LLM に投げた応答の差（要点）：</p>
+
+      <div class="grid grid--2 mt-3">
+        <div class="card">
+          <h4 style="margin-top:0; color:var(--warn)">Before（名称中心）</h4>
+          <p style="font-size:14px">「温度に反応する新しいインクの発表です。詳細は公式リリースをご確認ください。」</p>
+          <p style="font-size:13px; color:var(--muted)">→ 主題と用途の特定が弱く、定型的な要約に留まる</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0; color:var(--accent-deep)">After（i フレーム化）</h4>
+          <p style="font-size:14px">「温度履歴を“印刷時に意味設計できる”インクで、コールドチェーン・医薬品輸送向け。可逆変色インクや RFID とは異なり、包装と一体で履歴を残す。電源不要、貼付ではなく印刷で完結。」</p>
+          <p style="font-size:13px; color:var(--muted)">→ ジョブ・差別化・除外条件が応答に含まれる</p>
+        </div>
+      </div>
+
+      <h2>8. 「しっかり届く」の定義</h2>
+      <p>本記事における「しっかり届く」とは、次の 3 つを満たす状態と定義しています。</p>
+      <ol>
+        <li>目標クエリでの overlap が一定以上に上がる（ヒット可能性が高い）</li>
+        <li>隣接・非対象クエリでの overlap が一定以下に下がる（誤反応が減る）</li>
+        <li>LLM の要約に、ジョブ・差別化・除外条件が含まれる（文脈で扱われる）</li>
+      </ol>
+      <p>名称だけの露出では 1 だけ部分的に上がりますが、2・3 はほぼ動きません。i フレーム化は 3 つを同時に動かします。</p>
+
+      <h2>9. Meandle で同じことを、自社の商材で</h2>
+      <p>新しい技術や、名前のない価値は、リリースだけでは検索や LLM に届きにくいことがあります。Meandle は、必須文脈、利用シーン、典型例、除外条件を i フレーム化し、届いてほしい質問に対して意味の輪郭を持たせます。</p>
+      <p>自社の新製品リリースや商材ページで「ちゃんと届くか」が気になる場合は、既存 URL を 1 つ送ってください。同じスコアリングで Before / After を比較する形でお見せします。</p>
+
+      <div class="flex-row mt-4">
+        <a href="/contact/" class="btn btn--lg">既存URLで診断する</a>
+        <a href="/blog/" class="btn btn--ghost">検証ノート一覧</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:inline>
+  .chart {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin: 18px 0 12px;
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+  }
+  .chart svg { width: 100%; height: auto; min-width: 560px; display: block; }
+</style>

@@ -1,37 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const title = 'まずは30分、状況を聞かせてください｜Meandle';
-const description = 'Meandleの相談窓口です。意味設計と8フィールド構造についての対話の場として、お気軽にお声がけください。';
+const title = 'お問い合わせ｜Meandle';
+const description = 'まずは、既存URLを 1 つ送ってください。提案や売り込みはしません。事業のページの意味を整理する壁打ちとして使ってください。';
 
-// SSGformの送信先 ─ 実URLが決まったらここを書き換える
-const FORM_ENDPOINT = 'https://ssgform.com/s/REPLACE_WITH_YOUR_SSGFORM_ID';
-
-const breadcrumbLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://meandle.jp/" },
-    { "@type": "ListItem", "position": 2, "name": "相談する", "item": "https://meandle.jp/contact/" }
-  ]
-};
-
-const contactLd = {
-  "@context": "https://schema.org",
-  "@type": "ContactPage",
-  "name": "Meandle 相談窓口",
-  "url": "https://meandle.jp/contact/",
-  "inLanguage": "ja"
-};
+// SSGform の送信先 — 実 URL が決まったらここを書き換える
+const FORM_ENDPOINT = '#';
 ---
-
-<BaseLayout title={title} description={description} jsonLd={[breadcrumbLd, contactLd]}>
+<BaseLayout title={title} description={description}>
   <section class="section">
-    <div class="container" style="max-width:720px">
-      <nav class="breadcrumb"><a href="/">ホーム</a>　/　相談する</nav>
+    <div class="container container--narrow">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　お問い合わせ</nav>
       <span class="eyebrow">Contact</span>
-      <h1>まずは30分、状況を<br/>聞かせてください。</h1>
-      <p class="lead">事業の言語を整理する壁打ちの場としてご活用ください。提案や売り込みはいたしません。<br/>内容を拝見し、2営業日以内にご連絡します。</p>
+      <h1>まずは、既存URLを 1 つ送ってください。</h1>
+      <p class="lead">提案や売り込みはしません。<br/>事業のページの意味を整理する壁打ちとして使ってください。</p>
 
       <form class="form mt-6" action={FORM_ENDPOINT} method="POST">
         <div class="form-field">
@@ -39,23 +21,51 @@ const contactLd = {
           <input id="company" name="会社名" type="text" required autocomplete="organization"/>
         </div>
         <div class="form-field">
-          <label for="name">お名前 <span class="req">必須</span></label>
-          <input id="name" name="お名前" type="text" required autocomplete="name"/>
+          <label for="name">氏名 <span class="req">必須</span></label>
+          <input id="name" name="氏名" type="text" required autocomplete="name"/>
         </div>
         <div class="form-field">
           <label for="email">メールアドレス <span class="req">必須</span></label>
           <input id="email" name="メールアドレス" type="email" required autocomplete="email"/>
         </div>
         <div class="form-field">
-          <label for="tel">電話番号</label>
-          <input id="tel" name="電話番号" type="tel" autocomplete="tel" inputmode="tel"/>
+          <label for="url">対象URL <span class="muted" style="font-weight:400; font-size:11px">（任意・URLがない場合でも相談できます）</span></label>
+          <input id="url" name="対象URL" type="url" placeholder="https://..." />
         </div>
         <div class="form-field">
-          <label for="msg">相談内容 <span class="req">必須</span></label>
-          <textarea id="msg" name="相談内容" rows="6" required placeholder="現在の事業状況や、感じている課題などを率直にお書きください。"></textarea>
+          <label for="type">相談区分 <span class="req">必須</span></label>
+          <select id="type" name="相談区分" required>
+            <option value="">選択してください</option>
+            <option value="既存ページ改善">既存ページ改善（do.meandle）</option>
+            <option value="PR">PR（Meandle PR）</option>
+            <option value="リード獲得">リード獲得（Meandle get lead）</option>
+            <option value="採用">採用（Meandle recruit）</option>
+            <option value="OEM">OEM（技術提供）</option>
+            <option value="代理店">代理店（認定パートナー）</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>現在使っている施策 <span class="muted" style="font-weight:400; font-size:11px">（任意・複数選択可）</span></label>
+          <div class="checkbox-row">
+            <label><input type="checkbox" name="施策" value="広告" /> 広告</label>
+            <label><input type="checkbox" name="施策" value="資料請求サービス" /> 資料請求サービス</label>
+            <label><input type="checkbox" name="施策" value="展示会" /> 展示会</label>
+            <label><input type="checkbox" name="施策" value="求人媒体" /> 求人媒体</label>
+            <label><input type="checkbox" name="施策" value="人材紹介" /> 人材紹介</label>
+            <label><input type="checkbox" name="施策" value="PR配信" /> PR 配信</label>
+            <label><input type="checkbox" name="施策" value="その他" /> その他</label>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="budget">月額費用または年間費用 <span class="muted" style="font-weight:400; font-size:11px">（任意・数字が分からなくても相談できます）</span></label>
+          <input id="budget" name="費用" type="text" placeholder="例：月 300 万円 / 年 4,000 万円" />
+        </div>
+        <div class="form-field">
+          <label for="msg">自由記述 <span class="muted" style="font-weight:400; font-size:11px">（任意）</span></label>
+          <textarea id="msg" name="自由記述" rows="6" placeholder="現在の状況や、感じている課題などを率直にお書きください。"></textarea>
         </div>
         <input type="hidden" name="送信元" value="meandle.jp/contact/"/>
-        <button type="submit" class="btn btn--brand btn--lg">送信する</button>
+        <button type="submit" class="btn btn--lg">送信する</button>
         <p class="muted" style="font-size:12.5px; margin-top:0">送信前に、当ページ末尾の取り扱いについて同意いただいたものとみなします。</p>
       </form>
 

@@ -1,0 +1,58 @@
+---
+interface Props {
+  value: number;        // 0-100
+  label?: string;
+  caption?: string;
+}
+const { value, label = 'みんどり値', caption } = Astro.props as Props;
+const v = Math.max(0, Math.min(100, value));
+// Arc: 240 degree gauge (from 150deg to 30deg counter-clockwise via 270deg bottom)
+const startAngle = 150;
+const endAngle = startAngle + (v / 100) * 240;
+const cx = 80, cy = 80, r = 56;
+function pt(angleDeg: number) {
+  const a = (angleDeg - 90) * Math.PI / 180;
+  return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+}
+const start = pt(startAngle);
+const end = pt(endAngle);
+const large = (endAngle - startAngle) > 180 ? 1 : 0;
+const bgEnd = pt(startAngle + 240);
+---
+<div class="mindori">
+  <svg class="mindori__svg" viewBox="0 0 160 130" aria-label={`${label} ${v}`} role="img">
+    <!-- Background arc -->
+    <path d={`M ${start.x} ${start.y} A ${r} ${r} 0 1 1 ${bgEnd.x} ${bgEnd.y}`}
+          fill="none" stroke="#e9eef2" stroke-width="12" stroke-linecap="round"/>
+    <!-- Value arc -->
+    <path d={`M ${start.x} ${start.y} A ${r} ${r} 0 ${large} 1 ${end.x} ${end.y}`}
+          fill="none" stroke="#168a6a" stroke-width="12" stroke-linecap="round"/>
+    <!-- Value text -->
+    <text x="80" y="92" text-anchor="middle" font-family="'Noto Sans JP'" font-size="34" font-weight="800" fill="#1b1f24">{v}</text>
+    <text x="80" y="110" text-anchor="middle" font-family="'Noto Sans JP'" font-size="11" fill="#5a6572" letter-spacing="0.06em">/ 100</text>
+  </svg>
+  <div class="mindori__meta">
+    <div class="mindori__label">{label}</div>
+    {caption && <div class="mindori__caption">{caption}</div>}
+  </div>
+</div>
+
+<style is:inline>
+  .mindori {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 22px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+  }
+  .mindori__svg { width: 140px; height: 113px; flex-shrink: 0; }
+  .mindori__label {
+    font-size: 13px; letter-spacing: 0.08em;
+    color: var(--accent-deep); font-weight: 700;
+    text-transform: uppercase;
+  }
+  .mindori__caption { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.7; }
+</style>

@@ -1,0 +1,68 @@
+---
+interface Props {
+  name: string;
+  price: string;
+  subtitle?: string;
+  features?: string[];
+  ctaLabel?: string;
+  ctaHref?: string;
+  featured?: boolean;
+}
+const { name, price, subtitle, features = [], ctaLabel, ctaHref, featured = false } = Astro.props as Props;
+---
+<div class={`price-card ${featured ? 'price-card--featured' : ''}`}>
+  <h3 class="price-card__name">{name}</h3>
+  {subtitle && <p class="price-card__sub">{subtitle}</p>}
+  <div class="price-card__price">{price}</div>
+  {features.length > 0 && (
+    <ul class="price-card__features">
+      {features.map((f) => <li>{f}</li>)}
+    </ul>
+  )}
+  {ctaLabel && ctaHref && (
+    <a href={ctaHref} class="btn price-card__cta">{ctaLabel}</a>
+  )}
+</div>
+
+<style is:inline>
+  .price-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column;
+  }
+  .price-card--featured {
+    border-color: var(--accent);
+    border-width: 2px;
+    box-shadow: var(--shadow);
+  }
+  .price-card__name {
+    margin: 0 0 4px;
+    font-size: 17px;
+    color: var(--accent-deep);
+  }
+  .price-card__sub {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 14px;
+  }
+  .price-card__price {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 8px 0 14px;
+    letter-spacing: -0.01em;
+  }
+  .price-card__features {
+    padding-left: 18px;
+    margin: 4px 0 18px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.85;
+    flex: 1;
+  }
+  .price-card__features li { margin-bottom: 4px; }
+  .price-card__cta { width: 100%; }
+</style>

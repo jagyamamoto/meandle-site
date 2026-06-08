@@ -1,26 +1,2 @@
-# 特許出願準備中のため、現在はすべてのクローラ・AIエージェントの巡回を禁止しています。
-# 解除予定時期は OPERATIONS.md §11 を参照（公開時に Disallow を Allow に戻す）。
-
 User-agent: *
-Disallow: /
-
-User-agent: GPTBot
-Disallow: /
-
-User-agent: PerplexityBot
-Disallow: /
-
-User-agent: ClaudeBot
-Disallow: /
-
-User-agent: Claude-Web
-Disallow: /
-
-User-agent: CCBot
-Disallow: /
-
-User-agent: Google-Extended
-Disallow: /
-
-User-agent: Applebot-Extended
 Disallow: /

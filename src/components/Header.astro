@@ -4,7 +4,9 @@ const items = nav.primary;
 ---
 <header class="site-header">
   <div class="container site-header__inner">
-    <a href="/" class="site-header__logo" aria-label="Meandle ホーム">Meandle<span class="dot">.</span></a>
+    <a href="/" class="site-header__logo" aria-label="Meandle ホーム">
+      <img src="/images/meandle-logo.png" alt="Meandle" />
+    </a>
     <nav class="site-nav" aria-label="主要メニュー">
       {items.map((item) => (
         <a href={item.href} class={item.cta ? 'cta' : ''}>{item.label}</a>

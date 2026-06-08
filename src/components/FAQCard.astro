@@ -1,0 +1,13 @@
+---
+interface QA { q: string; a: string; }
+interface Props { items: QA[]; }
+const { items } = Astro.props as Props;
+---
+<div class="faq">
+  {items.map((it) => (
+    <details>
+      <summary>{it.q}</summary>
+      <div set:html={it.a.replace(/\n/g, '<br/>')}></div>
+    </details>
+  ))}
+</div>

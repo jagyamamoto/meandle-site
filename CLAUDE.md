@@ -1,67 +1,45 @@
-# Meandle サイト 仕様書（AI 共通）
+# Meandle サイト 仕様書（AI 共通 / v2.0）
 
 このリポジトリは [meandle.jp](https://meandle.jp) のサービスサイト（Astro 静的サイト / Cloudflare Pages 公開）。
-**Claude／Codex 等、すべての AI がこのファイルの規約を必ず守ること。**
+**Claude / Codex 等、すべての AI がこのファイルの規約を必ず守ること。**
+
+運用ドキュメント:
+- 公開手順・トラブルシュート → [`OPERATIONS.md`](./OPERATIONS.md)
+- 更新の 4 種 × 2 方法 → [`UPDATE.md`](./UPDATE.md)
 
 ---
 
-## 1. ブランド・トーン
+## 1. ポジショニング（最重要）
 
-Meandle は「売るべき意味を定義し、事業を拓くための補助線」を提供する B2B サービス。
-分析的・静謐・実装可能な言葉で書く。煽らない。確言しない。
+Meandle は、**Jag Yamamoto / Jag Project が提唱する「意味へのハンドル付け」を B2B 事業に実装する高単価 B2B ソリューション** です。
 
-### 1-1. 禁止語（絶対に書かない）
+伝えたい一文：
+> **広告費を増やす前に、AIと見込み客が拾える「売る意味」を整える。**
 
-| 禁止語 | 理由 |
-|---|---|
-| 「CTAを配置」 | マーケ用語の内側を露出させない |
-| 「プロンプト」 | AIO の入口を誤認させる |
-| 「指示書」 | サービスの本質ではない |
-| 「必ず成果が出ます」 | 確言は禁止 |
-| 「Web制作します」 | サービス領域外 |
-| 「SEO記事を書きます」 | サービス領域外 |
-| 「無料相談」 | 価値の安売り |
-| 「今すぐ」 | 煽り語 |
-
-### 1-2. 推奨語・推奨フレーズ
-
-- 「売るべき意味を定義する」
-- 「事業を拓く」
-- 「勝ち筋を増幅する補助線」
-- 「まずは30分、状況を聞かせてください」（CTA の標準コピー）
+**絶対に見せない姿：**
+- AIO ツール
+- SEO 支援会社
+- Web 制作会社
+- 記事代行
+- 量で勝負するリードジェネ
 
 ---
 
-## 2. カラートークン
+## 2. v2.0 で扱うサービス体系（最重要）
 
-`src/styles/global.css` の `:root` で管理。コンポーネント内でハードコードしない。
+旧 Meandle Package S/M/L、Be Meandling Basic/Full は **廃止**。
+ターゲット別 6 サービスに再編：
 
-| 用途 | 変数 | 値 |
-|---|---|---|
-| 柿橙（アクセント） | `--brand` | `#E98F22` |
-| 柿橙（濃） | `--brand-deep` | `#B66E15` |
-| 琥珀（深墨上の数値色） | `--peach` | `#FFC47E` |
-| 生成り（基調） | `--paper` | `#F3F0E7` |
-| 補助紙色 | `--paper-2` | `#ECE8DC` |
-| 青磁ミント | `--mint` | `#C9DEDC` |
-| 墨色 | `--ink` | `#12242C` |
-| 深墨（Hero/Evidence/CTA） | `--ink-deep` | `#071014` |
-| 墨（弱） | `--ink-soft` | `#2A3B43` |
-| カード背景 | `--card` | `#FFF9ED` |
-| 補助文字 | `--muted` | `#6F7777` |
+| サービス | URL | 用途 | 料金（下限） |
+|---|---|---|---|
+| **do.meandle** | `/do-meandle/` | 既存ページ改善・汎用 | 単発 50 万円〜 / 伴走 月 120 万円〜 |
+| **Meandle PR** | `/pr/` | PR専用（PR文＋LP＋記事化素材） | 1 PR セット 50 万円〜 |
+| **Meandle get lead** | `/get-lead/` | リード獲得専用 | 1 ページ 200 万円前後 |
+| **Meandle recruit** | `/recruit/` | 採用専用 | 1 求人項目 50 万円〜 |
+| **Meandle OEM** | `/oem/` | 技術提供（API・SDK・ホワイトラベル） | 個別見積もり |
+| **Meandle認定代理店制度** | `/partner/` | パートナー制度 | 個別見積もり |
 
-### 色の推奨比率（厳守）
-- 生成り（paper / paper-2 / card） … **35%**
-- 墨色・深墨（ink / ink-deep） … **30%**
-- 青磁ミント（mint） … **20%**
-- 柿橙（brand） … **10%**（CTA・must/must_not・羅盤中心・重要な判断箇所だけ）
-- 琥珀（peach） … **5%**（深墨上の数値表現など）
-
-### 禁止
-全面オレンジ／強い赤／ネオンミント／青白い SaaS ブルー／金色多用／派手なグラデーション。
-オレンジを「面」に使わない。必ず「点」「線」「アクセント」として効かせる。
-
-フォントは Noto Sans JP（Google Fonts、`BaseLayout.astro` で読み込み）。
+料金は本文と JSON-LD（あれば）で **必ず一致させる**。下限のみ記載、上限は書かない。
 
 ---
 
@@ -69,237 +47,169 @@ Meandle は「売るべき意味を定義し、事業を拓くための補助線
 
 | URL | ファイル | 役割 |
 |---|---|---|
-| `/` | `src/pages/index.astro` | LP 本編（14 セクション） |
+| `/` | `src/pages/index.astro` | トップ（9 セクション） |
+| `/do-meandle/` | `src/pages/do-meandle.astro` | 既存ページ改善・汎用 |
+| `/pr/` | `src/pages/pr.astro` | Meandle PR |
+| `/get-lead/` | `src/pages/get-lead.astro` | Meandle get lead |
+| `/recruit/` | `src/pages/recruit.astro` | Meandle recruit |
+| `/oem/` | `src/pages/oem.astro` | Meandle OEM |
+| `/partner/` | `src/pages/partner.astro` | 認定代理店制度 |
 | `/contact/` | `src/pages/contact.astro` | SSGform 相談窓口 |
 | `/contact/thanks/` | `src/pages/contact/thanks.astro` | 送信完了 |
-| `/blog/` | `src/pages/blog/index.astro` | 読み物一覧 |
-| `/blog/01-meaning/` 〜 `/blog/06-growing/` | `src/pages/blog/0X-*.astro` | 個別記事（6 本） |
-| `/sitemap.xml` | `src/pages/sitemap.xml.ts` | 自動生成 sitemap |
-| `/robots.txt` | `public/robots.txt` | クロール設定 |
+| `/blog/` | `src/pages/blog/index.astro` | 検証ノート一覧（Self Do.meandle） |
+| `/blog/temperature-sensing-ink/` | `src/pages/blog/temperature-sensing-ink.astro` | 第 1 記事 |
 | `/404` | `src/pages/404.astro` | エラー |
 
-`astro.config.mjs` で `trailingSlash: 'always'` を強制。リンクは必ず末尾スラッシュ付きで書く。
+`astro.config.mjs` の `trailingSlash: 'always'`。リンクは必ず末尾スラッシュ付き。
 
 ---
 
 ## 4. ファイル構成と一元管理
 
-- **メニュー項目**: `src/data/navigation.json`（ヘッダ・フッタ・ブログ一覧の元データ）
-- **共通レイアウト**: `src/layouts/BaseLayout.astro`（title/description/canonical/OGP/JSON-LD/Analytics）
-- **ヘッダー**: `src/components/Header.astro`（モバイルメニュー含む）
-- **フッター**: `src/components/Footer.astro`
-- **計測タグ**: `src/components/Analytics.astro`（GA4/Plausible/Clarity を環境変数で出し分け）
+- **メニュー項目**：`src/data/navigation.json`（primary / services / footer.services / footer.more / blog の 5 配列）
+- **共通レイアウト**：`src/layouts/BaseLayout.astro`（title / description / ogTitle / ogDescription / canonical / OGP）
+- **ヘッダー**：`src/components/Header.astro`（**ロゴ画像 `/images/meandle-logo.png` 32px** ＋ナビ。背景 #fff）
+- **フッター**：`src/components/Footer.astro`（必須表記：Meandleは Jag Yamamoto / Jag Project が開発・監修）
+- **再利用コンポーネント**：`src/components/` 配下
+  - `PriceCard.astro` — 料金カード
+  - `ThreeStepFlow.astro` — URL診断 → みんどりIndex → ページ反映
+  - `BeforeAfter.astro` — 改善前後比較
+  - `MindoriMeter.astro` — みんどり値ゲージ（0〜100）
+  - `CompareSimulator.astro` — 商談化シミュレーション（JS）
+  - `FAQCard.astro` — FAQ アコーディオン
+  - `CTAButton.astro` — ボタン変種
 
 新しいページを追加するときは:
 1. `src/pages/` 配下に配置
-2. `src/pages/sitemap.xml.ts` の `pages` 配列に登録
-3. メニューに出すなら `src/data/navigation.json` を編集
+2. ヘッダーに出すなら `src/data/navigation.json` の `primary` を編集
+3. フッターにも `footer.services` を編集
 
 ---
 
-## 5. JSON-LD 構造化データ
+## 5. カラーパレット（v2.0 brief v3.0 準拠）
 
-各ページで該当する型を `BaseLayout.astro` に `jsonLd` プロパティで渡す。
+`src/styles/global.css` の `:root` で管理。コンポーネント内でハードコードしない。
 
-- `/` … Organization / Service / FAQPage / BreadcrumbList
-- `/contact/` … ContactPage / BreadcrumbList
-- `/blog/` … BreadcrumbList
-- `/blog/0X-*` … BlogPosting / BreadcrumbList
-
----
-
-## 6. サービス価格（公式）
-
-| 形式 | プラン名 | 価格 |
+| 用途 | 変数 | 値 |
 |---|---|---|
-| Meandle Package（パッケージ） | **Meandle Package S** | 50万円〜 |
-| Meandle Package（パッケージ） | **Meandle Package M** | 150万円〜 |
-| Meandle Package（パッケージ） | **Meandle Package L** | 500万円〜 |
-| Be Meandling（伴走） | **Be Meandling Basic** | 月60万円〜 |
-| Be Meandling（伴走） | **Be Meandling Full** | 月150万円〜 |
+| 本文・見出し | `--ink` | `#1b1f24` |
+| 補助テキスト | `--muted` | `#5a6572` |
+| 罫線 | `--line` | `#d7dde3` |
+| 背景 | `--paper` | `#fbfcfd` |
+| セクション交互背景 | `--paper-2` | `#f1f4f7` |
+| **主要アクセント（ティールグリーン）** | `--accent` | `#168a6a` |
+| アクセント（濃） | `--accent-deep` | `#0f6e54` |
+| 警告／強調（オレンジ） | `--warn` | `#c77d31` |
+| カード背景 | `--card` | `#ffffff` |
+| CTA ブロック背景 | `--cta-dark` | `#102820` |
 
-旧名（Lite / Standard / Enterprise / Continuous / Embedded）は廃止。`grep -rn -E "\\b(Lite|Standard|Enterprise|Continuous|Embedded)\\b" src/` がゼロであることを毎回コミット前に確認すること。
+### 禁止
+- 全面オレンジ
+- 強い赤
+- ネオンミント
+- 青白い SaaS ブルー
+- 金色多用
+- 派手なグラデーション
 
-別途、方法論を組み込みたい法人向けの **License**（OEM／認定パートナー／監修アドバイザリー）あり。詳細は LP 第14セクション。
-
-価格は本文と JSON-LD（Service）の両方に表記。変更時は両方を必ず同時更新。
-
----
-
-## 7. 8 フィールド構造（コア概念）
-
-意味を定義する 8 つの欄。LP の `#eightfields` セクションで表として展示される。
-
-1. ジョブ
-2. シーン
-3. 代替案
-4. 比較軸
-5. 価値
-6. 証拠
-7. **must**（オレンジ強調）
-8. **must_not**（オレンジ強調）
-
-7・8 は他項目と同じ「重み」で並ぶ。記事や提案で「must」と「must_not」は必ずセットで提示すること。
+ロゴはネイビー＋オレンジドット。**ヘッダー背景は白固定。** アクセントは teal、CTA ブロックは深い teal-dark。
 
 ---
 
-## 8. デプロイ
+## 6. メタ情報（全ページ共通デフォルト）
+
+- **title**: 広告費を増やす前に、AIと見込み客が拾える「売る意味」を整える｜Meandle
+- **meta description**: Meandleは、専門商材、PR、求人票の意味を、AIと見込み客に誤解されにくい形へ整えるサービスです。既存URLを診断し、みんどり値で改善点を可視化します。
+- **meta robots**: `noindex,nofollow`（公開前提）
+- **lang**: `ja`
+
+ページ別の `title` `description` は各 `.astro` の `BaseLayout` props で個別指定。
+OG だけ別文を出したい場合は `ogTitle` `ogDescription` props を使う。
+
+---
+
+## 7. コピーライティング厳守ルール
+
+### 禁止表現
+
+| 禁止語 | 置き換え |
+|---|---|
+| AIに選ばれる | AIに拾われやすい形へ整える／AIに誤解されにくくする |
+| 検索順位が上がる | 検索や AI 応答で扱われやすい構造へ整える |
+| 必ずリードが増える | 商談化しやすい問い合わせを狙う |
+| 特許取得済み | 特許出願関連技術／特許出願中の技術 |
+| 広告費ゼロで再現できます | 広告費ゼロの実績があります。ただし成果を保証するものではありません |
+| 無料相談／今すぐ申し込む／CTAを配置／プロンプト／指示書 | （使わない） |
+| **シュミレーション** | **シミュレーション**（必ず） |
+
+### 推奨表現
+- 売る意味を整える
+- 既存URLで診断する
+- みんどり値で見える化
+- 商談になる理由を増やす
+- AIに誤解されにくい形へ
+- **「ます／です」調統一**
+
+---
+
+## 8. Preview モード（Basic 認証）
+
+特許出願準備中のため、現在は全ページ **HTTP Basic 認証** で保護。
+
+- **ユーザー名**：`meandle`
+- **パスワード**：`1234`
+- 実装：`functions/_middleware.ts`（Cloudflare Pages Functions）
+- 全ページに `<meta name="robots" content="noindex,nofollow">`
+- `public/robots.txt` は `User-agent: * / Disallow: /`
+
+公開時は `functions/_middleware.ts` を削除 → `noindex` 行を `index, follow` に → `robots.txt` を Allow に → ビルド＆デプロイ。
+
+---
+
+## 9. デプロイ
 
 - `main` ブランチ = 本番
-- `git push origin main` → Cloudflare Pages が GitHub 連携で自動ビルド・公開
-- Pages プロジェクト名: `meandle-site`
+- Cloudflare Pages プロジェクト名: **`meandle`**（旧名、現行）
 - カスタムドメイン: `meandle.jp`
-- Pages のビルド設定:
-  - ビルドコマンド: `npm run build`
-  - 出力ディレクトリ: `dist`
-  - Node バージョン: `22` 以上
+- 公開手順:
 
-ホットフィックス手順:
 ```bash
-git checkout -b fix/...
-# 修正
-git commit -m "fix: ..."
-git push origin HEAD
-# main に PR を出してマージ → 自動デプロイ
+export CLOUDFLARE_API_TOKEN='<API TOKEN>'
+export CLOUDFLARE_ACCOUNT_ID='defdc076fe8ea8bf80a3003db8b8a38d'
+
+cd /Users/JAG/meandle-site
+npm run build
+npx wrangler pages deploy dist --project-name=meandle --branch=main \
+  --commit-message="<ASCII で書く>" --commit-dirty=true
+git add -A && git commit -m "..." && git push origin main
 ```
 
-緊急で main 直 push する場合は、コミットメッセージに `[hotfix]` を付ける。
-
----
-
-## 9. フォーム（SSGform）
-
-`src/pages/contact.astro` 内の `FORM_ENDPOINT` 定数を SSGform の実 URL に書き換える。
-送信成功後の遷移先は `/contact/thanks/`（SSGform 管理画面でも併せて設定する）。
-
-入力項目: 会社名 / お名前 / メールアドレス / 電話番号 / 相談内容
+⚠️ wrangler は日本語コミットメッセージで `Invalid commit message` を返すことがある。`--commit-message` は ASCII で渡す（git commit は日本語で OK）。
 
 ---
 
 ## 10. レビュー観点（コミット前に必ず確認）
 
-- 禁止語が混入していないか（§1-1）
-- リンクは末尾スラッシュ付きか
-- 価格は §6 と一致しているか
-- 新規ページは sitemap に登録したか
-- 色は CSS 変数を経由しているか（ハードコード禁止）
-- スマホ幅 320px で破綻していないか
-
----
-
-## 11. v1.1 改修ログ（2026-05-25）
-
-「最終公開版」化のための一括改修。今後の編集時はこの方向を踏襲する。
-
-### 11-1. 公開モードへの切替
-- `functions/_middleware.ts` を **削除**（パスワードゲート解除）
-- `public/robots.txt` を `Disallow: /` → **`Allow: /`**（AIクローラ含めて巡回許可）
-- `src/layouts/BaseLayout.astro` の meta robots を **`index, follow`** に変更（`noindex, nofollow` は絶対に書かない）
-- Cloudflare Pages の `PREVIEW_PASSWORD` 環境変数も削除済み
-
-### 11-2. ポジショニングの明確化
-**Meandle は AIO ツール／SEO 支援／Web 制作／記事代行に絶対に見せない。** 「Jag Yamamoto / Jag Project が提唱する『意味へのハンドル付け』を B2B 事業に実装する高単価 B2B ソリューション」として書くこと。伝えたい一文：**「売るべき意味を定義し、事業を拓く。」**
-
-### 11-3. LP（`src/pages/index.astro`）の確定構成（19 ブロック）
-1 Hero / 2 Meandleとは（語源） / 3 must·must_not / 4 Self-check（記号なし） / 5 4 Domains / 6 KPI/KGI3段階 / 7 Evidence（みんどる接続） / 8 8 Fields（must/must_notオレンジ強調） / 9 Authority / 10 Story / 11 Compare / 12 Pricing（A./B.記号なし） / 13 Quick estimate / 14 Process / 15 FAQ / **16 CTA** / 17 License / 18 Reading / 19 Footer
-
-**順序の原則**：相談 CTA は License・Reading より前。Reading はフッター直前。
-
-### 11-4. メタ情報の確定
-- **title**: 資料請求は来る。でも商談にならない理由を、意味から整える｜Meandle
-- **meta description**: Meandleは、Jag Yamamoto / Jag Projectが開発・監修する意味設計ソリューションです。事業・プロダクト・マーケティング・コンテンツの4領域で、8フィールド構造により売るべき意味を定義し、商談化、営業導線、AI検索時代の文脈整合を支援します。
-- **og:title**: 資料請求は来る。でも、商談にならない。｜Meandle
-- **og:description**: 原因は流入でもデザインでもありません。売るべき意味が定義されていないからです。Meandleは、8フィールド構造で事業の意味を整えるB2B意味設計ソリューションです。
-- BaseLayout に `ogTitle` `ogDescription` プロパティが追加された。OG だけ別文を出したいページはこれを使う。
-
-### 11-5. コピーの確定文
-- Hero eyebrow: **「Business Meaning Design / Meandle」**（旧「B2B 意味設計 × AIO」は廃止）
-- Process H2: **「最初の4週間で、意味の輪郭を立ち上げる。」**
-- Quick estimate H2: **「3問で、最初の入り口を見立てます。」**
-- Evidence H2: **「意味を整えると、AIに引き当てられやすくなる。」**
-
-### 11-6. 禁止表現（既存§1-1 に加えて）
-- 「特許取得済み」「独占技術」「他社不可」は**書かない**（出願中までしか書けない）
-- 「固定価格」「標準価格」「上限価格」「成功報酬保証」は使わない（料金は**下限のみ**表記）
-- Self-check の「A.」「B.」「C.」、Pricing の「A. パッケージ」「B. 伴走」のような **指示書風の記号は可視テキストに出さない**
-
-### 11-7. URL とリンク
-- Jag Project の URL は **`https://jagproject.com/`** に統一（`www.` 付きは廃止）
-- セクション ID 一覧：`#about` / `#mustnot` / `#diagnose` / `#domains` / `#kpi` / `#results` / `#eightfields` / `#authority` / `#story` / `#compare` / `#pricing` / `#estimate` / `#process` / `#faq` / `#cta` / `#license` / `#reading`
-
-### 11-8. レスポンシブの追加ルール
-- Hero リード2文目は `.lead--pc`（長文）と `.lead--sp`（短文）を出し分け
-- Self-check の各項目の説明文（`.check__body span`）は **モバイル時に非表示**
-- 8 Fields 表（`.fields-table`）は **モバイル時にカード化**
-- Reading カードは **モバイル時に3件まで表示**＋常設「読み物一覧へ」リンク
-
-### 11-9. 公開前チェックリスト（毎回確認）
-
-| | | |
-|--|--|--|
-
-## 12. v1.2 デザイン改修ログ（2026-05-25）
-
-中心意匠を **「八角ハンドル羅盤」** に統一。色を再配分し、青白い SaaS 風／全面オレンジ／占い風 を完全に排除。
-
-### 12-1. 主意匠：八角ハンドル羅盤
-- **八角形** ＝ 8 フィールド構造
-- **中心点（柿橙）** ＝ 売るべき意味
-- **外周 8 ノード** ＝ ジョブ／シーン／代替案／比較軸／価値／証拠／must／must_not
-- **上に飛び出す取っ手ループ** ＝ Mean ＋ Handle そのもの
-- 魔法陣・占い盤・水晶・星座のようには絶対に見せない。**事業の羅針盤・意味の設計図** として描く
-
-### 12-2. 守護意匠：霊亀／玄武
-- キャラクターは描かない。使うのは **甲羅（亀甲）グリッド** のみ
-- Hero と Evidence の背景に淡く敷く
-
-### 12-3. セクション別の色割り当て
-
-| § | id | 背景 | モチーフ |
-|---|---|---|---|
-| 1 Hero | – | 深墨グラデ | 八角羅盤ゴースト |
-| 2 Meandleとは | #about | 青磁ミント | Mean + Handle 線図 ＋ 八角ミニ羅盤 |
-| 3 must/must_not | #mustnot | 生成り | 左右の門 ＋ 中央オレンジ線 |
-| 4 Self-check | #diagnose | カード | 梟の目 |
-| 5 4 Domains | #domains | 補助紙色 | 4 モチーフ（亀甲／種子／流線／葉脈） |
-| 6 KPI/KGI | #kpi | 生成り | 地層線 ＋ 橋 |
-| 7 Evidence | #results | 深墨 | 亀甲グリッド ＋ 琥珀の数値 |
-| 8 8 Fields | #eightfields | 生成り | **八角ハンドル羅盤の本体図（最重要）** |
-| 9 Authority | #authority | 生成り | 印章 ＋ 黒い台紙プレート |
-| 10 Story | #story | 補助紙色 | 地層線 ＋ 引用カード |
-| 11 Compare | #compare | 墨 | Meandle 列を琥珀で立たせる |
-| 12 Pricing | #pricing | カード | 取っ手意匠（箱／継続の輪） |
-| 13 Estimate | #estimate | 生成り | 小さな羅盤 |
-| 14 Process | #process | 補助紙色 | 竹の節 |
-| 15 FAQ | #faq | 生成り | 静か |
-| 16 CTA | #cta | 深墨 | 中央オレンジ点（火）|
-| 17 License | #license | 生成り | 控えめ |
-| 18 Reading | #reading | 補助紙色 | 軽い |
-
-### 12-4. 編集時のルール
-- オレンジは **CTA・must/must_not・羅盤中心・重要判断箇所** にだけ使う
-- 深墨セクションは Hero / Evidence / CTA / Compare の 4 つに限定（多用しない）
-- SVG は inline で `currentColor` 駆動。CSS の `color` で色替え可
-- 全 SVG に `aria-hidden="true"` または `role="img"` ＋ `<title>` を付ける
-- 「占い風」を避ける：八角形に星マークを足さない、放射線を多用しない、金色は使わない
-
-### 12-5. 削ってよいもの／加えるべきもの
-- 加える：羅盤、線図、亀甲、地層線、印章、竹の節、引用カード
-- 加えない：龍の顔、鳳凰、水晶、魔法陣、星座、ネオン AI ノード、可愛いミント葉
-
----
-
-## 13. 公開前チェックリスト（旧 §11-9）
-- [ ] `<meta name="robots" content="noindex...">` がどこにも残っていない
-- [ ] FAQPage 構造化データと可視 FAQ が **完全一致**
-- [ ] Offer 構造化データと可視価格が一致
-- [ ] AIO が主役になっていない
-- [ ] Web 制作会社／SEO 記事代行に見えていない
-- [ ] A./B./C. などの指示書風表現が可視テキストに残っていない
-- [ ] 「無料相談」を使っていない
+- [ ] 禁止語ゼロ（§7-1）
+- [ ] 「シュミレーション」と書かれていない（「シミュレーション」に統一）
+- [ ] AIO ツール／SEO 記事代行／Web 制作会社に見えていない
 - [ ] 料金は下限のみ
-- [ ] 特許表現が過剰でない（「特許出願中」のみ）
-- [ ] Jag Project リンクは **`https://jagproject.com/`**
-- [ ] 相談 CTA が License や Reading より前にある
-- [ ] スマホで長文が畳まれている、CTA が見つけやすい
-- [ ] セクション順序が §11-3 の通り
+- [ ] 特許表現は「特許出願中／特許出願関連技術」のみ
+- [ ] 強い数字の近くに「保証するものではありません」注記がある
+- [ ] Jag Project リンクは `https://jagproject.com/`（`www.` は廃止）
+- [ ] Basic 認証が効いている（cookie ではなくブラウザ認証ダイアログ）
+- [ ] `<meta name="robots" content="noindex,nofollow">` が全ページに入っている
+- [ ] スマホ幅 320px で破綻していない
+
+---
+
+## 11. v2.0 改修ログ（2026-05-26）
+
+- 旧 Meandle Package S/M/L、Be Meandling Basic/Full を **廃止**
+- ターゲット別 6 サービスへピボット
+- 中心意匠「八角ハンドル羅盤」「みんどり羅盤」を **撤去**（v1.x のデザイン語彙はリセット）
+- カラーを **ティールグリーン＋ネイビー＋白基調** に全面入替
+- ロゴ画像（`public/images/meandle-logo.png`）をヘッダーに採用、ヘッダー背景は **白固定**
+- Basic 認証（`meandle / 1234`）に切替（旧 cookie 認証は撤去）
+- `noindex, nofollow` 継続
+- ブログ：旧 6 記事を全削除、新「検証ノート」1 記事のみ公開
+- 新コンポーネント：MindoriMeter（みんどり値ゲージ）、CompareSimulator（JS 試算）、ThreeStepFlow、BeforeAfter、PriceCard、FAQCard、CTAButton

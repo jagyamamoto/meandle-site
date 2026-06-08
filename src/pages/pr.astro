@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import PriceCard from '../components/PriceCard.astro';
+import FAQCard from '../components/FAQCard.astro';
+
+const title = 'Meandle PR｜PR専用｜Meandle';
+const description = 'Meandle PR は、PR文・LP・記事化素材を一体で整える PR 設計サービスです。配信して終わりではなく、AI と記事に残る形を狙います。';
+
+const faqs = [
+  { q: '配信代行はしてもらえますか。', a: '配信そのものは配信会社と連携します。Meandle PR は、配信する素材の意味設計と、LP・記事化素材の整合を担います。' },
+  { q: '広告換算値を出してもらえますか。', a: '広告換算は参考指標として整理しますが、保証する数値ではありません。むしろ「どの文脈に残ったか」を可視化することを重視します。' },
+  { q: '記事化はどう支援しますか。', a: '記者・編集者が引用しやすい構造で素材を作ります。must / must_not と典型例・反例を、別ファイルで提供します。' },
+];
+---
+<BaseLayout title={title} description={description}>
+  <section class="hero">
+    <div class="container container--narrow">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　Meandle PR</nav>
+      <span class="eyebrow">Meandle PR</span>
+      <h1>配信して終わりの PR を、<br/>AI と記事に残る PR へ。</h1>
+      <p class="lead">PR 文だけでなく、LP と記事化素材まで一体で整えます。「何が新しいか」と「何ではないか」を分けて書くことで、AI 検索でも引用されやすい状態を作ります。</p>
+      <div class="flex-row">
+        <a href="/contact/" class="btn btn--lg">PR セットを相談する</a>
+        <a href="/contact/" class="btn btn--ghost btn--lg">新製品 LP を診断する</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">For whom</span>
+      <h2>こんな PR に向きます。</h2>
+      <ul style="line-height:2; font-size:15.5px">
+        <li>新製品、専門ソリューション</li>
+        <li>既存カテゴリに入りにくい商材</li>
+        <li>記事化を狙う BtoB 企業</li>
+        <li>「説明が長くなる」「比較が難しい」と言われがちな商品</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Symptom</span>
+      <h2>PR で起きるズレ</h2>
+      <BeforeAfter
+        before={{ title: '名称と機能だけが配信される', body: '記者は「どこに位置するか」が分からず、紙面に残らない。AI は隣接技術と混ざり、要約で省かれる。' }}
+        after={{ title: '文脈と境界が一緒に配信される', body: '記者は引用すべき部分を選びやすくなる。AI は「この主題は何で、何ではないか」を組み立てやすい。' }}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">How</span>
+      <h2>Meandle PR の流れ</h2>
+      <ol style="line-height:2; font-size:15.5px">
+        <li>商材ヒアリングと、競合・代替案の整理</li>
+        <li>must / must_not / 典型例 / 反例 のみんどり化</li>
+        <li>PR 本文、LP セクション、記事化素材を一体で設計</li>
+        <li>配信前のレビューと、配信後の文脈モニタリング設計</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Deliverables</span>
+      <h2>納品物</h2>
+      <ul style="line-height:2; font-size:15.5px">
+        <li>みんどりIndex（PR 用 4 軸整理シート）</li>
+        <li>PR 本文（A4 1 ページ＋プレスフォーマット）</li>
+        <li>LP セクション原稿</li>
+        <li>記者・編集者向け補足資料（引用しやすい設計）</li>
+        <li>FAQ・想定 Q&A</li>
+      </ul>
+      <p class="muted mt-3" style="font-size:13px">※ 広告換算値は参考表記です。配信後の数値は配信会社の集計に依存します。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Price</span>
+      <h2>料金</h2>
+      <div class="grid grid--2 mt-4">
+        <PriceCard
+          name="1 PR セット"
+          subtitle="4 〜 6 週間／配信前まで"
+          price="50万円〜"
+          features={[
+            'みんどりIndex',
+            'PR 本文＋プレスフォーマット',
+            'LP セクション原稿',
+            '記者向け補足資料、FAQ'
+          ]}
+          ctaLabel="PR セットを相談する"
+          ctaHref="/contact/"
+          featured
+        />
+        <PriceCard
+          name="複数 PR の継続支援"
+          subtitle="個別に組みます"
+          price="個別見積もり"
+          features={[
+            '半期・年間での PR 計画',
+            '記事化の継続支援',
+            '複数商材の意味の統合',
+            '配信後の文脈モニタリング'
+          ]}
+          ctaLabel="継続支援を相談する"
+          ctaHref="/contact/"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">FAQ</span>
+      <h2>よくある問い</h2>
+      <FAQCard items={faqs} />
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container container--narrow center">
+      <h2 style="color:#fff">予定の PR を、1 つ教えてください。</h2>
+      <p style="max-width:560px; margin:14px auto 28px">配信前のタイミングで、意味の作りを 30 分壁打ちします。</p>
+      <a href="/contact/" class="btn btn--lg">PR を相談する</a>
+    </div>
+  </section>
+</BaseLayout>

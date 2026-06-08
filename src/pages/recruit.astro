@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import PriceCard from '../components/PriceCard.astro';
+import FAQCard from '../components/FAQCard.astro';
+
+const title = 'Meandle recruit｜採用専用｜Meandle';
+const description = 'Meandle recruit は、求人票の条件ではなく、応募者が選ぶ意味を整える採用設計サービスです。向く人と向かない人を明示し、ミスマッチを減らします。';
+
+const faqs = [
+  { q: '人材紹介サービスは別途必要ですか。', a: 'はい。Meandle recruit は紹介・媒体運用は行いません。求人票・採用ページ・人事 PR の意味設計を担当します。' },
+  { q: '応募数が減るのではないですか。', a: '量は減ることがあります。ただし、面接通過率や内定承諾率が動くため、トータルの採用コストは下がるケースが多いです。' },
+  { q: '人事 PR は何を作りますか。', a: '人事部としてのスタンス、向く人物像、評価・育成の考え方を、社内外に同じ意味で伝わるように設計します。' },
+];
+---
+<BaseLayout title={title} description={description}>
+  <section class="hero">
+    <div class="container container--narrow">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　Meandle recruit</nav>
+      <span class="eyebrow">Meandle recruit</span>
+      <h1>求人票の条件ではなく、<br/>応募者が選ぶ意味を整える。</h1>
+      <p class="lead">「年収」「勤務地」「必須スキル」だけでは、応募者の選び方は変わりません。Meandle recruit は、向く人と向かない人を明示し、人事 PR の意味の作りから整えます。</p>
+      <div class="flex-row">
+        <a href="/contact/" class="btn btn--lg">求人票を診断する</a>
+        <a href="/contact/" class="btn btn--ghost btn--lg">採用ページを相談する</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">For whom</span>
+      <h2>こんな採用に向きます。</h2>
+      <ul style="line-height:2; font-size:15.5px">
+        <li>応募数はあるがミスマッチが多い企業</li>
+        <li>専門職採用、カルチャーフィットが重要な職種</li>
+        <li>人事 PR を強化したい企業</li>
+        <li>「応募者の質を上げたい」と感じている事業</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Symptom</span>
+      <h2>求人票で起きていること</h2>
+      <BeforeAfter
+        before={{ title: '条件と歓迎要件が並ぶ', body: '応募者は「自分が合うか」を測れない。媒体側のテンプレートに沿って書かれ、競合と意味が混ざる。' }}
+        after={{ title: '向く人 / 向かない人 が明示される', body: '応募者は応募前に判断できる。書類段階のミスマッチが減り、面接時間の使い方が変わる。' }}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Approach</span>
+      <h2>人事 PR の整理</h2>
+      <p>採用は「求人 1 件」だけで成立しません。人事部としての考え方、評価・育成の方針、社内の言葉と社外の言葉が一致しているかを、まとめてみんどります。</p>
+      <ul style="line-height:2; font-size:15.5px">
+        <li>人事部の must / must_not を整理する</li>
+        <li>採用ページ全体のメッセージを再設計する</li>
+        <li>媒体掲載文と自社ページの意味のズレを消す</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Deliverables</span>
+      <h2>納品物</h2>
+      <ul style="line-height:2; font-size:15.5px">
+        <li>求人項目ごとのみんどりIndex</li>
+        <li>修正版の求人票</li>
+        <li>採用ページのメッセージ再設計</li>
+        <li>面接・選考プロセスでの言語化メモ</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Price</span>
+      <h2>料金</h2>
+      <div class="grid grid--2 mt-4">
+        <PriceCard
+          name="1 求人項目"
+          subtitle="3 〜 6 週間"
+          price="50万円"
+          features={[
+            '求人 1 項目のみんどりIndex',
+            '修正版の求人票',
+            '掲載媒体ごとの調整',
+            '応募導線の改善案'
+          ]}
+          ctaLabel="1 求人で相談する"
+          ctaHref="/contact/"
+          featured
+        />
+        <PriceCard
+          name="採用ページ＋人事 PR"
+          subtitle="個別に組みます"
+          price="個別見積もり"
+          features={[
+            '採用ページ全体の再設計',
+            '人事 PR 方針の言語化',
+            '複数職種の意味の統合',
+            '社内ワークショップ'
+          ]}
+          ctaLabel="採用設計を相談する"
+          ctaHref="/contact/"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">FAQ</span>
+      <h2>よくある問い</h2>
+      <FAQCard items={faqs} />
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container container--narrow center">
+      <h2 style="color:#fff">いま難航している求人を、1 つ教えてください。</h2>
+      <p style="max-width:560px; margin:14px auto 28px">求人票の意味の作りを、無理のない範囲で 30 分壁打ちします。</p>
+      <a href="/contact/" class="btn btn--lg">採用を相談する</a>
+    </div>
+  </section>
+</BaseLayout>

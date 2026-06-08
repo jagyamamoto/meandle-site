@@ -1,0 +1,65 @@
+---
+interface Step { num: string; title: string; desc: string; }
+interface Props { steps?: Step[]; }
+const defaultSteps: Step[] = [
+  { num: '01', title: 'URL診断', desc: '既存ページのURLを送るだけ。意味のズレを抽出します。' },
+  { num: '02', title: 'みんどりIndex', desc: 'must / must_not / 典型例 / 反例 を整理し、改善点をスコア化。' },
+  { num: '03', title: 'ページ反映', desc: '社内で運用できる形で納品。AIと顧客に拾われやすい状態へ。' },
+];
+const { steps = defaultSteps } = Astro.props as Props;
+---
+<div class="three-step">
+  {steps.map((s, i) => (
+    <>
+      <div class="three-step__item">
+        <div class="three-step__num">Step {s.num}</div>
+        <h3 class="three-step__title">{s.title}</h3>
+        <p class="three-step__desc">{s.desc}</p>
+      </div>
+      {i < steps.length - 1 && (
+        <div class="three-step__arrow" aria-hidden="true">
+          <svg viewBox="0 0 32 16" fill="none">
+            <path d="M 2 8 L 28 8 M 22 3 L 28 8 L 22 13" stroke="#168a6a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      )}
+    </>
+  ))}
+</div>
+
+<style is:inline>
+  .three-step {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: stretch;
+    margin-top: 32px;
+  }
+  .three-step__item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px 22px;
+    box-shadow: var(--shadow-sm);
+  }
+  .three-step__num {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .three-step__title { margin: 0 0 8px; font-size: 18px; color: var(--ink); }
+  .three-step__desc { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.85; }
+  .three-step__arrow {
+    display: flex; align-items: center; justify-content: center;
+    transform: rotate(90deg);
+    color: var(--accent);
+  }
+  .three-step__arrow svg { width: 28px; height: 14px; }
+  @media (min-width: 760px) {
+    .three-step { grid-template-columns: 1fr auto 1fr auto 1fr; }
+    .three-step__arrow { transform: none; }
+  }
+</style>

@@ -2,35 +2,52 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import nav from '../../data/navigation.json';
 
-const title = '読み物｜Meandle';
-const description = '意味設計、must_not、8フィールド構造、AI検索（AIO）に関する論考。Meandleの読み物一覧。';
+const title = 'Self Do.meandle - 検証ノート｜Meandle';
+const description = 'Meandle を使った検証事例を、1 記事 1 テーマで公開します。自社の商材、求人、PR に置き換えて読めるよう、結果だけでなく方法も残します。';
 
-const breadcrumbLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://meandle.jp/" },
-    { "@type": "ListItem", "position": 2, "name": "読み物", "item": "https://meandle.jp/blog/" }
-  ]
-};
 const posts = nav.blog;
 ---
-<BaseLayout title={title} description={description} jsonLd={[breadcrumbLd]}>
+<BaseLayout title={title} description={description}>
   <section class="section">
-    <div class="container">
-      <nav class="breadcrumb"><a href="/">ホーム</a>　/　読み物</nav>
-      <span class="eyebrow">Reading</span>
-      <h1>読み物</h1>
-      <p class="lead">意味設計と、AI検索時代の事業の語り方についての論考。</p>
-      <div class="cards mt-6">
-        {posts.map((p, i) => (
-          <a class="acard" href={`/blog/${p.slug}/`}>
-            <div class="acard__index">No. {String(i+1).padStart(2,'0')}</div>
-            <h3>{p.title}</h3>
-            <p>{p.summary}</p>
+    <div class="container container--narrow">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　Blog</nav>
+      <span class="eyebrow">Self Do.meandle</span>
+      <h1>検証ノート</h1>
+      <p class="lead">Meandle を使った検証事例を、1 記事 1 テーマで公開します。<br/>自社の商材、求人、PR に置き換えて読めるよう、結果だけでなく方法も残します。</p>
+
+      <div class="post-cards mt-6">
+        {posts.map((p) => (
+          <a class="post-card" href={`/blog/${p.slug}/`}>
+            <div class="post-card__meta">
+              <span class="badge badge--accent">{p.category}</span>
+              <span class="post-card__date">{p.date}</span>
+            </div>
+            <h3 class="post-card__title">{p.title}</h3>
+            <p class="post-card__sub">{p.subtitle}</p>
+            <span class="post-card__more">記事を読む →</span>
           </a>
         ))}
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style is:inline>
+  .post-cards { display: grid; gap: 18px; }
+  .post-card {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .post-card:hover { border-color: var(--accent); box-shadow: var(--shadow); color: var(--ink); }
+  .post-card__meta { display: flex; gap: 10px; align-items: center; font-size: 12px; margin-bottom: 10px; }
+  .post-card__date { color: var(--muted); }
+  .post-card__title { font-size: 19px; margin: 6px 0 8px; line-height: 1.55; }
+  .post-card__sub { font-size: 14px; color: var(--muted); margin: 0 0 14px; line-height: 1.85; }
+  .post-card__more { font-size: 13px; color: var(--accent); font-weight: 700; }
+</style>

@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQCard from '../components/FAQCard.astro';
+
+const title = 'Meandle OEM｜技術提供｜Meandle';
+const description = 'Meandle OEM は、キーワード一致から意味で合うマッチングへ。求人・PR・SEO/AIO ツールに組み込める、意味照合の技術提供です。';
+
+const faqs = [
+  { q: '具体的にどう組み込みますか。', a: '貴社サービスのデータと、Meandle の意味照合エンジンを API もしくは設計テンプレートで接続します。詳細は要相談です。' },
+  { q: '独占ライセンスはありますか。', a: '業界・領域単位で個別にご相談です。期間・対価・領域定義をすり合わせます。' },
+  { q: 'ホワイトラベル提供は可能ですか。', a: 'はい。貴社ブランドのまま提供できる形を含めて検討します。' },
+];
+---
+<BaseLayout title={title} description={description}>
+  <section class="hero">
+    <div class="container container--narrow">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　Meandle OEM</nav>
+      <span class="eyebrow">Meandle OEM</span>
+      <h1>キーワード一致から、<br/>意味で合うマッチングへ。</h1>
+      <p class="lead">求人・PR・SEO/AIO ツール・業界特化マッチングなどの周辺サービスに、Meandle の意味照合の方法論を組み込んで提供できます。「なぜ合うか／合わないか」を説明しやすくします。</p>
+      <div class="flex-row">
+        <a href="/contact/" class="btn btn--lg">OEM を相談する</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Target</span>
+      <h2>対象サービス</h2>
+      <ul style="line-height:2; font-size:15.5px">
+        <li>求人マッチングサービス</li>
+        <li>PR 配信サービス</li>
+        <li>SEO / AIO ツール</li>
+        <li>業界特化型マッチングサービス</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">How</span>
+      <h2>組み込みイメージ</h2>
+      <ol style="line-height:2; font-size:15.5px">
+        <li>貴社の既存サービスと顧客動線をヒアリング</li>
+        <li>意味照合の組み込み箇所を設計（推薦・絞り込み・説明文）</li>
+        <li>みんどりIndex に沿った設計テンプレートと運用ガイドを提供</li>
+        <li>API 提供または社内実装の伴走（要相談）</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Format</span>
+      <h2>提供形態</h2>
+      <ul style="line-height:2; font-size:15.5px">
+        <li>設計テンプレート＋運用ガイド（軽量プラン）</li>
+        <li>API もしくは SDK 提供（要相談）</li>
+        <li>ホワイトラベル提供</li>
+        <li>業界・領域単位での独占ライセンス（個別）</li>
+      </ul>
+      <p class="muted mt-3" style="font-size:13.5px">意味設計と検索文脈の整合に関する方法について、特許出願中の技術です。</p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Flow</span>
+      <h2>相談の流れ</h2>
+      <ol style="line-height:2; font-size:15.5px">
+        <li>NDA 締結</li>
+        <li>貴社サービスの構造ヒアリング</li>
+        <li>組み込み設計案・概算見積もり</li>
+        <li>PoC（小規模での検証）</li>
+        <li>本契約</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">FAQ</span>
+      <h2>よくある問い</h2>
+      <FAQCard items={faqs} />
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container container--narrow center">
+      <h2 style="color:#fff">貴社サービスとの組み合わせを、相談してください。</h2>
+      <p style="max-width:560px; margin:14px auto 28px">NDA から進めることもできます。まずは概要だけでも。</p>
+      <a href="/contact/" class="btn btn--lg">OEM を相談する</a>
+    </div>
+  </section>
+</BaseLayout>
