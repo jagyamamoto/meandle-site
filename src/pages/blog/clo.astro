@@ -44,6 +44,38 @@ const nScale = (v) => (v + 2.5) * 50;
         <strong>仮説シミュレーション注記：</strong>スコアは仮説シミュレーション値であり、実際の検索順位・広告効果・LLM評価を直接測定したものではありません。LLM応答比較は Anthropic API（claude-haiku-4-5-20251001）の実測です。
       </div>
 
+      <h2>6コマで読む、実験のあらまし</h2>
+      <p>本レポートは数値検証中心で長文ですが、まず全体像を 6 コマでつかんでから読み進められます。</p>
+
+      <div class="comic-grid">
+        <figure class="comic-panel">
+          <img src="/images/blog/clo/01.png" alt="6コマ漫画 1/6 — このロジック、数値で確かめてみた：CLOコンパスでのみんどりシミュレーション" loading="lazy" />
+          <figcaption><strong>1 / 6</strong>　このロジック、数値で確かめてみた</figcaption>
+        </figure>
+        <figure class="comic-panel">
+          <img src="/images/blog/clo/02.png" alt="6コマ漫画 2/6 — みんどる理論とは何か：意味成立条件（must / visible_text / scene / must_not / counterexamples）の構造" loading="lazy" />
+          <figcaption><strong>2 / 6</strong>　みんどる理論とは何か</figcaption>
+        </figure>
+        <figure class="comic-panel">
+          <img src="/images/blog/clo/03.png" alt="6コマ漫画 3/6 — どう設計し、何を期待したか：スコア計算の仕組みと見たかったクエリ4件" loading="lazy" />
+          <figcaption><strong>3 / 6</strong>　どう設計し、何を期待したか</figcaption>
+        </figure>
+        <figure class="comic-panel">
+          <img src="/images/blog/clo/04.png" alt="6コマ漫画 4/6 — 候補化スコアは、実際に大きく動いた：目標クエリ4件で After が最上位、最大6.75倍" loading="lazy" />
+          <figcaption><strong>4 / 6</strong>　候補化スコアは、実際に大きく動いた</figcaption>
+        </figure>
+        <figure class="comic-panel">
+          <img src="/images/blog/clo/05.png" alt="6コマ漫画 5/6 — LLMの回答内容も、ここまで変わった：3問の Before/After 比較で対象と役割が明確化" loading="lazy" />
+          <figcaption><strong>5 / 6</strong>　LLMの回答内容も、ここまで変わった</figcaption>
+        </figure>
+        <figure class="comic-panel">
+          <img src="/images/blog/clo/06.png" alt="6コマ漫画 6/6 — 実験のまとめと AIO/LLMO 対策への含意" loading="lazy" />
+          <figcaption><strong>6 / 6</strong>　実験のまとめ</figcaption>
+        </figure>
+      </div>
+
+      <p class="muted" style="font-size:13px; margin-top:14px">※ 漫画は本レポートの要旨を読みやすく整理したもの。以下、数値と LLM 応答実測で同じ流れを丁寧に確認していきます。</p>
+
       <h2>結果サマリー（4 指標）</h2>
       <div class="metric-grid">
         <div class="metric-card">
@@ -437,4 +469,47 @@ const nScale = (v) => (v + 2.5) * 50;
     overflow-x: auto;
   }
   .chart svg { width: 100%; height: auto; min-width: 560px; display: block; }
+
+  /* 6コマ漫画グリッド */
+  .comic-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin: 20px 0 12px;
+  }
+  @media (min-width: 640px) {
+    .comic-grid { grid-template-columns: 1fr 1fr; gap: 22px; }
+  }
+  .comic-panel {
+    background: var(--card);
+    border: 1px solid rgba(18,36,44,0.12);
+    border-radius: var(--radius);
+    padding: 10px 10px 6px;
+    box-shadow: var(--shadow);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    margin: 0;
+  }
+  .comic-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(18,36,44,0.14);
+  }
+  .comic-panel img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+    background: var(--white);
+  }
+  .comic-panel figcaption {
+    font-size: 13px;
+    color: var(--ink);
+    text-align: center;
+    padding: 10px 6px 4px;
+    line-height: 1.5;
+  }
+  .comic-panel figcaption strong {
+    color: var(--hero-orange);
+    margin-right: 6px;
+    letter-spacing: 0.04em;
+  }
 </style>
