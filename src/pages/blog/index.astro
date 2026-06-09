@@ -4,27 +4,27 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 const experiments = [
   {
     no: '#1',
-    title: 'CLOコンパス',
-    target: '物流DX B2Bサービス',
-    finding: 'LLM誤認3種→0種、スコア最大6.75倍',
+    title: 'CLOコンパス みんどりシミュレーション結果レポート',
+    target: '物流DX B2Bサービス（CLOコンパス）',
+    finding: 'LLM誤認3種→0種、スコア最大6.75倍、ノイズクエリ3/3で除外確認',
     status: '公開済',
-    slug: null,
+    slug: 'clo',
   },
   {
     no: '#2',
-    title: '温度×時間センシングインク',
-    target: '日立PRリリース参照',
-    finding: 'スコア9.94倍、境界設計（隣接クエリで正しく低値）',
+    title: '温度×時間センシングインクは、AIに「食べ頃予測の技術」として届くか',
+    target: '日立産機システム PRリリース参照（自主実験）',
+    finding: 'スコア最大24倍（Q2: 2.5→60.1）、境界設計 3/3（隣接で正しい競合が1位）',
     status: '公開済',
-    slug: 'temperature-sensing-ink',
+    slug: 'hitachi',
   },
   {
     no: '#3',
-    title: '予定',
-    target: '固有名詞性の強い命名パターン',
-    finding: 'CLO・日立との命名パターン比較',
-    status: '準備中',
-    slug: null,
+    title: '温度×時間センシングインクは、検索とLLMに「しっかり届く」か',
+    target: '日立 PRリリース／文字バイグラム overlap 検証',
+    finding: '名称中心 vs i フレーム化で目標 10 クエリ・隣接 5 クエリのスコア差を可視化',
+    status: '公開済',
+    slug: 'temperature-sensing-ink',
   },
 ];
 ---
@@ -80,6 +80,44 @@ const experiments = [
       <div class="callout-note" style="margin-top:24px">
         すべての実験は自主実験（クライアント委託ではない）です。スコアは仮説シミュレーション値または LLM 応答実測値です。実際の検索流入・リード数・受注を示すものではありません。highprofilm.jp の AI Overview 登場は別途実測で確認しています。
       </div>
+    </div>
+  </section>
+
+  <!-- Featured experiment cards -->
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Featured Experiments</span>
+      <h2>注目の検証ノート</h2>
+
+      <div class="grid grid--2 mt-3">
+        <a href="/blog/clo/" class="service-card">
+          <div class="eyebrow" style="color:var(--hero-orange); margin-bottom:6px">実験 #1</div>
+          <h3>CLOコンパス みんどりシミュレーション結果レポート</h3>
+          <p style="font-size:14px; margin:10px 0">物流統括管理者（CLO）向けB2Bサービスを題材に、みんどりIndex の効果を文字バイグラム × フィールド重み付きスコアリングで検証。LLM 応答比較も Anthropic API で実測。</p>
+          <ul style="font-size:13px; color:var(--muted); padding-left:18px; margin-bottom:10px">
+            <li>目標クエリ 4/4 で 1 位（最大 6.75 倍）</li>
+            <li>ノイズクエリ 3/3 でマイナス（must_not 機能）</li>
+            <li>LLM 誤認 3 種すべてが 100% → 0% に改善</li>
+          </ul>
+          <span>詳細レポートを読む →</span>
+        </a>
+
+        <a href="/blog/hitachi/" class="service-card">
+          <div class="eyebrow" style="color:var(--hero-orange); margin-bottom:6px">実験 #2</div>
+          <h3>温度×時間センシングインクは、AIに「食べ頃予測の技術」として届くか</h3>
+          <p style="font-size:14px; margin:10px 0">日立産機システムが公開した PRリリースを題材に、名称のみと meandle Index 文脈追加でのスコア差を検証。「届くべきでない問いに届かない」境界設計も併せて評価。</p>
+          <ul style="font-size:13px; color:var(--muted); padding-left:18px; margin-bottom:10px">
+            <li>目標クエリ 3/3 で 1 位（Q2 は 24 倍）</li>
+            <li>隣接 3/3 で正しい競合が 1 位（過剰反応なし）</li>
+            <li>非主対象 3/3 でスコアゼロ以下（除外確認）</li>
+          </ul>
+          <span>詳細レポートを読む →</span>
+        </a>
+      </div>
+
+      <p class="muted" style="font-size:13px; margin-top:18px">
+        ※ 上記 2 件は分析レポート形式。記事形式の解説版は <a href="/blog/temperature-sensing-ink/">実験 #3「温度×時間センシングインクは、検索とLLMに『しっかり届く』か」</a> を参照。
+      </p>
     </div>
   </section>
 </BaseLayout>

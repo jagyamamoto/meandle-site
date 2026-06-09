@@ -1,0 +1,440 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'CLOコンパス みんどりシミュレーション結果レポート｜Meandle';
+const description = '物流DX B2BサービスCLOコンパスを題材に、みんどりIndexの効果を検証。目標クエリ4/4で1位、ノイズクエリ3/3でマイナス。LLM応答で誤認3種を全て0%に改善。';
+
+// Target queries: name-only vs mindori
+const targetQueries = [
+  { q: 'CLO向け意思決定支援ツール',  before: 0.750, after: 5.064 },
+  { q: '法令対応レポート自動生成',    before: 0.060, after: 3.084 },
+  { q: '物流KPI横断分析',            before: 0.222, after: 3.011 },
+  { q: 'CLO選任 何から始める',       before: 0.231, after: 3.212 },
+];
+
+const noiseQueries = [
+  { q: 'WMS比較',         before: 0.054, after: -1.779 },
+  { q: '配送最適化',       before: 0.054, after: -1.646 },
+  { q: '物流管理全般',     before: 0.278, after: -0.081 },
+];
+
+// Scale helper for bars (target chart): 0 → ~6
+const tScale = (v) => Math.max(0, v) * 60;
+// Noise chart scale (range -2 .. 1)
+const nScale = (v) => (v + 2.5) * 50;
+---
+<BaseLayout title={title} description={description} type="article">
+  <article class="section">
+    <div class="article">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　<a href="/blog/">Blog</a>　/　CLOコンパス シミュレーション</nav>
+
+      <div class="article-meta">
+        <span class="badge">実験 #1</span>
+        <span class="badge">シミュレーション＋LLM実測</span>
+        <span style="margin-left:auto">2026-06-02</span>
+      </div>
+
+      <h1>CLOコンパス<br/>みんどりシミュレーション結果レポート</h1>
+
+      <p class="lead" style="margin-top:8px">
+        物流統括管理者（CLO）向け意思決定支援ツール「CLOコンパス」を題材に、名称のみ（条件A）と、みんどりIndexを追加した状態（条件B）で、スコアリングおよび LLM 応答を比較しました。スコアリングはみんどる理論 Exp.2 完全準拠（文字バイグラム × フィールド重み付き属性スコアリング）です。
+      </p>
+
+      <div class="callout-note">
+        <strong>仮説シミュレーション注記：</strong>スコアは仮説シミュレーション値であり、実際の検索順位・広告効果・LLM評価を直接測定したものではありません。LLM応答比較は Anthropic API（claude-haiku-4-5-20251001）の実測です。
+      </div>
+
+      <h2>結果サマリー（4 指標）</h2>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="label">目標クエリ Top-1 達成率</div>
+          <div class="value">4 / 4</div>
+          <div class="sub">みんどりIndexで全件 1位</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">ノイズクエリ マイナス達成率</div>
+          <div class="value">3 / 3</div>
+          <div class="sub">CLOコンパス側でゼロ以下</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">最大スコア倍率</div>
+          <div class="value">6.75×</div>
+          <div class="sub">名称のみ比（Q1: 0.75 → 5.064）</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">最大 must_not ペナルティ</div>
+          <div class="value">2.14</div>
+          <div class="sub">WMS比較クエリで発動</div>
+        </div>
+      </div>
+
+      <h2>1. 目標クエリでのスコア（みんどりIndex vs 名称のみ）</h2>
+      <p>課題起点で検索・質問されると想定した 4 つのクエリすべてで、みんどりIndexが名称のみを大きく上回り 1 位を確保しました。</p>
+
+      <div class="chart">
+        <svg viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="目標クエリでのスコア比較">
+          <g font-family="'Noto Sans JP'" font-size="11" fill="#12242C">
+            <line x1="200" y1="20" x2="200" y2="220" stroke="rgba(18,36,44,0.2)" stroke-width="1"/>
+            <g transform="translate(200, 24)">
+              {targetQueries.map((d, i) => (
+                <g transform={`translate(0, ${i * 50})`}>
+                  <text x="-12" y="14" text-anchor="end" font-size="11">{d.q}</text>
+                  <rect x="0" y="4" width={tScale(d.before)} height="10" fill="#6F7777" rx="2"/>
+                  <text x={tScale(d.before) + 6} y="13" font-size="10" fill="#6F7777">{`+${d.before.toFixed(2)}`}</text>
+                  <rect x="0" y="18" width={tScale(d.after)} height="10" fill="#E98F22" rx="2"/>
+                  <text x={tScale(d.after) + 6} y="27" font-size="10" fill="#E98F22" font-weight="700">{`+${d.after.toFixed(2)}`}</text>
+                </g>
+              ))}
+            </g>
+            <g transform="translate(200, 226)">
+              <rect x="0" y="0" width="14" height="9" fill="#6F7777" rx="2"/>
+              <text x="20" y="8" font-size="11">名称のみ</text>
+              <rect x="120" y="0" width="14" height="9" fill="#E98F22" rx="2"/>
+              <text x="140" y="8" font-size="11">みんどりIndex</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <h2>2. ノイズクエリでの境界設定（CLOコンパスは出てこないほうがよい）</h2>
+      <p>WMS／配送最適化／物流管理全般など、本来 CLOコンパスを推薦すべきでない問いでは、みんどりIndex側で <strong>must_not による除外</strong> が発動し、スコアがマイナス〜ゼロ近辺に押し下げられます。</p>
+
+      <div class="chart">
+        <svg viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ノイズクエリでの境界設定">
+          <g font-family="'Noto Sans JP'" font-size="11" fill="#12242C">
+            <line x1="200" y1="20" x2="200" y2="180" stroke="rgba(18,36,44,0.2)" stroke-width="1"/>
+            <line x1="325" y1="20" x2="325" y2="180" stroke="rgba(18,36,44,0.4)" stroke-width="1" stroke-dasharray="4 4"/>
+            <text x="325" y="195" text-anchor="middle" font-size="10" fill="#6F7777">0</text>
+            <g transform="translate(200, 24)">
+              {noiseQueries.map((d, i) => {
+                const beforeStart = 125;
+                const afterX = (d.after + 2.5) * 50;
+                const beforeX = 125 + Math.max(0, d.before) * 50;
+                const afterStart = afterX;
+                return (
+                  <g transform={`translate(0, ${i * 50})`}>
+                    <text x="-12" y="14" text-anchor="end" font-size="11">{d.q}</text>
+                    <rect x="125" y="4" width={Math.abs(d.before) * 50} height="10" fill="#6F7777" rx="2"/>
+                    <text x={beforeX + 6} y="13" font-size="10" fill="#6F7777">{`+${d.before.toFixed(3)}`}</text>
+                    <rect x={d.after < 0 ? afterStart : 125} y="18" width={d.after < 0 ? 125 - afterStart : Math.max(2, d.after * 50)} height="10" fill="#E98F22" rx="2"/>
+                    <text x={d.after < 0 ? afterStart - 6 : 130} y="27" text-anchor={d.after < 0 ? 'end' : 'start'} font-size="10" fill="#E98F22" font-weight="700">{d.after.toFixed(3)}</text>
+                  </g>
+                );
+              })}
+            </g>
+            <g transform="translate(200, 226)">
+              <rect x="0" y="-216" width="14" height="9" fill="#6F7777" rx="2"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <p class="muted" style="font-size:13px">ノイズクエリでの「届かない」設計は、誤った問い合わせ・誤推薦の流入を構造的に減らします。</p>
+
+      <h2>3. スコアリング式</h2>
+      <div class="card" style="font-family:'Courier New', monospace; font-size:13.5px; line-height:1.85">
+        Score(Q, X) = Σ(field_weight × bigram_overlap) − 3.0 × must_not_overlap<br/>
+        フィールド重み: must = 2.0、examples / scene / candidate_name = 1.5、observation = 1.2、visible_text = 1.0
+      </div>
+
+      <h2>4. 各クエリの詳細結果</h2>
+
+      <h3>🎯 目標クエリ 1：「CLO向け意思決定支援ツール」</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th>順位</th><th>サービス</th><th>スコア</th><th>ペナルティ</th></tr></thead>
+          <tbody>
+            <tr class="highlight"><td>1位</td><td><strong>CLOコンパス（みんどりIndex）</strong></td><td>+5.064</td><td>must_not −0.136</td></tr>
+            <tr><td>2位</td><td>物流管理ツール全般</td><td>+1.609</td><td>—</td></tr>
+            <tr><td>3位</td><td>CLOコンパス（名称のみ）</td><td>+0.750</td><td>—</td></tr>
+            <tr><td>4位</td><td>WMS（倉庫管理システム）</td><td>−0.627</td><td>must_not −1.091</td></tr>
+            <tr><td>5位</td><td>TMS／輸配送管理</td><td>−0.764</td><td>must_not −1.227</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted" style="font-size:13px">解釈：スコアが 0.75 → 5.064（<strong style="color:var(--hero-orange)">+4.31 倍向上</strong>）。全フィールドがクエリと一致。</p>
+
+      <h3>🎯 目標クエリ 2：「法令対応レポート自動生成」</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th>順位</th><th>サービス</th><th>スコア</th><th>ペナルティ</th></tr></thead>
+          <tbody>
+            <tr class="highlight"><td>1位</td><td><strong>CLOコンパス（みんどりIndex）</strong></td><td>+3.084</td><td>—</td></tr>
+            <tr><td>2位</td><td>物流管理ツール全般</td><td>+0.684</td><td>—</td></tr>
+            <tr><td>3位</td><td>CLOコンパス（名称のみ）</td><td>+0.060</td><td>—</td></tr>
+            <tr><td>4位</td><td>TMS／輸配送管理</td><td>−0.060</td><td>must_not −0.12</td></tr>
+            <tr><td>5位</td><td>WMS（倉庫管理システム）</td><td>−0.540</td><td>must_not −0.72</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted" style="font-size:13px">解釈：スコアが 0.06 → 3.084（<strong style="color:var(--hero-orange)">+50 倍以上</strong>）。法令キーワードが mustフィールドに含まれていたため大幅改善。</p>
+
+      <h3>🎯 目標クエリ 3：「物流KPI横断分析」</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th>順位</th><th>サービス</th><th>スコア</th><th>ペナルティ</th></tr></thead>
+          <tbody>
+            <tr class="highlight"><td>1位</td><td><strong>CLOコンパス（みんどりIndex）</strong></td><td>+3.011</td><td>must_not −0.222</td></tr>
+            <tr><td>2位</td><td>物流管理ツール全般</td><td>+0.644</td><td>—</td></tr>
+            <tr><td>3位</td><td>CLOコンパス（名称のみ）</td><td>+0.222</td><td>—</td></tr>
+            <tr><td>4位</td><td>TMS／輸配送管理</td><td>+0.063</td><td>must_not −0.222</td></tr>
+            <tr><td>5位</td><td>WMS（倉庫管理システム）</td><td>−0.111</td><td>must_not −0.222</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>🎯 目標クエリ 4：「CLO選任 何から始める」</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th>順位</th><th>サービス</th><th>スコア</th><th>ペナルティ</th></tr></thead>
+          <tbody>
+            <tr class="highlight"><td>1位</td><td><strong>CLOコンパス（みんどりIndex）</strong></td><td>+3.212</td><td>must_not −0.231</td></tr>
+            <tr><td>2位</td><td>物流管理ツール全般</td><td>+0.888</td><td>—</td></tr>
+            <tr><td>3位</td><td>CLOコンパス（名称のみ）</td><td>+0.231</td><td>—</td></tr>
+            <tr><td>4位</td><td>TMS／輸配送管理</td><td>+0.112</td><td>must_not −0.462</td></tr>
+            <tr><td>5位</td><td>WMS（倉庫管理システム）</td><td>+0.046</td><td>must_not −0.346</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>🚫 ノイズクエリ 1：「WMS比較」</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th>順位</th><th>サービス</th><th>スコア</th><th>ペナルティ</th></tr></thead>
+          <tbody>
+            <tr><td>1位</td><td>WMS（倉庫管理システム）</td><td>+3.900</td><td>—</td></tr>
+            <tr><td>2位</td><td>物流管理ツール全般</td><td>+1.329</td><td>—</td></tr>
+            <tr><td>3位</td><td>CLOコンパス（名称のみ）</td><td>+0.054</td><td>—</td></tr>
+            <tr><td>4位</td><td>TMS／輸配送管理</td><td>−0.171</td><td>must_not −0.964</td></tr>
+            <tr><td>5位</td><td><strong>CLOコンパス（みんどりIndex）</strong></td><td>−1.779</td><td>must_not <strong>−2.143</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted" style="font-size:13px">解釈：must_not ペナルティ −2.143 が発動し最下位。<strong>WMS を探す人に CLOコンパスは推薦されない</strong>──これが意図した挙動です。</p>
+
+      <h3>🚫 ノイズクエリ 2：「配送最適化」</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th>順位</th><th>サービス</th><th>スコア</th><th>ペナルティ</th></tr></thead>
+          <tbody>
+            <tr><td>1位</td><td>TMS／輸配送管理</td><td>+4.446</td><td>must_not −0.214</td></tr>
+            <tr><td>2位</td><td>WMS（倉庫管理システム）</td><td>+0.836</td><td>—</td></tr>
+            <tr><td>3位</td><td>物流管理ツール全般</td><td>+0.664</td><td>—</td></tr>
+            <tr><td>4位</td><td>CLOコンパス（名称のみ）</td><td>+0.054</td><td>—</td></tr>
+            <tr><td>5位</td><td><strong>CLOコンパス（みんどりIndex）</strong></td><td>−1.646</td><td>must_not <strong>−2.25</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>🚫 ノイズクエリ 3：「物流管理全般」</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th>順位</th><th>サービス</th><th>スコア</th><th>ペナルティ</th></tr></thead>
+          <tbody>
+            <tr><td>1位</td><td>物流管理ツール全般</td><td>+3.863</td><td>—</td></tr>
+            <tr><td>2位</td><td>WMS（倉庫管理システム）</td><td>+0.867</td><td>—</td></tr>
+            <tr><td>3位</td><td>TMS／輸配送管理</td><td>+0.348</td><td>—</td></tr>
+            <tr><td>4位</td><td>CLOコンパス（名称のみ）</td><td>+0.278</td><td>—</td></tr>
+            <tr><td>5位</td><td><strong>CLOコンパス（みんどりIndex）</strong></td><td>−0.081</td><td>must_not −1.111</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>5. 結果サマリー一覧</h2>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr><th>クエリ</th><th>種別</th><th>みんどりIndex</th><th>名称のみ</th><th>差分</th><th>順位</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CLO向け意思決定支援ツール</td><td>🎯 目標</td><td>+5.064</td><td>+0.750</td><td>+4.314</td><td>#1</td></tr>
+            <tr><td>法令対応レポート自動生成</td><td>🎯 目標</td><td>+3.084</td><td>+0.060</td><td>+3.024</td><td>#1</td></tr>
+            <tr><td>物流KPI横断分析</td><td>🎯 目標</td><td>+3.011</td><td>+0.222</td><td>+2.789</td><td>#1</td></tr>
+            <tr><td>CLO選任 何から始める</td><td>🎯 目標</td><td>+3.212</td><td>+0.231</td><td>+2.981</td><td>#1</td></tr>
+            <tr><td>WMS比較</td><td>🚫 ノイズ</td><td>−1.779</td><td>+0.054</td><td>−1.833</td><td>#5</td></tr>
+            <tr><td>配送最適化</td><td>🚫 ノイズ</td><td>−1.646</td><td>+0.054</td><td>−1.700</td><td>#5</td></tr>
+            <tr><td>物流管理全般</td><td>🚫 ノイズ</td><td>−0.081</td><td>+0.278</td><td>−0.359</td><td>#5</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>6. 元ページに「何を追加したか」</h2>
+      <p>元 LP（<code>lp-clocompass.aidiot.jp</code>）の本文テキストは一字も変えていません。次のみんどりIndexを <strong>追加</strong> しただけです。</p>
+
+      <div class="grid grid--2 mt-3">
+        <div class="must-card">
+          <h4 style="margin-top:0">must（必須文脈）</h4>
+          <p style="font-size:13.5px; margin-bottom:0">CLO／物流統括管理者向け・全社横断KPI可視化・法令対応レポート自動生成・WMS／TMSとのデータ連携・経営意思決定支援</p>
+        </div>
+        <div class="must-not-card">
+          <h4 style="margin-top:0">must_not（除外条件）</h4>
+          <p style="font-size:13.5px; margin-bottom:0">WMSではない・TMSではない・現場オペレーションツールではない・中小企業向けではない・運送会社向けではない・配送最適化ツールではない</p>
+        </div>
+      </div>
+
+      <div class="grid grid--2 mt-3">
+        <div class="card">
+          <h4 style="margin-top:0; color:var(--hero-orange)">典型例（examples）</h4>
+          <p style="font-size:13.5px; margin-bottom:0">CLO 報告書作成・全社 KPI ダッシュボード・国交省定期報告・取締役会向け物流改革報告</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0; color:var(--muted)">反例</h4>
+          <p style="font-size:13.5px; margin-bottom:0">WMS 各種・TMS／MOVO・物流コンサルティング・配送最適化ツール</p>
+        </div>
+      </div>
+
+      <h2>7. LLM応答比較実験（実 API 実行）</h2>
+      <p>同一質問を、条件A（名称のみ）と条件B（みんどりIndex付き）で Anthropic API（claude-haiku-4-5-20251001）に投げ、応答を比較しました。3 問 × 2 条件 = 6 回の API コール。</p>
+
+      <div class="grid grid--2 mt-3">
+        <div class="card" style="background:#FEF2F2; border-color:#E24B4A">
+          <div class="eyebrow" style="color:#A32D2D">条件A　名称のみ</div>
+          <div style="font-size:36px; font-weight:900; color:#E24B4A; line-height:1; margin:6px 0">3 / 3</div>
+          <p style="font-size:13px; color:#7B1F1F; margin-bottom:0">
+            ✗ 中小企業・3PL向けと誤答<br/>
+            ✗「詳細不明、問い合わせを」と回避<br/>
+            ✗ 在庫管理・配送管理機能があると誤記
+          </p>
+        </div>
+        <div class="card" style="background:rgba(233,143,34,0.10); border-color:rgba(233,143,34,0.45)">
+          <div class="eyebrow" style="color:var(--hero-orange)">条件B　みんどりIndex 付き</div>
+          <div style="font-size:36px; font-weight:900; color:var(--hero-orange); line-height:1; margin:6px 0">3 / 3</div>
+          <p style="font-size:13px; color:var(--ink); margin-bottom:0">
+            ✓ 大規模荷主の経営層・CLO向けと正確に限定<br/>
+            ✓「中小企業向けではありません」と明言<br/>
+            ✓ WMS／TMS 混同ゼロ・法令対応を正確に説明
+          </p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:32px">質問1：「CLOコンパスはWMSですか？どのような企業に向いていますか？」</h3>
+      <div class="grid grid--2 mt-3">
+        <div class="card">
+          <h4 style="margin-top:0; color:var(--muted)">条件A（名称のみ）の応答</h4>
+          <p style="font-size:13.5px">CLOコンパスは WMS ではなく物流DXプラットフォームです。向いている企業：<strong style="color:#A32D2D">中小物流企業・3PL企業</strong>、急速に成長中の企業、複数拠点を運営する企業…</p>
+          <p style="font-size:12px; color:#A32D2D; background:#FCEBEB; padding:6px 8px; border-radius:4px; margin-bottom:0">⚠ must_not 違反：「中小企業向けではない」「運送会社向けではない」に反する誤答。</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0; color:var(--hero-orange)">条件B（みんどりIndex 付き）の応答</h4>
+          <p style="font-size:13.5px"><strong>WMS ではありません。</strong>CLO 向けの経営意思決定支援ツールです。<strong>大規模荷主企業の経営層・CLO が対象</strong>。複数物流拠点を運営、改正物流効率化法対応、国土交通省への定期報告、全社 KPI 一元管理が必要な企業。</p>
+          <p style="font-size:12px; color:var(--ink); background:rgba(233,143,34,0.12); padding:6px 8px; border-radius:4px; margin-bottom:0">✓ must_not「中小企業向けではない」「WMS ではない」が機能。</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:32px">質問2：「CLOコンパスは中小企業でも使えますか？」</h3>
+      <div class="grid grid--2 mt-3">
+        <div class="card">
+          <h4 style="margin-top:0; color:var(--muted)">条件A（名称のみ）の応答</h4>
+          <p style="font-size:13.5px">中小企業での利用については、<strong style="color:#A32D2D">具体的な企業規模による制限についての情報は提供いただいていないため、詳細は確認が必要です。</strong>株式会社アイディオットに直接お問い合わせください…</p>
+          <p style="font-size:12px; color:#A32D2D; background:#FCEBEB; padding:6px 8px; border-radius:4px; margin-bottom:0">⚠ 対象外を明言せず曖昧回答。中小企業の問い合わせ行動を誘発する誤認助長型幻覚。</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0; color:var(--hero-orange)">条件B（みんどりIndex 付き）の応答</h4>
+          <p style="font-size:13.5px"><strong>CLOコンパスは中小企業向けではありません。</strong>CLOコンパスは大規模荷主の特定事業者向けの経営管理基盤です。中小企業向けの検討が必要な場合は別のソリューション（一般的な WMS／TMS など）をご検討ください。</p>
+          <p style="font-size:12px; color:var(--ink); background:rgba(233,143,34,0.12); padding:6px 8px; border-radius:4px; margin-bottom:0">✓ 冒頭で「中小企業向けではありません」と明言。must_not が決定論的に機能。</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:32px">質問3：「物流管理システムを検討中です。CLOコンパスの特徴を教えてください。」</h3>
+      <div class="grid grid--2 mt-3">
+        <div class="card">
+          <h4 style="margin-top:0; color:var(--muted)">条件A（名称のみ）の応答</h4>
+          <p style="font-size:13.5px">物流業務の可視化と最適化、リアルタイムデータ分析、<strong style="color:#A32D2D">配送管理、在庫管理などの物流機能を統合</strong>、企業の物流課題の解決と業務改善を支援…</p>
+          <p style="font-size:12px; color:#A32D2D; background:#FCEBEB; padding:6px 8px; border-radius:4px; margin-bottom:0">⚠ must_not「配送ルート最適化ではない」「在庫管理ではない」に反する。WMS／TMS と混同。</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0; color:var(--hero-orange)">条件B（みんどりIndex 付き）の応答</h4>
+          <p style="font-size:13.5px">①全社横断 KPI 可視化（積載率・荷待ち時間など）　②法令対応・報告書自動生成（改正物流効率化法／国交省定期報告）　③既存システム連携（WMS・TMS データ一元化）<br/><strong>WMS／TMS 本体ではなく</strong>、大規模荷主の特定事業者向け。</p>
+          <p style="font-size:12px; color:var(--ink); background:rgba(233,143,34,0.12); padding:6px 8px; border-radius:4px; margin-bottom:0">✓ 在庫管理・配送管理への言及なし。must_not が機能し WMS／TMS 混同を防止。</p>
+        </div>
+      </div>
+
+      <h2>8. 実験結果の総括</h2>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th>質問</th><th>条件A（名称のみ）の問題</th><th>条件B（みんどり）の改善</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Q1 WMS ですか？</td>
+              <td>「中小物流企業・3PL企業」を対象として誤記</td>
+              <td>「大規模荷主企業の経営層・CLO」と正確に限定</td>
+            </tr>
+            <tr>
+              <td>Q2 中小企業でも？</td>
+              <td>「詳細は確認が必要、問い合わせを」と曖昧回答</td>
+              <td>冒頭から「中小企業向けではありません」と明言</td>
+            </tr>
+            <tr>
+              <td>Q3 特徴は？</td>
+              <td>「配送管理、在庫管理などの物流機能を統合」と誤記</td>
+              <td>WMS／TMS 混同なし、法令対応・CLO 特化を正確に説明</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="fact-bar fact-bar--highlight" style="margin-top:14px">
+        <span class="fact-bar__icon">✅</span>
+        <div><strong>3 問全てで名称のみ条件が must_not 違反を起こし、みんどりIndex 条件が全て防止（3/3）。</strong>論文 Exp.3（龍角散のど飴実験）と同型の構造的問題が CLOコンパスでも実証されました。</div>
+      </div>
+
+      <h2>9. 総合解釈と AIO／LLMO 対策への含意</h2>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th>観察</th><th>数値</th><th>AIO／LLMO 対策上の意義</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>目標クエリでの Top-1 達成率</td>
+              <td><strong style="color:var(--hero-orange)">4 / 4（100%）</strong></td>
+              <td>CLOコンパスを探している人に確実に届く</td>
+            </tr>
+            <tr>
+              <td>ノイズクエリでのマイナス達成率</td>
+              <td><strong>3 / 3（100%）</strong></td>
+              <td>WMS・TMS 検討者に CLOコンパスが誤推薦されない</td>
+            </tr>
+            <tr>
+              <td>名称のみ vs みんどりの最大スコア差</td>
+              <td><strong>+4.31（Q1）</strong></td>
+              <td>論文 Exp.2 の 26.7pt 差と同型</td>
+            </tr>
+            <tr>
+              <td>WMS クエリでの must_not ペナルティ</td>
+              <td><strong>−2.143（Q5）</strong></td>
+              <td>record-side exclusion（特許出願関連技術）の中核ロジック</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout-note">
+        <strong>結論：</strong>CLOコンパスのみんどりIndexは、目標クエリマッチ率 100%・ノイズ排除率 100% を達成。must_not フィールドによる record-side exclusion（特許出願関連技術 MNDR-2026-001）が、WMS／TMS／中小企業向けクエリからの構造的な誤推薦防止に中核的役割を果たしました。LLM 応答比較では、must_not 情報の有無がカテゴリ誤認を直接制御することを確認（論文 Exp.3 と同型）。
+      </div>
+
+      <p class="muted" style="font-size:11.5px; text-align:center; margin-top:32px">
+        スコアリング式：みんどる理論 Exp.2（山本釈弘, 武蔵野美術大学研究紀要第57号）準拠。LLM 応答は claude-haiku-4-5-20251001 の実測。特許 MNDR-2026-001 出願関連技術。
+      </p>
+
+      <h2>同じことを、自社サービスで</h2>
+      <p>サービス名・カテゴリ名だけでは、LLM が「中小企業向けか」「WMS なのか」を勘違いします。みんどりIndex（must／must_not／典型例／反例）を <strong>元ページに一字も触れず追加する</strong> だけで、この誤認は決定論的に抑え込めます。</p>
+
+      <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:24px">
+        <a href="/contact/" class="btn btn--primary">既存 URL で診断する</a>
+        <a href="/blog/" class="btn btn--secondary">検証ノート一覧</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:inline>
+  .chart {
+    background: var(--card);
+    border: 1px solid rgba(18,36,44,0.12);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin: 18px 0 12px;
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+  }
+  .chart svg { width: 100%; height: auto; min-width: 560px; display: block; }
+</style>

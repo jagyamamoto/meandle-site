@@ -145,6 +145,99 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 
+  <!-- Featured CTA: CLO compass detailed analysis -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-analysis">
+        <div class="cta-analysis__inner">
+          <div class="cta-analysis__body">
+            <span class="ev-badge ev-badge--real" style="margin-bottom:14px">📈 ANALYSIS REPORT — 詳細レポート公開中</span>
+            <h2 style="margin-bottom:14px; font-size:clamp(22px, 2.8vw, 30px)">実際の分析イメージを<br/>見てみる</h2>
+            <p style="font-size:15px; line-height:1.9; margin-bottom:18px">
+              「みんどり最適化」が実際にどう機能するのか──CLOコンパス（物流DX B2Bサービス）を題材にした、目標クエリ／ノイズクエリ別のスコアリング、LLM応答の Before/After 実測比較を <strong>1 つのレポート</strong> にまとめました。
+            </p>
+            <ul style="font-size:14px; line-height:1.85; padding-left:20px; margin-bottom:20px">
+              <li>目標 4 クエリ／ノイズ 3 クエリのスコア詳細（5 候補比較）</li>
+              <li>LLM 3 問 × 2 条件 = 6 回の API 実測応答</li>
+              <li>must_not による誤推薦の構造的防止メカニズム</li>
+              <li>「中小企業向けと誤答」「曖昧回避」「機能誤記」が <strong>100% → 0%</strong> に</li>
+            </ul>
+            <a href="/blog/clo/" class="btn btn--primary cta-analysis__btn">実際の分析イメージを見てみる →</a>
+          </div>
+          <div class="cta-analysis__visual" aria-hidden="true">
+            <div class="cta-analysis__chip">
+              <div class="cta-analysis__chip-label">スコア改善（最大）</div>
+              <div class="cta-analysis__chip-num">6.75×</div>
+              <div class="cta-analysis__chip-sub">名称のみ比</div>
+            </div>
+            <div class="cta-analysis__chip cta-analysis__chip--alt">
+              <div class="cta-analysis__chip-label">LLM 誤認</div>
+              <div class="cta-analysis__chip-num">3/3 → 0/3</div>
+              <div class="cta-analysis__chip-sub">3 問すべて改善</div>
+            </div>
+            <div class="cta-analysis__chip">
+              <div class="cta-analysis__chip-label">ノイズ排除率</div>
+              <div class="cta-analysis__chip-num">100%</div>
+              <div class="cta-analysis__chip-sub">3/3 クエリ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style is:inline>
+    .cta-analysis {
+      background: linear-gradient(135deg, rgba(233,143,34,0.12) 0%, rgba(201,222,220,0.40) 100%);
+      border: 2px solid var(--hero-orange);
+      border-radius: 12px;
+      padding: 36px 32px;
+      box-shadow: 0 4px 20px rgba(233,143,34,0.18);
+    }
+    .cta-analysis__inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .cta-analysis__inner { grid-template-columns: 1.5fr 1fr; }
+    }
+    .cta-analysis__btn {
+      font-size: 17px;
+      padding: 16px 32px;
+      display: inline-block;
+    }
+    .cta-analysis__visual {
+      display: grid;
+      gap: 12px;
+    }
+    .cta-analysis__chip {
+      background: var(--white);
+      border: 1px solid rgba(18,36,44,0.10);
+      border-left: 4px solid var(--hero-orange);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      box-shadow: var(--shadow);
+    }
+    .cta-analysis__chip--alt { border-left-color: var(--ink); }
+    .cta-analysis__chip-label {
+      font-size: 11.5px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      font-weight: 700;
+    }
+    .cta-analysis__chip-num {
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--hero-orange);
+      line-height: 1.1;
+      margin: 4px 0 2px;
+    }
+    .cta-analysis__chip--alt .cta-analysis__chip-num { color: var(--ink); }
+    .cta-analysis__chip-sub { font-size: 12px; color: var(--muted); }
+  </style>
+
   <!-- Service flow -->
   <section class="section section--alt">
     <div class="container">

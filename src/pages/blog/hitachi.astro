@@ -1,0 +1,321 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = '温度×時間センシングインクは、AIに「食べ頃予測の技術」として届くか｜Meandle';
+const description = '日立産機システムの「温度×時間センシングインク」を題材に、meandle Index による文脈追加がスコアと LLM 応答をどう変えるかを検証。目標クエリ3/3で1位、非主対象3/3でスコアゼロ以下。';
+
+// Target queries: before vs after
+const targetQueries = [
+  { q: 'メロン食べ頃予測',          before: 5.0,  after: 49.7 },
+  { q: '積算温度・電源不要ラベル',   before: 2.5,  after: 60.1 },
+  { q: 'コールドチェーン個品品質',   before: 10.0, after: 43.1 },
+];
+
+// Boundary queries (adjacent + non-target)
+const boundaryQueries = [
+  { q: '食べ頃予測', val: 49.7, type: 'target' },
+  { q: '積算温度・電源不要', val: 60.1, type: 'target' },
+  { q: '個品品質', val: 43.1, type: 'target' },
+  { q: 'TTIラベル一般', val: 17.5, type: 'adjacent' },
+  { q: '温度ロガー', val: 10.0, type: 'adjacent' },
+  { q: '鮮度インジケーター', val: 8.5, type: 'adjacent' },
+  { q: '賞味期限ラベル', val: -8.0, type: 'noise' },
+  { q: 'GPS追跡', val: 0.0, type: 'noise' },
+  { q: '鮮度保持材', val: -4.5, type: 'noise' },
+];
+
+const tScale = (v) => Math.max(0, v) * 8; // scales 0..70 → 0..560
+const bScaleZero = 60; // x-position of zero line
+const bScale = (v) => v * 7; // px per point
+---
+<BaseLayout title={title} description={description} type="article">
+  <article class="section">
+    <div class="article">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　<a href="/blog/">Blog</a>　/　日立センシングインク</nav>
+
+      <div class="article-meta">
+        <span class="badge">実験 #2</span>
+        <span class="badge">仮説シミュレーション</span>
+        <span class="badge">meandle Index 効果検証</span>
+        <span style="margin-left:auto">2026-06</span>
+      </div>
+
+      <h1>温度×時間センシングインクは、<br/>AI に「食べ頃予測の技術」として届くか</h1>
+      <p class="lead" style="margin-top:8px">
+        meandle Index による文脈追加が、スコアと LLM 応答をどう変えるか。<br/>
+        対象 PR：日立産機システム株式会社「温度×時間センシングインク」
+      </p>
+
+      <div class="callout-note">
+        <strong>仮説シミュレーション注記：</strong>本検証のスコアは、文字バイグラム overlap による仮説シミュレーション値です。実際の検索順位・広告効果・LLM 評価を直接測定したものではありません。「After は Before の約 X 倍」という表現は、シミュレーションスコア上の比較としてのみ解釈してください。PR 本文から確認できる事実と、発表者の意図にかかる仮説は区別して記述しています。<strong>本件は日立産機システム委託の実験ではなく Jag Yamamoto の自主実験です。</strong>
+      </div>
+
+      <h2>結果サマリー（4 指標）</h2>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="label">目標クエリ Top-1 達成率</div>
+          <div class="value">3 / 3</div>
+          <div class="sub">meandle Index で全件 1位</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">非主対象クエリ 最小スコア</div>
+          <div class="value">−8.0</div>
+          <div class="sub">賞味期限ラベルとの境界（除外効果）</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">最大スコア倍率</div>
+          <div class="value">24.0×</div>
+          <div class="sub">Q2: 2.5 → 60.1（名称のみ比）</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">隣接クエリ 正しい競合 1位率</div>
+          <div class="value">3 / 3</div>
+          <div class="sub">TTI／温度ロガー／鮮度インジケーター</div>
+        </div>
+      </div>
+
+      <h2>1. このPRリリースが伝えていること</h2>
+      <p>日立産機システムのリリースから確認できる事実：温度と経過時間の積算値に応じて<strong>不可逆に変色</strong>するセンシングインクを食品ラベルに印刷し、青果物の<strong>熟し具合や食べ頃時期</strong>の推定に活用できます。電源不要・回収不要で、従来の温度ロガーと比較してコストを抑えられる点が特徴です。</p>
+
+      <div class="must-card">
+        <h4 style="margin-top:0">発表者の意図仮説（筆者の見立て）</h4>
+        <p style="font-size:14px; margin-bottom:0">この技術は「温度を記録する」だけではなく、「今、出荷してよいか」「今、棚に出してよいか」という現場の判断を、低コストで個品単位に支える情報設計として読めます。温度ロガーが温度履歴を記録する装置であるのに対し、本件は流通・販売の判断を前倒しするための手段として位置づけられます。<strong>この見立ては筆者の仮説であり、発表者の公式見解ではありません。</strong></p>
+      </div>
+
+      <p>問題は、この価値が<strong>名称の外側にある</strong>点です。「食べ頃予測」「積算温度」「電源不要の個品ラベル」「フードロス低減」──これらはリリースを読んで初めて届く文脈であり、名称の語彙からはほとんど見えません。</p>
+
+      <h2>2. なぜ誤分類されやすいか</h2>
+      <p>本件は複数の隣接カテゴリと距離が近い状態にあります。</p>
+
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr><th>隣接カテゴリ</th><th>共通する要素</th><th>本件との相違点</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>TTI ラベル一般</td><td>温度変化を色で可視化</td><td>本件は温度×時間の<strong>積算</strong>で食品品質を判断</td></tr>
+            <tr><td>温度ロガー</td><td>温度管理・記録</td><td>本件は<strong>記録ではなく現場判断を支援</strong>。電源不要</td></tr>
+            <tr><td>鮮度インジケーター</td><td>食品の品質可視化</td><td>本件は<strong>腐敗検知ではなく熟し具合・食べ頃予測</strong></td></tr>
+            <tr><td>賞味期限ラベル</td><td>食品ラベルへの印刷</td><td>本件は<strong>日付印字ではなく状態に応じた変色</strong>による品質表示</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>名称「温度×時間センシングインク」から見える語彙は「温度」「時間」「インク」の 3 つだけ。これだけでは上表のどのカテゴリにも分類できてしまいます。<strong>本件の中心である「食べ頃予測」「積算温度による品質可視化」「フードロス低減」が、名称の外側に置かれている</strong>状態です。</p>
+
+      <h2>3. meandle Index として追加した情報</h2>
+      <p>名称に対して、以下の文脈を追加しました。宣伝文ではなく、検索・LLM が意味を取り違えないための文脈です。</p>
+
+      <div class="grid grid--2 mt-3">
+        <div class="card" style="background:#FEF2F2; border-color:#E24B4A">
+          <div class="eyebrow" style="color:#A32D2D">Before　名称のみ</div>
+          <h4 style="margin:8px 0; color:#E24B4A">温度×時間センシングインク</h4>
+          <p style="font-size:13px; color:#7B1F1F; margin-bottom:0">「温度」「時間」「インク」の 3 語しか渡されない。TTI ラベル・温度ロガー・印刷インクの 3 方向に解釈が広がる。「食べ頃予測」「積算温度」「フードロス」などの文脈がない。</p>
+        </div>
+        <div class="card" style="background:rgba(233,143,34,0.10); border-color:rgba(233,143,34,0.45)">
+          <div class="eyebrow" style="color:var(--hero-orange)">After　meandle Index</div>
+          <h4 style="margin:8px 0">温度×時間センシングインク 食品品質可視化ソリューション</h4>
+          <ul style="font-size:13.5px; margin:0; padding-left:18px">
+            <li><strong>must：</strong>温度と時間の積算で不可逆に変色するセンシングインクを食品ラベルに印刷し、青果物の熟し具合や食べ頃を可視化する</li>
+            <li><strong>scene：</strong>農産物輸出、青果流通、コールドチェーン、店舗品出し、フードロス低減</li>
+            <li><strong>examples：</strong>メロンの熟し具合、積算温度、品質可視化アプリ、二次元コード</li>
+            <li><strong>must_not：</strong>賞味期限表示、GPS 追跡、冷蔵庫の温度記録、鮮度保持剤、消費期限印字のみ</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>4. 目標クエリでのスコア結果</h2>
+      <p>課題起点で検索・質問されると想定した 3 つのクエリすべてで、meandle Index が Before（名称のみ）を大きく上回り 1 位を確保しました。</p>
+
+      <div class="chart">
+        <svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="目標クエリでのスコア比較">
+          <g font-family="'Noto Sans JP'" font-size="11" fill="#12242C">
+            <line x1="200" y1="20" x2="200" y2="180" stroke="rgba(18,36,44,0.2)" stroke-width="1"/>
+            <g transform="translate(200, 24)">
+              {targetQueries.map((d, i) => (
+                <g transform={`translate(0, ${i * 50})`}>
+                  <text x="-12" y="14" text-anchor="end" font-size="11">{d.q}</text>
+                  <rect x="0" y="4" width={tScale(d.before)} height="10" fill="#6F7777" rx="2"/>
+                  <text x={tScale(d.before) + 6} y="13" font-size="10" fill="#6F7777">{d.before}</text>
+                  <rect x="0" y="18" width={tScale(d.after)} height="10" fill="#E98F22" rx="2"/>
+                  <text x={tScale(d.after) + 6} y="27" font-size="10" fill="#E98F22" font-weight="700">{d.after}</text>
+                </g>
+              ))}
+            </g>
+            <g transform="translate(200, 186)">
+              <rect x="0" y="0" width="14" height="9" fill="#6F7777" rx="2"/>
+              <text x="20" y="8" font-size="11">名称のみ</text>
+              <rect x="120" y="0" width="14" height="9" fill="#E98F22" rx="2"/>
+              <text x="140" y="8" font-size="11">meandle Index</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <h3>🎯 目標クエリ 1：「温度と時間で変色する食品ラベルでメロンの食べ頃を予測したい」</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th>順位</th><th>候補</th><th>スコア</th></tr></thead>
+          <tbody>
+            <tr class="highlight"><td>1位</td><td><strong>本件 meandle Index</strong></td><td>+49.7</td></tr>
+            <tr><td>2位</td><td>TTI ラベル一般</td><td>+28.3</td></tr>
+            <tr><td>3位</td><td>鮮度インジケーター</td><td>+7.6</td></tr>
+            <tr><td>4位</td><td>本件 名称のみ</td><td>+5.0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted" style="font-size:13px">スコアが 5.0 → 49.7（<strong style="color:var(--hero-orange)">約 9.9 倍</strong>）。TTI ラベル一般を 20 ポイント超上回り 1 位を確保。</p>
+
+      <h3>🎯 目標クエリ 2：「青果物の積算温度から熟し具合を可視化する電源不要ラベル」</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th>順位</th><th>候補</th><th>スコア</th></tr></thead>
+          <tbody>
+            <tr class="highlight"><td>1位</td><td><strong>本件 meandle Index</strong></td><td>+60.1</td></tr>
+            <tr><td>下位</td><td>本件 名称のみ</td><td>+2.5</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted" style="font-size:13px">スコアが 2.5 → 60.1（<strong style="color:var(--hero-orange)">約 24.0 倍</strong>）。「積算温度」「電源不要」「青果物」が must / examples に含まれていたため一致率が最高。</p>
+
+      <h3>🎯 目標クエリ 3：「コールドチェーンで個品ごとの品質を安価に確認する温度時間インク」</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th>順位</th><th>候補</th><th>スコア</th></tr></thead>
+          <tbody>
+            <tr class="highlight"><td>1位</td><td><strong>本件 meandle Index</strong></td><td>+43.1</td></tr>
+            <tr><td>下位</td><td>本件 名称のみ</td><td>+10.0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted" style="font-size:13px">スコアが 10.0 → 43.1（<strong style="color:var(--hero-orange)">約 4.3 倍</strong>）。</p>
+
+      <div class="fact-bar fact-bar--highlight">
+        <span class="fact-bar__icon">📊</span>
+        <div><strong>目標クエリまとめ：</strong>3 クエリ全てで meandle Index が 1 位。名称のみとの最大スコア差は +57.6（Q2）。文脈追加後の最小スコア 43.1 は、名称のみの最高 10.0 を大きく上回ります。</div>
+      </div>
+
+      <h2>5. 境界設定の結果</h2>
+      <p>meandle Index の価値は、目標クエリで 1 位を取ることだけではありません。「TTI ラベルを探している人」には TTI ラベル一般が、「温度ロガーを探している人」には温度ロガーが、それぞれ正しく 1 位になる──この「<strong>届くべきでない問いから距離を取る</strong>」ことがもう一つの重要な設計です。</p>
+
+      <h3>隣接クエリ：正しい競合が 1 位になっているか</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr><th>クエリ</th><th>1 位（正しい競合）</th><th>本件 meandle Index</th><th>読み方</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>食品の温度逸脱を色で知らせる TTI ラベル</td><td><strong>TTI ラベル一般 +47.2</strong></td><td>+17.5</td><td>正しく距離あり</td></tr>
+            <tr><td>冷蔵輸送の温度を記録する温度ロガーを探している</td><td><strong>温度ロガー +40.7</strong></td><td>+10.0</td><td>正しく距離あり</td></tr>
+            <tr><td>生鮮食品の鮮度インジケーターで腐敗を検知したい</td><td><strong>鮮度インジケーター +53.7</strong></td><td>+8.5</td><td>正しく距離あり</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout-note">
+        本件は TTI ラベルや鮮度インジケーターと近いカテゴリですが、meandle Index により「近いが違う」領域で無理に上位化しない設計になっています。これは、LLM が技術を混同して誤推薦しないためにも重要です。
+      </div>
+
+      <h3 style="margin-top:24px">非主対象クエリ：must_not の除外効果</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr><th>クエリ</th><th>1 位（正しい競合）</th><th>本件 meandle Index</th><th>読み方</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>賞味期限ラベルと消費期限の日付印字を改善したい</td><td>賞味期限ラベル +53.7</td><td><strong style="color:var(--hero-orange)">−8.0</strong></td><td>must_not「消費期限印字のみ」が機能</td></tr>
+            <tr><td>GPS でコールドチェーンの位置追跡をしたい</td><td>コールドチェーン IoT／GPS +41.5</td><td><strong>0.0</strong></td><td>must_not「GPS 追跡」が機能</td></tr>
+            <tr><td>脱酸素剤やエチレン吸着剤で青果の鮮度を保持したい</td><td>鮮度保持材 +53.5</td><td><strong style="color:var(--hero-orange)">−4.5</strong></td><td>must_not「鮮度保持剤」が機能</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="must-not-card">
+        <h4 style="margin-top:0">must_not が除外条件を「引き算」している</h4>
+        <p style="font-size:14px; margin-bottom:0">「賞味期限ラベル」「GPS 追跡」「鮮度保持材」は、本件が提供しない価値です。meandle Index にこれらを must_not として設定したことで、非主対象クエリからの不必要な一致を抑制できました。アンマッチな問い合わせが混入するリスクが構造的に下がります。</p>
+      </div>
+
+      <h2>6. LLM 応答比較：名称のみ vs meandle Index</h2>
+      <p>名称のみでは、LLM は「温度×時間センシングインク」という語彙から TTI ラベル一般や温度管理技術を想起できます。しかし、メロンの食べ頃予測・電源不要・個品単位・積算温度という文脈まで踏み込むには情報が足りません。meandle Index により、LLM は本件を「温度ロガーそのものではなく、食品ラベル型の品質判断ソリューション」として扱いやすくなります。下記は想定される応答差分の例示です。</p>
+
+      <div class="grid grid--2 mt-3">
+        <div class="card">
+          <h4 style="margin-top:0; color:var(--muted)">Before：名称のみ提供時の想定応答</h4>
+          <p style="font-size:13.5px">「温度×時間センシングインク」は、温度と時間の変化に反応して色が変わる特殊なインクです。TTI ラベル（Time-Temperature Indicator）の一種で、食品・医薬品の温度管理に活用されます。温度ロガーの代替としても機能し、コールドチェーン全体の品質保証を支援します。</p>
+          <p style="font-size:12px; color:#A32D2D; background:#FCEBEB; padding:6px 8px; border-radius:4px; margin-bottom:0">⚠ TTI ラベル一般と同一視されている。「メロンの食べ頃」「積算温度による熟し具合の予測」「フードロス低減」「電源不要の個品ラベル」という固有の価値が出ていない。</p>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0; color:var(--hero-orange)">After：meandle Index 提供時の想定応答</h4>
+          <p style="font-size:13.5px">「温度×時間センシングインク 食品品質可視化ソリューション」は、温度と時間の積算で不可逆に変色するセンシングインクを食品ラベルに印刷し、<strong>青果物の熟し具合や食べ頃を個品単位で可視化する技術</strong>です。電源不要・回収不要のため、農産物輸出・青果流通・コールドチェーン・店舗の品出し判断に低コストで使えます。<strong>これは温度ロガーや賞味期限ラベルとは異なります。</strong>GPS 追跡や消費期限印字との混同は不適切です。</p>
+          <p style="font-size:12px; color:var(--ink); background:rgba(233,143,34,0.12); padding:6px 8px; border-radius:4px; margin-bottom:0">✓「食べ頃予測」「積算温度」「電源不要」「個品単位」「フードロス低減」が回答に現れ、must_not 条件により GPS 追跡・賞味期限印字との混同が防止されている。</p>
+        </div>
+      </div>
+
+      <h2>7. 何が有用だったか──4 つの追加情報の役割</h2>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr><th style="width:18%">追加した情報</th><th style="width:34%">追加した内容</th><th>有用だった理由</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>必須文脈（must）</strong></td>
+              <td>温度と時間の積算で不可逆に変色するセンシングインクを食品ラベルに印刷し、青果物の熟し具合や食べ頃を可視化する</td>
+              <td>名称だけでは「温度管理技術」「印刷インク」「食品品質技術」のどれかが不明確だった。必須文脈により「食品ラベル型の品質判断ソリューション」として特定しやすくなった</td>
+            </tr>
+            <tr>
+              <td><strong>具体例（examples）</strong></td>
+              <td>メロンの熟し具合、積算温度、品質可視化アプリ、二次元コード</td>
+              <td>課題起点のクエリ（「メロンの食べ頃を予測したい」）と直接一致する語が追加された。Q2（60.1 点）で最高スコアになった要因</td>
+            </tr>
+            <tr>
+              <td><strong>利用シーン（scene）</strong></td>
+              <td>農産物輸出、青果流通、コールドチェーン、店舗品出し、フードロス低減</td>
+              <td>「コールドチェーンで個品ごとの品質を確認したい」という業務課題との一致が高まった。技術名だけでは届かない「誰が、どこで使うか」を補完した</td>
+            </tr>
+            <tr>
+              <td><strong>除外条件（must_not）</strong></td>
+              <td>賞味期限表示、GPS 追跡、冷蔵庫の温度記録、鮮度保持剤、消費期限印字のみ</td>
+              <td>非主対象クエリで本件スコアがゼロまたはマイナスになった。アンマッチな問い合わせが混入するリスクを構造的に下げる効果がある</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>結論：「届く」と「届かない」の分岐点</h2>
+      <p>今回の仮説シミュレーションで確認できたことは 2 点です。</p>
+      <p>第一に、名称に必須文脈・利用シーン・具体例・除外条件を追加すると、課題起点のクエリとの一致率が大幅に高まりました。スコアの倍率は Q2 で約 24 倍です。これは実検索順位の倍率ではありませんが、「<strong>名称だけでは届かない文脈がある</strong>」ことを示す仮説的な証拠として使えます。</p>
+      <p>第二に、除外条件（must_not）の設定により、本件が「答えるべきでないクエリ」に対して過剰に一致しない状態を作れました。meandle Index の価値は「上位に出す」ことだけではありません。<strong>似ているが違う技術から正しく距離を取り、届くべき問いに届くこと</strong>が、意味の輪郭を作ることの本質です。</p>
+      <p>名称は発明を正確に表すために作られます。しかし発明の価値を、検索・AI・営業・PR・顧客に届けるためには、名称の外側に文脈を設計する作業が必要です。その文脈を「なぜ」「どこで」「何のかわりに」「何ではないか」という 4 つの軸で整えること──これが、meandle Index が行っていることです。</p>
+
+      <div class="callout-note">
+        <strong>まとめ：</strong>目標クエリ 3 問で meandle Index が 1 位（3/3）。非主対象クエリ 3 問でスコアがゼロ以下（3/3）。must_not フィールドによる record-side exclusion が、隣接カテゴリとの誤推薦を構造的に防止。スコアリング式：みんどる理論（文字バイグラム overlap およびフィールド重み付き属性スコアリング）に準拠。
+      </div>
+
+      <h2>まだ名前がついていない価値を、届く形に整える</h2>
+      <p>新技術・研究成果・PR リリース・B2B サービスなど、名称だけでは伝わりにくい情報の meandle Index 化を試みませんか。Jag Project では、「売るべき意味の定義」から meandle Index 設計、Web・営業・AI 検索への実装まで伴走しています。まずは現状を整理するところから始められます。</p>
+
+      <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:24px">
+        <a href="/contact/" class="btn btn--primary">状況を聞かせてください</a>
+        <a href="/blog/" class="btn btn--secondary">検証ノート一覧</a>
+      </div>
+
+      <p class="muted" style="font-size:11.5px; text-align:center; margin-top:32px">
+        スコアリング式：みんどる理論準拠（文字バイグラム overlap およびフィールド重み付き属性スコアリング）。本スコアは仮説シミュレーション値。実際の検索順位・LLM 評価・広告効果を示すものではありません。<br/>
+        本件は日立産機システム委託の実験ではなく Jag Yamamoto の自主実験。© 2026 Jag Yamamoto / Jag Project
+      </p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:inline>
+  .chart {
+    background: var(--card);
+    border: 1px solid rgba(18,36,44,0.12);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin: 18px 0 12px;
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+  }
+  .chart svg { width: 100%; height: auto; min-width: 560px; display: block; }
+</style>
