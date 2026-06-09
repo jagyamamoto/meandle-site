@@ -45,33 +45,49 @@ const nScale = (v) => (v + 2.5) * 50;
       </div>
 
       <h2>6コマで読む、実験のあらまし</h2>
-      <p>本レポートは数値検証中心で長文ですが、まず全体像を 6 コマでつかんでから読み進められます。</p>
+      <p>本レポートは数値検証中心で長文ですが、まず全体像を 6 コマでつかんでから読み進められます。下のボタンや番号タブで <strong>1 → 6 の順</strong> にめくれます。</p>
 
-      <div class="comic-grid">
-        <figure class="comic-panel">
-          <img src="/images/blog/clo/01.png" alt="6コマ漫画 1/6 — このロジック、数値で確かめてみた：CLOコンパスでのみんどりシミュレーション" loading="lazy" />
-          <figcaption><strong>1 / 6</strong>　このロジック、数値で確かめてみた</figcaption>
-        </figure>
-        <figure class="comic-panel">
-          <img src="/images/blog/clo/02.png" alt="6コマ漫画 2/6 — みんどる理論とは何か：意味成立条件（must / visible_text / scene / must_not / counterexamples）の構造" loading="lazy" />
-          <figcaption><strong>2 / 6</strong>　みんどる理論とは何か</figcaption>
-        </figure>
-        <figure class="comic-panel">
-          <img src="/images/blog/clo/03.png" alt="6コマ漫画 3/6 — どう設計し、何を期待したか：スコア計算の仕組みと見たかったクエリ4件" loading="lazy" />
-          <figcaption><strong>3 / 6</strong>　どう設計し、何を期待したか</figcaption>
-        </figure>
-        <figure class="comic-panel">
-          <img src="/images/blog/clo/04.png" alt="6コマ漫画 4/6 — 候補化スコアは、実際に大きく動いた：目標クエリ4件で After が最上位、最大6.75倍" loading="lazy" />
-          <figcaption><strong>4 / 6</strong>　候補化スコアは、実際に大きく動いた</figcaption>
-        </figure>
-        <figure class="comic-panel">
-          <img src="/images/blog/clo/05.png" alt="6コマ漫画 5/6 — LLMの回答内容も、ここまで変わった：3問の Before/After 比較で対象と役割が明確化" loading="lazy" />
-          <figcaption><strong>5 / 6</strong>　LLMの回答内容も、ここまで変わった</figcaption>
-        </figure>
-        <figure class="comic-panel">
-          <img src="/images/blog/clo/06.png" alt="6コマ漫画 6/6 — 実験のまとめと AIO/LLMO 対策への含意" loading="lazy" />
-          <figcaption><strong>6 / 6</strong>　実験のまとめ</figcaption>
-        </figure>
+      <div class="comic-reader" id="comicReader" role="region" aria-label="6コマ漫画ビューア" tabindex="0">
+        <div class="comic-track" id="comicTrack">
+          <figure class="comic-slide">
+            <img src="/images/blog/clo/01.png" alt="6コマ漫画 1/6 — このロジック、数値で確かめてみた：CLOコンパスでのみんどりシミュレーション" loading="eager" />
+            <figcaption><strong>1 / 6</strong>　このロジック、数値で確かめてみた</figcaption>
+          </figure>
+          <figure class="comic-slide">
+            <img src="/images/blog/clo/02.png" alt="6コマ漫画 2/6 — みんどる理論とは何か：意味成立条件（must / visible_text / scene / must_not / counterexamples）の構造" loading="lazy" />
+            <figcaption><strong>2 / 6</strong>　みんどる理論とは何か</figcaption>
+          </figure>
+          <figure class="comic-slide">
+            <img src="/images/blog/clo/03.png" alt="6コマ漫画 3/6 — どう設計し、何を期待したか：スコア計算の仕組みと見たかったクエリ4件" loading="lazy" />
+            <figcaption><strong>3 / 6</strong>　どう設計し、何を期待したか</figcaption>
+          </figure>
+          <figure class="comic-slide">
+            <img src="/images/blog/clo/04.png" alt="6コマ漫画 4/6 — 候補化スコアは、実際に大きく動いた：目標クエリ4件で After が最上位、最大6.75倍" loading="lazy" />
+            <figcaption><strong>4 / 6</strong>　候補化スコアは、実際に大きく動いた</figcaption>
+          </figure>
+          <figure class="comic-slide">
+            <img src="/images/blog/clo/05.png" alt="6コマ漫画 5/6 — LLMの回答内容も、ここまで変わった：3問の Before/After 比較で対象と役割が明確化" loading="lazy" />
+            <figcaption><strong>5 / 6</strong>　LLMの回答内容も、ここまで変わった</figcaption>
+          </figure>
+          <figure class="comic-slide">
+            <img src="/images/blog/clo/06.png" alt="6コマ漫画 6/6 — 実験のまとめと AIO/LLMO 対策への含意" loading="lazy" />
+            <figcaption><strong>6 / 6</strong>　実験のまとめ</figcaption>
+          </figure>
+        </div>
+
+        <div class="comic-controls">
+          <button type="button" class="comic-nav" data-dir="-1" aria-label="前のコマ">‹</button>
+          <div class="comic-pages" role="tablist" aria-label="コマ番号">
+            <button type="button" class="comic-page is-active" data-i="0" aria-label="1コマ目">1</button>
+            <button type="button" class="comic-page" data-i="1" aria-label="2コマ目">2</button>
+            <button type="button" class="comic-page" data-i="2" aria-label="3コマ目">3</button>
+            <button type="button" class="comic-page" data-i="3" aria-label="4コマ目">4</button>
+            <button type="button" class="comic-page" data-i="4" aria-label="5コマ目">5</button>
+            <button type="button" class="comic-page" data-i="5" aria-label="6コマ目">6</button>
+          </div>
+          <button type="button" class="comic-nav" data-dir="1" aria-label="次のコマ">›</button>
+        </div>
+        <div class="comic-hint">← / → キー、スワイプ、タップでも操作できます</div>
       </div>
 
       <p class="muted" style="font-size:13px; margin-top:14px">※ 漫画は本レポートの要旨を読みやすく整理したもの。以下、数値と LLM 応答実測で同じ流れを丁寧に確認していきます。</p>
@@ -470,46 +486,212 @@ const nScale = (v) => (v + 2.5) * 50;
   }
   .chart svg { width: 100%; height: auto; min-width: 560px; display: block; }
 
-  /* 6コマ漫画グリッド */
-  .comic-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 18px;
-    margin: 20px 0 12px;
+  /* 6コマ漫画リーダー（ページめくり） */
+  .comic-reader {
+    margin: 20px 0 8px;
+    outline: none;
   }
-  @media (min-width: 640px) {
-    .comic-grid { grid-template-columns: 1fr 1fr; gap: 22px; }
+  .comic-reader:focus-visible {
+    box-shadow: 0 0 0 3px rgba(233,143,34,0.35);
+    border-radius: var(--radius);
   }
-  .comic-panel {
+  .comic-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    border-radius: var(--radius);
     background: var(--card);
     border: 1px solid rgba(18,36,44,0.12);
-    border-radius: var(--radius);
-    padding: 10px 10px 6px;
     box-shadow: var(--shadow);
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    padding: 12px;
+  }
+  .comic-track::-webkit-scrollbar { display: none; }
+  .comic-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  .comic-panel:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(18,36,44,0.14);
-  }
-  .comic-panel img {
+  .comic-slide img {
     width: 100%;
+    max-width: 100%;
     height: auto;
-    border-radius: 4px;
     display: block;
+    border-radius: 4px;
     background: var(--white);
   }
-  .comic-panel figcaption {
-    font-size: 13px;
+  .comic-slide figcaption {
+    font-size: 14px;
     color: var(--ink);
     text-align: center;
-    padding: 10px 6px 4px;
-    line-height: 1.5;
+    padding: 10px 6px 0;
+    line-height: 1.55;
+    width: 100%;
   }
-  .comic-panel figcaption strong {
+  .comic-slide figcaption strong {
     color: var(--hero-orange);
     margin-right: 6px;
     letter-spacing: 0.04em;
   }
+
+  .comic-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  .comic-nav {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(18,36,44,0.18);
+    background: var(--white);
+    color: var(--ink);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    font-family: inherit;
+    padding: 0;
+  }
+  .comic-nav:hover { background: var(--paper-2); border-color: var(--hero-orange); }
+  .comic-nav:active { transform: scale(0.95); }
+  .comic-nav[disabled] {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .comic-pages {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .comic-page {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 6px;
+    border-radius: 50%;
+    border: 1px solid rgba(18,36,44,0.15);
+    background: var(--paper-2);
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    font-family: inherit;
+  }
+  .comic-page:hover { background: var(--card); color: var(--ink); }
+  .comic-page.is-active {
+    background: var(--hero-orange);
+    color: var(--white);
+    border-color: var(--hero-orange);
+  }
+  .comic-hint {
+    font-size: 11.5px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 8px;
+  }
 </style>
+
+<script is:inline>
+(function () {
+  const reader = document.getElementById('comicReader');
+  if (!reader) return;
+  const track = document.getElementById('comicTrack');
+  const slides = track.querySelectorAll('.comic-slide');
+  const pages = reader.querySelectorAll('.comic-page');
+  const navs = reader.querySelectorAll('.comic-nav');
+  if (!slides.length) return;
+  const total = slides.length;
+  let current = 0;
+
+  function scrollToIndex(i) {
+    const idx = Math.max(0, Math.min(total - 1, i));
+    const target = slides[idx];
+    if (!target) return;
+    // Use scrollLeft for precision (offsetLeft is relative to scrolling parent)
+    const targetLeft = target.offsetLeft - track.offsetLeft;
+    track.scrollTo({ left: targetLeft, behavior: 'smooth' });
+  }
+
+  function getCurrent() {
+    const trackRect = track.getBoundingClientRect();
+    const center = trackRect.left + trackRect.width / 2;
+    let closest = 0, minDist = Infinity;
+    slides.forEach((s, i) => {
+      const r = s.getBoundingClientRect();
+      const d = Math.abs(r.left + r.width / 2 - center);
+      if (d < minDist) { minDist = d; closest = i; }
+    });
+    return closest;
+  }
+
+  function update() {
+    current = getCurrent();
+    pages.forEach((p, i) => {
+      const active = i === current;
+      p.classList.toggle('is-active', active);
+      if (active) {
+        p.setAttribute('aria-current', 'true');
+      } else {
+        p.removeAttribute('aria-current');
+      }
+    });
+    navs.forEach((btn) => {
+      const dir = parseInt(btn.dataset.dir, 10);
+      if (dir === -1) btn.disabled = current === 0;
+      if (dir === 1)  btn.disabled = current === total - 1;
+    });
+  }
+
+  navs.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const dir = parseInt(btn.dataset.dir, 10);
+      scrollToIndex(current + dir);
+    });
+  });
+
+  pages.forEach((p) => {
+    p.addEventListener('click', () => {
+      scrollToIndex(parseInt(p.dataset.i, 10));
+    });
+  });
+
+  let scrollTimer = null;
+  track.addEventListener('scroll', () => {
+    if (scrollTimer) clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(update, 80);
+  });
+
+  reader.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); scrollToIndex(current + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollToIndex(current - 1); }
+    if (e.key === 'Home')       { e.preventDefault(); scrollToIndex(0); }
+    if (e.key === 'End')        { e.preventDefault(); scrollToIndex(total - 1); }
+  });
+
+  // Re-evaluate on resize (panel widths change)
+  window.addEventListener('resize', () => {
+    scrollToIndex(current);
+  });
+
+  update();
+})();
+</script>
