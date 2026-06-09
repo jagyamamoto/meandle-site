@@ -2,42 +2,132 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout
-  title="Meandle Get Lead — 広告ゼロ・資料請求サービスゼロ・AIマッチングだけで月15件の商談リードを｜Meandle"
-  description="ページを「みんどった状態」に最適化することで、AIを通じて自社サービスを本当に必要としている見込み客のみと自動的にマッチング。Google広告・資料一括請求サービス・展示会との費用対効果比較を掲載。"
+  title='Meandle Get Lead — 広告ゼロ・資料請求サービスゼロ・「正しく理解した人」だけが来る状態をつくる｜Meandle'
+  description="CLOコンパスのLLM実験では、みんどり前のターゲット誤認100%が「みんどり後0%」に。論文実績では非広告流入75.1%、商談69件、受注確定8件。AIに「対象者像」を正確に伝えることでミスマッチを排除します。"
 >
   <section class="hero">
     <div class="container">
       <span class="eyebrow hero__eyebrow">Meandle Get Lead</span>
-      <h1 class="hero-copy">広告ゼロ。資料請求サービスゼロ。<br/>AIマッチングだけで月15件の商談リードを。</h1>
-      <p style="margin-top:24px">毎月、資料一括請求サービスや広告に費用をかけていませんか？<br/>しかも届くリードの質がバラバラで、商談に結びつかないことが多い…</p>
-      <p>Meandle Get Leadは、<strong>ページを「みんどった状態」に最適化することで、AIを通じて自社サービスを本当に必要としている見込み客のみと自動的にマッチングさせる</strong>仕組みをつくります。</p>
+      <h1 class="hero-copy">広告ゼロ。資料請求サービスゼロ。<br/>「正しく理解した人」だけが来る状態をつくる。</h1>
+      <p style="margin-top:24px">リード数は多くても、「的外れな問い合わせ」では営業工数が増えるだけです。<br/>みんどると、AIが「このサービスの対象者はこういう人だ」と正確に理解してから見込み客に紹介します。届く前から<strong>ミスマッチが排除</strong>されている状態が、みんどりの最大の価値です。</p>
     </div>
   </section>
 
+  <!-- CLO Compass: lead quality proof -->
   <section class="section">
     <div class="container">
-      <span class="eyebrow">Result claim</span>
-      <h2>参考実績：「みんどった」ページの成果</h2>
+      <span class="eyebrow">リード品質の証拠</span>
+      <h2>CLOコンパス LLM実験</h2>
+      <span class="ev-badge ev-badge--sim">🔵 自主実験（LLM応答実測）— CLOコンパス参照</span>
 
-      <div class="fact-bar fact-bar--highlight">
-        <span class="fact-bar__icon">🏆</span>
-        <div><strong>実績参考値（守秘案件）：</strong>広告・アフィリエイト・資料一括請求サービスを一切使わず、AIマッチングを通じて<strong>平均受注単価500万円〜2,000万円のB2Bソリューション</strong>における商談獲得を実現。同案件で商談69件・受注確定8件・非広告流入75.1%を観察。</div>
-      </div>
+      <div class="ev-box ev-box--sim">
+        <p style="font-size:14px">CLOコンパス（物流DXサービス）のみんどり前後で LLM 応答がどう変わるかを実測しました。</p>
 
-      <div class="callout-note">
-        <strong>免責：</strong>上記は実績案件の観察値であり、論文中の記載も「参考データ」として明示されています。同等の成果を保証するものではありません（景品表示法・消費者契約法観点）。
+        <div class="table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th style="width:28%">AI質問</th>
+                <th>みんどり前（名称のみ）</th>
+                <th>みんどり後</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-size:12.5px">「CLOコンパスはどんな企業向けですか」</td>
+                <td style="font-size:12.5px">❌ 中小物流企業・3PL向けと<strong>誤答</strong></td>
+                <td style="font-size:12.5px; background:rgba(233,143,34,0.10)">✅ 大規模荷主の経営層・CLO向けと<strong>正確に回答</strong></td>
+              </tr>
+              <tr>
+                <td style="font-size:12.5px">「中小企業でも使えますか」</td>
+                <td style="font-size:12.5px">❌ 対象外を明言せず<strong>曖昧に誘導</strong></td>
+                <td style="font-size:12.5px; background:rgba(233,143,34,0.10)">✅ 中小企業向けではないと<strong>明言</strong></td>
+              </tr>
+              <tr>
+                <td style="font-size:12.5px">「物流管理システムを検討中。特徴を教えて」</td>
+                <td style="font-size:12.5px">❌ 配送管理・在庫管理システムと<strong>誤記</strong></td>
+                <td style="font-size:12.5px; background:rgba(233,143,34,0.10)">✅ 積載率・荷待ち・法令対応を<strong>正確に説明</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="metric-grid" style="margin-top:20px">
+          <div class="metric-card">
+            <div class="label">ターゲット誤認</div>
+            <div class="value">100%</div>
+            <div class="sub">→ みんどり後 <strong style="color:var(--hero-orange)">0%</strong></div>
+          </div>
+          <div class="metric-card">
+            <div class="label">機能誤記</div>
+            <div class="value">100%</div>
+            <div class="sub">→ みんどり後 <strong style="color:var(--hero-orange)">0%</strong></div>
+          </div>
+          <div class="metric-card">
+            <div class="label">対象外を明言</div>
+            <div class="value">0/3問</div>
+            <div class="sub">→ みんどり後 <strong style="color:var(--hero-orange)">3/3問</strong></div>
+          </div>
+        </div>
+
+        <div class="fact-bar fact-bar--highlight" style="margin-top:16px">
+          <span class="fact-bar__icon">💡</span>
+          <div><strong>実務的な意味：</strong>「中小企業向けではない」とAIが正しく説明することで、対象外のユーザーからの問い合わせが減り、来た問い合わせの事前理解が深まります。問い合わせ数よりも<strong>商談化率</strong>が上がる仕組みです。</div>
+        </div>
+
+        <div style="margin-top:12px; padding-top:10px; border-top:1px solid rgba(18,36,44,0.12); font-size:12px; color:var(--muted); line-height:1.7">
+          ※ CLOコンパスの委託実験ではなく Jag Yamamoto の自主実験。同社との提携関係なし。
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- B2B reference data from paper -->
   <section class="section section--alt">
     <div class="container">
+      <span class="eyebrow">参考実績</span>
+      <h2>B2B専門サイト（論文掲載データ）</h2>
+      <span class="ev-badge ev-badge--warn">📊 論文掲載参考値 — 特定案件のみ、成果保証なし</span>
+
+      <div class="ev-box ev-box--warn">
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="label">総セッション数</div>
+            <div class="value" style="font-size:22px">31,626</div>
+            <div class="sub">計測期間内</div>
+          </div>
+          <div class="metric-card">
+            <div class="label">商談件数</div>
+            <div class="value">69件</div>
+            <div class="sub">有効リード</div>
+          </div>
+          <div class="metric-card">
+            <div class="label">受注確定</div>
+            <div class="value">8件</div>
+            <div class="sub">受注単価500万〜2,000万円</div>
+          </div>
+          <div class="metric-card">
+            <div class="label">非広告流入比率</div>
+            <div class="value">75.1%</div>
+            <div class="sub">広告停止期間中も26件問い合わせ</div>
+          </div>
+        </div>
+        <div style="margin-top:14px; padding-top:10px; border-top:1px solid rgba(199,125,49,0.25); font-size:12px; color:var(--muted); line-height:1.7">
+          ※ 武蔵野美術大学研究紀要掲載予定論文 §5-2 の参考データ。特定案件の観察値であり、同等の成果を保証しません。クライアント名・業界詳細は守秘。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cost comparison -->
+  <section class="section">
+    <div class="container">
       <span class="eyebrow">Cost Simulation</span>
-      <h2>リード獲得サービスとのコスト比較シミュレーション</h2>
+      <h2>リード獲得サービスとのコスト比較</h2>
+      <span class="ev-badge ev-badge--sim">⚠ SIMULATION — 参考試算値</span>
 
       <div class="sim-box">
-        <span class="sim-label">⚠️ SIMULATION — 参考試算値</span>
-        <h4>前提：平均単価500万円のB2Bソリューション、月15件商談リードを目標とした場合</h4>
+        <span class="sim-label">前提：平均単価500万円のB2Bソリューション、月10〜15件商談リード目標</span>
 
         <div class="table-wrap">
           <table class="compare-table">
@@ -45,70 +135,52 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <tr>
                 <th>手法</th>
                 <th>月額費用</th>
-                <th>月間リード</th>
-                <th>1リード単価（CPL）</th>
-                <th>年間コスト概算</th>
+                <th>特徴</th>
+                <th>年間概算</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Google広告</strong><br/><small style="color:var(--muted)">（B2B高額商材）</small></td>
-                <td>100万〜300万円</td>
-                <td>5〜15件</td>
-                <td>10〜30万円/件</td>
-                <td>1,200万〜3,600万円</td>
+                <td>Google広告（高額B2B）</td>
+                <td>100〜300万円</td>
+                <td>広告停止でゼロになる。AI Overview には掲載されない。</td>
+                <td>1,200〜3,600万円</td>
               </tr>
               <tr>
-                <td><strong>資料一括請求サービス</strong><br/><small style="color:var(--muted)">（複数社横断型）</small></td>
-                <td>基本料20〜30万円<br/>+1.5〜3万円/件</td>
-                <td>10〜30件<br/><small style="color:var(--muted)">（質は不均一）</small></td>
-                <td>2〜5万円/件<br/><small style="color:var(--muted)">（商談化率は低）</small></td>
-                <td>480万〜900万円<br/><small style="color:var(--muted)">（問合せ対応工数別途）</small></td>
-              </tr>
-              <tr>
-                <td><strong>展示会出展</strong></td>
-                <td>100〜300万円/回<br/><small style="color:var(--muted)">（年2〜3回）</small></td>
-                <td>名刺50〜200件<br/><small style="color:var(--muted)">（商談化率5〜10%）</small></td>
-                <td>5〜30万円/商談</td>
-                <td>400万〜900万円</td>
+                <td>資料一括請求サービス</td>
+                <td>20〜50万円+<br/>1.5〜3万円/件</td>
+                <td>横断比較で来るため、事前理解が薄く商談化率が低い</td>
+                <td>480〜900万円</td>
               </tr>
               <tr class="highlight">
                 <td><strong>Meandle Get Lead</strong></td>
                 <td><strong>初期費用のみ<br/>（月額なし）</strong></td>
-                <td><strong>月10〜15件<br/><small style="color:var(--muted)">（実績参考値）</small></strong></td>
-                <td><strong>約1〜2万円/件</strong><br/><small style="color:var(--muted)">（200万÷180件試算）</small></td>
-                <td><strong>200万円前後<br/><small style="color:var(--muted)">（初期のみ）</small></strong></td>
+                <td>みんどりで「正しく理解した人」が来る。商談品質が高い。</td>
+                <td><strong>200万前後（初期のみ）</strong></td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div class="fact-bar fact-bar--highlight" style="margin-top:14px">
-          <span class="fact-bar__icon">💰</span>
-          <div><strong>試算ポイント：</strong>Google広告の年間最低コスト1,200万円と比較し、Meandle Get Leadの初期費用200万円で同等以上のリード獲得を実現できた場合、<strong>年間で最大1,000万円以上のコスト削減</strong>が見込める計算になります。さらに「みんどった状態」は翌年以降も継続的に機能し、効果は逓増する可能性があります。</div>
-        </div>
-
         <div class="sim-disclaimer">
-          ※本シミュレーションは公開ベンチマーク（2025〜2026年）を参考にした試算です。B2Bリスティング広告月額相場：100〜300万円（出典：業界各社ベンチマーク）、資料一括請求サービス相場：CPL 2〜5万円（一般的BtoBサービスの場合）。実際のCPLは業種・商材・競合状況により大幅に変動します。Meandle Get Leadの効果についても個別案件で異なります。試算は目安として参考にしてください。
+          ※ B2BリスティングCPC相場：300〜2,000円（2025〜2026年広告市場調査）。資料一括請求CPL相場：2〜5万円/件。試算値は参考値であり、個別結果を保証しません。
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- Pricing -->
+  <section class="section section--alt">
     <div class="container">
       <span class="eyebrow">Pricing</span>
-      <h2>料金とプラン</h2>
+      <h2>料金プラン</h2>
       <div class="price-card">
         <div class="price-label">Meandle Get Lead（標準プラン）</div>
         <div class="price">¥2,000,000<span class="price-unit"> 前後</span></div>
         <div class="price-note">
-          現状ページ診断・みんどりIndex構造化・ページ最適化実装・フォーム設置・リード管理フロー設計 一式
+          現状ページ診断・みんどりIndex構造化・ページ最適化実装・フォーム設置・リード管理フロー設計 一式<br/>
+          <small>※ 成果報酬プラン（1リードあたりフィーシェア型）も別途ご相談可</small>
         </div>
-      </div>
-
-      <div class="callout-note">
-        <strong>成果報酬プランについて：</strong>Meandleよりフォームを提供し、獲得リード1件あたりの成果報酬をシェアするプランも別途ご相談に応じます。詳細はお問い合わせください。
       </div>
     </div>
   </section>

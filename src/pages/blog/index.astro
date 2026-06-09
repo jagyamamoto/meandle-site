@@ -1,48 +1,84 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const posts = [
+const experiments = [
   {
+    no: '#1',
+    title: 'CLOコンパス',
+    target: '物流DX B2Bサービス',
+    finding: 'LLM誤認3種→0種、スコア最大6.75倍',
+    status: '公開済',
+    slug: null,
+  },
+  {
+    no: '#2',
+    title: '温度×時間センシングインク',
+    target: '日立PRリリース参照',
+    finding: 'スコア9.94倍、境界設計（隣接クエリで正しく低値）',
+    status: '公開済',
     slug: 'temperature-sensing-ink',
-    title: '温度×時間センシングインクは、検索とLLMに「しっかり届く」か',
-    subtitle: '日立産機システムのPRリリースをサンプルに、名称だけの露出と、meandle式iフレームで文脈化した露出の差を、文字バイグラムoverlapで検証する実験記事',
-    category: '仮説シミュレーション',
-    date: '2026-05-26',
+  },
+  {
+    no: '#3',
+    title: '予定',
+    target: '固有名詞性の強い命名パターン',
+    finding: 'CLO・日立との命名パターン比較',
+    status: '準備中',
+    slug: null,
   },
 ];
 ---
 <BaseLayout
-  title="Self Do.meandle - 検証ノート｜Meandle"
-  description="Meandleチームが実際のソリューション・サービス・商品を対象に、みんどり最適化を実施。その前後のみんどりスコア変化・AIマッチング状況の変化・実際に出てきた問い合わせ変化などをリアルに公開します。"
+  title="Self Do.meandle — 実験シリーズ｜Meandle"
+  description="Jag Yamamotoが自主的に実施した実験記録を公開します。いずれもクライアント委託ではなく、公開情報をもとにした独立した検証実験です。"
 >
   <section class="hero">
     <div class="container">
       <span class="eyebrow hero__eyebrow">Self Do.meandle</span>
-      <h1 class="hero-copy">Meandleチームが<br/>「生きた実験場」をお見せします</h1>
-      <p style="margin-top:24px">Meandleチームが実際のソリューション・サービス・商品を対象に、みんどり最適化を実施。その<strong>前後のみんどりスコア変化・AIマッチング状況の変化・実際に出てきた問い合わせ変化</strong>などをリアルに公開します。</p>
-      <p>「本当に効果があるのか？」「どのくらいの期間で変化するのか？」<br/>そんな疑問に、実験データで答えます。</p>
-      <div class="hero__badges">
-        <span class="badge">検証実例</span>
-        <span class="badge">みんどりスコア変化</span>
-        <span class="badge">AIO・Perplexity・ChatGPT推薦率</span>
-      </div>
+      <h1 class="hero-copy">実験シリーズ<br/>──自主実験を積み重ね、理論を実務に接続する</h1>
+      <p style="margin-top:24px">Jag Yamamoto が自主的に実施した実験記録を公開します。<br/>いずれもクライアント委託ではなく、公開情報をもとにした独立した検証実験です。</p>
     </div>
   </section>
 
   <section class="section">
-    <div class="container container--narrow">
-      <div style="display:grid; gap:18px">
-        {posts.map((p) => (
-          <a class="service-card" href={`/blog/${p.slug}/`}>
-            <div style="display:flex; gap:10px; align-items:center; font-size:12px; margin-bottom:10px">
-              <span class="badge">{p.category}</span>
-              <span style="color:var(--muted); margin-left:auto">{p.date}</span>
-            </div>
-            <h3>{p.title}</h3>
-            <p style="color:var(--muted); font-size:14px">{p.subtitle}</p>
-            <span>記事を読む →</span>
-          </a>
-        ))}
+    <div class="container">
+      <span class="eyebrow">Experiment Index</span>
+      <h2>実験一覧</h2>
+
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th style="width:8%">実験</th>
+              <th>対象</th>
+              <th>主な発見</th>
+              <th style="width:14%">ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            {experiments.map((e) => (
+              <tr>
+                <td><strong>{e.no}</strong></td>
+                <td>
+                  {e.slug
+                    ? <a href={`/blog/${e.slug}/`}><strong>{e.title}</strong></a>
+                    : <strong>{e.title}</strong>}
+                  <br/><small style="color:var(--muted)">{e.target}</small>
+                </td>
+                <td>{e.finding}</td>
+                <td>
+                  {e.status === '公開済'
+                    ? <span style="color:var(--hero-orange); font-weight:700">{e.status}</span>
+                    : <span style="color:var(--muted)">{e.status}</span>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout-note" style="margin-top:24px">
+        すべての実験は自主実験（クライアント委託ではない）です。スコアは仮説シミュレーション値または LLM 応答実測値です。実際の検索流入・リード数・受注を示すものではありません。highprofilm.jp の AI Overview 登場は別途実測で確認しています。
       </div>
     </div>
   </section>

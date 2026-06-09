@@ -1,27 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-const services = [
-  { name: 'do.meandle',          target: '自社WebサイトをAIに最適化したい',          effect: 'AIマッチング精度を数日〜数週間で向上',         price: '単発50万円〜',       href: '/do-meandle/' },
-  { name: 'Meandle PR',          target: '新商品・サービスをAIに認知させたい',        effect: 'プレスリリース＋LP＋記事でAI的存在感を確立',   price: '1セット50万円〜',    href: '/pr/' },
-  { name: 'Meandle Get Lead',    target: 'B2Bリードを広告費ゼロで獲得したい',         effect: 'AIマッチングで高品質リードを継続獲得',         price: '200万円前後',        href: '/get-lead/' },
-  { name: 'Meandle Recruit',     target: '採用コストを下げて優秀な人材を採用したい',  effect: 'AI経由で潜在的候補者とマッチング',             price: '50万円/求人項目',    href: '/recruit/' },
-];
 ---
 <BaseLayout
   title="AIに伝わるということは、求めている人に届くということです｜Meandle"
-  description="Meandleは、AIがどれだけあなたのビジネスを理解しているかを数値で可視化し、「AIに正確に伝わる状態」へと最適化するサービスです。みんどる理論（特許出願中）に基づくAIO/LLMO/GEO対策。"
+  description="Meandleは、AIがあなたのビジネスを正確に理解・推薦できる状態をつくるサービスです。プレスリリース後わずか5時間でGoogle AI Overviewに登場した実証結果あり。みんどる理論（特許出願中）に基づくAIO/LLMO/GEO対策。"
 >
-  <!-- HERO -->
+  <!-- HERO with big logo -->
   <section class="hero">
     <div class="container">
+      <div class="hero__logo">
+        <img src="/images/meandle-logo.png" alt="Meandle"/>
+      </div>
       <h1 class="hero-copy">AIに伝わるということは、<br/>求めている人に届くということです。</h1>
-      <p style="margin-top:24px"><strong>「AIに聞いてもうちのサービスが出てこない」</strong><br/>あなたの会社の本当の価値は、AIに正確に伝わっていますか？</p>
-      <p>Meandleは、AIがどれだけあなたのビジネスを理解しているかを数値で可視化し、「AIに正確に伝わる状態」へと最適化するサービスです。</p>
+      <p style="margin-top:24px">「うちのサービスをAIに聞いても出てこない」<br/>「競合と同じ言葉で説明していて差別化できていない」<br/>「広告を止めたら流入もゼロになる」</p>
+      <p>Meandleは、AIがあなたのビジネスを正確に理解・推薦できる状態をつくるサービスです。プレスリリース後わずか<strong>5時間でGoogle AI Overviewに登場</strong>した実績があります。</p>
       <div class="hero__badges">
         <span class="badge">特許出願中</span>
-        <span class="badge">研究論文に基づく技術</span>
         <span class="badge">武蔵野美術大学研究紀要掲載予定</span>
+        <span class="badge">実証結果あり</span>
       </div>
       <div class="hero__cta-group">
         <a href="/contact/" class="btn btn--primary">まず無料で相談する</a>
@@ -30,139 +26,118 @@ const services = [
     </div>
   </section>
 
-  <!-- MEANDLE とは -->
+  <!-- 3-layer evidence -->
   <section class="section section--alt">
     <div class="container">
-      <span class="eyebrow">Meandle とは（技術解説）</span>
-      <h2>「みんどる」とは何か？</h2>
-      <p>AIは、あなたのサービスの「名前」だけを見ています。<br/>しかし名前だけでは、AIはあなたのサービスを正確に理解することができません。</p>
-      <p><strong>Meandle（みんどる）</strong>とは、サービス・商品・ポジションの「何であるか（must）」と「何でないか（must_not）」を構造化し、AIが誤解なく理解・推薦できる状態をつくる技術です。</p>
-      <p>武蔵野美術大学研究紀要（2026年度掲載予定）に発表された<strong>「みんどる理論（Mindoru Theory / Meandle Theory）」</strong>を基盤に、特許出願中（整理番号：MNDR-2026-001）の独自アルゴリズムで構築されています。</p>
-
-      <div class="metric-grid">
-        <div class="metric-card">
-          <div class="label">従来手法（名称のみ）</div>
-          <div class="value value--muted">63.3%</div>
-          <div class="sub">AIマッチング精度</div>
-        </div>
-        <div class="metric-card">
-          <div class="label">みんどる後</div>
-          <div class="value">90.0%</div>
-          <div class="sub">AIマッチング精度</div>
-        </div>
-        <div class="metric-card">
-          <div class="label">精度向上幅</div>
-          <div class="value">+26.7pt</div>
-          <div class="sub">統計的有意差：p=0.015</div>
-        </div>
-        <div class="metric-card">
-          <div class="label">効果量</div>
-          <div class="value">中〜大</div>
-          <div class="sub">Cohen's h = 0.657</div>
-        </div>
-      </div>
+      <span class="eyebrow">3 Layers of Evidence</span>
+      <h2>3つのエビデンス（実証 → 実験 → シミュレーション）</h2>
 
       <div class="callout-note">
-        <strong>数値の出典：</strong>武蔵野美術大学研究紀要掲載予定論文「Webマーケティング以前の事業定義」Exp.2（AI不使用検索実験）における比較結果。Boschloo正確検定 p=0.015、Cohen's h=0.657（中〜大効果）。本数値は研究実験における観察値であり、個別案件での成果を保証するものではありません。
+        <strong>エビデンスの性質について：</strong>みんどる理論の効果は3層で示しています。①highprofilm.jpは実際のAI検索結果（実測）、②CLO Compassはシミュレーション実験（LLM応答実測含む）、③日立はシミュレーション実験です。いずれも同等の成果を保証するものではありません。
+      </div>
+
+      <div class="ev3">
+        <div class="ev3-card ev3-card--real">
+          <div class="ev3-h">🟢 実証事例（実測）</div>
+          <div class="ev3-num">5時間</div>
+          <div class="ev3-name">highprofilm.jp（スマホフィルム）</div>
+          <div class="ev3-body">みんどり最適化サイト＋プレスリリース配信後、わずか5時間でGoogle AI Overviewに「スマホフィルム 在庫リスク少ないもの教えて」の回答として登場。<em>実際のAI検索結果（Jag Yamamoto観察）</em></div>
+        </div>
+        <div class="ev3-card ev3-card--sim">
+          <div class="ev3-h">🔵 自主実験（LLM実測含む）</div>
+          <div class="ev3-num">0%</div>
+          <div class="ev3-name">CLOコンパス（物流DX）</div>
+          <div class="ev3-body">みんどり後のLLM誤認率0%（Before: 100%）。ターゲット誤認・機能誤記・対象外を明言しない──3問すべての誤認パターンが解消。<em>LLM応答実測 ＋ スコアシミュレーション</em></div>
+        </div>
+        <div class="ev3-card ev3-card--sim">
+          <div class="ev3-h">🔵 自主実験（シミュレーション）</div>
+          <div class="ev3-num">9.94倍</div>
+          <div class="ev3-name">日立 温度×時間センシングインク</div>
+          <div class="ev3-body">目標クエリのスコアが名称のみ5.0点→みんどり後49.7点（9.94倍）。非主対象クエリでは−8.0点まで降下し、誤出を構造的に排除。<em>PRリリースをもとにした仮説シミュレーション</em></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 実績データ -->
+  <!-- E-E-A-T metrics -->
   <section class="section">
     <div class="container">
-      <span class="eyebrow">実績データ（参考値）</span>
-      <h2>「みんどった」B2B専門サイトの実績</h2>
-      <p>あるB2B専門商材サイトにみんどる理論を実装した案件における観察値です。</p>
-
+      <span class="eyebrow">技術的信頼性（E-E-A-T）</span>
+      <h2>なぜMeandleは信頼できるのか</h2>
       <div class="metric-grid">
         <div class="metric-card">
-          <div class="label">総セッション数</div>
-          <div class="value">31,626</div>
-          <div class="sub">計測期間内</div>
+          <div class="label">研究論文</div>
+          <div class="value" style="font-size:18px; line-height:1.3">武蔵野美術大学<br/>研究紀要</div>
+          <div class="sub">第57号 2026年度掲載予定<br/>「Webマーケティング準備における事業定義」</div>
         </div>
         <div class="metric-card">
-          <div class="label">商談件数</div>
-          <div class="value">69件</div>
-          <div class="sub">有効リード</div>
+          <div class="label">特許出願中</div>
+          <div class="value" style="font-size:16px; line-height:1.3">概念検索照合<br/>システム</div>
+          <div class="sub">整理番号 MNDR-2026-001<br/>PCT国際出願検討中</div>
         </div>
         <div class="metric-card">
-          <div class="label">受注確定</div>
-          <div class="value">8件</div>
-          <div class="sub">成約</div>
+          <div class="label">概念検索照合精度向上<br/>（実験データ）</div>
+          <div class="value">+26.7pt</div>
+          <div class="sub">名称のみ63.3%→みんどり後90.0%<br/>Boschloo p=0.015</div>
         </div>
         <div class="metric-card">
-          <div class="label">非広告流入比率</div>
-          <div class="value">75.1%</div>
-          <div class="sub">広告ゼロでも集客</div>
+          <div class="label">著者・開発者</div>
+          <div class="value" style="font-size:15px; line-height:1.3">Jag Yamamoto</div>
+          <div class="sub">ジャグプロジェクト合同会社 代表<br/>武蔵野美術大学 非常勤講師</div>
         </div>
-      </div>
-
-      <div class="fact-bar fact-bar--highlight">
-        <span class="fact-bar__icon">💡</span>
-        <div><strong>注目データ：</strong>広告停止期間中にも<strong>26件の問い合わせ</strong>が発生。「みんどった」状態は広告に依存しない持続的な集客基盤を生みます。</div>
-      </div>
-
-      <div class="callout-note">
-        <strong>免責：</strong>上記数値は特定支援案件における実績値であり、同等の成果を保証するものではありません。事業領域・商材特性・市場環境・実装期間により結果は異なります。
       </div>
     </div>
   </section>
 
-  <!-- サービス一覧 -->
+  <!-- Services overview table -->
   <section class="section section--alt">
     <div class="container">
       <span class="eyebrow">サービス一覧</span>
-      <h2>Meandleの4サービス</h2>
+      <h2>4つのサービス</h2>
 
       <div class="table-wrap">
         <table class="compare-table">
           <thead>
             <tr>
-              <th>サービス名</th>
+              <th>サービス</th>
+              <th>エビデンス</th>
               <th>こんな方に</th>
-              <th>効果</th>
               <th>料金目安</th>
             </tr>
           </thead>
           <tbody>
-            {services.map((s) => (
-              <tr>
-                <td><strong><a href={s.href}>{s.name}</a></strong></td>
-                <td>{s.target}</td>
-                <td>{s.effect}</td>
-                <td>{s.price}</td>
-              </tr>
-            ))}
+            <tr>
+              <td><strong><a href="/do-meandle/">do.meandle</a></strong></td>
+              <td>論文実績：非広告流入75.1%、商談69件</td>
+              <td>既存WebをAI最適化したい</td>
+              <td>単発50万〜</td>
+            </tr>
+            <tr class="highlight">
+              <td><strong><a href="/pr/">Meandle PR</a></strong></td>
+              <td><strong>実証：5時間でAI Overview登場</strong></td>
+              <td>新商品・新技術をAIに認知させたい</td>
+              <td>1セット50万〜</td>
+            </tr>
+            <tr>
+              <td><strong><a href="/get-lead/">Meandle Get Lead</a></strong></td>
+              <td>LLM誤認0%、論文：商談69件達成</td>
+              <td>高品質リードをAI経由で獲得したい</td>
+              <td>200万前後</td>
+            </tr>
+            <tr>
+              <td><strong><a href="/recruit/">Meandle Recruit</a></strong></td>
+              <td>みんどる理論：概念検索照合精度向上</td>
+              <td>採用コストを下げ優秀な人材を採りたい</td>
+              <td>50万/求人項目</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
       <p style="margin-top:20px"><a href="/oem/">→ OEM／認定代理店制度はこちら</a></p>
-    </div>
-  </section>
 
-  <!-- 技術的信頼性 (E-E-A-T) -->
-  <section class="section">
-    <div class="container">
-      <span class="eyebrow">技術的信頼性（E-E-A-T対応）</span>
-      <h2>なぜMeandleは信頼できるのか</h2>
-
-      <div class="fact-bar">
-        <span class="fact-bar__icon">🎓</span>
-        <div><strong>研究論文に基づく技術：</strong>武蔵野美術大学研究紀要（2026年度掲載予定）論文「Webマーケティング以前の事業定義 ─ B2Bソリューションにおける意味へのハンドル付けと市場創造」に根拠を置く実証済み手法</div>
-      </div>
-      <div class="fact-bar">
-        <span class="fact-bar__icon">⚖️</span>
-        <div><strong>特許出願中：</strong>「概念検索照合システム、方法、プログラムおよびデータ構造」整理番号 MNDR-2026-001。独自の二段階検索アーキテクチャで国際出願（PCT）も検討中</div>
-      </div>
-      <div class="fact-bar">
-        <span class="fact-bar__icon">🧑‍🔬</span>
-        <div><strong>開発者：</strong>山本雅弘（Jag Yamamoto）／ジャグプロジェクト合同会社代表・武蔵野美術大学造形学部デザイン情報学科 非常勤講師</div>
-      </div>
-      <div class="fact-bar">
-        <span class="fact-bar__icon">📊</span>
-        <div><strong>シミュレーション可視化：</strong>「みんどりIndex」スコアにより、AIマッチング精度を数値で確認・追跡可能</div>
+      <div class="callout-note" style="margin-top:24px">
+        <strong>免責：</strong>実績・実験データはすべて参考値です。highprofilm事例は実際の観察値ですが、同等の結果を保証するものではありません。CLO・日立事例はシミュレーション実験値です。
       </div>
     </div>
   </section>

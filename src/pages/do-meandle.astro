@@ -2,78 +2,82 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout
-  title="do.meandle — あなたのWebサイトを、AIが推薦したいサイトに変える｜Meandle"
-  description="既存Webページや新規制作のコンテンツにみんどる理論を適用し、AIマッチング精度を高める受託サービス。B2B企業を中心に、商品・サービス・コーポレート・採用ページに対応。"
+  title='do.meandle — あなたのWebサイトを、「AIが推薦したいサイト」に変える｜Meandle'
+  description="既存Webページや新規コンテンツにみんどる理論を適用し、AIマッチングに強い構造を作る受託サービス。highprofilm.jpがプレスリリース後5時間でAI Overview登場を実現した背景にも、サイト自体のみんどり最適化があります。"
 >
   <section class="hero">
     <div class="container">
       <span class="eyebrow hero__eyebrow">do.meandle</span>
       <h1 class="hero-copy">あなたのWebサイトを、<br/>「AIが推薦したいサイト」に変える。</h1>
-      <p style="margin-top:24px">「ウチのサービスをAIに聞いてもなかなか出てこない…」<br/>それは、サービスの価値がAIに正確に伝わっていないからです。</p>
-      <p>do.meandleは、<strong>既存のWebページや新規制作のコンテンツにみんどる理論を適用し、AIマッチング精度を高める受託サービス</strong>です。対象はB2B企業を中心に、商品・サービスページ、コーポレートサイト、採用ページなど幅広く対応します。</p>
+      <p style="margin-top:24px">「うちのサービスをAIに聞いても出てこない」──それは、サービスの価値がAIに正確に伝わっていないからです。do.meandle は、既存のWebページや新規コンテンツにみんどる理論を適用し、AIマッチングに強い構造を作る受託サービスです。</p>
+      <p>highprofilm.jpが「プレスリリース後 <strong>5時間で AI Overview 登場</strong>」を実現した背景にも、サイト自体のみんどり最適化があります。まず<strong>サイトをみんどる</strong>こと──これがすべての出発点です。</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <span class="eyebrow">What we do</span>
-      <h2>do.meandleで行うこと</h2>
-      <div class="flow">
-        <div class="flow-step"><div class="flow-num">1</div>現状ページの「みんどり診断」（AIマッチング現状把握）</div>
-        <div class="flow-step"><div class="flow-num">2</div>みんどりIndex構造化（8フィールド定義）</div>
-        <div class="flow-step"><div class="flow-num">3</div>must（必須条件）・must_not（除外条件）の明文化</div>
-        <div class="flow-step"><div class="flow-num">4</div>ページ・コンテンツへの実装</div>
-        <div class="flow-step"><div class="flow-num">5</div>みんどりスコア検証・改善提案</div>
+      <span class="eyebrow">みんどりで何が変わるか</span>
+      <h2>3つの実験データ</h2>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="label">概念検索照合精度<br/>（実験データ）</div>
+          <div class="value">+26.7pt</div>
+          <div class="sub">名称のみ63.3%→90.0%<br/>Boschloo p=0.015, h=0.657</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">LLM誤認率<br/>（CLO実験）</div>
+          <div class="value value--muted">100%</div>
+          <div class="sub">→ みんどり後 <strong style="color:var(--hero-orange)">0%</strong><br/>3種の誤認パターンすべて解消</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">スコア改善倍率<br/>（日立実験）</div>
+          <div class="value">9.94倍</div>
+          <div class="sub">名称のみ5.0→みんどり後49.7点<br/>仮説シミュレーション値</div>
+        </div>
       </div>
-      <p>従来のSEOでは検索エンジン上位化に数ヶ月が必要でした。みんどる対応は<strong>数時間〜数日単位</strong>でのスコア変化確認が可能です。（※SEOと異なり、AI検索エンジンによるインデックス反映タイミングは変動します）</p>
+
+      <div class="callout-note">
+        <strong>注記：</strong>実験データはすべて参考値です。+26.7pt は BM25 検索照合実験の値。LLM誤認改善は CLO Compass の自主実験値。スコア9.94倍はシミュレーション値。個別案件での結果を保証しません。
+      </div>
     </div>
   </section>
 
   <section class="section section--alt">
     <div class="container">
-      <span class="eyebrow">Pricing</span>
-      <h2>料金プラン</h2>
-
-      <div class="price-card">
-        <div class="price-label">単発プラン（スポット）</div>
-        <div class="price">¥500,000<span class="price-unit">〜</span></div>
-        <div class="price-note">
-          対象ページのみんどり診断＋みんどりIndex構造化＋コンテンツ実装一式<br/>
-          1〜3ページ目安。追加ページは別途お見積もり
-        </div>
-      </div>
-
-      <div class="price-card">
-        <div class="price-label">伴走型プラン（継続）</div>
-        <div class="price">¥1,200,000<span class="price-unit">〜 / 月</span></div>
-        <div class="price-note">
-          最低3ヶ月〜契約。みんどりIndex継続管理＋コンテンツ更新・拡充＋スコア定期レポート＋AIマッチング改善サイクルの継続実施
-        </div>
-      </div>
-
-      <div class="callout-note">
-        <strong>伴走型で得られるもの：</strong>毎月のみんどりスコアレポート＋月1回の改善ミーティング＋AIマッチング状況の月次検証が含まれます。
+      <span class="eyebrow">How we work</span>
+      <h2>サービスの流れ</h2>
+      <div class="flow">
+        <div class="flow-step"><div class="flow-num">1</div>みんどり診断<br/>（現状のAIマッチング把握）</div>
+        <div class="flow-step"><div class="flow-num">2</div>みんどりIndex設計<br/>（8フィールド）</div>
+        <div class="flow-step"><div class="flow-num">3</div>must・must_not<br/>明文化</div>
+        <div class="flow-step"><div class="flow-num">4</div>コンテンツ実装</div>
+        <div class="flow-step"><div class="flow-num">5</div>スコア検証・改善</div>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <span class="eyebrow">Target</span>
-      <h2>こんな企業にお勧めです</h2>
-      <ul style="font-size:15.5px; line-height:2; margin-top:12px">
-        <li>専門性の高いB2Bソリューションを扱っており、「AI検索で埋もれている」と感じている</li>
-        <li>競合他社と似たような言葉でサービスを説明していて差別化できていない</li>
-        <li>既存Webサイトはあるが、AIからの問い合わせがゼロに近い</li>
-        <li>SEOへの投資を継続しているが費用対効果に疑問がある</li>
-        <li>新商品・新サービスを市場に認知させたいが広告予算を抑えたい</li>
-      </ul>
+      <span class="eyebrow">Pricing</span>
+      <h2>料金プラン</h2>
+      <div style="display:grid; grid-template-columns:1fr; gap:18px">
+        <div class="price-card">
+          <div class="price-label">単発プラン（スポット）</div>
+          <div class="price">¥500,000<span class="price-unit">〜</span></div>
+          <div class="price-note">1〜3ページのみんどり診断・構造化・実装一式</div>
+        </div>
+        <div class="price-card">
+          <div class="price-label">伴走型プラン（継続）</div>
+          <div class="price">¥1,200,000<span class="price-unit">〜 /月</span></div>
+          <div class="price-note">最低3ヶ月〜。みんどりIndex継続管理＋スコア定期レポート＋改善サイクル</div>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="cta-block">
     <h2>1ページだけ、診断してみませんか。</h2>
-    <p>既存URLを1つ送ってもらえれば、みんどり値とBefore/Afterをお示しします。</p>
+    <p>既存URLを1つ送ってもらえれば、みんどり値と Before/After をお示しします。</p>
     <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap">
       <a href="/contact/" class="btn btn--primary">単発プランを相談する</a>
       <a href="/contact/" class="btn btn--on-dark">伴走型プランを相談する</a>
