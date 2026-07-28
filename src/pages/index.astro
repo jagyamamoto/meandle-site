@@ -5,23 +5,94 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title="AIに伝わるということは、求めている人に届くということです｜Meandle"
   description="Meandleは、AIがあなたのビジネスを正確に理解・推薦できる状態をつくるサービスです。プレスリリース後わずか5時間でGoogle AI Overviewに登場した実証結果あり。みんどる理論（特許出願中）に基づくAIO/LLMO/GEO対策。"
 >
-  <!-- HERO with big logo -->
-  <section class="hero">
+  <!-- HERO with big logo + live proof panel -->
+  <section class="hero hero--split">
+    <div class="hero__bg-grid" aria-hidden="true"></div>
+    <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
       <div class="hero__logo">
         <img src="/images/meandle-logo.png" alt="Meandle"/>
       </div>
-      <h1 class="hero-copy">AIに伝わるということは、<br/>求めている人に届くということです。</h1>
-      <p style="margin-top:24px">「うちのサービスをAIに聞いても出てこない」<br/>「競合と同じ言葉で説明していて差別化できていない」<br/>「広告を止めたら流入もゼロになる」</p>
-      <p>Meandleは、AIがあなたのビジネスを正確に理解・推薦できる状態をつくるサービスです。プレスリリース後わずか<strong>5時間でGoogle AI Overviewに登場</strong>した実績があります。</p>
-      <div class="hero__badges">
-        <span class="badge">特許出願中</span>
-        <span class="badge">大学で研究進行中</span>
-        <span class="badge">実証結果あり</span>
+
+      <div class="hero__split">
+        <div class="hero__left">
+          <h1 class="hero-copy">AIに伝わるということは、<br/>求めている人に届くということです。</h1>
+          <p style="margin-top:20px">「うちのサービスをAIに聞いても出てこない」<br/>「競合と同じ言葉で説明していて差別化できていない」<br/>「広告を止めたら流入もゼロになる」</p>
+          <p>Meandleは、AIがあなたのビジネスを正確に理解・推薦できる状態をつくるサービスです。プレスリリース後わずか<strong>5時間でGoogle AI Overviewに登場</strong>した実績があります。</p>
+          <div class="hero__badges">
+            <span class="badge">特許出願中</span>
+            <span class="badge">実証結果あり</span>
+            <a class="badge badge--link" href="https://www.jagproject.com/" target="_blank" rel="noopener">運営：Jag Yamamoto ↗</a>
+          </div>
+          <div class="hero__cta-group">
+            <a href="/contact/" class="btn btn--primary">まず無料で相談する</a>
+            <a href="/contact/" class="btn btn--secondary">みんどり値を診断する</a>
+          </div>
+        </div>
+
+        <!-- Live Proof Panel — auto-cycles through 3 evidence types -->
+        <aside class="proof-panel" id="proofPanel" aria-label="実証・実験データ ライブ表示">
+          <div class="proof-panel__head">
+            <span class="proof-panel__led"></span>
+            <span class="proof-panel__label">LIVE&nbsp;PROOF</span>
+            <span class="proof-panel__timer" id="proofTimer"></span>
+          </div>
+
+          <div class="proof-stage" id="proofStage">
+            <!-- Slide 1 : highprofilm (real) -->
+            <div class="proof-slide is-active" data-tone="real">
+              <div class="proof-slide__type">🟢 実証事例（実測）</div>
+              <div class="proof-slide__num"><span class="proof-num" data-count-to="5">5</span><span class="proof-slide__unit">時間</span></div>
+              <div class="proof-slide__name">highprofilm.jp（スマホフィルム）</div>
+              <div class="proof-slide__body">みんどり最適化サイト＋プレスリリース後、わずか<strong>5時間で Google AI Overview に登場</strong>。</div>
+              <div class="proof-slide__query">「スマホフィルム 在庫リスク少ないもの教えて」</div>
+            </div>
+
+            <!-- Slide 2 : CLO compass (LLM-measured) -->
+            <div class="proof-slide" data-tone="sim">
+              <div class="proof-slide__type">🔵 自主実験（LLM 実測）</div>
+              <div class="proof-slide__num"><span class="proof-num" data-count-to="0">100</span><span class="proof-slide__unit">%</span></div>
+              <div class="proof-slide__name">CLOコンパス（物流DX）</div>
+              <div class="proof-slide__body">LLM 誤認率が <strong>100% → 0%</strong>。ターゲット誤認・機能誤記・対象外を明言しない ── 3 問すべて解消。</div>
+              <div class="proof-slide__query">「CLOコンパスは中小企業でも使えますか？」</div>
+            </div>
+
+            <!-- Slide 3 : Hitachi (simulation) -->
+            <div class="proof-slide" data-tone="sim">
+              <div class="proof-slide__type">🔵 自主実験（シミュレーション）</div>
+              <div class="proof-slide__num"><span class="proof-num" data-count-to="9.94" data-decimals="2">9.94</span><span class="proof-slide__unit">倍</span></div>
+              <div class="proof-slide__name">日立 温度×時間センシングインク</div>
+              <div class="proof-slide__body">目標クエリのスコアが名称のみ 5.0 → <strong>49.7 点（9.94 倍）</strong>。非主対象クエリは −8.0 点で構造的に排除。</div>
+              <div class="proof-slide__query">「メロンの食べ頃を予測できるラベル」</div>
+            </div>
+          </div>
+
+          <div class="proof-panel__dots">
+            <button class="proof-dot is-active" data-i="0" aria-label="実証事例 1"></button>
+            <button class="proof-dot" data-i="1" aria-label="自主実験 2"></button>
+            <button class="proof-dot" data-i="2" aria-label="自主実験 3"></button>
+          </div>
+        </aside>
       </div>
-      <div class="hero__cta-group">
-        <a href="/contact/" class="btn btn--primary">まず無料で相談する</a>
-        <a href="/contact/" class="btn btn--secondary">みんどり値を診断する</a>
+
+      <!-- Status marquee -->
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee__track">
+          <span class="hero-marquee__lead">◉ SYSTEM ACTIVE</span>
+          <span>▸ MNDR-2026-001 · PATENT PENDING</span>
+          <span>▸ record-side exclusion (RSE)</span>
+          <span>▸ field-weighted 2-gram overlap</span>
+          <span>▸ Meandle Theory v1.0</span>
+          <span>▸ AI Overview verified · 5h → hit</span>
+          <span>▸ LLM misclassification: 3/3 → 0/3</span>
+          <span class="hero-marquee__lead">◉ SYSTEM ACTIVE</span>
+          <span>▸ MNDR-2026-001 · PATENT PENDING</span>
+          <span>▸ record-side exclusion (RSE)</span>
+          <span>▸ field-weighted 2-gram overlap</span>
+          <span>▸ Meandle Theory v1.0</span>
+          <span>▸ AI Overview verified · 5h → hit</span>
+          <span>▸ LLM misclassification: 3/3 → 0/3</span>
+        </div>
       </div>
     </div>
   </section>
@@ -66,9 +137,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <h2>なぜMeandleは信頼できるのか</h2>
       <div class="metric-grid">
         <div class="metric-card">
-          <div class="label">研究拠点</div>
-          <div class="value" style="font-size:18px; line-height:1.3">美術大学<br/>非常勤講師 兼 研究</div>
-          <div class="sub">Jag Yamamoto が意味構造化の研究を継続中</div>
+          <div class="label">運営元</div>
+          <div class="value" style="font-size:15px; line-height:1.3">ジャグプロジェクト<br/>合同会社</div>
+          <div class="sub"><a href="https://www.jagproject.com/" target="_blank" rel="noopener">jagproject.com&nbsp;↗</a></div>
         </div>
         <div class="metric-card">
           <div class="label">特許出願中</div>
@@ -83,7 +154,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="metric-card">
           <div class="label">著者・開発者</div>
           <div class="value" style="font-size:15px; line-height:1.3">Jag Yamamoto</div>
-          <div class="sub">ジャグプロジェクト合同会社 代表<br/>美術大学 非常勤講師（研究進行中）</div>
+          <div class="sub">ジャグプロジェクト合同会社 代表<br/>意味構造化・B2B マーケの実務家</div>
         </div>
       </div>
     </div>
@@ -148,3 +219,4 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <a href="/contact/" class="btn btn--primary">まず無料で相談する</a>
   </section>
 </BaseLayout>
+

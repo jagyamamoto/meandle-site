@@ -5,11 +5,70 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title='Meandle Recruit — 転職エージェントに頼む前に、AIに「最適な候補者」を見つけてもらう｜Meandle'
   description="求人ページをみんどることで、潜在的な最適候補者とAI経由でマッチング。転職エージェント3名採用約525万円に対し、Meandle Recruit 3職種150万円。375万円のコスト削減試算。"
 >
-  <section class="hero">
+  <section class="hero hero--split">
+    <div class="hero__bg-grid" aria-hidden="true"></div>
+    <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
-      <span class="eyebrow hero__eyebrow">Meandle Recruit</span>
-      <h1 class="hero-copy">転職エージェントに頼む前に、<br/>AIに「最適な候補者」を見つけてもらう。</h1>
-      <p style="margin-top:24px">採用コストが高い最大の理由は、<strong>求める人材像がAIに正確に伝わっていないから</strong>です。Meandle Recruit は求人ページをみんどることで、潜在的な最適候補者と AI 経由でマッチングさせます。</p>
+      <div class="hero__split">
+        <div class="hero__left">
+          <span class="eyebrow hero__eyebrow">Meandle Recruit</span>
+          <h1 class="hero-copy">転職エージェントに頼む前に、<br/>AIに「最適な候補者」を見つけてもらう。</h1>
+          <p style="margin-top:20px">採用コストが高い最大の理由は、<strong>求める人材像がAIに正確に伝わっていないから</strong>です。Meandle Recruit は求人ページをみんどることで、潜在的な最適候補者と AI 経由でマッチングさせます。</p>
+        </div>
+
+        <aside class="proof-panel" aria-label="採用コスト試算 ライブ表示">
+          <div class="proof-panel__head">
+            <span class="proof-panel__led"></span>
+            <span class="proof-panel__label">COST&nbsp;SIMULATION</span>
+            <span class="proof-panel__timer"></span>
+          </div>
+          <div class="proof-stage">
+            <div class="proof-slide is-active">
+              <div class="proof-slide__type">💰 3名採用の場合 コスト削減試算</div>
+              <div class="proof-slide__num"><span class="proof-num" data-count-to="375">375</span><span class="proof-slide__unit">万円削減</span></div>
+              <div class="proof-slide__name">エージェント525万 → Meandle 150万</div>
+              <div class="proof-slide__body">年収500万人材×3名。転職エージェント <strong>150〜175万/人</strong> の相場から比較。ミスマッチ・早期退職の再採用コストも回避。</div>
+              <div class="proof-slide__query">前提：エージェント経由フィー30〜35%</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">🔴 従来手法：転職エージェント</div>
+              <div class="proof-slide__num"><span class="proof-num" data-count-to="525">525</span><span class="proof-slide__unit">万円</span></div>
+              <div class="proof-slide__name">3名採用時のフィー上限</div>
+              <div class="proof-slide__body">早期退職しても支払い済み。ミスマッチのやり直しでコストが倍増する構造。<strong>採用の質は制御しきれない</strong>。</div>
+              <div class="proof-slide__query">1名あたり 150〜175 万円</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">🟠 Meandle Recruit：3職種一括</div>
+              <div class="proof-slide__num"><span class="proof-num" data-count-to="150">150</span><span class="proof-slide__unit">万円</span></div>
+              <div class="proof-slide__name">求人3職種の運用込み</div>
+              <div class="proof-slide__body">求人ページを<strong>みんどりIndex 化</strong>して、AI経由の適合候補者を招き寄せる仕組み。運用は月次で継続改善。</div>
+              <div class="proof-slide__query">1職種 50万円 × 3</div>
+            </div>
+          </div>
+          <div class="proof-panel__dots">
+            <button class="proof-dot is-active" data-i="0" aria-label="削減額"></button>
+            <button class="proof-dot" data-i="1" aria-label="従来手法"></button>
+            <button class="proof-dot" data-i="2" aria-label="Meandle Recruit"></button>
+          </div>
+        </aside>
+      </div>
+
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee__track">
+          <span class="hero-marquee__lead">◉ SIMULATION</span>
+          <span>▸ 3-hire cost saving: −375 万円</span>
+          <span>▸ 転職エージェントフィー 30〜35%</span>
+          <span>▸ Meandle Recruit 50万/求人項目</span>
+          <span>▸ AI マッチング＝事前理解の質向上</span>
+          <span>▸ MNDR-2026-001 · patent pending</span>
+          <span class="hero-marquee__lead">◉ SIMULATION</span>
+          <span>▸ 3-hire cost saving: −375 万円</span>
+          <span>▸ 転職エージェントフィー 30〜35%</span>
+          <span>▸ Meandle Recruit 50万/求人項目</span>
+          <span>▸ AI マッチング＝事前理解の質向上</span>
+          <span>▸ MNDR-2026-001 · patent pending</span>
+        </div>
+      </div>
     </div>
   </section>
 

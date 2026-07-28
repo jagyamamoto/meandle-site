@@ -201,6 +201,69 @@ const {
     document.querySelectorAll('.btn--primary').forEach(function (el) {
       inViewIO.observe(el);
     });
+
+    // ── Proof / Showcase Panel auto-cycler ──
+    document.querySelectorAll('.proof-panel').forEach(function (panel) {
+      var slides = panel.querySelectorAll('.proof-slide');
+      var dots   = panel.querySelectorAll('.proof-dot');
+      var timerEl = panel.querySelector('.proof-panel__timer');
+      if (!slides.length) return;
+      var current = 0;
+      var interval = 4200;
+      var autoTimeout = null;
+      var timerRAF = null;
+      var timerStart = null;
+
+      function animateNumIn(el) {
+        var to = parseFloat(el.dataset.countTo);
+        if (Number.isNaN(to)) return;
+        var decimals = parseInt(el.dataset.decimals || '0', 10);
+        var duration = 1000;
+        var start = performance.now();
+        el.textContent = fmt(0, decimals);
+        function step(now) {
+          var t = Math.min(1, (now - start) / duration);
+          var eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = fmt(to * eased, decimals);
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      function activate(i) {
+        slides.forEach(function (s, idx) { s.classList.toggle('is-active', idx === i); });
+        dots.forEach(function (d, idx)   { d.classList.toggle('is-active', idx === i); });
+        var n = slides[i].querySelector('.proof-num');
+        if (n) animateNumIn(n);
+        current = i;
+        startTimer();
+      }
+      function startTimer() {
+        if (timerRAF) cancelAnimationFrame(timerRAF);
+        timerStart = performance.now();
+        function tick(now) {
+          var elapsed = now - timerStart;
+          var remaining = Math.ceil((interval - elapsed) / 1000);
+          if (timerEl) timerEl.textContent = 'next in ' + Math.max(0, remaining) + 's';
+          if (elapsed < interval) timerRAF = requestAnimationFrame(tick);
+        }
+        timerRAF = requestAnimationFrame(tick);
+      }
+      function scheduleNext() {
+        clearTimeout(autoTimeout);
+        autoTimeout = setTimeout(function () {
+          activate((current + 1) % slides.length);
+          scheduleNext();
+        }, interval);
+      }
+      dots.forEach(function (d) {
+        d.addEventListener('click', function () {
+          activate(parseInt(d.dataset.i, 10));
+          scheduleNext();
+        });
+      });
+      activate(0);
+      scheduleNext();
+    });
   })();
   </script>
 </body>

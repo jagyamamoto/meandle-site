@@ -5,11 +5,70 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title="Meandle OEM — 御社のサービスへの技術提供｜Meandle"
   description="みんどる理論（特許出願中）の技術を御社サービス向けにOEM提供。求人マッチングサービス・PR配信サービス・SEO/AIOツール等への組み込み。"
 >
-  <section class="hero">
+  <section class="hero hero--split">
+    <div class="hero__bg-grid" aria-hidden="true"></div>
+    <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
-      <span class="eyebrow hero__eyebrow">Meandle OEM</span>
-      <h1 class="hero-copy">Meandle OEM：<br/>御社のサービスへの技術提供</h1>
-      <p style="margin-top:24px">みんどる理論（特許出願中）の技術を御社サービス向けにOEM提供します。</p>
+      <div class="hero__split">
+        <div class="hero__left">
+          <span class="eyebrow hero__eyebrow">Meandle OEM</span>
+          <h1 class="hero-copy">Meandle OEM：<br/>御社のサービスへの技術提供</h1>
+          <p style="margin-top:20px">みんどる理論（特許出願中）の技術を御社サービス向けに OEM 提供します。<strong>求人マッチング／PR配信／SEO・AIOツール</strong> への組み込み実績前提の設計です。</p>
+        </div>
+
+        <aside class="proof-panel" aria-label="OEM 提供形態 ライブ表示">
+          <div class="proof-panel__head">
+            <span class="proof-panel__led"></span>
+            <span class="proof-panel__label">DELIVERY&nbsp;FORMATS</span>
+            <span class="proof-panel__timer"></span>
+          </div>
+          <div class="proof-stage">
+            <div class="proof-slide is-active">
+              <div class="proof-slide__type">🧩 API 提供</div>
+              <div class="proof-slide__num proof-slide__num--label">REST&nbsp;API</div>
+              <div class="proof-slide__name">みんどりIndex 計算エンジン</div>
+              <div class="proof-slide__body">JSON Schema Draft 2020-12 準拠。<code>POST /score</code> で <code>{"{ query, record }"}</code> を投げると、フィールド別重み付きスコアと must_not ペナルティを含む結果が返却。</div>
+              <div class="proof-slide__query">$id: mndr:index/v1</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">📦 SDK / ホワイトラベル</div>
+              <div class="proof-slide__num proof-slide__num--label">SDK&nbsp;+&nbsp;WL</div>
+              <div class="proof-slide__name">貴社ブランドで提供</div>
+              <div class="proof-slide__body">Node/Python SDK ＋ ホワイトラベル UI（設定テンプレート・運用ガイド付き）。<strong>貴社のブランドで顧客に提供</strong>できます。</div>
+              <div class="proof-slide__query">ブランド完全独立・共同開発でも可</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">🔒 独占ライセンス</div>
+              <div class="proof-slide__num proof-slide__num--label">EXCLUSIVE</div>
+              <div class="proof-slide__name">業界・領域単位</div>
+              <div class="proof-slide__body">特定業界／領域での<strong>独占ライセンス</strong>供与も個別協議可能。特許 <code>MNDR-2026-001</code>（出願中）のカバー範囲で優先実施権を設計します。</div>
+              <div class="proof-slide__query">MNDR-2026-001 · patent pending</div>
+            </div>
+          </div>
+          <div class="proof-panel__dots">
+            <button class="proof-dot is-active" data-i="0" aria-label="API"></button>
+            <button class="proof-dot" data-i="1" aria-label="SDK"></button>
+            <button class="proof-dot" data-i="2" aria-label="Exclusive"></button>
+          </div>
+        </aside>
+      </div>
+
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee__track">
+          <span class="hero-marquee__lead">◉ MNDR SDK · READY</span>
+          <span>▸ REST API / Node / Python SDK</span>
+          <span>▸ White-label UI + templates</span>
+          <span>▸ Field-weighted 2-gram overlap</span>
+          <span>▸ record-side exclusion (RSE)</span>
+          <span>▸ MNDR-2026-001 · patent pending</span>
+          <span class="hero-marquee__lead">◉ MNDR SDK · READY</span>
+          <span>▸ REST API / Node / Python SDK</span>
+          <span>▸ White-label UI + templates</span>
+          <span>▸ Field-weighted 2-gram overlap</span>
+          <span>▸ record-side exclusion (RSE)</span>
+          <span>▸ MNDR-2026-001 · patent pending</span>
+        </div>
+      </div>
     </div>
   </section>
 

@@ -5,11 +5,70 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title="Meandle認定代理店制度｜Meandle"
   description="Meandle技術を習得し、みんどるツールの提供を受けて代理店として展開いただけます。Web制作会社・マーケティング会社・PR会社の方に特にお勧めです。"
 >
-  <section class="hero">
+  <section class="hero hero--split">
+    <div class="hero__bg-grid" aria-hidden="true"></div>
+    <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
-      <span class="eyebrow hero__eyebrow">Partner</span>
-      <h1 class="hero-copy">Meandle認定代理店制度</h1>
-      <p style="margin-top:24px">Meandle技術を習得し、みんどるツールの提供を受けて代理店として展開していただけます。<strong>Web制作会社・マーケティング会社・PR会社</strong>の方に特にお勧めです。</p>
+      <div class="hero__split">
+        <div class="hero__left">
+          <span class="eyebrow hero__eyebrow">Partner</span>
+          <h1 class="hero-copy">Meandle認定代理店制度</h1>
+          <p style="margin-top:20px">Meandle 技術を習得し、みんどるツールの提供を受けて代理店として展開していただけます。<strong>Web制作会社・マーケティング会社・PR会社</strong>の方に特にお勧めです。</p>
+        </div>
+
+        <aside class="proof-panel" aria-label="認定代理店プログラム ライブ表示">
+          <div class="proof-panel__head">
+            <span class="proof-panel__led"></span>
+            <span class="proof-panel__label">CERTIFIED&nbsp;PROGRAM</span>
+            <span class="proof-panel__timer"></span>
+          </div>
+          <div class="proof-stage">
+            <div class="proof-slide is-active">
+              <div class="proof-slide__type">🎓 認定パートナー制度</div>
+              <div class="proof-slide__num proof-slide__num--label">CERTIFIED</div>
+              <div class="proof-slide__name">Web制作／広告／PR／採用支援</div>
+              <div class="proof-slide__body">既存クライアントに対して「みんどり値」で改善提案ができるようになります。<strong>純粋な追加提案軸</strong>として、既存業務を拡張。</div>
+              <div class="proof-slide__query">対象：Web／広告／PR／採用／BtoBコンサル</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">🧰 提供ツール／テンプレート</div>
+              <div class="proof-slide__num proof-slide__num--label">TOOLS</div>
+              <div class="proof-slide__name">パートナー版みんどりIndex</div>
+              <div class="proof-slide__body">Index テンプレート、運用ガイド、チェックリスト、社内向け研修コンテンツを提供。<strong>納品物レベルで再現可能</strong>な形式に整理済み。</div>
+              <div class="proof-slide__query">Index template / Ops guide / Checklist</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">🚀 初期研修＋共同提案</div>
+              <div class="proof-slide__num"><span class="proof-num" data-count-to="4">4</span><span class="proof-slide__unit">週間</span></div>
+              <div class="proof-slide__name">2〜4週間の社内研修</div>
+              <div class="proof-slide__body">立ち上げ2〜4週間の集中研修＋<strong>年数件の共同提案サポート</strong>。技術・営業の両面で並走します。</div>
+              <div class="proof-slide__query">Kickoff = 2〜4 週 / 共同案件年数件</div>
+            </div>
+          </div>
+          <div class="proof-panel__dots">
+            <button class="proof-dot is-active" data-i="0" aria-label="制度"></button>
+            <button class="proof-dot" data-i="1" aria-label="ツール"></button>
+            <button class="proof-dot" data-i="2" aria-label="研修"></button>
+          </div>
+        </aside>
+      </div>
+
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee__track">
+          <span class="hero-marquee__lead">◉ CERTIFIED PARTNER</span>
+          <span>▸ みんどりIndex template (partner ed.)</span>
+          <span>▸ Ops guide + Checklist</span>
+          <span>▸ Kickoff training 2〜4 weeks</span>
+          <span>▸ Joint proposal support</span>
+          <span>▸ MNDR-2026-001 · patent pending</span>
+          <span class="hero-marquee__lead">◉ CERTIFIED PARTNER</span>
+          <span>▸ みんどりIndex template (partner ed.)</span>
+          <span>▸ Ops guide + Checklist</span>
+          <span>▸ Kickoff training 2〜4 weeks</span>
+          <span>▸ Joint proposal support</span>
+          <span>▸ MNDR-2026-001 · patent pending</span>
+        </div>
+      </div>
     </div>
   </section>
 

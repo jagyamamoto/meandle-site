@@ -5,12 +5,71 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title='do.meandle — あなたのWebサイトを、「AIが推薦したいサイト」に変える｜Meandle'
   description="既存Webページや新規コンテンツにみんどる理論を適用し、AIマッチングに強い構造を作る受託サービス。highprofilm.jpがプレスリリース後5時間でAI Overview登場を実現した背景にも、サイト自体のみんどり最適化があります。"
 >
-  <section class="hero">
+  <section class="hero hero--split">
+    <div class="hero__bg-grid" aria-hidden="true"></div>
+    <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
-      <span class="eyebrow hero__eyebrow">do.meandle</span>
-      <h1 class="hero-copy">あなたのWebサイトを、<br/>「AIが推薦したいサイト」に変える。</h1>
-      <p style="margin-top:24px">「うちのサービスをAIに聞いても出てこない」──それは、サービスの価値がAIに正確に伝わっていないからです。do.meandle は、既存のWebページや新規コンテンツにみんどる理論を適用し、AIマッチングに強い構造を作る受託サービスです。</p>
-      <p>highprofilm.jpが「プレスリリース後 <strong>5時間で AI Overview 登場</strong>」を実現した背景にも、サイト自体のみんどり最適化があります。まず<strong>サイトをみんどる</strong>こと──これがすべての出発点です。</p>
+      <div class="hero__split">
+        <div class="hero__left">
+          <span class="eyebrow hero__eyebrow">do.meandle</span>
+          <h1 class="hero-copy">あなたのWebサイトを、<br/>「AIが推薦したいサイト」に変える。</h1>
+          <p style="margin-top:20px">「うちのサービスをAIに聞いても出てこない」──それは、サービスの価値がAIに正確に伝わっていないからです。do.meandle は、既存のWebページや新規コンテンツにみんどる理論を適用し、AIマッチングに強い構造を作る受託サービスです。</p>
+          <p>highprofilm.jpが「プレスリリース後 <strong>5時間で AI Overview 登場</strong>」を実現した背景にも、サイト自体のみんどり最適化があります。まず<strong>サイトをみんどる</strong>こと──これがすべての出発点です。</p>
+        </div>
+
+        <aside class="proof-panel" aria-label="do.meandle 実験データ ライブ表示">
+          <div class="proof-panel__head">
+            <span class="proof-panel__led"></span>
+            <span class="proof-panel__label">EXPERIMENTAL&nbsp;DATA</span>
+            <span class="proof-panel__timer"></span>
+          </div>
+          <div class="proof-stage">
+            <div class="proof-slide is-active">
+              <div class="proof-slide__type">🔵 検索照合精度（BM25実験）</div>
+              <div class="proof-slide__num"><span class="proof-num" data-count-to="26.7" data-decimals="1">26.7</span><span class="proof-slide__unit">pt 向上</span></div>
+              <div class="proof-slide__name">概念検索の Top-1 正解率</div>
+              <div class="proof-slide__body">名称のみ <strong>63.3%</strong> → 8フィールド適用後 <strong>90.0%</strong>。Boschloo p=0.015, h=0.657。</div>
+              <div class="proof-slide__query">同一クエリ集合での Before/After 比較</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">🔵 LLM 誤認率（CLO実験）</div>
+              <div class="proof-slide__num"><span class="proof-num" data-count-to="0">100</span><span class="proof-slide__unit">%</span></div>
+              <div class="proof-slide__name">みんどり後は 0%</div>
+              <div class="proof-slide__body">ターゲット誤認・機能誤記・対象外を明言しない ── <strong>3種すべての誤認パターンが解消</strong>。</div>
+              <div class="proof-slide__query">Anthropic API 実測（3問×2条件）</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">🔵 スコア改善倍率（日立実験）</div>
+              <div class="proof-slide__num"><span class="proof-num" data-count-to="9.94" data-decimals="2">9.94</span><span class="proof-slide__unit">倍</span></div>
+              <div class="proof-slide__name">目標クエリでの照合スコア</div>
+              <div class="proof-slide__body">名称のみ <strong>5.0点</strong> → みんどり後 <strong>49.7点</strong>。非主対象クエリは −8.0点で構造的に排除。</div>
+              <div class="proof-slide__query">仮説シミュレーション値</div>
+            </div>
+          </div>
+          <div class="proof-panel__dots">
+            <button class="proof-dot is-active" data-i="0" aria-label="実験1"></button>
+            <button class="proof-dot" data-i="1" aria-label="実験2"></button>
+            <button class="proof-dot" data-i="2" aria-label="実験3"></button>
+          </div>
+        </aside>
+      </div>
+
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee__track">
+          <span class="hero-marquee__lead">◉ MEANDLE INDEX ACTIVE</span>
+          <span>▸ 8-field schema · must / must_not / examples / scene ...</span>
+          <span>▸ +26.7pt Top-1 accuracy</span>
+          <span>▸ Boschloo p=0.015 · h=0.657</span>
+          <span>▸ 9.94× score uplift (Hitachi sim)</span>
+          <span>▸ MNDR-2026-001 · patent pending</span>
+          <span class="hero-marquee__lead">◉ MEANDLE INDEX ACTIVE</span>
+          <span>▸ 8-field schema · must / must_not / examples / scene ...</span>
+          <span>▸ +26.7pt Top-1 accuracy</span>
+          <span>▸ Boschloo p=0.015 · h=0.657</span>
+          <span>▸ 9.94× score uplift (Hitachi sim)</span>
+          <span>▸ MNDR-2026-001 · patent pending</span>
+        </div>
+      </div>
     </div>
   </section>
 
