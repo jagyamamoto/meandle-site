@@ -698,10 +698,67 @@ code {
   opacity: 1;
 }
 
+/* ── Hero ambient motion (subtle orange glow — every hero across the site) ── */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -20% -10%;
+  background: radial-gradient(circle at 15% 30%, rgba(233,143,34,0.09), transparent 55%),
+              radial-gradient(circle at 85% 60%, rgba(201,222,220,0.35), transparent 60%);
+  animation: heroGlow 14s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero > * { position: relative; z-index: 1; }
+@keyframes heroGlow {
+  0%, 100% { transform: scale(1)    translate(0, 0);      opacity: 0.55; }
+  50%      { transform: scale(1.15) translate(2%, -1%);   opacity: 0.95; }
+}
+
+/* ── Hero content stagger (hero__eyebrow, h1, p, badges, CTA group) ── */
+.motion-init .motion-hero > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  will-change: opacity, transform;
+}
+.motion-init .motion-hero.is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Section h2 fade-up (auto-applied to every section h2) ── */
+.motion-init .motion-h2 {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.motion-init .motion-h2.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Primary CTA subtle ambient pulse (once, when in view) ── */
+.motion-init .btn--primary.is-visible {
+  animation: ctaPulse 2s ease-out 0.3s 1;
+}
+@keyframes ctaPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(233,143,34,0.55); }
+  60%  { box-shadow: 0 0 0 14px rgba(233,143,34,0);  }
+  100% { box-shadow: 0 0 0 0 rgba(233,143,34,0);     }
+}
+
 /* ── Reduced-motion opt-out (universal) ── */
 @media (prefers-reduced-motion: reduce) {
+  .hero::before { animation: none !important; }
   .motion-init .motion-fade,
   .motion-init .motion-stagger > *,
+  .motion-init .motion-hero > *,
+  .motion-init .motion-h2,
   .motion-init .motion-formula .tok,
   .motion-init .motion-flow svg g > rect,
   .motion-init .motion-flow svg g > line,
@@ -709,5 +766,6 @@ code {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+    animation: none !important;
   }
 }

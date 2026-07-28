@@ -153,9 +153,52 @@ const {
       '.sim-box',
     ];
     document.querySelectorAll(autoRevealSelectors.join(',')).forEach(function (el) {
-      // Skip if already inside a stagger container (avoid double-animation)
       if (el.closest('.motion-stagger')) return;
       el.classList.add('motion-fade');
+      inViewIO.observe(el);
+    });
+
+    // ── Auto-hero stagger: promote .hero > .container to .motion-hero ──
+    document.querySelectorAll('.hero > .container, .hero > .container--narrow').forEach(function (el) {
+      el.classList.add('motion-hero');
+      var children = el.children;
+      for (var i = 0; i < children.length; i++) {
+        children[i].style.transitionDelay = (i * 0.10).toFixed(3) + 's';
+      }
+      inViewIO.observe(el);
+    });
+
+    // ── Auto-h2 fade: promote every main h2 to .motion-h2 ──
+    document.querySelectorAll('main h2').forEach(function (el) {
+      if (el.closest('.motion-formula') || el.closest('.motion-hero')) return;
+      el.classList.add('motion-h2');
+      inViewIO.observe(el);
+    });
+
+    // ── Auto-stagger common grid/flow containers (children reveal one-by-one) ──
+    var autoStaggerSelectors = [
+      '.metric-grid',
+      '.ev3',
+      '.service-grid',
+      '.three-steps',
+      '.hero__badges',
+      '.hero__cta-group',
+      '.cta-analysis__visual',
+    ];
+    document.querySelectorAll(autoStaggerSelectors.join(',')).forEach(function (el) {
+      if (el.classList.contains('motion-stagger')) return;
+      // Skip if already inside a stagger container
+      if (el.closest('.motion-stagger') && el.closest('.motion-stagger') !== el) return;
+      el.classList.add('motion-stagger');
+      var children = el.children;
+      for (var i = 0; i < children.length; i++) {
+        children[i].style.transitionDelay = (i * 0.10).toFixed(3) + 's';
+      }
+      inViewIO.observe(el);
+    });
+
+    // ── Primary CTA pulse: observe .btn--primary so it can get .is-visible ──
+    document.querySelectorAll('.btn--primary').forEach(function (el) {
       inViewIO.observe(el);
     });
   })();
