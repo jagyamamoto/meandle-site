@@ -43,6 +43,104 @@ const presetQueries = [
   { label: '配送 ルート 最適化',          type: 'noise'  },
   { label: '中小企業 物流管理',           type: 'noise'  },
 ];
+
+// --- Raw Materials: code blocks (defined as strings so JSX braces don't break) ---
+const reqBefore = `POST /v1/messages
+Host: api.anthropic.com
+Content-Type: application/json
+x-api-key: sk-ant-***
+anthropic-version: 2023-06-01
+
+{
+  "model": "claude-haiku-4-5-20251001",
+  "max_tokens": 512,
+  "system": "あなたはB2Bサービスに詳しいアシスタントです。",
+  "messages": [{
+    "role": "user",
+    "content": "以下のサービスについて質問に答えてください。\\n\\n【サービス】CLOコンパス\\n【カテゴリ】物流DXサービス\\n\\n【質問】CLOコンパスはWMSですか？どのような企業に向いていますか？"
+  }]
+}`;
+
+const resBefore = `200 OK
+content-type: application/json
+
+{
+  "id": "msg_01Hb...",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-haiku-4-5-20251001",
+  "content": [{
+    "type": "text",
+    "text": "CLOコンパスは、WMS（倉庫管理システム）ではなく、物流DXプラットフォームです。\\n\\n向いている企業：\\n・中小物流企業・3PL企業：導入・運用負担が少ない\\n・急速に成長中の企業：柔軟なシステム対応が可能..."
+  }],
+  "stop_reason": "end_turn",
+  "usage": { "input_tokens": 417, "output_tokens": 128 }
+}`;
+
+const reqAfter = `POST /v1/messages
+Host: api.anthropic.com
+Content-Type: application/json
+x-api-key: sk-ant-***
+anthropic-version: 2023-06-01
+
+{
+  "model": "claude-haiku-4-5-20251001",
+  "max_tokens": 512,
+  "system": "あなたはB2Bサービスに詳しいアシスタントです。",
+  "messages": [{
+    "role": "user",
+    "content": "以下のサービスについて質問に答えてください。\\n\\n【サービス】CLOコンパス\\n【カテゴリ】物流DXサービス\\n【みんどりIndex】\\n  must: CLO向け・全社横断KPI可視化・法令対応レポート自動生成・経営意思決定支援\\n  must_not: WMSではない・TMSではない・現場オペレーションではない・中小企業向けではない・運送会社向けではない\\n  examples: CLO報告書作成・全社KPIダッシュボード・国交省定期報告\\n\\n【質問】CLOコンパスはWMSですか？どのような企業に向いていますか？"
+  }]
+}`;
+
+const resAfter = `200 OK
+content-type: application/json
+
+{
+  "id": "msg_01Rt...",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-haiku-4-5-20251001",
+  "content": [{
+    "type": "text",
+    "text": "WMSではありません。CLOコンパスはWMS（倉庫管理システム）ではなく、CLO（物流統括管理者）向けの経営意思決定支援ツールです。\\n\\n向いている企業：大規模荷主企業の経営層・CLOが対象\\n・複数の物流拠点を運営している\\n・改正物流効率化法への対応が必要..."
+  }],
+  "stop_reason": "end_turn",
+  "usage": { "input_tokens": 652, "output_tokens": 194 }
+}`;
+
+const schemaJson = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id":     "https://meandle.jp/schema/mndr/index/v1.json",
+  "title":   "mindori Index",
+  "type":    "object",
+  "required": ["candidate_name", "must"],
+  "properties": {
+    "candidate_name":  { "type": "string", "description": "サービス・製品・記事の識別名（必須）" },
+    "must":            { "type": "string", "description": "満たされねばならない中核条件（w=2.0）" },
+    "must_not":        { "type": "string", "description": "該当したら候補外にする条件（w=-3.0, RSE）" },
+    "scene":           { "type": "string", "description": "利用場面・文脈（w=1.5）" },
+    "examples":        { "type": "string", "description": "典型例・具体語（w=1.5）" },
+    "counterexamples": { "type": "string", "description": "反例・似て非なるもの（w=0.5）" },
+    "observation":     { "type": "string", "description": "第三者観察・実証（w=1.2）" },
+    "visible_text":    { "type": "string", "description": "既存LPに実際に書かれている文（w=1.0）" }
+  },
+  "additionalProperties": false
+}`;
+
+const bibtex = `@article{yamamoto2026mndr,
+  author    = {Yamamoto, Shakuhiro},
+  title     = {みんどる理論：フィールド重み付き
+               文字バイグラム属性スコアリングによる
+               意味の構造化},
+  journal   = {武蔵野美術大学 研究紀要},
+  number    = {57},
+  year      = {2026},
+  publisher = {Musashino Art University},
+  language  = {ja},
+  keywords  = {2-gram, field-weighted scoring,
+               record-side exclusion, LLM alignment}
+}`;
 ---
 <BaseLayout
   title="How Meandle works — Meandle Theory (MNDR) v1.0｜Meandle"
@@ -302,6 +400,141 @@ const presetQueries = [
         <a href="/blog/clo/">→ CLOコンパスの詳細スコア＋LLM応答実測（実験 #1）</a><br/>
         <a href="/blog/hitachi/">→ 日立産機システム PR を題材にした境界設計検証（実験 #2）</a>
       </p>
+    </div>
+  </section>
+
+  <!-- ── SECTION 6.5 : Raw Materials (Phase 2) ── -->
+  <section class="section" id="raw">
+    <div class="container">
+      <span class="eyebrow" style="color:var(--hero-orange)">Raw Materials</span>
+      <h2>生資料で見る、みんどりの中身</h2>
+      <p>要約ではなく、<strong>実際に動いている資料そのもの</strong>を開示します。API リクエスト・レスポンス、Schema 定義、特許請求項の要旨、論文引用。</p>
+
+      <!-- 7.1 LLM API log -->
+      <div class="raw-block">
+        <div class="raw-block__head">
+          <span class="raw-badge">RAW</span>
+          <h3 class="raw-block__title">7.1　Live LLM API Log</h3>
+          <span class="raw-block__meta">Anthropic Messages API / claude-haiku-4-5-20251001 / 2026-06-02</span>
+        </div>
+        <p class="raw-block__lead">
+          CLOコンパス実験 Q1「CLOコンパスは WMS ですか？どのような企業に向いていますか？」の実 API コール（Before/After 2 リクエスト）。
+        </p>
+
+        <div class="grid grid--2 mt-3">
+          <!-- Before -->
+          <div class="raw-log">
+            <div class="raw-log__label raw-log__label--before">
+              <span>▸ Condition A（名称のみ）</span>
+              <span class="raw-log__meta">417 in ／ 128 out tokens</span>
+            </div>
+            <pre class="raw-log__pre raw-log__pre--req"><code>{reqBefore}</code></pre>
+            <pre class="raw-log__pre raw-log__pre--res"><code>{resBefore}</code></pre>
+            <div class="raw-log__verdict raw-log__verdict--fail">
+              ⚠ must_not 違反：「中小物流企業・3PL企業」を対象として誤答
+            </div>
+          </div>
+
+          <!-- After -->
+          <div class="raw-log">
+            <div class="raw-log__label raw-log__label--after">
+              <span>▸ Condition B（みんどりIndex 付き）</span>
+              <span class="raw-log__meta">652 in ／ 194 out tokens</span>
+            </div>
+            <pre class="raw-log__pre raw-log__pre--req"><code>{reqAfter}</code></pre>
+            <pre class="raw-log__pre raw-log__pre--res"><code>{resAfter}</code></pre>
+            <div class="raw-log__verdict raw-log__verdict--pass">
+              ✓ must_not「中小企業向けではない」「WMS ではない」が機能
+            </div>
+          </div>
+        </div>
+
+        <p class="raw-block__foot">
+          追加した <code>【みんどりIndex】</code> ブロック 235 tokens（+56%）で誤認が消える。全 6 コール（3 問 × 2 条件）の完全ログは <a href="/blog/clo/#llm">実験 #1 レポート</a> に掲載。
+        </p>
+      </div>
+
+      <!-- 7.2 mindori Index Schema -->
+      <div class="raw-block">
+        <div class="raw-block__head">
+          <span class="raw-badge">RAW</span>
+          <h3 class="raw-block__title">7.2　mindori Index Schema v1.0</h3>
+          <span class="raw-block__meta">JSON Schema Draft 2020-12 / <code>$id: mndr:index/v1</code></span>
+        </div>
+        <p class="raw-block__lead">
+          意味の輪郭を規定する、公式スキーマ。すべてのみんどりIndex は本スキーマに準拠します。
+        </p>
+
+        <pre class="raw-log__pre raw-log__pre--schema"><code>{schemaJson}</code></pre>
+
+        <p class="raw-block__foot">
+          スキーマは公開仕様。BM25 実装・LLM プロンプト構築の両方で同じ Index を再利用できます。
+        </p>
+      </div>
+
+      <!-- 7.3 Patent Claim -->
+      <div class="raw-block">
+        <div class="raw-block__head">
+          <span class="raw-badge">RAW</span>
+          <h3 class="raw-block__title">7.3　Patent Claim §1（Public Summary）</h3>
+          <span class="raw-block__meta">MNDR-2026-001 / 出願中・全文非公開</span>
+        </div>
+        <p class="raw-block__lead">
+          出願中のため請求項全文は非公開。以下は<strong>公開情報から作成した要旨</strong>（Public Summary）です。
+        </p>
+
+        <div class="patent-claim">
+          <div class="patent-claim__head">
+            <span class="patent-claim__id">§1</span>
+            <span class="patent-claim__topic">record-side exclusion (RSE)</span>
+          </div>
+          <div class="patent-claim__body">
+            <p><strong>【claim summary】</strong></p>
+            <p>クエリ側で除外語を明示していない場合であっても、<strong>レコード側に保持された <code>must_not</code> 条件</strong>に対し、クエリと当該レコード <code>must_not</code> フィールドとの <em>n</em>-gram overlap を検出したときに、スコアリング関数に負の重み（本実装では w = −3.0）を乗じてスコアから減算する方法。これにより、除外指定を持たないクエリからでも、意味が近いが提供対象外である候補を、構造的に候補集合から排除しうる。</p>
+            <p><strong>【effect】</strong>従来のクエリサイド除外（NOT クエリ等）に依らず、record 側の宣言だけで誤マッチを抑制。人手による NOT クエリ設計の負荷を伴わない。</p>
+          </div>
+          <div class="patent-claim__foot">
+            <span class="patent-claim__stamp">Pending</span>
+            <span class="patent-claim__note">全文開示は出願確定後。本要旨は公開情報からの再構成であり、請求項本文と一字一句一致するものではありません。</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7.4 Publication -->
+      <div class="raw-block">
+        <div class="raw-block__head">
+          <span class="raw-badge">RAW</span>
+          <h3 class="raw-block__title">7.4　Publication Reference</h3>
+          <span class="raw-block__meta">Academic citation</span>
+        </div>
+
+        <div class="cite-grid">
+          <div class="cite-card">
+            <div class="cite-card__label">BibTeX</div>
+            <pre class="raw-log__pre raw-log__pre--cite"><code>{bibtex}</code></pre>
+          </div>
+
+          <div class="cite-card">
+            <div class="cite-card__label">APA (7th)</div>
+            <div class="cite-card__body">
+              <p>山本 釈弘 (2026). みんどる理論：フィールド重み付き文字バイグラム属性スコアリングによる意味の構造化. <em>武蔵野美術大学研究紀要</em>, (57).</p>
+            </div>
+
+            <div class="cite-card__label" style="margin-top:14px">IEEE</div>
+            <div class="cite-card__body">
+              <p>S. Yamamoto, "みんどる理論：フィールド重み付き文字バイグラム属性スコアリングによる意味の構造化," <em>武蔵野美術大学研究紀要</em>, no. 57, 2026.</p>
+            </div>
+
+            <div class="cite-card__label" style="margin-top:14px">Related Work</div>
+            <div class="cite-card__body">
+              <ul style="font-size:13px; padding-left:18px; margin:0">
+                <li>Robertson, S. E., et al. (2009). <em>The Probabilistic Relevance Framework: BM25 and Beyond</em>. Foundations and Trends in IR.</li>
+                <li>Boschloo, R. D. (1970). Raised conditional level of significance for the 2×2-table. <em>Statistica Neerlandica</em>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -717,6 +950,238 @@ const presetQueries = [
     background: var(--paper-2);
     border-radius: var(--radius);
   }
+
+  /* ── Section 7: Raw Materials (Phase 2) ── */
+  .raw-block {
+    margin: 40px 0 32px;
+    padding: 24px 22px;
+    background: var(--card);
+    border: 1px solid rgba(18,36,44,0.14);
+    border-left: 4px solid var(--hero-orange);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .raw-block__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed rgba(18,36,44,0.15);
+  }
+  .raw-badge {
+    background: var(--dark);
+    color: var(--hero-orange);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+  .raw-block__title {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0;
+    flex: 1 1 auto;
+  }
+  .raw-block__meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .raw-block__meta code {
+    background: var(--paper-2);
+    padding: 1px 5px;
+    font-size: 10.5px;
+  }
+  .raw-block__lead {
+    font-size: 14px;
+    color: var(--ink);
+    margin: 12px 0 4px;
+    line-height: 1.8;
+  }
+  .raw-block__foot {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(18,36,44,0.12);
+    line-height: 1.8;
+  }
+  .raw-block__foot code {
+    background: var(--paper-2);
+    padding: 1px 5px;
+    font-size: 12px;
+  }
+
+  /* 7.1 API log */
+  .raw-log { display: flex; flex-direction: column; gap: 8px; }
+  .raw-log__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 3px 3px 0 0;
+    letter-spacing: 0.02em;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .raw-log__label--before {
+    background: rgba(226,75,74,0.12);
+    color: #A32D2D;
+    border: 1px solid rgba(226,75,74,0.35);
+    border-bottom: none;
+  }
+  .raw-log__label--after {
+    background: rgba(233,143,34,0.14);
+    color: var(--ink);
+    border: 1px solid rgba(233,143,34,0.45);
+    border-bottom: none;
+  }
+  .raw-log__meta {
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .raw-log__pre {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    background: #0E1A20;
+    color: #E1E8DC;
+    padding: 14px 16px;
+    border-radius: 3px;
+    overflow-x: auto;
+    line-height: 1.7;
+    margin: 0;
+    white-space: pre;
+  }
+  .raw-log__pre code { background: transparent; padding: 0; color: inherit; font-size: inherit; }
+  .raw-log__pre--req { border-left: 3px solid #6F7777; }
+  .raw-log__pre--res { border-left: 3px solid var(--hero-orange); }
+  .raw-log__pre--schema { border-left: 3px solid #2A5D8B; margin-top: 12px; }
+  .raw-log__pre--cite { border-left: 3px solid var(--muted); font-size: 11px; margin: 0; }
+  .raw-log__verdict {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 3px;
+    line-height: 1.6;
+  }
+  .raw-log__verdict--fail {
+    background: rgba(226,75,74,0.10);
+    color: #A32D2D;
+    border: 1px solid rgba(226,75,74,0.25);
+  }
+  .raw-log__verdict--pass {
+    background: rgba(233,143,34,0.10);
+    color: var(--ink);
+    border: 1px solid rgba(233,143,34,0.35);
+  }
+
+  /* 7.3 Patent claim */
+  .patent-claim {
+    margin-top: 12px;
+    background: var(--paper);
+    border: 1px solid rgba(18,36,44,0.20);
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+  }
+  .patent-claim__head {
+    background: linear-gradient(90deg, var(--dark) 0%, #1a2c33 100%);
+    color: var(--white);
+    padding: 12px 18px;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    font-family: var(--font-mono);
+  }
+  .patent-claim__id {
+    color: var(--hero-orange);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .patent-claim__topic {
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  .patent-claim__body {
+    padding: 18px 22px;
+    font-size: 14px;
+    line-height: 1.9;
+  }
+  .patent-claim__body p { margin-bottom: 10px; }
+  .patent-claim__body p:last-child { margin-bottom: 0; }
+  .patent-claim__body code {
+    background: var(--paper-2);
+    padding: 1px 6px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+  }
+  .patent-claim__foot {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 18px;
+    background: var(--paper-2);
+    border-top: 1px solid rgba(18,36,44,0.12);
+    font-size: 11.5px;
+    color: var(--muted);
+    flex-wrap: wrap;
+  }
+  .patent-claim__stamp {
+    background: #C05B2E;
+    color: var(--white);
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .patent-claim__note { line-height: 1.6; }
+
+  /* 7.4 Citations */
+  .cite-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 14px;
+  }
+  @media (min-width: 720px) {
+    .cite-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .cite-card {
+    background: var(--paper);
+    border: 1px solid rgba(18,36,44,0.12);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+  }
+  .cite-card__label {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--hero-orange);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .cite-card__body {
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: var(--ink);
+  }
+  .cite-card__body p { margin-bottom: 0; }
 
   /* ── Section 4: Algorithm flow ── */
   .algo-flow {
