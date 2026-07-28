@@ -35,5 +35,130 @@ const {
     <slot />
   </main>
   <Footer />
+
+  <script is:inline>
+  /* ═══════════════════════════════════════════════════════
+     Site-wide Motion Orchestrator
+     — enables progressive-enhancement animations
+     — safe on every page (does nothing if no motion classes)
+     ═══════════════════════════════════════════════════════ */
+  (function () {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    document.documentElement.classList.add('motion-init');
+
+    // Formula build-in: stagger .tok tokens (if any)
+    document.querySelectorAll('.motion-formula').forEach(function (container) {
+      var toks = container.querySelectorAll('.tok');
+      toks.forEach(function (el, i) {
+        el.style.transitionDelay = (i * 0.045).toFixed(3) + 's';
+      });
+    });
+
+    // Algo flow: stagger rect/text/line (if any)
+    document.querySelectorAll('.motion-flow').forEach(function (container) {
+      var rects = container.querySelectorAll('svg g > rect');
+      var texts = container.querySelectorAll('svg g > text');
+      var lines = container.querySelectorAll('svg g > line');
+      rects.forEach(function (el, i) { el.style.transitionDelay = (i * 0.22).toFixed(3) + 's'; });
+      texts.forEach(function (el, i) {
+        var step = Math.floor(i / 2);
+        el.style.transitionDelay = (step * 0.22 + 0.10).toFixed(3) + 's';
+      });
+      lines.forEach(function (el, i) {
+        el.style.transitionDelay = ((i + 1) * 0.22 + 0.05).toFixed(3) + 's';
+      });
+    });
+
+    // Generic stagger: children of .motion-stagger get sequential delay
+    document.querySelectorAll('.motion-stagger').forEach(function (container) {
+      var children = container.children;
+      for (var i = 0; i < children.length; i++) {
+        children[i].style.transitionDelay = (i * 0.10).toFixed(3) + 's';
+      }
+    });
+
+    var inViewIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          inViewIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+    document.querySelectorAll('.motion-formula, .motion-flow, .motion-fade, .motion-stagger').forEach(function (el) {
+      inViewIO.observe(el);
+    });
+
+    // Numeric counters
+    function fmt(v, decimals) {
+      // Use locale formatting for 4+ digit integer parts (adds thousands separator)
+      try {
+        return v.toLocaleString('en-US', {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals,
+        });
+      } catch (e) {
+        return v.toFixed(decimals);
+      }
+    }
+    function animateCounter(el) {
+      var to = parseFloat(el.dataset.countTo);
+      if (Number.isNaN(to)) return;
+      var decimals = parseInt(el.dataset.decimals || '0', 10);
+      var duration = parseInt(el.dataset.duration || '1200', 10);
+      var suffix = el.dataset.suffix || '';
+      var prefix = el.dataset.prefix || '';
+      var start = performance.now();
+      el.textContent = prefix + fmt(0, decimals) + suffix;
+      function step(now) {
+        var t = Math.min(1, (now - start) / duration);
+        var eased = 1 - Math.pow(1 - t, 3);
+        var v = to * eased;
+        el.textContent = prefix + fmt(v, decimals) + suffix;
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    var counterIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          animateCounter(e.target);
+          counterIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('.motion-count[data-count-to]').forEach(function (el) {
+      counterIO.observe(el);
+    });
+
+    // Auto-tag common blocks for scroll reveal (no explicit class needed)
+    var autoRevealSelectors = [
+      '.card',
+      '.service-card',
+      '.metric-card',
+      '.compare-table',
+      '.raw-block',
+      '.cite-card',
+      '.patent-claim',
+      '.ev-box',
+      '.ev3-card',
+      '.fact-bar',
+      '.price-card',
+      '.callout-note',
+      '.must-card',
+      '.must-not-card',
+      '.sim-box',
+    ];
+    document.querySelectorAll(autoRevealSelectors.join(',')).forEach(function (el) {
+      // Skip if already inside a stagger container (avoid double-animation)
+      if (el.closest('.motion-stagger')) return;
+      el.classList.add('motion-fade');
+      inViewIO.observe(el);
+    });
+  })();
+  </script>
 </body>
 </html>

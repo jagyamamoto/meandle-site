@@ -22,7 +22,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <span class="ev-badge ev-badge--real">🟢 実証事例 — 実際のAI検索結果</span>
 
       <div class="ev-box ev-box--real">
-        <div class="flow">
+        <div class="flow motion-stagger">
           <div class="flow-step flow-step--real">
             <div class="flow-num flow-num--real">1</div>
             <span>highprofilm.jp を<br/>みんどり最適化</span>
@@ -167,7 +167,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="cta-analysis__visual" aria-hidden="true">
             <div class="cta-analysis__chip">
               <div class="cta-analysis__chip-label">スコア改善（最大）</div>
-              <div class="cta-analysis__chip-num">6.75×</div>
+              <div class="cta-analysis__chip-num"><span class="motion-count" data-count-to="6.75" data-decimals="2" data-suffix="×">6.75×</span></div>
               <div class="cta-analysis__chip-sub">名称のみ比</div>
             </div>
             <div class="cta-analysis__chip cta-analysis__chip--alt">
@@ -177,7 +177,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </div>
             <div class="cta-analysis__chip">
               <div class="cta-analysis__chip-label">ノイズ排除率</div>
-              <div class="cta-analysis__chip-num">100%</div>
+              <div class="cta-analysis__chip-num"><span class="motion-count" data-count-to="100" data-decimals="0" data-suffix="%">100%</span></div>
               <div class="cta-analysis__chip-sub">3/3 クエリ</div>
             </div>
           </div>

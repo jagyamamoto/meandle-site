@@ -96,22 +96,22 @@ const nScale = (v) => (v + 2.5) * 50;
       <div class="metric-grid">
         <div class="metric-card">
           <div class="label">目標クエリ Top-1 達成率</div>
-          <div class="value">4 / 4</div>
+          <div class="value"><span class="motion-count" data-count-to="4" data-decimals="0" data-suffix=" / 4">4 / 4</span></div>
           <div class="sub">みんどりIndexで全件 1位</div>
         </div>
         <div class="metric-card">
           <div class="label">ノイズクエリ マイナス達成率</div>
-          <div class="value">3 / 3</div>
+          <div class="value"><span class="motion-count" data-count-to="3" data-decimals="0" data-suffix=" / 3">3 / 3</span></div>
           <div class="sub">CLOコンパス側でゼロ以下</div>
         </div>
         <div class="metric-card">
           <div class="label">最大スコア倍率</div>
-          <div class="value">6.75×</div>
+          <div class="value"><span class="motion-count" data-count-to="6.75" data-decimals="2" data-suffix="×">6.75×</span></div>
           <div class="sub">名称のみ比（Q1: 0.75 → 5.064）</div>
         </div>
         <div class="metric-card">
           <div class="label">最大 must_not ペナルティ</div>
-          <div class="value">2.14</div>
+          <div class="value"><span class="motion-count" data-count-to="2.14" data-decimals="2">2.14</span></div>
           <div class="sub">WMS比較クエリで発動</div>
         </div>
       </div>
@@ -423,7 +423,7 @@ const nScale = (v) => (v + 2.5) * 50;
 
       <div class="fact-bar fact-bar--highlight" style="margin-top:14px">
         <span class="fact-bar__icon">✅</span>
-        <div><strong>3 問全てで名称のみ条件が must_not 違反を起こし、みんどりIndex 条件が全て防止（3/3）。</strong>論文 Exp.3（龍角散のど飴実験）と同型の構造的問題が CLOコンパスでも実証されました。</div>
+        <div><strong>3 問全てで名称のみ条件が must_not 違反を起こし、みんどりIndex 条件が全て防止（3/3）。</strong>先行研究（龍角散のど飴実験）と同型の構造的問題が CLOコンパスでも実証されました。</div>
       </div>
 
       <h2>9. 総合解釈と AIO／LLMO 対策への含意</h2>
@@ -444,23 +444,23 @@ const nScale = (v) => (v + 2.5) * 50;
             <tr>
               <td>名称のみ vs みんどりの最大スコア差</td>
               <td><strong>+4.31（Q1）</strong></td>
-              <td>論文 Exp.2 の 26.7pt 差と同型</td>
+              <td>先行研究の 26.7pt 差と同型</td>
             </tr>
             <tr>
               <td>WMS クエリでの must_not ペナルティ</td>
               <td><strong>−2.143（Q5）</strong></td>
-              <td>record-side exclusion（特許出願関連技術）の中核ロジック</td>
+              <td>record-side exclusion（特許出願中）の中核ロジック</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <div class="callout-note">
-        <strong>結論：</strong>CLOコンパスのみんどりIndexは、目標クエリマッチ率 100%・ノイズ排除率 100% を達成。must_not フィールドによる record-side exclusion（特許出願関連技術 MNDR-2026-001）が、WMS／TMS／中小企業向けクエリからの構造的な誤推薦防止に中核的役割を果たしました。LLM 応答比較では、must_not 情報の有無がカテゴリ誤認を直接制御することを確認（論文 Exp.3 と同型）。
+        <strong>結論：</strong>CLOコンパスのみんどりIndexは、目標クエリマッチ率 100%・ノイズ排除率 100% を達成。must_not フィールドによる record-side exclusion（特許出願中 MNDR-2026-001）が、WMS／TMS／中小企業向けクエリからの構造的な誤推薦防止に中核的役割を果たしました。LLM 応答比較では、must_not 情報の有無がカテゴリ誤認を直接制御することを確認（先行研究と同型）。
       </div>
 
       <p class="muted" style="font-size:11.5px; text-align:center; margin-top:32px">
-        スコアリング式：みんどる理論 Exp.2（山本釈弘, 武蔵野美術大学研究紀要第57号）準拠。LLM 応答は claude-haiku-4-5-20251001 の実測。特許 MNDR-2026-001 出願関連技術。
+        スコアリング式：みんどる理論（Jag Yamamoto による大学研究進行中）準拠。LLM 応答は claude-haiku-4-5-20251001 の実測。特許 MNDR-2026-001 出願中。
       </p>
 
       <h2>同じことを、自社サービスで</h2>

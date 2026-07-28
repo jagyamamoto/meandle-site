@@ -21,7 +21,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="metric-grid">
         <div class="metric-card">
           <div class="label">概念検索照合精度<br/>（実験データ）</div>
-          <div class="value">+26.7pt</div>
+          <div class="value"><span class="motion-count" data-count-to="26.7" data-decimals="1" data-prefix="+" data-suffix="pt">+26.7pt</span></div>
           <div class="sub">名称のみ63.3%→90.0%<br/>Boschloo p=0.015, h=0.657</div>
         </div>
         <div class="metric-card">
@@ -31,7 +31,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
         <div class="metric-card">
           <div class="label">スコア改善倍率<br/>（日立実験）</div>
-          <div class="value">9.94倍</div>
+          <div class="value"><span class="motion-count" data-count-to="9.94" data-decimals="2" data-suffix="倍">9.94倍</span></div>
           <div class="sub">名称のみ5.0→みんどり後49.7点<br/>仮説シミュレーション値</div>
         </div>
       </div>
@@ -46,7 +46,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <span class="eyebrow">How we work</span>
       <h2>サービスの流れ</h2>
-      <div class="flow">
+      <div class="flow motion-stagger">
         <div class="flow-step"><div class="flow-num">1</div>みんどり診断<br/>（現状のAIマッチング把握）</div>
         <div class="flow-step"><div class="flow-num">2</div>みんどりIndex設計<br/>（8フィールド）</div>
         <div class="flow-step"><div class="flow-num">3</div>must・must_not<br/>明文化</div>

@@ -45,6 +45,22 @@ const presetQueries = [
 ];
 
 // --- Raw Materials: code blocks (defined as strings so JSX braces don't break) ---
+
+const researchNote = `# Research documentation
+
+  status:       in progress
+  affiliation:  art university (Jag Yamamoto: 非常勤講師 兼 研究員)
+  researcher:   Jag Yamamoto (山本 雅弘)
+
+  # 学術引用（BibTeX / APA / IEEE 等の完全な形式）は
+  # 研究成果の公式公開後（2027年3月以降）に掲載予定です。
+
+  # このページで開示している数値・実測値は、
+  # 進行中の研究および実務検証から得られた参考値です。
+
+  # 特許は出願中（MNDR-2026-001, Pending）。
+`;
+
 const reqBefore = `POST /v1/messages
 Host: api.anthropic.com
 Content-Type: application/json
@@ -128,19 +144,6 @@ const schemaJson = `{
   "additionalProperties": false
 }`;
 
-const bibtex = `@article{yamamoto2026mndr,
-  author    = {Yamamoto, Shakuhiro},
-  title     = {みんどる理論：フィールド重み付き
-               文字バイグラム属性スコアリングによる
-               意味の構造化},
-  journal   = {武蔵野美術大学 研究紀要},
-  number    = {57},
-  year      = {2026},
-  publisher = {Musashino Art University},
-  language  = {ja},
-  keywords  = {2-gram, field-weighted scoring,
-               record-side exclusion, LLM alignment}
-}`;
 ---
 <BaseLayout
   title="How Meandle works — Meandle Theory (MNDR) v1.0｜Meandle"
@@ -162,22 +165,22 @@ const bibtex = `@article{yamamoto2026mndr,
         <div class="tech-plate__row">
           <span class="tech-plate__key">Patent</span>
           <span class="tech-plate__val">MNDR-2026-001</span>
-          <span class="tech-plate__meta">Pending / 出願関連技術</span>
+          <span class="tech-plate__meta">Pending / 出願中</span>
         </div>
         <div class="tech-plate__row">
           <span class="tech-plate__key">Core</span>
           <span class="tech-plate__val">record-side exclusion <span class="tech-plate__accent">(RSE)</span></span>
-          <span class="tech-plate__meta">§1</span>
+          <span class="tech-plate__meta">specification</span>
         </div>
         <div class="tech-plate__row">
           <span class="tech-plate__key">Scoring</span>
           <span class="tech-plate__val">field-weighted 2-gram overlap</span>
-          <span class="tech-plate__meta">Exp.2 準拠</span>
+          <span class="tech-plate__meta">custom implementation</span>
         </div>
         <div class="tech-plate__row">
-          <span class="tech-plate__key">Publication</span>
-          <span class="tech-plate__val">武蔵野美術大学 研究紀要 第57号</span>
-          <span class="tech-plate__meta">Yamamoto, S.</span>
+          <span class="tech-plate__key">Research</span>
+          <span class="tech-plate__val">Jag Yamamoto</span>
+          <span class="tech-plate__meta">in progress</span>
         </div>
       </div>
     </div>
@@ -300,7 +303,7 @@ const bibtex = `@article{yamamoto2026mndr,
         </details>
 
         <p class="demo-note">
-          ※ 本デモは教育用の簡易実装（正規化を省略した raw 2-gram overlap × field weight）。論文値（BM25 併用・IDF 補正あり）とは異なりますが、<strong>「なぜ must で加点／must_not で減点されるか」の機構</strong>を可視化する目的です。
+          ※ 本デモは教育用の簡易実装（正規化を省略した raw 2-gram overlap × field weight）。本実装値（BM25 併用・IDF 補正あり）とは異なりますが、<strong>「なぜ must で加点／must_not で減点されるか」の機構</strong>を可視化する目的です。
         </p>
       </div>
     </div>
@@ -412,7 +415,7 @@ const bibtex = `@article{yamamoto2026mndr,
     <div class="container">
       <span class="eyebrow" style="color:var(--hero-orange)">Raw Materials</span>
       <h2>生資料で見る、みんどりの中身</h2>
-      <p>要約ではなく、<strong>実際に動いている資料そのもの</strong>を開示します。API リクエスト・レスポンス、Schema 定義、特許請求項の要旨、論文引用。</p>
+      <p>要約ではなく、<strong>実際に動いている資料そのもの</strong>を開示します。API リクエスト・レスポンス、Schema 定義、特許請求項の要旨、研究資料。</p>
 
       <!-- 7.1 LLM API log -->
       <div class="raw-block">
@@ -504,29 +507,29 @@ const bibtex = `@article{yamamoto2026mndr,
         </div>
       </div>
 
-      <!-- 7.4 Publication -->
+      <!-- 7.4 Research Status -->
       <div class="raw-block">
         <div class="raw-block__head">
           <span class="raw-badge">RAW</span>
-          <h3 class="raw-block__title">7.4　Publication Reference</h3>
-          <span class="raw-block__meta">Academic citation</span>
+          <h3 class="raw-block__title">7.4　Research Status</h3>
+          <span class="raw-block__meta">In progress / documentation forthcoming</span>
         </div>
 
         <div class="cite-grid">
           <div class="cite-card">
-            <div class="cite-card__label">BibTeX</div>
-            <pre class="raw-log__pre raw-log__pre--cite"><code>{bibtex}</code></pre>
+            <div class="cite-card__label">Research Documentation</div>
+            <pre class="raw-log__pre raw-log__pre--cite"><code>{researchNote}</code></pre>
           </div>
 
           <div class="cite-card">
-            <div class="cite-card__label">APA (7th)</div>
+            <div class="cite-card__label">Researcher</div>
             <div class="cite-card__body">
-              <p>山本 釈弘 (2026). みんどる理論：フィールド重み付き文字バイグラム属性スコアリングによる意味の構造化. <em>武蔵野美術大学研究紀要</em>, (57).</p>
+              <p><strong>Jag Yamamoto</strong>（山本 雅弘）<br/>ジャグプロジェクト合同会社 代表／美術大学 非常勤講師<br/>意味構造化・B2B マーケティング・情報検索の実務研究に従事。</p>
             </div>
 
-            <div class="cite-card__label" style="margin-top:14px">IEEE</div>
+            <div class="cite-card__label" style="margin-top:14px">Publication Timeline</div>
             <div class="cite-card__body">
-              <p>S. Yamamoto, "みんどる理論：フィールド重み付き文字バイグラム属性スコアリングによる意味の構造化," <em>武蔵野美術大学研究紀要</em>, no. 57, 2026.</p>
+              <p>本理論の学術引用形式（BibTeX / APA / IEEE 等）は、研究成果の公式公開後（<strong>2027 年 3 月以降</strong>）に本ページ上で改めて掲載します。それまでの数値はすべて、進行中の研究および実務検証における参考値です。</p>
             </div>
 
             <div class="cite-card__label" style="margin-top:14px">Related Work</div>
@@ -571,11 +574,11 @@ const bibtex = `@article{yamamoto2026mndr,
         </div>
         <div class="card">
           <h3>教育現場での実装</h3>
-          <p style="margin-bottom:0">武蔵野美術大学にて非常勤講師として、意味設計と表現の接続を実践的に指導しています。</p>
+          <p style="margin-bottom:0">美術大学にて非常勤講師として、意味設計と表現の接続を実践的に指導しています。同大学で本理論の研究も継続中。</p>
         </div>
         <div class="card">
-          <h3>特許出願関連技術</h3>
-          <p style="margin-bottom:0">意味設計と検索文脈の整合に関する方法について、特許出願関連技術（MNDR-2026-001）として整備中です。</p>
+          <h3>特許出願中</h3>
+          <p style="margin-bottom:0">意味設計と検索文脈の整合に関する方法について、<strong>MNDR-2026-001 として特許出願中</strong>です。</p>
         </div>
       </div>
       <div style="margin-top:32px; padding:24px; background:var(--card); border-radius:6px; border:1px solid rgba(18,36,44,0.1)">
@@ -1199,16 +1202,7 @@ const bibtex = `@article{yamamoto2026mndr,
   }
   .algo-flow svg { width: 100%; height: auto; min-width: 720px; display: block; }
 
-  /* ══════════════════════════════════════════════
-     Motion Pass (Phase 3)
-     — ambient plate motion, formula build-in,
-       numeric counter, algo-flow stagger, section reveal.
-     All motion behaviors gated by JS-added `.motion-init`
-     so non-JS users see the fully-populated state.
-     Respects prefers-reduced-motion.
-     ══════════════════════════════════════════════ */
-
-  /* ── Ambient motion: Tech Plate (CSS only, always on) ── */
+  /* ── Ambient motion: Tech Plate (page-specific) ── */
   .tech-plate {
     position: relative;
     overflow: hidden;
@@ -1228,8 +1222,6 @@ const bibtex = `@article{yamamoto2026mndr,
     0%, 100% { transform: scale(1)   translateX(0);   opacity: 0.55; }
     50%      { transform: scale(1.15) translateX(2%); opacity: 1;    }
   }
-
-  /* Tech plate status LED */
   .tech-plate__status {
     display: flex;
     align-items: center;
@@ -1259,47 +1251,9 @@ const bibtex = `@article{yamamoto2026mndr,
     color: rgba(74,222,128,0.85);
     font-weight: 700;
   }
-
-  /* ── Formula build-in ── */
-  .motion-init .motion-formula .tok {
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    will-change: opacity, transform;
-  }
-  .motion-init .motion-formula.is-visible .tok {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── Algo flow stagger ── */
-  .motion-init .motion-flow svg g > rect,
-  .motion-init .motion-flow svg g > line {
-    opacity: 0;
-    transition: opacity 0.35s ease;
-  }
-  .motion-init .motion-flow svg g > text {
-    opacity: 0;
-    transition: opacity 0.45s ease;
-  }
-  .motion-init .motion-flow.is-visible svg g > rect,
-  .motion-init .motion-flow.is-visible svg g > line,
-  .motion-init .motion-flow.is-visible svg g > text {
-    opacity: 1;
-  }
-
-  /* ── Numeric counter — no CSS needed (JS updates textContent) ── */
-
-  /* ── Generic scroll reveal ── */
-  .motion-init .motion-fade {
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 0.55s ease, transform 0.55s ease;
-    will-change: opacity, transform;
-  }
-  .motion-init .motion-fade.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+  @media (prefers-reduced-motion: reduce) {
+    .tech-plate::before,
+    .tech-plate__led { animation: none !important; }
   }
 
   /* ── Interactive Demo focus glow ── */
@@ -1310,25 +1264,8 @@ const bibtex = `@article{yamamoto2026mndr,
     transition: background 0.15s, border-color 0.15s, transform 0.15s;
   }
   .demo-chip:active { transform: scale(0.96); }
-
-  /* ── Score number tick animation (used by demo when value changes) ── */
   .demo-score__num {
     transition: color 0.25s ease;
-  }
-
-  /* ── Reduced motion opt-out ── */
-  @media (prefers-reduced-motion: reduce) {
-    .tech-plate::before,
-    .tech-plate__led { animation: none !important; }
-    .motion-init .motion-formula .tok,
-    .motion-init .motion-flow svg g > rect,
-    .motion-init .motion-flow svg g > line,
-    .motion-init .motion-flow svg g > text,
-    .motion-init .motion-fade {
-      opacity: 1 !important;
-      transform: none !important;
-      transition: none !important;
-    }
   }
 </style>
 
@@ -1492,107 +1429,3 @@ const bibtex = `@article{yamamoto2026mndr,
 })();
 </script>
 
-<script is:inline>
-/* ══════════════════════════════════════════════
-   Motion orchestrator (Phase 3)
-   — enables progressive-enhancement animations
-   ══════════════════════════════════════════════ */
-(function () {
-  // Skip entirely if user prefers reduced motion
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  // Skip if IntersectionObserver missing (very old browsers → static content)
-  if (!('IntersectionObserver' in window)) return;
-
-  // Enable motion mode (CSS transitions gated on this class)
-  document.documentElement.classList.add('motion-init');
-
-  // ── Formula build-in: stagger .tok tokens ──
-  document.querySelectorAll('.motion-formula').forEach((container) => {
-    const toks = container.querySelectorAll('.tok');
-    toks.forEach((el, i) => {
-      el.style.transitionDelay = (i * 0.045).toFixed(3) + 's';
-    });
-  });
-
-  // ── Algo flow stagger: rect/text pairs one at a time, then arrows ──
-  document.querySelectorAll('.motion-flow').forEach((container) => {
-    const rects = container.querySelectorAll('svg g > rect');
-    const texts = container.querySelectorAll('svg g > text');
-    const lines = container.querySelectorAll('svg g > line');
-    rects.forEach((el, i) => { el.style.transitionDelay = (i * 0.22).toFixed(3) + 's'; });
-    texts.forEach((el, i) => {
-      // texts alternate label/sub for each rect; delay approximately in step
-      const step = Math.floor(i / 2);
-      el.style.transitionDelay = (step * 0.22 + 0.10).toFixed(3) + 's';
-    });
-    lines.forEach((el, i) => {
-      // arrows come after their originating rect
-      el.style.transitionDelay = ((i + 1) * 0.22 + 0.05).toFixed(3) + 's';
-    });
-  });
-
-  // ── Generic in-view observer (adds .is-visible) ──
-  const inViewIO = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        e.target.classList.add('is-visible');
-        inViewIO.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-
-  document.querySelectorAll('.motion-formula, .motion-flow, .motion-fade').forEach((el) => {
-    inViewIO.observe(el);
-  });
-
-  // ── Numeric counters ──
-  function animateCounter(el) {
-    const to = parseFloat(el.dataset.countTo);
-    if (Number.isNaN(to)) return;
-    const decimals = parseInt(el.dataset.decimals || '0', 10);
-    const duration = parseInt(el.dataset.duration || '1200', 10);
-    const suffix = el.dataset.suffix || '';
-    const prefix = el.dataset.prefix || '';
-    const start = performance.now();
-    // Set initial to zero so first frame shows movement
-    el.textContent = prefix + (0).toFixed(decimals) + suffix;
-    function step(now) {
-      const t = Math.min(1, (now - start) / duration);
-      // ease-out cubic
-      const eased = 1 - Math.pow(1 - t, 3);
-      const v = to * eased;
-      el.textContent = prefix + v.toFixed(decimals) + suffix;
-      if (t < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  const counterIO = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        animateCounter(e.target);
-        counterIO.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.6 });
-
-  document.querySelectorAll('.motion-count[data-count-to]').forEach((el) => {
-    counterIO.observe(el);
-  });
-
-  // ── Auto-tag scroll-reveal targets (fade in on scroll) ──
-  const autoRevealSelectors = [
-    '.raw-block',
-    '.cite-card',
-    '.patent-claim',
-    '.card',
-    '.service-card',
-    '.metric-card',
-    '.compare-table',
-  ];
-  document.querySelectorAll(autoRevealSelectors.join(',')).forEach((el) => {
-    el.classList.add('motion-fade');
-    inViewIO.observe(el);
-  });
-})();
-</script>

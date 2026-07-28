@@ -634,3 +634,80 @@ code {
   .evidence-bar { font-size: 15px; padding: 0 12px; }
   .evidence-bar span:first-child { min-width: 0 !important; flex: 1; font-size: 13px; }
 }
+
+/* ═══════════════════════════════════════════════════════
+   Motion System (site-wide)
+   Progressive enhancement: all animations gated on
+   `.motion-init` (added by JS in BaseLayout). Non-JS
+   users see the fully-populated content immediately.
+   Fully respects prefers-reduced-motion.
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+  --font-mono: 'JetBrains Mono', 'Menlo', 'Courier New', monospace;
+}
+
+/* ── Generic scroll reveal ── */
+.motion-init .motion-fade {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  will-change: opacity, transform;
+}
+.motion-init .motion-fade.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Stagger container: direct children reveal one-by-one ── */
+.motion-init .motion-stagger > * {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.motion-init .motion-stagger.is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Formula build-in (token stagger) ── */
+.motion-init .motion-formula .tok {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  will-change: opacity, transform;
+}
+.motion-init .motion-formula.is-visible .tok {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Algorithm-flow SVG stagger ── */
+.motion-init .motion-flow svg g > rect,
+.motion-init .motion-flow svg g > line {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.motion-init .motion-flow svg g > text {
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+.motion-init .motion-flow.is-visible svg g > rect,
+.motion-init .motion-flow.is-visible svg g > line,
+.motion-init .motion-flow.is-visible svg g > text {
+  opacity: 1;
+}
+
+/* ── Reduced-motion opt-out (universal) ── */
+@media (prefers-reduced-motion: reduce) {
+  .motion-init .motion-fade,
+  .motion-init .motion-stagger > *,
+  .motion-init .motion-formula .tok,
+  .motion-init .motion-flow svg g > rect,
+  .motion-init .motion-flow svg g > line,
+  .motion-init .motion-flow svg g > text {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
