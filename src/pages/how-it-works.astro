@@ -24,32 +24,234 @@ const domains = [
     desc: '潜在的なユーザーに正しく届くために、AIがしっかり把握できる形に整えます。必要のない問い合わせを減らし、これまでリーチできていなかった層にも、誤解なく適切に届けることが可能になります。',
     href: '/pr/' },
 ];
+
+// Sample record (CLOコンパス) — same data as /blog/clo/
+const sampleRecord = {
+  candidate_name: 'CLOコンパス 物流統括管理者向け意思決定支援ツール',
+  must: 'CLO 物流統括管理者向け 全社横断KPI可視化 法令対応レポート自動生成 WMS TMS データ連携 経営意思決定支援',
+  scene: '経営戦略立案 改正物流効率化法 定期報告 取締役会 全社KPIダッシュボード',
+  examples: 'CLO報告書作成 全社KPIダッシュボード 国交省定期報告 取締役会向け物流改革報告 積載率 荷待ち時間',
+  visible_text: 'CLOコンパスは物流を成功に導く 意思決定支援ツール',
+  must_not: 'WMS TMS 現場オペレーション 中小企業 運送会社 配送最適化 在庫管理',
+};
+
+const presetQueries = [
+  { label: 'CLO向け意思決定支援ツール',  type: 'target' },
+  { label: '法令対応 レポート 自動生成', type: 'target' },
+  { label: 'CLO選任 何から始める',       type: 'target' },
+  { label: 'WMS 比較 クラウド',          type: 'noise'  },
+  { label: '配送 ルート 最適化',          type: 'noise'  },
+  { label: '中小企業 物流管理',           type: 'noise'  },
+];
 ---
 <BaseLayout
-  title="みんどるの仕組み — 意味を構造化して、AIと顧客に届ける｜Meandle"
-  description="既存ページのURLを送るだけで、何が変わるのか。Meandleが扱う「みんどり」の仕組みを順番に説明します。"
+  title="How Meandle works — Meandle Theory (MNDR) v1.0｜Meandle"
+  description="Meandle Theory (MNDR): field-weighted 2-gram overlap scoring with record-side exclusion (RSE). 数式・アルゴリズム・インタラクティブデモで、みんどりの仕組みを開示します。"
 >
-  <section class="hero">
+  <!-- ── SECTION 1 : Tech Plate ── -->
+  <section class="tech-plate-section">
     <div class="container">
-      <span class="eyebrow hero__eyebrow">How it works</span>
-      <h1>意味を構造化すると、<br/>届くべき人に届くようになる。</h1>
-      <p class="lead">既存ページのURLを送るだけで、何が変わるのか。<br/>Meandleが扱う「みんどり」の仕組みを順番に説明します。</p>
+      <div class="tech-plate">
+        <div class="tech-plate__row">
+          <span class="tech-plate__key">System</span>
+          <span class="tech-plate__val">Meandle Theory <span class="tech-plate__accent">(MNDR)</span></span>
+          <span class="tech-plate__meta">v1.0</span>
+        </div>
+        <div class="tech-plate__row">
+          <span class="tech-plate__key">Patent</span>
+          <span class="tech-plate__val">MNDR-2026-001</span>
+          <span class="tech-plate__meta">Pending / 出願関連技術</span>
+        </div>
+        <div class="tech-plate__row">
+          <span class="tech-plate__key">Core</span>
+          <span class="tech-plate__val">record-side exclusion <span class="tech-plate__accent">(RSE)</span></span>
+          <span class="tech-plate__meta">§1</span>
+        </div>
+        <div class="tech-plate__row">
+          <span class="tech-plate__key">Scoring</span>
+          <span class="tech-plate__val">field-weighted 2-gram overlap</span>
+          <span class="tech-plate__meta">Exp.2 準拠</span>
+        </div>
+        <div class="tech-plate__row">
+          <span class="tech-plate__key">Publication</span>
+          <span class="tech-plate__val">武蔵野美術大学 研究紀要 第57号</span>
+          <span class="tech-plate__meta">Yamamoto, S.</span>
+        </div>
+      </div>
     </div>
   </section>
 
+  <!-- ── SECTION 2 : Formula Hero ── -->
+  <section class="formula-section">
+    <div class="container">
+      <span class="eyebrow" style="color:var(--hero-orange)">Scoring Formula</span>
+      <h1 class="formula-title">意味の届きやすさを、<br/>この 1 式で計算しています。</h1>
+
+      <div class="formula-hero" aria-label="スコア計算式">
+        <div class="formula-line formula-line--main">
+          <span class="tok tok-fn">Score</span><span class="tok tok-pun">(</span><span class="tok tok-var">Q</span><span class="tok tok-pun">,</span> <span class="tok tok-var">X</span><span class="tok tok-pun">)</span> <span class="tok tok-op">=</span>
+          <span class="tok tok-op">Σ</span><sub class="tok tok-sub">f ∈ F</sub>
+          <span class="tok tok-var">w<sub>f</sub></span> <span class="tok tok-op">·</span>
+          <span class="tok tok-fn">overlap</span><sub class="tok tok-sub">2</sub><span class="tok tok-pun">(</span><span class="tok tok-var">Q</span><span class="tok tok-pun">,</span> <span class="tok tok-var">X<sub>f</sub></span><span class="tok tok-pun">)</span>
+        </div>
+        <div class="formula-line formula-line--sub">
+          <span class="formula-indent">　　　　　　　　　</span><span class="tok tok-op tok-neg">−</span> <span class="tok tok-num">3.0</span> <span class="tok tok-op">·</span>
+          <span class="tok tok-pun">|</span><span class="tok tok-var">Q</span> <span class="tok tok-op">∩</span> <span class="tok tok-var">X</span><span class="tok tok-pun">.</span><span class="tok tok-key">must_not</span><span class="tok tok-pun">|</span>
+        </div>
+      </div>
+
+      <dl class="formula-legend">
+        <div><dt><code>Q</code></dt>          <dd>クエリ（検索語・AI への問いかけ）</dd></div>
+        <div><dt><code>X</code></dt>          <dd>対象レコード（サービス／製品／記事）</dd></div>
+        <div><dt><code>F</code></dt>          <dd>{`{ must, examples, scene, candidate_name, visible_text }`}</dd></div>
+        <div><dt><code>w<sub>f</sub></code></dt><dd>フィールド重み（下記の重み表）</dd></div>
+        <div><dt><code>overlap₂(A,B)</code></dt><dd>2 文字連続（文字バイグラム）集合の共通要素数</dd></div>
+        <div><dt><code>must_not</code></dt>  <dd>該当したら減点するフィールド。<strong>record-side exclusion (RSE)</strong> の中核</dd></div>
+      </dl>
+
+      <div class="weights-table">
+        <table class="compare-table" style="font-family:var(--font-mono); font-size:13.5px">
+          <thead>
+            <tr><th>フィールド</th><th style="text-align:right">重み w<sub>f</sub></th></tr>
+          </thead>
+          <tbody>
+            <tr><td>must</td>                                <td style="text-align:right">+2.0</td></tr>
+            <tr><td>examples / scene / candidate_name</td>   <td style="text-align:right">+1.5</td></tr>
+            <tr><td>observation</td>                          <td style="text-align:right">+1.2</td></tr>
+            <tr><td>visible_text</td>                         <td style="text-align:right">+1.0</td></tr>
+            <tr><td>counterexamples</td>                      <td style="text-align:right">+0.5</td></tr>
+            <tr class="highlight"><td>must_not（ペナルティ）</td><td style="text-align:right">−3.0</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 3 : Interactive Scoring Demo ── -->
+  <section class="section section--alt" id="demo">
+    <div class="container">
+      <span class="eyebrow" style="color:var(--hero-orange)">Interactive Demo</span>
+      <h2>クエリを入れると、スコアがリアルタイムに動きます。</h2>
+      <p>サンプルレコード：<strong>CLOコンパス（物流DX B2Bサービス）</strong>のみんどりIndex。下のプリセット、または自由入力でスコアを試せます。</p>
+
+      <div class="demo" id="scoringDemo">
+        <!-- Query input row -->
+        <div class="demo-input-wrap">
+          <label class="demo-label" for="demoQuery">Query <span class="demo-label__q">Q</span></label>
+          <input
+            type="text"
+            id="demoQuery"
+            class="demo-input"
+            placeholder="例：CLO向け意思決定支援ツール"
+            value="CLO向け意思決定支援ツール"
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Preset chips -->
+        <div class="demo-presets" role="tablist" aria-label="プリセットクエリ">
+          {presetQueries.map((p) => (
+            <button
+              type="button"
+              class={`demo-chip demo-chip--${p.type}`}
+              data-q={p.label}
+            >
+              {p.type === 'target' ? '🎯' : '🚫'} {p.label}
+            </button>
+          ))}
+        </div>
+
+        <!-- Bigram tokenization view -->
+        <div class="demo-panel">
+          <div class="demo-panel__label">
+            ① Tokenize（文字バイグラム分解）
+            <span class="demo-panel__count"><span id="qCount">0</span> tokens</span>
+          </div>
+          <div class="demo-bigrams" id="qBigrams" aria-live="polite"></div>
+        </div>
+
+        <!-- Per-field overlap -->
+        <div class="demo-panel">
+          <div class="demo-panel__label">
+            ② Field-weighted overlap（フィールド別 一致数 × 重み）
+          </div>
+          <div class="demo-fields" id="fieldOverlap"></div>
+        </div>
+
+        <!-- Total score -->
+        <div class="demo-score">
+          <div class="demo-score__label">
+            ③ Total Score <span class="demo-score__eq">= Σ contributions</span>
+          </div>
+          <div class="demo-score__bar-track">
+            <div class="demo-score__bar" id="scoreBar" style="width:0%"></div>
+            <div class="demo-score__bar demo-score__bar--neg" id="scoreBarNeg" style="width:0%"></div>
+          </div>
+          <div class="demo-score__num" id="scoreNum">0.00</div>
+          <div class="demo-score__hint" id="scoreHint">クエリを入力するとスコアが動きます</div>
+        </div>
+
+        <!-- Record disclosure -->
+        <details class="demo-record">
+          <summary>▸ サンプルレコード（CLOコンパスのみんどりIndex）を表示</summary>
+          <pre class="demo-record__pre"><code>{JSON.stringify(sampleRecord, null, 2)}</code></pre>
+        </details>
+
+        <p class="demo-note">
+          ※ 本デモは教育用の簡易実装（正規化を省略した raw 2-gram overlap × field weight）。論文値（BM25 併用・IDF 補正あり）とは異なりますが、<strong>「なぜ must で加点／must_not で減点されるか」の機構</strong>を可視化する目的です。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 4 : Algorithm Flow ── -->
   <section class="section">
-    <div class="container container--narrow">
-      <h2>「みんどる」とは何か。</h2>
-      <p>Meandle = Mean（意味）+ Handle（取り扱う）。<br/>意味に、ハンドルを付けて扱えるようにする行為です。<br/>動詞化したものが「みんどる」。</p>
-      <p>正式な名前がない価値、誤解されやすい商材、<br/>「説明しにくい」と言われ続けている専門商材は、<br/>たいていの場合、意味が構造化されていません。</p>
-      <p>みんどるとは、その意味を書き出し、<br/>分類し、境界を引き、運用できる形に変えることです。</p>
+    <div class="container">
+      <span class="eyebrow" style="color:var(--hero-orange)">Algorithm Pipeline</span>
+      <h2>1 クエリを、この 5 段で処理します。</h2>
+
+      <div class="algo-flow">
+        <svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="アルゴリズム・フロー図">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto">
+              <path d="M0,0 L10,5 L0,10 z" fill="#12242C"/>
+            </marker>
+          </defs>
+          <g font-family="var(--font-mono)" font-size="12" fill="#12242C">
+            {[
+              { x: 20,  label: '① Input',      sub: 'Query Q' },
+              { x: 195, label: '② Tokenize',   sub: '2-gram set' },
+              { x: 370, label: '③ Overlap',    sub: '|Q ∩ Xf|' },
+              { x: 545, label: '④ Weight',     sub: 'Σ wf · ...' },
+              { x: 720, label: '⑤ Penalty',    sub: '− 3.0 · MN' },
+            ].map((n, i, arr) => (
+              <>
+                <rect x={n.x} y="60" width="160" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+                <text x={n.x + 80} y="92" text-anchor="middle" font-size="13" font-weight="700">{n.label}</text>
+                <text x={n.x + 80} y="118" text-anchor="middle" font-size="11" fill="#6F7777">{n.sub}</text>
+                {i < arr.length - 1 && (
+                  <line x1={n.x + 160} y1="100" x2={n.x + 173} y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow)"/>
+                )}
+              </>
+            ))}
+            <text x="450" y="30" text-anchor="middle" font-size="14" font-weight="700" fill="#E98F22">Pipeline (RSE-aware)</text>
+            <text x="800" y="180" text-anchor="middle" font-size="13" font-weight="700" fill="#12242C">▶ Score</text>
+          </g>
+        </svg>
+      </div>
+
+      <p class="muted" style="font-size:13px; text-align:center; margin-top:8px">
+        ⑤ の Penalty ステップが RSE。record 側で「これに触れたら候補から外す」を保持することで、query 側の除外指定なしにミスマッチを構造的に抑制する（特許 MNDR-2026-001 §1）。
+      </p>
     </div>
   </section>
 
+  <!-- ── SECTION 5 : (existing) 8 Fields ── -->
   <section class="section section--alt">
     <div class="container">
-      <h2>意味は、8つのフィールドで定義できる。</h2>
-      <p class="lead">この8項目は社内会議用の表ではありません。<br/>営業・マーケティング・Web制作・AI検索が<br/>同じ意味を扱うための地図です。</p>
+      <span class="eyebrow">Schema</span>
+      <h2>意味は、8 つのフィールドで定義できる。</h2>
+      <p class="lead">この 8 項目は社内会議用の表ではありません。営業・マーケティング・Web制作・AI検索が同じ意味を扱うための地図です。</p>
 
       <table style="margin-top:24px">
         <thead><tr><th style="width:25%">フィールド</th><th>説明</th></tr></thead>
@@ -69,44 +271,17 @@ const domains = [
       </div>
       <div class="must-not-card" style="margin-top:12px">
         <h4>8. must_not</h4>
-        <p style="margin-bottom:0">決して該当しない・提供しないこと。<br/>「これに当てはまったら対象外」。</p>
-      </div>
-
-      <div style="margin-top:32px">
-        <p>一般的なブランド設計は「やること（must）」を積み上げます。<br/>Meandleは「やらないこと（must_not）」を同じ重みで定義します。</p>
-        <p style="margin-bottom:0">must_notがないと、競合と意味が混ざり、<br/>「なんでもできそうな会社」に見えます。<br/>must_notが入ることで、輪郭が立ちます。</p>
+        <p style="margin-bottom:0">決して該当しない・提供しないこと。<br/>「これに当てはまったら対象外」。<br/>この項目が RSE の入力になります。</p>
       </div>
     </div>
   </section>
 
+  <!-- ── SECTION 6 : (existing) Evidence ── -->
   <section class="section">
-    <div class="container container--narrow">
-      <h2>みんどり値とは、意味の届きやすさをスコア化したものです。</h2>
-      <p>8フィールドで定義した内容と、<br/>想定クエリ（検索語・AI問いかけ）のバイグラムオーバーラップを<br/>重み付きで集計します。</p>
-
-      <div class="card" style="margin-top:24px">
-        <h4>スコアの考え方</h4>
-        <pre style="font-family:monospace; font-size:14px; background:var(--paper-2); padding:14px; border-radius:4px; overflow-x:auto; line-height:1.7; margin-top:12px">Score = &Sigma;（フィールド重み × バイグラムの重なり）
-       − 3.0 × must_not重複ペナルティ</pre>
-        <h4 style="margin-top:24px">重みの内訳</h4>
-        <ul style="margin-top:8px">
-          <li>must：2.0</li>
-          <li>candidate_name / scene / examples：1.5</li>
-          <li>observation：1.2</li>
-          <li>visible_text：1.0</li>
-          <li>counterexamples：0.5</li>
-          <li>must_notペナルティ：−3.0</li>
-        </ul>
-      </div>
-
-      <p style="margin-top:24px">つまり、<br/>「届いてほしいクエリへの重なりが多いほど高スコア」<br/>「届いてはいけないクエリとの重なりはペナルティ」<br/>という構造です。</p>
-    </div>
-  </section>
-
-  <section class="section section--alt">
     <div class="container">
+      <span class="eyebrow">Evidence</span>
       <h2>意味を整えると、AIに引き当てられやすくなる。</h2>
-      <p>Top-1 正解率（同一クエリ集合に対する、Before/Afterの比較）</p>
+      <p>Top-1 正解率（同一クエリ集合に対する、Before/After の比較）</p>
       <div style="max-width:720px; margin-top:20px">
         <div class="evidence-bar evidence-bar--before">
           <span style="min-width:200px">Before（名称のみ）</span>
@@ -116,18 +291,25 @@ const domains = [
           <span style="min-width:200px">After（8フィールド適用）</span>
           <span>90.0%</span>
         </div>
-        <p style="font-size:13px; color:var(--muted); margin-top:12px">Boschloo検定 p=0.015 / Cohen's h=0.657</p>
+        <p style="font-size:13px; color:var(--muted); margin-top:12px; font-family:var(--font-mono)">
+          Boschloo検定  p = 0.015 ／ Cohen's h = 0.657
+        </p>
       </div>
       <div class="note">
         ※この数値は特定条件下の内部検証です。すべての事業・検索環境で同じ結果を保証するものではありません。
       </div>
-      <p style="margin-top:24px"><a href="/blog/temperature-sensing-ink/">温度×時間センシングインクを題材にした具体的な実験結果を確認する →</a></p>
+      <p style="margin-top:24px">
+        <a href="/blog/clo/">→ CLOコンパスの詳細スコア＋LLM応答実測（実験 #1）</a><br/>
+        <a href="/blog/hitachi/">→ 日立産機システム PR を題材にした境界設計検証（実験 #2）</a>
+      </p>
     </div>
   </section>
 
-  <section class="section">
+  <!-- ── SECTION 7 : (existing) 4 domains ── -->
+  <section class="section section--alt">
     <div class="container">
-      <h2>4つの領域で、同じ仕組みが使えます。</h2>
+      <span class="eyebrow">Applications</span>
+      <h2>4 つの領域で、同じ仕組みが使えます。</h2>
       <div class="service-grid" style="margin-top:24px">
         {domains.map((d) => (
           <a href={d.href} class="service-card">
@@ -140,13 +322,15 @@ const domains = [
     </div>
   </section>
 
-  <section class="section section--alt">
+  <!-- ── SECTION 8 : (existing) Credentials ── -->
+  <section class="section">
     <div class="container">
+      <span class="eyebrow">Credentials</span>
       <h2>設計の根拠</h2>
       <div class="service-grid" style="margin-top:24px">
         <div class="card">
-          <h3>6年以上の実務実績</h3>
-          <p style="margin-bottom:0">Jag Yamamoto / Jag Projectが積み重ねてきた、事業定義・商品企画・BtoBウェブマーケティング・メディア設計の知見を意味設計として体系化したものです。</p>
+          <h3>6 年以上の実務実績</h3>
+          <p style="margin-bottom:0">Jag Yamamoto / Jag Project が積み重ねてきた、事業定義・商品企画・BtoBウェブマーケティング・メディア設計の知見を意味設計として体系化したものです。</p>
         </div>
         <div class="card">
           <h3>教育現場での実装</h3>
@@ -154,7 +338,7 @@ const domains = [
         </div>
         <div class="card">
           <h3>特許出願関連技術</h3>
-          <p style="margin-bottom:0">意味設計と検索文脈の整合に関する方法について、特許出願関連技術として整備中です。</p>
+          <p style="margin-bottom:0">意味設計と検索文脈の整合に関する方法について、特許出願関連技術（MNDR-2026-001）として整備中です。</p>
         </div>
       </div>
       <div style="margin-top:32px; padding:24px; background:var(--card); border-radius:6px; border:1px solid rgba(18,36,44,0.1)">
@@ -165,8 +349,544 @@ const domains = [
   </section>
 
   <section class="cta-block">
-    <h2>まずは、既存URLを1つ送ってください。</h2>
+    <h2>まずは、既存 URL を1つ送ってください。</h2>
     <p>理論より先に、自社のページで確認する方が早いです。URLを送ってもらえれば、みんどり値を示します。</p>
     <a href="/contact/" class="btn btn--primary">既存URLで診断する</a>
   </section>
 </BaseLayout>
+
+<style is:inline>
+  :root {
+    --font-mono: 'JetBrains Mono', 'Menlo', 'Courier New', monospace;
+  }
+
+  /* ── Section 1: Tech Plate ── */
+  .tech-plate-section {
+    background: var(--dark);
+    padding: 44px 0 40px;
+  }
+  .tech-plate {
+    background: linear-gradient(180deg, #0e1a20 0%, #060e12 100%);
+    border: 1px solid rgba(233,143,34,0.30);
+    border-radius: 4px;
+    padding: 22px 26px;
+    max-width: 780px;
+    margin: 0 auto;
+    font-family: var(--font-mono);
+    box-shadow: 0 0 0 1px rgba(233,143,34,0.10), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  .tech-plate__row {
+    display: grid;
+    grid-template-columns: 108px 1fr auto;
+    gap: 16px;
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(255,255,255,0.08);
+    align-items: baseline;
+    font-size: 13px;
+  }
+  .tech-plate__row:last-child { border-bottom: 0; }
+  .tech-plate__key {
+    color: var(--hero-orange);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    font-size: 10.5px;
+  }
+  .tech-plate__val {
+    color: #F3F0E7;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .tech-plate__accent { color: var(--hero-orange); }
+  .tech-plate__meta {
+    color: rgba(243,240,231,0.55);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .tech-plate__row { grid-template-columns: 84px 1fr; }
+    .tech-plate__meta { grid-column: 2; font-size: 11px; }
+  }
+
+  /* ── Section 2: Formula Hero ── */
+  .formula-section {
+    padding: 64px 0 56px;
+  }
+  .formula-title {
+    font-size: clamp(22px, 3vw, 32px);
+    line-height: 1.4;
+    margin-bottom: 32px;
+  }
+  .formula-hero {
+    background: var(--card);
+    border: 1px solid rgba(18,36,44,0.15);
+    border-left: 4px solid var(--hero-orange);
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    margin: 16px 0 24px;
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+  }
+  .formula-line {
+    font-family: var(--font-mono);
+    font-size: clamp(18px, 2.6vw, 28px);
+    line-height: 1.7;
+    color: var(--ink);
+    text-align: center;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .formula-line--sub { margin-top: 4px; text-align: center; }
+  .formula-indent { visibility: hidden; }
+  .tok { display: inline-block; }
+  .tok-fn  { color: #2A5D8B; font-weight: 700; }
+  .tok-var { color: #12242C; font-weight: 600; font-style: italic; }
+  .tok-op  { color: #6F7777; margin: 0 4px; }
+  .tok-op.tok-neg { color: #C05B2E; }
+  .tok-num { color: #C05B2E; font-weight: 700; }
+  .tok-key { color: #E98F22; font-weight: 700; }
+  .tok-pun { color: #6F7777; }
+  .tok-sub { font-size: 0.7em; color: #6F7777; }
+
+  .formula-legend {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px 24px;
+    margin: 24px 0 20px;
+    padding: 16px 20px;
+    background: rgba(201,222,220,0.20);
+    border-radius: var(--radius);
+    font-size: 13.5px;
+  }
+  @media (min-width: 720px) {
+    .formula-legend { grid-template-columns: repeat(2, 1fr); }
+  }
+  .formula-legend > div { display: flex; align-items: baseline; gap: 12px; }
+  .formula-legend dt {
+    font-family: var(--font-mono);
+    color: var(--hero-orange);
+    font-weight: 700;
+    flex-shrink: 0;
+    min-width: 88px;
+  }
+  .formula-legend dd { margin: 0; color: var(--ink); }
+
+  .weights-table { margin-top: 20px; overflow-x: auto; }
+
+  /* ── Section 3: Interactive Demo ── */
+  .demo {
+    background: var(--white);
+    border: 1px solid rgba(18,36,44,0.15);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-top: 20px;
+    box-shadow: var(--shadow);
+  }
+  .demo-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .demo-label {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .demo-label__q {
+    color: var(--hero-orange);
+    font-size: 16px;
+    margin-left: 6px;
+  }
+  .demo-input {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1.5px solid rgba(18,36,44,0.2);
+    border-radius: var(--radius);
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--paper);
+    font-family: inherit;
+  }
+  .demo-input:focus {
+    outline: 2px solid var(--hero-orange);
+    outline-offset: 1px;
+    border-color: var(--hero-orange);
+  }
+
+  .demo-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .demo-chip {
+    padding: 6px 12px;
+    border-radius: 100px;
+    border: 1px solid rgba(18,36,44,0.15);
+    background: var(--paper-2);
+    font-size: 12px;
+    cursor: pointer;
+    color: var(--ink);
+    font-family: inherit;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .demo-chip:hover { background: var(--card); border-color: var(--hero-orange); }
+  .demo-chip--target { border-color: rgba(233,143,34,0.35); }
+  .demo-chip--noise  { border-color: rgba(192,91,46,0.35); }
+
+  .demo-panel {
+    background: rgba(201,222,220,0.15);
+    border-left: 3px solid var(--hero-orange);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+  }
+  .demo-panel__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+  .demo-panel__count {
+    color: var(--hero-orange);
+    font-weight: 700;
+  }
+  .demo-bigrams {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    min-height: 30px;
+  }
+  .bigram {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 3px 8px;
+    background: var(--white);
+    border: 1px solid rgba(18,36,44,0.15);
+    border-radius: 3px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+  .bigram.is-matched {
+    background: rgba(233,143,34,0.15);
+    color: var(--ink);
+    border-color: var(--hero-orange);
+    font-weight: 700;
+  }
+  .bigram.is-matched-neg {
+    background: rgba(192,91,46,0.15);
+    color: #C05B2E;
+    border-color: #C05B2E;
+    font-weight: 700;
+  }
+
+  .demo-fields {
+    display: grid;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+  }
+  .demo-field-row {
+    display: grid;
+    grid-template-columns: 130px 60px 1fr 70px;
+    align-items: center;
+    gap: 10px;
+  }
+  @media (max-width: 640px) {
+    .demo-field-row { grid-template-columns: 96px 50px 1fr 60px; font-size: 11.5px; }
+  }
+  .demo-field-name { color: var(--ink); font-weight: 600; }
+  .demo-field-weight { color: var(--muted); text-align: right; }
+  .demo-field-weight.is-neg { color: #C05B2E; font-weight: 700; }
+  .demo-field-bar-track {
+    background: var(--paper-2);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .demo-field-bar {
+    height: 100%;
+    background: var(--hero-orange);
+    border-radius: 4px;
+    transition: width 0.35s ease;
+  }
+  .demo-field-bar.is-neg { background: #C05B2E; }
+  .demo-field-contrib {
+    text-align: right;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .demo-field-contrib.is-neg { color: #C05B2E; }
+  .demo-field-contrib.is-zero { color: rgba(18,36,44,0.30); font-weight: 400; }
+
+  .demo-score {
+    background: var(--dark);
+    color: var(--white);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    margin-top: 20px;
+  }
+  .demo-score__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .demo-score__eq { color: rgba(255,255,255,0.4); font-size: 11px; }
+  .demo-score__bar-track {
+    background: rgba(255,255,255,0.10);
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .demo-score__bar {
+    height: 100%;
+    background: var(--hero-orange);
+    border-radius: 6px;
+    transition: width 0.4s ease;
+    position: absolute;
+    left: 50%;
+    top: 0;
+  }
+  .demo-score__bar--neg {
+    background: #E24B4A;
+    left: auto;
+    right: 50%;
+  }
+  .demo-score__num {
+    font-family: var(--font-mono);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--hero-orange);
+    line-height: 1;
+  }
+  .demo-score__hint {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 8px;
+  }
+
+  .demo-record {
+    margin-top: 20px;
+    border: 1px solid rgba(18,36,44,0.12);
+    border-radius: var(--radius);
+    padding: 8px 14px;
+    background: var(--paper);
+  }
+  .demo-record summary {
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 700;
+    padding: 6px 0;
+  }
+  .demo-record__pre {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: #0E1A20;
+    color: #E1E8DC;
+    padding: 16px;
+    border-radius: 4px;
+    overflow-x: auto;
+    line-height: 1.7;
+    margin-top: 10px;
+  }
+  .demo-record__pre code { background: transparent; padding: 0; color: inherit; }
+
+  .demo-note {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 14px;
+    line-height: 1.75;
+    padding: 10px 14px;
+    background: var(--paper-2);
+    border-radius: var(--radius);
+  }
+
+  /* ── Section 4: Algorithm flow ── */
+  .algo-flow {
+    background: var(--card);
+    border: 1px solid rgba(18,36,44,0.12);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin: 20px 0 12px;
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+  }
+  .algo-flow svg { width: 100%; height: auto; min-width: 720px; display: block; }
+</style>
+
+<script is:inline>
+(function () {
+  const RECORD = {
+    candidate_name: 'CLOコンパス 物流統括管理者向け意思決定支援ツール',
+    must:           'CLO 物流統括管理者向け 全社横断KPI可視化 法令対応レポート自動生成 WMS TMS データ連携 経営意思決定支援',
+    scene:          '経営戦略立案 改正物流効率化法 定期報告 取締役会 全社KPIダッシュボード',
+    examples:       'CLO報告書作成 全社KPIダッシュボード 国交省定期報告 取締役会向け物流改革報告 積載率 荷待ち時間',
+    visible_text:   'CLOコンパスは物流を成功に導く 意思決定支援ツール',
+    must_not:       'WMS TMS 現場オペレーション 中小企業 運送会社 配送最適化 在庫管理',
+  };
+
+  const FIELDS = [
+    { key: 'must',           weight: 2.0, label: 'must' },
+    { key: 'examples',       weight: 1.5, label: 'examples' },
+    { key: 'scene',          weight: 1.5, label: 'scene' },
+    { key: 'candidate_name', weight: 1.5, label: 'candidate_name' },
+    { key: 'visible_text',   weight: 1.0, label: 'visible_text' },
+  ];
+  const MUST_NOT_PENALTY = -3.0;
+
+  // Pre-compute record bigrams
+  function bigrams(text) {
+    if (!text) return new Set();
+    const clean = text.replace(/[\s　]+/g, '');
+    const set = new Set();
+    for (let i = 0; i < clean.length - 1; i++) {
+      set.add(clean.substring(i, i + 2));
+    }
+    return set;
+  }
+  const RECORD_GRAMS = {};
+  for (const k of Object.keys(RECORD)) RECORD_GRAMS[k] = bigrams(RECORD[k]);
+
+  const $q         = document.getElementById('demoQuery');
+  const $qBigrams  = document.getElementById('qBigrams');
+  const $qCount    = document.getElementById('qCount');
+  const $fields    = document.getElementById('fieldOverlap');
+  const $scoreBar  = document.getElementById('scoreBar');
+  const $scoreNeg  = document.getElementById('scoreBarNeg');
+  const $scoreNum  = document.getElementById('scoreNum');
+  const $scoreHint = document.getElementById('scoreHint');
+  if (!$q) return;
+
+  // Pre-build the fields DOM
+  const rows = {};
+  FIELDS.concat([{ key: 'must_not', weight: MUST_NOT_PENALTY, label: 'must_not' }]).forEach((f) => {
+    const row = document.createElement('div');
+    row.className = 'demo-field-row';
+    const isNeg = f.weight < 0;
+    row.innerHTML = `
+      <span class="demo-field-name">${f.label}</span>
+      <span class="demo-field-weight${isNeg ? ' is-neg' : ''}">${isNeg ? '−' : '+'}${Math.abs(f.weight).toFixed(1)}</span>
+      <div class="demo-field-bar-track"><div class="demo-field-bar${isNeg ? ' is-neg' : ''}" data-bar style="width:0%"></div></div>
+      <span class="demo-field-contrib is-zero" data-contrib>0.00</span>
+    `;
+    $fields.appendChild(row);
+    rows[f.key] = row;
+  });
+
+  const SCORE_MAX_ABS = 12; // for bar scaling
+
+  function compute(query) {
+    const qGrams = bigrams(query);
+    const contribs = {};
+    let total = 0;
+    let posSum = 0;
+    let mustNotHits = new Set();
+
+    // Positive fields
+    for (const f of FIELDS) {
+      const common = new Set();
+      for (const g of qGrams) if (RECORD_GRAMS[f.key].has(g)) common.add(g);
+      const c = f.weight * common.size;
+      contribs[f.key] = { common, count: common.size, contribution: c };
+      total += c;
+      posSum += c;
+    }
+    // must_not penalty
+    for (const g of qGrams) if (RECORD_GRAMS.must_not.has(g)) mustNotHits.add(g);
+    const penalty = MUST_NOT_PENALTY * mustNotHits.size;
+    contribs.must_not = { common: mustNotHits, count: mustNotHits.size, contribution: penalty };
+    total += penalty;
+
+    return { qGrams, contribs, total, penalty };
+  }
+
+  function render(query) {
+    const { qGrams, contribs, total, penalty } = compute(query);
+
+    // Compute which qGrams matched any positive field vs must_not
+    const posMatched = new Set();
+    for (const f of FIELDS) for (const g of contribs[f.key].common) posMatched.add(g);
+    const negMatched = contribs.must_not.common;
+
+    // Bigram tokens display
+    $qCount.textContent = qGrams.size;
+    $qBigrams.innerHTML = '';
+    if (qGrams.size === 0) {
+      $qBigrams.innerHTML = '<span style="font-size:12px; color:var(--muted)">（クエリを入力してください）</span>';
+    } else {
+      for (const g of qGrams) {
+        const el = document.createElement('span');
+        el.className = 'bigram';
+        if (negMatched.has(g)) el.classList.add('is-matched-neg');
+        else if (posMatched.has(g)) el.classList.add('is-matched');
+        el.textContent = g;
+        $qBigrams.appendChild(el);
+      }
+    }
+
+    // Per-field bars
+    const maxContribAbs = Math.max(1, ...Object.values(contribs).map(c => Math.abs(c.contribution)));
+    for (const f of FIELDS.concat([{ key: 'must_not' }])) {
+      const row = rows[f.key];
+      const c = contribs[f.key];
+      const bar = row.querySelector('[data-bar]');
+      const cn = row.querySelector('[data-contrib]');
+      const pct = Math.min(100, (Math.abs(c.contribution) / maxContribAbs) * 100);
+      bar.style.width = pct + '%';
+      cn.textContent = (c.contribution >= 0 ? '+' : '') + c.contribution.toFixed(2);
+      cn.classList.toggle('is-zero', c.contribution === 0);
+      cn.classList.toggle('is-neg', c.contribution < 0);
+    }
+
+    // Total score bar
+    $scoreNum.textContent = (total >= 0 ? '+' : '') + total.toFixed(2);
+    $scoreNum.style.color = total >= 0 ? 'var(--hero-orange)' : '#E24B4A';
+    const posPct = Math.min(50, (Math.max(0, total) / SCORE_MAX_ABS) * 50);
+    const negPct = Math.min(50, (Math.abs(Math.min(0, total)) / SCORE_MAX_ABS) * 50);
+    $scoreBar.style.width = posPct + '%';
+    $scoreNeg.style.width = negPct + '%';
+
+    // Hint
+    if (qGrams.size === 0) {
+      $scoreHint.textContent = 'クエリを入力するとスコアが動きます';
+    } else if (total > 3) {
+      $scoreHint.textContent = '🎯 このクエリは正しく届く（候補として上位に来る）';
+    } else if (total < -0.5) {
+      $scoreHint.textContent = '🚫 must_not が発動：このクエリには推薦されない（意図した挙動）';
+    } else if (total > 0) {
+      $scoreHint.textContent = '△ 弱いマッチ（もう少しレコード側の文脈を厚くする余地あり）';
+    } else {
+      $scoreHint.textContent = '～ ほぼ関係なし。境界の外側のクエリ';
+    }
+  }
+
+  // Wire events
+  $q.addEventListener('input', (e) => render(e.target.value));
+  document.querySelectorAll('.demo-chip').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      $q.value = btn.dataset.q;
+      render(btn.dataset.q);
+    });
+  });
+
+  // Initial render
+  render($q.value);
+})();
+</script>
