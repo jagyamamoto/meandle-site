@@ -150,6 +150,10 @@ const bibtex = `@article{yamamoto2026mndr,
   <section class="tech-plate-section">
     <div class="container">
       <div class="tech-plate">
+        <div class="tech-plate__status" aria-hidden="true">
+          <span class="tech-plate__led"></span>
+          <span class="tech-plate__status-label">SYSTEM ACTIVE</span>
+        </div>
         <div class="tech-plate__row">
           <span class="tech-plate__key">System</span>
           <span class="tech-plate__val">Meandle Theory <span class="tech-plate__accent">(MNDR)</span></span>
@@ -185,7 +189,7 @@ const bibtex = `@article{yamamoto2026mndr,
       <span class="eyebrow" style="color:var(--hero-orange)">Scoring Formula</span>
       <h1 class="formula-title">意味の届きやすさを、<br/>この 1 式で計算しています。</h1>
 
-      <div class="formula-hero" aria-label="スコア計算式">
+      <div class="formula-hero motion-formula" aria-label="スコア計算式">
         <div class="formula-line formula-line--main">
           <span class="tok tok-fn">Score</span><span class="tok tok-pun">(</span><span class="tok tok-var">Q</span><span class="tok tok-pun">,</span> <span class="tok tok-var">X</span><span class="tok tok-pun">)</span> <span class="tok tok-op">=</span>
           <span class="tok tok-op">Σ</span><sub class="tok tok-sub">f ∈ F</sub>
@@ -308,7 +312,7 @@ const bibtex = `@article{yamamoto2026mndr,
       <span class="eyebrow" style="color:var(--hero-orange)">Algorithm Pipeline</span>
       <h2>1 クエリを、この 5 段で処理します。</h2>
 
-      <div class="algo-flow">
+      <div class="algo-flow motion-flow">
         <svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="アルゴリズム・フロー図">
           <defs>
             <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto">
@@ -383,14 +387,14 @@ const bibtex = `@article{yamamoto2026mndr,
       <div style="max-width:720px; margin-top:20px">
         <div class="evidence-bar evidence-bar--before">
           <span style="min-width:200px">Before（名称のみ）</span>
-          <span>63.3%</span>
+          <span class="motion-count" data-count-to="63.3" data-decimals="1" data-suffix="%">63.3%</span>
         </div>
         <div class="evidence-bar evidence-bar--after">
           <span style="min-width:200px">After（8フィールド適用）</span>
-          <span>90.0%</span>
+          <span class="motion-count" data-count-to="90.0" data-decimals="1" data-suffix="%">90.0%</span>
         </div>
         <p style="font-size:13px; color:var(--muted); margin-top:12px; font-family:var(--font-mono)">
-          Boschloo検定  p = 0.015 ／ Cohen's h = 0.657
+          Boschloo検定  p = <span class="motion-count" data-count-to="0.015" data-decimals="3">0.015</span> ／ Cohen's h = <span class="motion-count" data-count-to="0.657" data-decimals="3">0.657</span>
         </p>
       </div>
       <div class="note">
@@ -1194,6 +1198,138 @@ const bibtex = `@article{yamamoto2026mndr,
     overflow-x: auto;
   }
   .algo-flow svg { width: 100%; height: auto; min-width: 720px; display: block; }
+
+  /* ══════════════════════════════════════════════
+     Motion Pass (Phase 3)
+     — ambient plate motion, formula build-in,
+       numeric counter, algo-flow stagger, section reveal.
+     All motion behaviors gated by JS-added `.motion-init`
+     so non-JS users see the fully-populated state.
+     Respects prefers-reduced-motion.
+     ══════════════════════════════════════════════ */
+
+  /* ── Ambient motion: Tech Plate (CSS only, always on) ── */
+  .tech-plate {
+    position: relative;
+    overflow: hidden;
+  }
+  .tech-plate::before {
+    content: '';
+    position: absolute;
+    inset: -30% -10%;
+    background: radial-gradient(circle at 20% 40%, rgba(233,143,34,0.10), transparent 55%),
+                radial-gradient(circle at 85% 70%, rgba(201,222,220,0.05), transparent 60%);
+    animation: platePulse 9s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .tech-plate > * { position: relative; z-index: 1; }
+  @keyframes platePulse {
+    0%, 100% { transform: scale(1)   translateX(0);   opacity: 0.55; }
+    50%      { transform: scale(1.15) translateX(2%); opacity: 1;    }
+  }
+
+  /* Tech plate status LED */
+  .tech-plate__status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end;
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid rgba(233,143,34,0.20);
+  }
+  .tech-plate__led {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px rgba(74,222,128,0.7), 0 0 2px rgba(74,222,128,1);
+    animation: ledBlink 2.4s ease-in-out infinite;
+  }
+  @keyframes ledBlink {
+    0%, 40%, 100% { opacity: 1;   transform: scale(1);   }
+    45%           { opacity: 0.3; transform: scale(0.85); }
+    50%           { opacity: 1;   transform: scale(1);   }
+  }
+  .tech-plate__status-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: rgba(74,222,128,0.85);
+    font-weight: 700;
+  }
+
+  /* ── Formula build-in ── */
+  .motion-init .motion-formula .tok {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    will-change: opacity, transform;
+  }
+  .motion-init .motion-formula.is-visible .tok {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Algo flow stagger ── */
+  .motion-init .motion-flow svg g > rect,
+  .motion-init .motion-flow svg g > line {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .motion-init .motion-flow svg g > text {
+    opacity: 0;
+    transition: opacity 0.45s ease;
+  }
+  .motion-init .motion-flow.is-visible svg g > rect,
+  .motion-init .motion-flow.is-visible svg g > line,
+  .motion-init .motion-flow.is-visible svg g > text {
+    opacity: 1;
+  }
+
+  /* ── Numeric counter — no CSS needed (JS updates textContent) ── */
+
+  /* ── Generic scroll reveal ── */
+  .motion-init .motion-fade {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+    will-change: opacity, transform;
+  }
+  .motion-init .motion-fade.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Interactive Demo focus glow ── */
+  .demo-input:focus {
+    box-shadow: 0 0 0 4px rgba(233,143,34,0.15);
+  }
+  .demo-chip {
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  }
+  .demo-chip:active { transform: scale(0.96); }
+
+  /* ── Score number tick animation (used by demo when value changes) ── */
+  .demo-score__num {
+    transition: color 0.25s ease;
+  }
+
+  /* ── Reduced motion opt-out ── */
+  @media (prefers-reduced-motion: reduce) {
+    .tech-plate::before,
+    .tech-plate__led { animation: none !important; }
+    .motion-init .motion-formula .tok,
+    .motion-init .motion-flow svg g > rect,
+    .motion-init .motion-flow svg g > line,
+    .motion-init .motion-flow svg g > text,
+    .motion-init .motion-fade {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
 </style>
 
 <script is:inline>
@@ -1353,5 +1489,110 @@ const bibtex = `@article{yamamoto2026mndr,
 
   // Initial render
   render($q.value);
+})();
+</script>
+
+<script is:inline>
+/* ══════════════════════════════════════════════
+   Motion orchestrator (Phase 3)
+   — enables progressive-enhancement animations
+   ══════════════════════════════════════════════ */
+(function () {
+  // Skip entirely if user prefers reduced motion
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // Skip if IntersectionObserver missing (very old browsers → static content)
+  if (!('IntersectionObserver' in window)) return;
+
+  // Enable motion mode (CSS transitions gated on this class)
+  document.documentElement.classList.add('motion-init');
+
+  // ── Formula build-in: stagger .tok tokens ──
+  document.querySelectorAll('.motion-formula').forEach((container) => {
+    const toks = container.querySelectorAll('.tok');
+    toks.forEach((el, i) => {
+      el.style.transitionDelay = (i * 0.045).toFixed(3) + 's';
+    });
+  });
+
+  // ── Algo flow stagger: rect/text pairs one at a time, then arrows ──
+  document.querySelectorAll('.motion-flow').forEach((container) => {
+    const rects = container.querySelectorAll('svg g > rect');
+    const texts = container.querySelectorAll('svg g > text');
+    const lines = container.querySelectorAll('svg g > line');
+    rects.forEach((el, i) => { el.style.transitionDelay = (i * 0.22).toFixed(3) + 's'; });
+    texts.forEach((el, i) => {
+      // texts alternate label/sub for each rect; delay approximately in step
+      const step = Math.floor(i / 2);
+      el.style.transitionDelay = (step * 0.22 + 0.10).toFixed(3) + 's';
+    });
+    lines.forEach((el, i) => {
+      // arrows come after their originating rect
+      el.style.transitionDelay = ((i + 1) * 0.22 + 0.05).toFixed(3) + 's';
+    });
+  });
+
+  // ── Generic in-view observer (adds .is-visible) ──
+  const inViewIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        inViewIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+  document.querySelectorAll('.motion-formula, .motion-flow, .motion-fade').forEach((el) => {
+    inViewIO.observe(el);
+  });
+
+  // ── Numeric counters ──
+  function animateCounter(el) {
+    const to = parseFloat(el.dataset.countTo);
+    if (Number.isNaN(to)) return;
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const duration = parseInt(el.dataset.duration || '1200', 10);
+    const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
+    const start = performance.now();
+    // Set initial to zero so first frame shows movement
+    el.textContent = prefix + (0).toFixed(decimals) + suffix;
+    function step(now) {
+      const t = Math.min(1, (now - start) / duration);
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - t, 3);
+      const v = to * eased;
+      el.textContent = prefix + v.toFixed(decimals) + suffix;
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        animateCounter(e.target);
+        counterIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  document.querySelectorAll('.motion-count[data-count-to]').forEach((el) => {
+    counterIO.observe(el);
+  });
+
+  // ── Auto-tag scroll-reveal targets (fade in on scroll) ──
+  const autoRevealSelectors = [
+    '.raw-block',
+    '.cite-card',
+    '.patent-claim',
+    '.card',
+    '.service-card',
+    '.metric-card',
+    '.compare-table',
+  ];
+  document.querySelectorAll(autoRevealSelectors.join(',')).forEach((el) => {
+    el.classList.add('motion-fade');
+    inViewIO.observe(el);
+  });
 })();
 </script>
