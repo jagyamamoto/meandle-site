@@ -5,11 +5,70 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title='Meandle Get Lead — 広告ゼロ・資料請求サービスゼロ・「正しく理解した人」だけが来る状態をつくる｜Meandle'
   description="CLOコンパスのLLM実験では、みんどり前のターゲット誤認100%が「みんどり後0%」に。研究データでは非広告流入75.1%、商談69件、受注確定8件。AIに「対象者像」を正確に伝えることでミスマッチを排除します。"
 >
-  <section class="hero">
+  <section class="hero hero--split">
+    <div class="hero__bg-grid" aria-hidden="true"></div>
+    <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
-      <span class="eyebrow hero__eyebrow">Meandle Get Lead</span>
-      <h1 class="hero-copy">広告ゼロ。資料請求サービスゼロ。<br/>「正しく理解した人」だけが来る状態をつくる。</h1>
-      <p style="margin-top:24px">リード数は多くても、「的外れな問い合わせ」では営業工数が増えるだけです。<br/>みんどると、AIが「このサービスの対象者はこういう人だ」と正確に理解してから見込み客に紹介します。届く前から<strong>ミスマッチが排除</strong>されている状態が、みんどりの最大の価値です。</p>
+      <div class="hero__split">
+        <div class="hero__left">
+          <span class="eyebrow hero__eyebrow">Meandle Get Lead</span>
+          <h1 class="hero-copy">広告ゼロ。資料請求サービスゼロ。<br/>「正しく理解した人」だけが来る状態をつくる。</h1>
+          <p style="margin-top:20px">リード数は多くても、「的外れな問い合わせ」では営業工数が増えるだけです。<br/>みんどると、AIが「このサービスの対象者はこういう人だ」と正確に理解してから見込み客に紹介します。届く前から<strong>ミスマッチが排除</strong>されている状態が、みんどりの最大の価値です。</p>
+        </div>
+
+        <aside class="proof-panel" aria-label="リード品質 ライブ表示">
+          <div class="proof-panel__head">
+            <span class="proof-panel__led"></span>
+            <span class="proof-panel__label">LEAD&nbsp;QUALITY</span>
+            <span class="proof-panel__timer"></span>
+          </div>
+          <div class="proof-stage">
+            <div class="proof-slide is-active">
+              <div class="proof-slide__type">🔵 CLO実験：ターゲット誤認率</div>
+              <div class="proof-slide__num"><span class="proof-num" data-count-to="0">100</span><span class="proof-slide__unit">%&nbsp;→&nbsp;0%</span></div>
+              <div class="proof-slide__name">みんどり前 100% → みんどり後 0%</div>
+              <div class="proof-slide__body"><strong>中小・3PL 向けと誤答</strong>していた LLM が、「大規模荷主の経営層・CLO向け」と<strong>正確に限定</strong>して回答するように。3問全問で誤認消失。</div>
+              <div class="proof-slide__query">「CLOコンパスはどんな企業向け？」</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">💼 実務データ：非広告流入比率</div>
+              <div class="proof-slide__num"><span class="proof-num" data-count-to="75.1" data-decimals="1">75.1</span><span class="proof-slide__unit">%</span></div>
+              <div class="proof-slide__name">広告停止期間中も 26 件問い合わせ</div>
+              <div class="proof-slide__body">B2B 専門サイトでの実務観察値。<strong>広告経由ではないオーガニックな引き寄せ</strong>が、ページ構造の意味設計だけで安定継続。</div>
+              <div class="proof-slide__query">総セッション 31,626 中の内訳</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">📈 実務データ：商談→受注ファネル</div>
+              <div class="proof-slide__num"><span class="proof-num" data-count-to="69">69</span><span class="proof-slide__unit">→&nbsp;8&nbsp;件</span></div>
+              <div class="proof-slide__name">商談 69 件 · 受注 8 件確定</div>
+              <div class="proof-slide__body">受注単価 <strong>500 万〜 2,000 万円</strong>。理解の質が高い問い合わせだけが到達するので、営業工数を集中投下できる状態。</div>
+              <div class="proof-slide__query">Jag Yamamoto の実務観察</div>
+            </div>
+          </div>
+          <div class="proof-panel__dots">
+            <button class="proof-dot is-active" data-i="0" aria-label="LLM誤認率"></button>
+            <button class="proof-dot" data-i="1" aria-label="非広告流入"></button>
+            <button class="proof-dot" data-i="2" aria-label="商談→受注"></button>
+          </div>
+        </aside>
+      </div>
+
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee__track">
+          <span class="hero-marquee__lead">◉ LEAD QUALITY MODE</span>
+          <span>▸ LLM misclassification 100% → 0%</span>
+          <span>▸ Non-ad traffic 75.1%</span>
+          <span>▸ 商談 69 · 受注 8 · 単価 500〜2,000 万円</span>
+          <span>▸ must_not · record-side exclusion</span>
+          <span>▸ MNDR-2026-001 · patent pending</span>
+          <span class="hero-marquee__lead">◉ LEAD QUALITY MODE</span>
+          <span>▸ LLM misclassification 100% → 0%</span>
+          <span>▸ Non-ad traffic 75.1%</span>
+          <span>▸ 商談 69 · 受注 8 · 単価 500〜2,000 万円</span>
+          <span>▸ must_not · record-side exclusion</span>
+          <span>▸ MNDR-2026-001 · patent pending</span>
+        </div>
+      </div>
     </div>
   </section>
 
