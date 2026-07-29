@@ -1,15 +1,21 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 const title = '送信ありがとうございました｜Meandle';
-const description = 'お問い合わせを受け付けました。担当よりご連絡いたします。';
+const description = 'お問い合わせを受け付けました。内容を確認し、適合する場合にご連絡いたします。';
 ---
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} canonical="/contact/thanks/">
   <section class="section">
-    <div class="container" style="max-width:640px; text-align:center">
+    <div class="container container--narrow" style="text-align:center">
       <span class="eyebrow">Thank you</span>
       <h1>受け付けました。</h1>
-      <p class="lead">内容を拝見し、2営業日以内にご連絡いたします。<br/>ご記入いただいたメールアドレスに、自動返信を送信しています。</p>
-      <a href="/" class="btn btn--ghost mt-4">トップに戻る</a>
+      <p class="lead">送信内容を確認し、Meandleで扱うべき課題かを判断します。<br/>適合する場合に、有償スプリントの進め方をご案内します。</p>
+      <p style="color:var(--muted); font-size:14px">
+        この段階では、詳細な意味診断や実装方針は作成いたしません。<br/>
+        Meandleは、Jag Yamamoto / Jag Projectが開発・監修するB2B意味設計ソリューションです。
+      </p>
+      <div style="margin-top:32px">
+        <a href="/" class="btn btn--secondary">ホームに戻る</a>
+      </div>
     </div>
   </section>
 </BaseLayout>

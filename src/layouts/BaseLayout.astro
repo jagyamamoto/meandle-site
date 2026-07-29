@@ -6,12 +6,32 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  canonical?: string;      // pathname (e.g. '/do-meandle/')
+  ogTitle?: string;
+  ogDescription?: string;
+  ogType?: string;         // 'website' | 'article' | ...
+  ogImage?: string;        // absolute or root-relative
+  structuredData?: any[];  // array of JSON-LD objects (rendered as-is)
 }
 
+const SITE_URL = 'https://meandle.jp';
 const {
   title = "広告費を増やす前に、AIと見込み客が拾える「売る意味」を整える｜Meandle",
-  description = "Meandleは、専門商材、PR、求人票の意味を、AIと見込み客に誤解されにくい形へ整えるサービスです。既存URLを診断し、みんどり値で改善点を見える化します。"
+  description = "Meandleは、複雑なB2B商材の「誰に・何を・何ではないか」を意味仕様にし、既存Web、PR、求人へ実装する高単価B2Bソリューションです。",
+  canonical,
+  ogTitle,
+  ogDescription,
+  ogType = 'website',
+  ogImage,
+  structuredData = [],
 } = Astro.props;
+
+const pageUrl = SITE_URL + (canonical || Astro.url.pathname);
+const _ogTitle = ogTitle ?? title;
+const _ogDesc  = ogDescription ?? description;
+const _ogImage = ogImage
+  ? (ogImage.startsWith('http') ? ogImage : SITE_URL + ogImage)
+  : (SITE_URL + '/images/meandle-logo.png');
 ---
 <!doctype html>
 <html lang="ja">
@@ -21,13 +41,25 @@ const {
   <meta name="robots" content="noindex,nofollow">
   <title>{title}</title>
   <meta name="description" content={description}>
-  <meta property="og:title" content={title}>
-  <meta property="og:description" content={description}>
-  <meta property="og:type" content="website">
+  <link rel="canonical" href={pageUrl}>
+  <meta property="og:site_name" content="Meandle">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:url" content={pageUrl}>
+  <meta property="og:title" content={_ogTitle}>
+  <meta property="og:description" content={_ogDesc}>
+  <meta property="og:type" content={ogType}>
+  <meta property="og:image" content={_ogImage}>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={_ogTitle}>
+  <meta name="twitter:description" content={_ogDesc}>
+  <meta name="twitter:image" content={_ogImage}>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.ico">
+  {structuredData.map((data) => (
+    <script type="application/ld+json" set:html={JSON.stringify(data)} />
+  ))}
 </head>
 <body>
   <Header />

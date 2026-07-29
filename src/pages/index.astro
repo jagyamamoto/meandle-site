@@ -1,222 +1,505 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = '広告費を増やす前に、AIと見込み客が拾える「売る意味」を整える｜Meandle';
+const description = 'Meandleは、複雑なB2B商材の「誰に・何を・何ではないか」を意味仕様にし、既存Web、PR、求人へ実装する高単価B2Bソリューションです。既存URLから意味のズレを確認します。';
+const ogTitle = '売る意味を整える、B2B意味設計｜Meandle';
+const ogDescription = '正しい相手に、正しい理由で伝わるために。対象、価値、根拠、対象外条件を整え、既存ページへ実装します。';
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': 'https://meandle.jp/#organization',
+    name: 'ジャグプロジェクト合同会社',
+    url: 'https://jagproject.com/',
+    logo: 'https://meandle.jp/images/meandle-logo.png',
+    brand: { '@type': 'Brand', name: 'Meandle' },
+    founder: { '@type': 'Person', name: 'Jag Yamamoto' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': 'https://meandle.jp/#website',
+    url: 'https://meandle.jp/',
+    name: 'Meandle',
+    publisher: { '@id': 'https://meandle.jp/#organization' },
+    inLanguage: 'ja',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://meandle.jp/#webpage',
+    url: 'https://meandle.jp/',
+    name: title,
+    description: description,
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    about: { '@id': 'https://meandle.jp/#service' },
+    inLanguage: 'ja',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': 'https://meandle.jp/#service',
+    name: 'Meandle',
+    serviceType: 'B2B意味設計',
+    provider: { '@id': 'https://meandle.jp/#organization' },
+    areaServed: 'JP',
+    audience: {
+      '@type': 'Audience',
+      audienceType: '高単価・複雑B2Bの経営者、事業責任者、マーケティング責任者',
+    },
+    description: 'Meandleは、複雑なB2B商材の対象、価値、根拠、対象外条件を意味仕様にし、既存ページへ実装するB2Bソリューションです。',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Meandle サービス',
+      itemListElement: [
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'do.meandle 意味適合スプリント', url: 'https://meandle.jp/do-meandle/' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Meandle get lead', url: 'https://meandle.jp/get-lead/' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'do.meandle 伴走', url: 'https://meandle.jp/do-meandle/' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Meandle PR', url: 'https://meandle.jp/pr/' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Meandle recruit', url: 'https://meandle.jp/recruit/' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Meandle OEM', url: 'https://meandle.jp/oem/' } },
+      ],
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: 'MeandleはSEOやAIOの支援会社ですか。', acceptedAnswer: { '@type': 'Answer', text: 'いいえ。Meandleは、誰に、何を、なぜ提供し、何ではないかを仕様化するB2B意味設計です。検索やAI応答で扱われやすい構造も考慮しますが、順位計測、記事量産、一般的なサイト制作を主な提供価値にはしていません。' } },
+      { '@type': 'Question', name: '50万円〜のスプリントでは、何が分かりますか。', acceptedAnswer: { '@type': 'Answer', text: '既存URL一つについて、現在の意味のズレ、対象／対象外質問、8項目の意味仕様、実装優先順位、検証条件を整理します。大規模な実装へ進む前に、直す価値と範囲を判断できます。' } },
+      { '@type': 'Question', name: '50万円〜と1ページ200万円前後の違いは何ですか。', acceptedAnswer: { '@type': 'Answer', text: '50万円〜のスプリントは、何をどう伝えるべきかを定める段階です。1ページ200万円前後の実装では、その意味仕様を、見出し、本文、比較軸、根拠、FAQ、メタ情報まで一貫したページへ反映します。' } },
+      { '@type': 'Question', name: '既存のSEO会社や計測ツールと併用できますか。', acceptedAnswer: { '@type': 'Answer', text: 'はい。既存施策のデータは、意味のズレを確認する材料になります。Meandleは、それらを置き換えるのではなく、観察結果を「何をどう伝えるか」という実装可能な仕様へ変えます。' } },
+      { '@type': 'Question', name: 'AI検索での表示や商談成果は保証されますか。', acceptedAnswer: { '@type': 'Answer', text: 'いいえ。AI応答や検索環境は継続的に変わり、表示や商談成果を保証することはできません。開始時に確認条件を定め、結果と限界を分けて記録します。' } },
+      { '@type': 'Question', name: 'まだAI検索に表示されていなくても依頼できますか。', acceptedAnswer: { '@type': 'Answer', text: 'はい。表示後の修正だけでなく、公開前の新商品、新技術、新規事業について、誤解されにくい対象、価値、根拠、対象外条件を先に設計できます。' } },
+      { '@type': 'Question', name: '準備するものは何ですか。', acceptedAnswer: { '@type': 'Answer', text: '対象URL、営業資料、来てほしい顧客像、対象外としたい顧客や用途、実際の問い合わせ、価値を裏付ける事実をご用意ください。すべてがそろっていなくても、不足している情報を確認します。' } },
+      { '@type': 'Question', name: '内容に機密情報が含まれます。', acceptedAnswer: { '@type': 'Answer', text: '送信前に、守秘が必要な旨をお知らせください。確認できる情報の範囲と進め方を先にご案内します。' } },
+    ],
+  },
+];
 ---
 <BaseLayout
-  title="AIに伝わるということは、求めている人に届くということです｜Meandle"
-  description="Meandleは、AIがあなたのビジネスを正確に理解・推薦できる状態をつくるサービスです。プレスリリース後わずか5時間でGoogle AI Overviewに登場した実証結果あり。みんどる理論（特許出願中）に基づくAIO/LLMO/GEO対策。"
+  title={title}
+  description={description}
+  canonical="/"
+  ogTitle={ogTitle}
+  ogDescription={ogDescription}
+  ogImage="/images/home/meandle-home-hero-v2.webp"
+  structuredData={structuredData}
 >
-  <!-- HERO with big logo + live proof panel -->
+  <!-- Section 1: Hero -->
   <section class="hero hero--split">
     <div class="hero__bg-grid" aria-hidden="true"></div>
     <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
-      <div class="hero__logo">
-        <img src="/images/meandle-logo.png" alt="Meandle"/>
-      </div>
+      <span class="eyebrow hero__eyebrow">複雑なB2B商材のための意味設計</span>
+      <h1 class="hero-copy">広告費を増やす前に、<br/>AIと見込み客が拾える「売る意味」を整える。</h1>
 
-      <div class="hero__split">
-        <div class="hero__left">
-          <h1 class="hero-copy">AIに伝わるということは、<br/>求めている人に届くということです。</h1>
-          <p style="margin-top:20px">「うちのサービスをAIに聞いても出てこない」<br/>「競合と同じ言葉で説明していて差別化できていない」<br/>「広告を止めたら流入もゼロになる」</p>
-          <p>Meandleは、AIがあなたのビジネスを正確に理解・推薦できる状態をつくるサービスです。プレスリリース後わずか<strong>5時間でGoogle AI Overviewに登場</strong>した実績があります。</p>
-          <div class="hero__badges">
-            <span class="badge">特許出願中</span>
-            <span class="badge">実証結果あり</span>
-            <a class="badge badge--link" href="https://www.jagproject.com/" target="_blank" rel="noopener">運営：Jag Yamamoto ↗</a>
-          </div>
-          <div class="hero__cta-group">
-            <a href="/contact/" class="btn btn--primary">まず無料で相談する</a>
-            <a href="/contact/" class="btn btn--secondary">みんどり値を診断する</a>
-          </div>
+      <p class="lead" style="margin-top:24px">
+        高単価で説明の難しいB2B商材ほど、ページに情報があっても、「誰の、どの課題に、なぜ必要か」が伝わりきりません。
+      </p>
+      <p>
+        Meandleは、複雑な商材の対象、価値、根拠、対象外条件を意味仕様にし、既存ページへ実装するB2Bソリューションです。
+      </p>
+      <p style="color:var(--muted)">
+        AI検索への露出を増やす前に、見込み客が比較に使う意味を整えます。新しいサイトを一から作ることではなく、すでにある事業とページの間にあるズレを見つけることから始めます。
+      </p>
+
+      <p style="margin-top:20px"><strong>初回は、1商材・1URLの意味適合スプリント 50万円〜。</strong></p>
+
+      <div class="hero__cta-group">
+        <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+        <a href="#how-it-works" class="btn btn--secondary">進め方を見る</a>
+      </div>
+      <p style="font-size:13px; color:var(--muted); margin-top:12px">
+        URLと、来てほしい顧客像をお送りください。50万円〜の意味適合スプリントの対象条件を確認します。
+      </p>
+
+      <p style="margin-top:24px; text-align:center; font-size:14px">
+        商材の説明を増やす前に、伝わるべき意味を分けます。
+      </p>
+      <figure class="hero-figure">
+        <img
+          src="/images/home/meandle-home-hero-v2.webp"
+          alt="複数の経路を、対象となるティール色の経路と対象外となる灰色の経路へ整理するMeandleの意味設計イメージ"
+          width="1200" height="800"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+      <p style="text-align:center; font-size:14px; margin-top:14px">
+        対象となる経路だけでなく、対象外となる条件も分けて整えます。
+      </p>
+      <p style="text-align:center; font-size:12.5px; color:var(--muted); margin-top:8px">
+        意味設計と検索文脈の整合に関する方法は、特許出願中です。MeandleはJag Yamamoto / Jag Projectが開発・監修しています。
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 2: Problem -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">The Meaning Gap</span>
+      <h2>見つからないことより、間違って見つかることがある。</h2>
+      <p>
+        商材名や機能がページに書かれていても、それだけで「誰に必要か」までは決まりません。AIと見込み客は、限られた説明からカテゴリ、用途、比較相手を推測します。
+      </p>
+      <p>
+        その結果、本来とは違う相手に薦められる。一般的なサービスとして比較される。対象外の問い合わせに、営業が一から説明し直す。こうした意味のズレが、商談になる前に起きています。
+      </p>
+
+      <div class="grid grid--2 mt-4">
+        <div class="card">
+          <h3>何の会社かが広すぎる</h3>
+          <p style="margin-bottom:0">「幅広く対応」「課題を解決」と書いても、どの場面で必要な会社かは伝わりません。</p>
         </div>
-
-        <!-- Live Proof Panel — auto-cycles through 3 evidence types -->
-        <aside class="proof-panel" id="proofPanel" aria-label="実証・実験データ ライブ表示">
-          <div class="proof-panel__head">
-            <span class="proof-panel__led"></span>
-            <span class="proof-panel__label">LIVE&nbsp;PROOF</span>
-            <span class="proof-panel__timer" id="proofTimer"></span>
-          </div>
-
-          <div class="proof-stage" id="proofStage">
-            <!-- Slide 1 : highprofilm (real) -->
-            <div class="proof-slide is-active" data-tone="real">
-              <div class="proof-slide__type">🟢 実証事例（実測）</div>
-              <div class="proof-slide__num"><span class="proof-num" data-count-to="5">5</span><span class="proof-slide__unit">時間</span></div>
-              <div class="proof-slide__name">highprofilm.jp（スマホフィルム）</div>
-              <div class="proof-slide__body">みんどり最適化サイト＋プレスリリース後、わずか<strong>5時間で Google AI Overview に登場</strong>。</div>
-              <div class="proof-slide__query">「スマホフィルム 在庫リスク少ないもの教えて」</div>
-            </div>
-
-            <!-- Slide 2 : CLO compass (LLM-measured) -->
-            <div class="proof-slide" data-tone="sim">
-              <div class="proof-slide__type">🔵 自主実験（LLM 実測）</div>
-              <div class="proof-slide__num"><span class="proof-num" data-count-to="0">100</span><span class="proof-slide__unit">%</span></div>
-              <div class="proof-slide__name">CLOコンパス（物流DX）</div>
-              <div class="proof-slide__body">LLM 誤認率が <strong>100% → 0%</strong>。ターゲット誤認・機能誤記・対象外を明言しない ── 3 問すべて解消。</div>
-              <div class="proof-slide__query">「CLOコンパスは中小企業でも使えますか？」</div>
-            </div>
-
-            <!-- Slide 3 : Hitachi (simulation) -->
-            <div class="proof-slide" data-tone="sim">
-              <div class="proof-slide__type">🔵 自主実験（シミュレーション）</div>
-              <div class="proof-slide__num"><span class="proof-num" data-count-to="9.94" data-decimals="2">9.94</span><span class="proof-slide__unit">倍</span></div>
-              <div class="proof-slide__name">日立 温度×時間センシングインク</div>
-              <div class="proof-slide__body">目標クエリのスコアが名称のみ 5.0 → <strong>49.7 点（9.94 倍）</strong>。非主対象クエリは −8.0 点で構造的に排除。</div>
-              <div class="proof-slide__query">「メロンの食べ頃を予測できるラベル」</div>
-            </div>
-          </div>
-
-          <div class="proof-panel__dots">
-            <button class="proof-dot is-active" data-i="0" aria-label="実証事例 1"></button>
-            <button class="proof-dot" data-i="1" aria-label="自主実験 2"></button>
-            <button class="proof-dot" data-i="2" aria-label="自主実験 3"></button>
-          </div>
-        </aside>
+        <div class="card">
+          <h3>誰向けかが抜けている</h3>
+          <p style="margin-bottom:0">業種や企業規模だけでは、導入する人の状況や判断理由まで分かりません。</p>
+        </div>
+        <div class="card">
+          <h3>対象外が書かれていない</h3>
+          <p style="margin-bottom:0">できることだけを並べると、本来は合わない用途や相手まで候補に入ります。</p>
+        </div>
+        <div class="card">
+          <h3>根拠と主張が離れている</h3>
+          <p style="margin-bottom:0">実績や技術があっても、どの価値を支える根拠なのかが結ばれていなければ、比較材料になりません。</p>
+        </div>
       </div>
 
-      <!-- Status marquee -->
-      <div class="hero-marquee" aria-hidden="true">
-        <div class="hero-marquee__track">
-          <span class="hero-marquee__lead">◉ SYSTEM ACTIVE</span>
-          <span>▸ MNDR-2026-001 · PATENT PENDING</span>
-          <span>▸ record-side exclusion (RSE)</span>
-          <span>▸ field-weighted 2-gram overlap</span>
-          <span>▸ Meandle Theory v1.0</span>
-          <span>▸ AI Overview verified · 5h → hit</span>
-          <span>▸ LLM misclassification: 3/3 → 0/3</span>
-          <span class="hero-marquee__lead">◉ SYSTEM ACTIVE</span>
-          <span>▸ MNDR-2026-001 · PATENT PENDING</span>
-          <span>▸ record-side exclusion (RSE)</span>
-          <span>▸ field-weighted 2-gram overlap</span>
-          <span>▸ Meandle Theory v1.0</span>
-          <span>▸ AI Overview verified · 5h → hit</span>
-          <span>▸ LLM misclassification: 3/3 → 0/3</span>
+      <p style="margin-top:24px">
+        Meandleが整えるのは、文章の量ではありません。<strong>正しい相手が、正しい理由で検討するための意味</strong>です。
+      </p>
+
+      <div class="grid grid--2 mt-4">
+        <div>
+          <h3 style="color:var(--hero-orange)">この課題が大きい会社</h3>
+          <ul>
+            <li>一件の商談価値が高く、対象外問い合わせの損失が大きい</li>
+            <li>新しいカテゴリ、専門技術、複合サービスを扱っている</li>
+            <li>既存ページはあるが、営業、PR、採用で説明がそろっていない</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="color:var(--muted)">別の施策を先に行う会社</h3>
+          <ul>
+            <li>記事本数や広告露出だけを増やしたい</li>
+            <li>順位やAI回答の保証を前提としている</li>
+            <li>低価格で不特定多数への販売を優先している</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 3-layer evidence -->
+  <!-- Section 3: Process -->
+  <section class="section" id="how-it-works">
+    <div class="container container--narrow">
+      <span class="eyebrow">How Meandle Works</span>
+      <h2>文章を書く前に、意味を4段階で整えます。</h2>
+      <p>
+        Meandleは、既存URLを起点にします。現在の説明を読み、売上に必要な判断条件を定め、実装方針へ変えます。ページへ実装した後は、対象と対象外の両方で認識差を確かめます。
+      </p>
+
+      <p style="text-align:center; font-size:14px; margin-top:24px">
+        既存ページを捨てずに、「読む・決める・実装方針にする・実装後に確かめる」の順で進めます。
+      </p>
+      <figure class="hero-figure">
+        <img
+          src="/images/home/meandle-home-meaning-flow-comic-v3.webp"
+          alt="既存URLと営業資料の確認、意味仕様の設計、実装方針への反映、対象と対象外の質問による確認を示す4段階の図"
+          width="1200" height="1200"
+          loading="lazy"
+        />
+      </figure>
+
+      <ol class="mt-4" style="font-size:15.5px; line-height:1.95">
+        <li><strong>読む</strong>：既存URL、営業資料、実際の問い合わせから、現在伝わっている意味を確認します。</li>
+        <li><strong>決める</strong>：誰に、どの場面で、何を、なぜ提供し、何は対象外かを定めます。</li>
+        <li><strong>実装方針にする</strong>：title、見出し、本文、FAQ、メタ情報について、何を残し、何を変えるかを差分案にします。</li>
+        <li><strong>実装後に確かめる</strong>：ページへの実装後、対象質問と対象外質問を分け、意図した説明との差を確認します。</li>
+      </ol>
+
+      <p style="margin-top:20px">
+        50万円〜の初回スプリントは、1〜3の意味仕様と実装方針までです。ページへの実装と実装後の初回比較は、1ページ200万円前後のMeandle get leadで行います。担当者が変わっても、同じ説明を営業、PR、採用へ展開できる仕様を残します。
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 4: Deliverables -->
   <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">3 Layers of Evidence</span>
-      <h2>3つのエビデンス（実証 → 実験 → シミュレーション）</h2>
+    <div class="container container--narrow">
+      <span class="eyebrow">What Remains</span>
+      <h2>報告書ではなく、社内で使い回せる「意味仕様」が残ります。</h2>
+      <p>
+        Meandleは、ページの書き換えだけを納品しません。なぜその表現にするのか、誰を対象外にするのか、何を根拠とするのかを、更新可能な仕様として整理します。
+      </p>
+
+      <div class="grid grid--2 mt-4">
+        <div class="card">
+          <h3>現状の意味診断</h3>
+          <p style="margin-bottom:0">現在のページが、何のサービスとして読めるか。対象、価値、根拠、比較軸の不足を整理します。</p>
+        </div>
+        <div class="card">
+          <h3>対象／対象外質問</h3>
+          <p style="margin-bottom:0">出てほしい質問だけでなく、出るべきではない質問も定めます。問い合わせの質を考える基準になります。</p>
+        </div>
+        <div class="card">
+          <h3>8項目の意味仕様</h3>
+          <p style="margin-bottom:0">役割、利用場面、比較対象、比較軸、価値、根拠、必須条件、対象外条件を一つにまとめます。</p>
+        </div>
+        <div class="card">
+          <h3>実装方針・差分案</h3>
+          <p style="margin-bottom:0">title、H1、見出し、本文、FAQ、メタ情報について、何を残し、何を変えるべきかを示します。この段階ではページ自体の実装は行いません。</p>
+        </div>
+        <div class="card">
+          <h3>基準値と検証計画</h3>
+          <p style="margin-bottom:0">実装前の確認条件と基準値を整理し、実装後に何を同じ条件で比べるかを計画します。</p>
+        </div>
+      </div>
+
+      <p style="margin-top:20px">
+        この意味仕様が、Webだけでなく、営業説明、PR、求人、提携先との共通言語になります。
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 5: Offer & Pricing -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Start Small</span>
+      <h2>最初から大規模に作り替えません。1つのURLから判断します。</h2>
+      <p>
+        最初の段階では、対象URLと一つの商材に範囲を絞ります。意味のズレと、実装に進む価値が確認できた場合だけ、次の段階をご提案します。
+      </p>
+
+      <div class="price-card mt-4">
+        <div class="price-label">1. do.meandle 意味適合スプリント</div>
+        <div class="price">¥500,000<span class="price-unit">〜</span></div>
+        <p>既存URL一つを対象に、現状診断、対象／対象外質問、8項目の意味仕様、実装方針、検証基準をまとめます。社内で説明が割れている商材や、問い合わせのズレが起きているページについて、次に何を直すべきかを判断する段階です。</p>
+        <p style="font-size:13px; color:var(--muted); margin-bottom:0">残るもの：現状の意味診断／対象・対象外質問／8項目の意味仕様／実装方針・差分案／基準値と検証計画</p>
+        <p style="margin-top:8px; font-size:13px"><a href="/do-meandle/">do.meandleの詳細を見る →</a></p>
+      </div>
+
+      <div class="price-card">
+        <div class="price-label">2. Meandle get lead</div>
+        <div class="price">¥2,000,000<span class="price-unit"> 前後 / ページ</span></div>
+        <p>スプリントで定めた意味仕様を、商談時の判断材料が伝わりやすい一つのページへ実装します。見出し、本文、比較軸、根拠、FAQ、メタ情報まで、一貫した意味に整え、実装前に定めた条件で初回比較を行います。実装範囲は、既存サイトの環境と必要な制作工程を確認して決定します。</p>
+        <p style="margin-top:8px; font-size:13px"><a href="/get-lead/">Meandle get lead の詳細を見る →</a></p>
+      </div>
+
+      <div class="price-card">
+        <div class="price-label">3. do.meandle 伴走</div>
+        <div class="price">¥1,200,000<span class="price-unit"> / 月〜</span></div>
+        <p style="margin-bottom:0">複数商材、複数ページ、PR、採用へ意味仕様を広げ、回帰検証と更新を継続します。新しい機能、事例、市場変化に合わせ、判断基準も更新します。</p>
+      </div>
 
       <div class="callout-note">
-        <strong>エビデンスの性質について：</strong>みんどる理論の効果は3層で示しています。①highprofilm.jpは実際のAI検索結果（実測）、②CLO Compassはシミュレーション実験（LLM応答実測含む）、③日立はシミュレーション実験です。いずれも同等の成果を保証するものではありません。
+        表示価格は提供価格の目安または下限です。対象商材、ページ数、事実確認、実装範囲により個別に設計します。成果を保証するものではありません。
       </div>
 
-      <div class="ev3">
-        <div class="ev3-card ev3-card--real">
-          <div class="ev3-h">🟢 実証事例（実測）</div>
-          <div class="ev3-num">5時間</div>
-          <div class="ev3-name">highprofilm.jp（スマホフィルム）</div>
-          <div class="ev3-body">みんどり最適化サイト＋プレスリリース配信後、わずか5時間でGoogle AI Overviewに「スマホフィルム 在庫リスク少ないもの教えて」の回答として登場。<em>実際のAI検索結果（Jag Yamamoto観察）</em></div>
-        </div>
-        <div class="ev3-card ev3-card--sim">
-          <div class="ev3-h">🔵 自主実験（LLM実測含む）</div>
-          <div class="ev3-num">0%</div>
-          <div class="ev3-name">CLOコンパス（物流DX）</div>
-          <div class="ev3-body">みんどり後のLLM誤認率0%（Before: 100%）。ターゲット誤認・機能誤記・対象外を明言しない──3問すべての誤認パターンが解消。<em>LLM応答実測 ＋ スコアシミュレーション</em></div>
-        </div>
-        <div class="ev3-card ev3-card--sim">
-          <div class="ev3-h">🔵 自主実験（シミュレーション）</div>
-          <div class="ev3-num">9.94倍</div>
-          <div class="ev3-name">日立 温度×時間センシングインク</div>
-          <div class="ev3-body">目標クエリのスコアが名称のみ5.0点→みんどり後49.7点（9.94倍）。非主対象クエリでは−8.0点まで降下し、誤出を構造的に排除。<em>PRリリースをもとにした仮説シミュレーション</em></div>
-        </div>
+      <div style="text-align:center; margin-top:24px">
+        <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+        <p style="font-size:13px; color:var(--muted); margin-top:10px">
+          適合確認後、必要な場合に50万円〜のスプリントをご案内します。
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- E-E-A-T metrics -->
-  <section class="section">
-    <div class="container">
-      <span class="eyebrow">技術的信頼性（E-E-A-T）</span>
-      <h2>なぜMeandleは信頼できるのか</h2>
-      <div class="metric-grid">
-        <div class="metric-card">
-          <div class="label">運営元</div>
-          <div class="value" style="font-size:15px; line-height:1.3">ジャグプロジェクト<br/>合同会社</div>
-          <div class="sub"><a href="https://www.jagproject.com/" target="_blank" rel="noopener">jagproject.com&nbsp;↗</a></div>
-        </div>
-        <div class="metric-card">
-          <div class="label">特許出願中</div>
-          <div class="value" style="font-size:16px; line-height:1.3">概念検索照合<br/>システム</div>
-          <div class="sub">整理番号 MNDR-2026-001<br/>PCT国際出願検討中</div>
-        </div>
-        <div class="metric-card">
-          <div class="label">概念検索照合精度向上<br/>（実験データ）</div>
-          <div class="value"><span class="motion-count" data-count-to="26.7" data-decimals="1" data-prefix="+" data-suffix="pt">+26.7pt</span></div>
-          <div class="sub">名称のみ63.3%→みんどり後90.0%<br/>Boschloo p=0.015</div>
-        </div>
-        <div class="metric-card">
-          <div class="label">著者・開発者</div>
-          <div class="value" style="font-size:15px; line-height:1.3">Jag Yamamoto</div>
-          <div class="sub">ジャグプロジェクト合同会社 代表<br/>意味構造化・B2B マーケの実務家</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services overview table -->
+  <!-- Section 6: Evidence -->
   <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">サービス一覧</span>
-      <h2>4つのサービス</h2>
+    <div class="container container--narrow">
+      <span class="eyebrow">Evidence by Method</span>
+      <h2>強い数字より、検証条件を開示します。</h2>
+      <p>
+        AI検索の表示や応答は、公開状態、取得時点、質問、モデルによって変わります。Meandleでは、公開環境での観察、条件付き応答テスト、シミュレーションを分け、確認できた範囲と限界を併記します。
+      </p>
 
-      <div class="table-wrap">
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th>サービス</th>
-              <th>エビデンス</th>
-              <th>こんな方に</th>
-              <th>料金目安</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong><a href="/do-meandle/">do.meandle</a></strong></td>
-              <td>研究データ：非広告流入75.1%、商談69件</td>
-              <td>既存WebをAI最適化したい</td>
-              <td>単発50万〜</td>
-            </tr>
-            <tr class="highlight">
-              <td><strong><a href="/pr/">Meandle PR</a></strong></td>
-              <td><strong>実証：5時間でAI Overview登場</strong></td>
-              <td>新商品・新技術をAIに認知させたい</td>
-              <td>1セット50万〜</td>
-            </tr>
-            <tr>
-              <td><strong><a href="/get-lead/">Meandle Get Lead</a></strong></td>
-              <td>LLM誤認0%、研究データ：商談69件達成</td>
-              <td>高品質リードをAI経由で獲得したい</td>
-              <td>200万前後</td>
-            </tr>
-            <tr>
-              <td><strong><a href="/recruit/">Meandle Recruit</a></strong></td>
-              <td>みんどる理論：概念検索照合精度向上</td>
-              <td>採用コストを下げ優秀な人材を採りたい</td>
-              <td>50万/求人項目</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="grid grid--2 mt-4">
+        <div class="card">
+          <h3>公開環境での観察記録</h3>
+          <p style="margin-bottom:0">公開ページでの表示を扱う場合は、対象URL、公開日時、確認日時、質問、地域、端末、画面記録をそろえます。観察した事実と、原因として証明できる範囲を分けます。</p>
+        </div>
+        <div class="card">
+          <h3>条件付き応答テスト</h3>
+          <p style="margin-bottom:0">同じモデル、質問、実行回数で情報条件だけを変え、応答差を記録します。これは情報を直接与えた条件内の比較であり、公開ページの検索結果や、他のモデルでの再現性を示すものではありません。</p>
+        </div>
+        <div class="card">
+          <h3>シミュレーション</h3>
+          <p style="margin-bottom:0">公開されている製品情報をもとに、名称だけの場合と、意味仕様を加えた場合の照合差を自社方式で確認しています。これは設計上の比較です。外部サービスでの表示や、顧客の売上成果を示すものではありません。</p>
+        </div>
       </div>
 
-      <p style="margin-top:20px"><a href="/oem/">→ OEM／認定代理店制度はこちら</a></p>
+      <div class="callout-note">
+        各記録は、条件内で確認した参考情報です。同等の結果を保証するものではありません。検証条件と更新履歴は、検証ノートで順次開示します。
+      </div>
 
-      <div class="callout-note" style="margin-top:24px">
-        <strong>免責：</strong>実績・実験データはすべて参考値です。highprofilm事例は実際の観察値ですが、同等の結果を保証するものではありません。CLO・日立事例はシミュレーション実験値です。
+      <p style="margin-top:14px"><a href="/blog/">検証ノートを見る →</a></p>
+    </div>
+  </section>
+
+  <!-- Section 7: Services (application areas) -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Where It Applies</span>
+      <h2>一つの意味仕様を、必要な利用場面へ広げます。</h2>
+      <p>
+        商材の意味が部署ごとに変わると、Web、営業、広報、採用で別々の説明が生まれます。直接導入の3段階で作った意味仕様は、次の利用場面にも展開できます。
+      </p>
+
+      <div class="grid grid--2 mt-4">
+        <a href="/pr/" class="service-card">
+          <h3>Meandle PR</h3>
+          <p>新商品・新技術の意味をそろえる。PR文、LP、記事化素材の意味をそろえ、発表後も説明が分断されにくい状態をつくります。<strong>1 PRセット50万円〜</strong>です。</p>
+          <span>Meandle PR を見る →</span>
+        </a>
+        <a href="/recruit/" class="service-card">
+          <h3>Meandle recruit</h3>
+          <p>求める人物像を誤解されにくくする。仕事内容、活躍場面、期待、対象外条件を求人情報へ反映します。<strong>1求人項目50万円〜</strong>です。</p>
+          <span>Meandle recruit を見る →</span>
+        </a>
+        <a href="/oem/" class="service-card">
+          <h3>Meandle OEM</h3>
+          <p>自社サービスへ組み込む。AI検索、PR、採用、マッチング等のサービス事業者向けに、意味設計を組み込む方法を個別設計します。<strong>個別見積もり</strong>です。</p>
+          <span>Meandle OEM を見る →</span>
+        </a>
+        <a href="/partner/" class="service-card">
+          <h3>Meandle認定代理店制度</h3>
+          <p>顧客へ提供する。既存顧客へMeandleを提案・提供する事業者向けの制度です。条件は個別に設計します。</p>
+          <span>認定代理店制度を見る →</span>
+        </a>
       </div>
     </div>
   </section>
 
+  <!-- Section 8: Fit & FAQ -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Fit Before Scale</span>
+      <h2>Meandleが向く会社と、別の施策を先に行う会社があります。</h2>
+
+      <div class="grid grid--2 mt-4">
+        <div>
+          <h3 style="color:var(--hero-orange)">向いている会社</h3>
+          <ul>
+            <li>一件の商談価値が高く、説明のズレによる損失が大きい</li>
+            <li>商材の対象顧客が狭い</li>
+            <li>新しいカテゴリ、専門技術、複合サービスを扱っている</li>
+            <li>競合と同じ言葉で説明され、価格以外の違いが伝わらない</li>
+            <li>対象外の問い合わせに営業工数を使っている</li>
+            <li>Web、営業、PRで説明がそろっていない</li>
+            <li>既存サイトや営業資料があり、事実確認へ協力できる</li>
+            <li>事業責任者または意思決定に関わる人が意味設計へ参加できる</li>
+            <li>90日以内に整えたい商材とURLを一つに絞れる</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="color:var(--muted)">向いていない会社</h3>
+          <ul>
+            <li>記事の本数だけを増やしたい</li>
+            <li>順位や言及数の計測だけを行いたい</li>
+            <li>短期的な結果保証を前提としている</li>
+            <li>誰を顧客にしないかを決められない</li>
+            <li>商材の事実、顧客像、営業上の課題を共有できない</li>
+            <li>低価格で不特定多数への販売を優先している</li>
+          </ul>
+        </div>
+      </div>
+
+      <p style="margin-top:20px">
+        Meandleが適さない場合は、広告、SEO、サイト制作、計測など、別の施策を先に行う方が合理的です。対象条件を確認し、適合する場合に有償スプリントの進め方をご案内します。
+      </p>
+
+      <h3 style="margin-top:32px">FAQ</h3>
+      <details class="faq-item">
+        <summary class="faq-q">MeandleはSEOやAIOの支援会社ですか。</summary>
+        <div class="faq-a">いいえ。Meandleは、誰に、何を、なぜ提供し、何ではないかを仕様化するB2B意味設計です。検索やAI応答で扱われやすい構造も考慮しますが、順位計測、記事量産、一般的なサイト制作を主な提供価値にはしていません。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">50万円〜のスプリントでは、何が分かりますか。</summary>
+        <div class="faq-a">既存URL一つについて、現在の意味のズレ、対象／対象外質問、8項目の意味仕様、実装優先順位、検証条件を整理します。大規模な実装へ進む前に、直す価値と範囲を判断できます。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">50万円〜と1ページ200万円前後の違いは何ですか。</summary>
+        <div class="faq-a">50万円〜のスプリントは、何をどう伝えるべきかを定める段階です。1ページ200万円前後の実装では、その意味仕様を、見出し、本文、比較軸、根拠、FAQ、メタ情報まで一貫したページへ反映します。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">既存のSEO会社や計測ツールと併用できますか。</summary>
+        <div class="faq-a">はい。既存施策のデータは、意味のズレを確認する材料になります。Meandleは、それらを置き換えるのではなく、観察結果を「何をどう伝えるか」という実装可能な仕様へ変えます。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">AI検索での表示や商談成果は保証されますか。</summary>
+        <div class="faq-a">いいえ。AI応答や検索環境は継続的に変わり、表示や商談成果を保証することはできません。開始時に確認条件を定め、結果と限界を分けて記録します。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">まだAI検索に表示されていなくても依頼できますか。</summary>
+        <div class="faq-a">はい。表示後の修正だけでなく、公開前の新商品、新技術、新規事業について、誤解されにくい対象、価値、根拠、対象外条件を先に設計できます。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">準備するものは何ですか。</summary>
+        <div class="faq-a">対象URL、営業資料、来てほしい顧客像、対象外としたい顧客や用途、実際の問い合わせ、価値を裏付ける事実をご用意ください。すべてがそろっていなくても、不足している情報を確認します。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">内容に機密情報が含まれます。</summary>
+        <div class="faq-a">送信前に、守秘が必要な旨をお知らせください。確認できる情報の範囲と進め方を先にご案内します。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Section 9: Final Action -->
   <section class="cta-block">
-    <h2>まずは、既存URLを1つ送ってください。</h2>
-    <p>提案や売り込みはしません。事業のページの意味を整理する壁打ちとして使ってください。</p>
-    <a href="/contact/" class="btn btn--primary">まず無料で相談する</a>
+    <div class="container container--narrow">
+      <span class="eyebrow" style="color:var(--hero-orange)">Start with One URL</span>
+      <h2>まず、既存URLを1つお送りください。</h2>
+      <p>URLと、来てほしい顧客像、現在起きている説明や問い合わせのズレを確認します。</p>
+      <p>Meandleで扱うべき課題か、別の施策を先に行うべきかを判断し、適合する場合に50万円〜の意味適合スプリントをご案内します。</p>
+
+      <div style="text-align:left; max-width:520px; margin:24px auto 0; font-size:14px; color:rgba(255,255,255,0.85)">
+        <strong>適合確認の前提</strong>
+        <ul style="margin-top:8px">
+          <li>整えたい既存URLがある</li>
+          <li>初回50万円〜の有償商品であることを理解している</li>
+          <li>事業責任者または意思決定に関わる人が参加できる</li>
+          <li>主張の根拠となる資料を提供できる</li>
+          <li>対象外の顧客や用途も定義する意思がある</li>
+          <li>検索順位やAI回答の保証、記事の量産を求めていない</li>
+        </ul>
+      </div>
+
+      <a href="/contact/" class="btn btn--primary" style="margin-top:24px">既存URLで導入適合性を確認する</a>
+      <p style="color:rgba(255,255,255,0.75); font-size:13px; margin-top:12px">
+        do.meandle 意味適合スプリント：50万円〜<br/>
+        対象URL、商材、事実確認、実装範囲により個別に設計します。
+      </p>
+      <p style="color:rgba(255,255,255,0.65); font-size:12px; margin-top:20px">
+        Meandleは、Jag Yamamoto / Jag Projectが開発・監修するB2B意味設計ソリューションです。<br/>
+        運営元：<a href="https://jagproject.com/" target="_blank" rel="noopener" style="color:var(--hero-orange)">jagproject.com ↗</a>
+      </p>
+    </div>
   </section>
 </BaseLayout>
 
+<style is:inline>
+  .hero-figure {
+    margin: 20px auto;
+    max-width: 720px;
+    background: var(--card);
+    border: 1px solid rgba(18,36,44,0.12);
+    border-radius: var(--radius);
+    padding: 12px;
+    box-shadow: var(--shadow);
+  }
+  .hero-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  .faq-item {
+    border-bottom: 1px solid rgba(18,36,44,0.12);
+    padding: 16px 0;
+  }
+  .faq-item[open] .faq-q { color: var(--hero-orange); }
+</style>

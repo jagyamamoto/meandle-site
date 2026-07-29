@@ -1,20 +1,237 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const FORM_ENDPOINT = '#';
+/**
+ * Form endpoint — resolved from PUBLIC_FORM_ENDPOINT env var at build time.
+ * Kept as '#' until Jag provides the live endpoint (SSGform / Formspree /
+ * Cloudflare Worker etc.). Publishing gate: do not release with '#'.
+ */
+const FORM_ENDPOINT = (import.meta.env.PUBLIC_FORM_ENDPOINT ?? '#').trim();
+
+const title = '既存URLの導入適合性を確認する｜Meandle';
+const description = 'Meandleの導入適合性を、既存URLから確認します。対象・価値・根拠・対象外条件を整理する初回の意味適合スプリントは、1商材・1URLで50万円〜です。';
+const ogTitle = '既存URLから、意味適合スプリントの導入適合性を確認する｜Meandle';
+const ogDescription = 'お問い合わせ段階で詳細診断を行うページではありません。対象URL、商材、対象顧客、対象外条件を確認し、適合する場合に50万円〜のスプリントをご案内します。';
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    '@id': 'https://meandle.jp/contact/#webpage',
+    url: 'https://meandle.jp/contact/',
+    name: title,
+    description: description,
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    about: { '@id': 'https://meandle.jp/do-meandle/#service' },
+    inLanguage: 'ja',
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://meandle.jp/' },
+        { '@type': 'ListItem', position: 2, name: '導入適合性の確認', item: 'https://meandle.jp/contact/' },
+      ],
+    },
+  },
+];
 ---
 <BaseLayout
-  title="お問い合わせ｜Meandle"
-  description="まずは、既存URLを1つ送ってください。提案や売り込みはしません。事業のページの意味を整理する壁打ちとして使ってください。"
+  title={title}
+  description={description}
+  canonical="/contact/"
+  ogTitle={ogTitle}
+  ogDescription={ogDescription}
+  ogImage="/images/contact/meandle-contact-fit-hero-v1.webp"
+  structuredData={structuredData}
 >
+  <!-- Section 1: Hero -->
+  <section class="hero hero--split">
+    <div class="hero__bg-grid" aria-hidden="true"></div>
+    <div class="hero__bg-noise" aria-hidden="true"></div>
+    <div class="container">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　導入適合性の確認</nav>
+      <span class="eyebrow hero__eyebrow">Meaning Fit Check</span>
+      <h1 class="hero-copy">そのページは、正しい相手に、<br/>正しい理由で伝わっていますか。</h1>
+
+      <p class="lead" style="margin-top:20px">
+        高単価で説明が複雑なB2B商材は、情報を増やすだけでは伝わりません。誰の、どの場面に必要か。何と比べられ、何ではないのか。既存URLを起点に、その境界を確認します。
+      </p>
+      <p>
+        このフォームは、お問い合わせ段階で詳細診断を行うためのものではありません。Meandleで扱うべき課題かを確認し、適合する場合に初回有償スプリントをご案内するための入口です。
+      </p>
+
+      <p style="margin-top:16px"><strong>初回は、1商材・1URLの意味適合スプリント 50万円〜です。</strong></p>
+
+      <div class="hero__cta-group">
+        <a href="#fit-form" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+      </div>
+      <p style="font-size:13px; color:var(--muted); margin-top:12px">
+        対象URL、来てほしい顧客、対象外にしたい顧客や用途をお知らせください。順位、AI応答、商談成果を保証する支援や、記事の量産は行いません。
+      </p>
+
+      <figure class="hero-figure">
+        <img
+          src="/images/contact/meandle-contact-fit-hero-v1.webp"
+          alt="既存のWebページと顧客条件を見ながら、導入対象を慎重に確認する二人のビジネス担当者"
+          width="1536" height="1024"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <figcaption>対象、価値、根拠、対象外条件がそろうかを、既存URLから確認します。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Section 2: Scope -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Paid First Step</span>
+      <h2>最初の50万円〜で、直す前に「何を直すか」を決めます。</h2>
+      <p>意味適合スプリントは、ページをすぐに作り替える商品ではありません。対象URLを一つに絞り、現在の説明と、実際に来てほしい相手とのズレを確認します。</p>
+      <p>その上で、誰に、何として、なぜ提供し、何は対象外かを意味仕様にまとめます。実装へ進むかどうかは、その仕様と優先順位を確認してから決めます。</p>
+
+      <div class="grid grid--2 mt-4">
+        <div class="card">
+          <h3>現状の意味診断</h3>
+          <p style="margin-bottom:0">現在のページが、何のサービスとして読まれ得るかを確認します。対象、価値、根拠、比較軸の不足を整理します。</p>
+        </div>
+        <div class="card">
+          <h3>対象／対象外の質問</h3>
+          <p style="margin-bottom:0">出てほしい質問だけでなく、出るべきではない質問も定めます。問い合わせと営業説明の基準になります。</p>
+        </div>
+        <div class="card">
+          <h3>8項目の意味仕様</h3>
+          <p style="margin-bottom:0">役割、利用場面、比較対象、比較軸、価値、根拠、必須条件、対象外条件を一つにまとめます。</p>
+        </div>
+        <div class="card">
+          <h3>実装方針と検証条件</h3>
+          <p style="margin-bottom:0">次に直す箇所の優先順位と、変更後に何を比較するかを整理します。ページ実装そのものは含みません。</p>
+        </div>
+      </div>
+
+      <div class="callout-note">
+        <strong>明確に含まれないこと：</strong>詳細なページ実装、記事の量産、広告運用、順位やAI応答の保証は、意味適合スプリントの範囲に含まれません。
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Fit -->
   <section class="section">
     <div class="container container--narrow">
-      <nav class="breadcrumb"><a href="/">ホーム</a>　/　お問い合わせ</nav>
-      <span class="eyebrow">Contact</span>
-      <h1>まずは、既存URLを1つ送ってください。</h1>
-      <p class="lead">提案や売り込みはしません。<br/>事業のページの意味を整理する壁打ちとして使ってください。</p>
+      <span class="eyebrow">Fit Before Work</span>
+      <h2>URLがあっても、すべての課題をMeandleで扱うわけではありません。</h2>
+      <p>意味設計は、対象顧客と対象外条件を事業側で確認できることを前提とします。次の条件がそろうかを、送信前にご確認ください。</p>
 
-      <form class="form" style="margin-top:32px" action={FORM_ENDPOINT} method="POST">
+      <div class="grid grid--2 mt-4">
+        <div>
+          <h3 style="color:var(--hero-orange)">向いているケース</h3>
+          <ul>
+            <li>一件の商談価値が高く、説明のズレによる損失が大きい</li>
+            <li>新しいカテゴリ、専門技術、複合サービスを扱っている</li>
+            <li>競合と同じ言葉で説明され、価格以外の違いが伝わりにくい</li>
+            <li>対象外の問い合わせに営業工数を使っている</li>
+            <li>既存サイトと営業資料があり、事実確認に協力できる</li>
+            <li>90日以内に整えたい商材とURLを一つに絞れる</li>
+            <li>事業責任者または意思決定に関わる人が確認に参加できる</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="color:var(--muted)">向いていないケース</h3>
+          <ul>
+            <li>月額の順位計測だけを求めている</li>
+            <li>記事の本数だけを増やしたい</li>
+            <li>短期的な結果保証を前提としている</li>
+            <li>誰を対象外にするかを決められない</li>
+            <li>商材の事実、顧客像、営業上の課題を共有できない</li>
+            <li>50万円〜の有償スプリントから始める予算がない</li>
+          </ul>
+        </div>
+      </div>
+
+      <p style="margin-top:20px">適合しない場合は、広告、計測、SEO、サイト制作など、別の施策を先に行う方が合理的です。送信内容からMeandleの対象条件を確認し、適合する場合に有償スプリントの進め方をご案内します。</p>
+    </div>
+  </section>
+
+  <!-- Section 4: Method (4-panel) -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">From URL to Decision</span>
+      <h2>送信前提を確認し、有償スプリントの対象かを判断します。</h2>
+      <p>このフォームでは、詳細な意味診断やページの改善案は作りません。対象URLと基本条件を確認し、50万円〜の意味適合スプリントで扱うべき案件かを判断します。</p>
+
+      <figure class="hero-figure">
+        <img
+          src="/images/contact/meandle-contact-fit-flow-comic-v2.webp"
+          alt="既存URLと基本情報を送り、有償スプリントの対象条件を確認し、Go・Holdの適合回答を受け取る4段階の図"
+          width="1536" height="1024"
+          loading="lazy"
+        />
+      </figure>
+
+      <ol class="mt-4" style="font-size:15.5px; line-height:1.95">
+        <li><strong>URLと基本情報を送る</strong>：既存URL、商材、来てほしい相手、現在のズレをお知らせください。</li>
+        <li><strong>前提条件を確認する</strong>：対象外条件、根拠資料、意思決定への関与、時期と予算を確認します。</li>
+        <li><strong>スプリントへの適合性を見る</strong>：有償スプリントの対象か、追加情報が必要か、別の施策が先かを確認します。</li>
+        <li><strong>適合回答を受け取る</strong>：適合する場合に有償スプリントの進め方を案内し、適合しない場合はHoldとして回答します。</li>
+      </ol>
+
+      <p style="margin-top:16px">この送信だけで、意味仕様、実装方針、改善案を作成するものではありません。それらは、適合後の有償スプリントで作成します。</p>
+    </div>
+  </section>
+
+  <!-- Section 5: Commercial path -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Three Commercial Steps</span>
+      <h2>まず設計し、必要な場合だけ実装と継続検証へ進みます。</h2>
+      <p>すべての案件を実装や継続へ進める前提にはしません。スプリントで意味と実装範囲を確認し、次の段階が必要な場合だけ個別に設計します。</p>
+
+      <div class="price-card mt-4">
+        <div class="price-label">1. 意味適合スプリント</div>
+        <div class="price">¥500,000<span class="price-unit">〜 / 1商材・1URL</span></div>
+        <p style="margin-bottom:0">現状の意味診断、対象／対象外質問、8項目の意味仕様、実装方針、検証条件を整理します。</p>
+      </div>
+      <div class="price-card">
+        <div class="price-label">2. 1ページの意味実装</div>
+        <div class="price">¥2,000,000<span class="price-unit"> 前後 / ページ</span></div>
+        <p style="margin-bottom:0">スプリントで定めた意味仕様を、見出し、本文、比較軸、根拠、FAQ、メタ情報まで一貫したページへ反映します。初回の比較条件も整えます。</p>
+      </div>
+      <div class="price-card">
+        <div class="price-label">3. 回帰検証と更新</div>
+        <div class="price">¥1,200,000<span class="price-unit"> / 月〜</span></div>
+        <p style="margin-bottom:0">複数ページや複数商材に広げ、公開情報、市場、商材の変化による意味のズレを確認し、更新します。</p>
+      </div>
+
+      <div class="callout-note">
+        表示価格は提供価格の下限または目安です。対象商材、ページ数、事実確認、実装範囲により個別に設計します。外部環境での表示や商談成果を保証するものではありません。
+      </div>
+
+      <p style="margin-top:12px"><a href="/do-meandle/">do.meandleの進め方を見る →</a></p>
+    </div>
+  </section>
+
+  <!-- Section 6: Form -->
+  <section class="section section--alt" id="fit-form">
+    <div class="container container--narrow">
+      <span class="eyebrow">Submit One Existing URL</span>
+      <h2>導入適合性を確認するために、既存URLをお送りください。</h2>
+      <p>送信内容からMeandleの対象条件を確認します。詳細な意味診断や実装方針の提示は、適合後の有償スプリントで行います。</p>
+
+      <div class="callout-note" id="form-notice">
+        <strong>初回商品：</strong>意味適合スプリント 50万円〜。この送信だけで詳細診断や実装を開始することはありません。
+      </div>
+
+      {FORM_ENDPOINT === '#' && (
+        <div class="callout-note" style="background:rgba(226,75,74,0.10); border-left-color:#E24B4A; color:#A32D2D">
+          <strong>[Jag確認事項]</strong> このフォームの送信先エンドポイント <code>PUBLIC_FORM_ENDPOINT</code> が未設定のため、実送信は行われません。公開前に環境変数を設定してください。
+        </div>
+      )}
+
+      <form class="form" style="margin-top:24px" action={FORM_ENDPOINT} method="POST" aria-describedby="form-notice">
+        <!-- Honeypot (visually hidden, screen-reader-hidden) -->
+        <div style="position:absolute; left:-9999px; opacity:0" aria-hidden="true">
+          <label>この欄は空欄のままにしてください<input type="text" name="honeypot" tabindex="-1" autocomplete="off"/></label>
+        </div>
+
         <div class="form-field">
           <label for="company">会社名 <span class="req">必須</span></label>
           <input id="company" name="会社名" type="text" required autocomplete="organization"/>
@@ -28,47 +245,164 @@ const FORM_ENDPOINT = '#';
           <input id="email" name="メールアドレス" type="email" required autocomplete="email"/>
         </div>
         <div class="form-field">
-          <label for="url">対象URL <span class="opt">（任意・URLがない場合でも相談できます）</span></label>
-          <input id="url" name="対象URL" type="url" placeholder="https://..."/>
-        </div>
-        <div class="form-field">
-          <label for="type">相談区分 <span class="req">必須</span></label>
-          <select id="type" name="相談区分" required>
+          <label for="role">役割 <span class="req">必須</span></label>
+          <select id="role" name="役割" required>
             <option value="">選択してください</option>
-            <option value="既存ページ改善">既存ページ改善（do.meandle）</option>
-            <option value="PR">PR（Meandle PR）</option>
-            <option value="リード獲得">リード獲得（Meandle get lead）</option>
-            <option value="採用">採用（Meandle recruit）</option>
-            <option value="OEM">OEM（技術提供）</option>
-            <option value="代理店">代理店（認定パートナー）</option>
+            <option value="経営者">経営者</option>
+            <option value="事業責任者">事業責任者</option>
+            <option value="マーケティング・営業責任者">マーケティング・営業責任者</option>
+            <option value="広報・ブランド責任者">広報・ブランド責任者</option>
+            <option value="その他">その他</option>
           </select>
         </div>
         <div class="form-field">
-          <label>現在使っている施策 <span class="opt">（任意・複数選択可）</span></label>
-          <div class="checkbox-row">
-            <label><input type="checkbox" name="施策" value="広告"/> 広告</label>
-            <label><input type="checkbox" name="施策" value="資料請求サービス"/> 資料請求サービス</label>
-            <label><input type="checkbox" name="施策" value="展示会"/> 展示会</label>
-            <label><input type="checkbox" name="施策" value="求人媒体"/> 求人媒体</label>
-            <label><input type="checkbox" name="施策" value="人材紹介"/> 人材紹介</label>
-            <label><input type="checkbox" name="施策" value="PR配信"/> PR配信</label>
-            <label><input type="checkbox" name="施策" value="その他"/> その他</label>
-          </div>
+          <label for="url">対象URL <span class="req">必須</span></label>
+          <input id="url" name="対象URL" type="url" required placeholder="https://... （公開前ページの場合は補足欄にその旨を記入）"/>
         </div>
         <div class="form-field">
-          <label for="budget">月額費用または年間費用 <span class="opt">（任意）</span></label>
-          <input id="budget" name="費用" type="text" placeholder="例：月300万円 / 年4,000万円"/>
+          <label for="contract">対象商材の平均契約額 <span class="req">必須</span></label>
+          <select id="contract" name="対象商材の平均契約額" required>
+            <option value="">選択してください</option>
+            <option value="100万円未満">100万円未満</option>
+            <option value="100万〜500万円未満">100万〜500万円未満</option>
+            <option value="500万〜1,000万円未満">500万〜1,000万円未満</option>
+            <option value="1,000万円以上">1,000万円以上</option>
+            <option value="個別見積もり中心">個別見積もり中心</option>
+          </select>
         </div>
         <div class="form-field">
-          <label for="msg">自由記述 <span class="opt">（任意）</span></label>
-          <textarea id="msg" name="自由記述" rows="6" placeholder="現在の状況や、感じている課題などを率直にお書きください。"></textarea>
+          <label for="target">本来来てほしい顧客 <span class="req">必須</span></label>
+          <textarea id="target" name="本来来てほしい顧客" rows="3" required placeholder="業種・役職・導入場面・困りごとを記入"></textarea>
         </div>
-        <input type="hidden" name="送信元" value="meandle.jp/contact/"/>
-        <button type="submit" class="btn btn--primary">送信する</button>
+        <div class="form-field">
+          <label for="nontarget">対象外にしたい顧客または用途 <span class="req">必須</span></label>
+          <textarea id="nontarget" name="対象外にしたい顧客または用途" rows="3" required placeholder="ない場合も「現時点では未定」と記入"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="gap">今起きている説明や問い合わせのズレ <span class="req">必須</span></label>
+          <textarea id="gap" name="ズレ" rows="3" required placeholder="誤解される用途、比較、問い合わせ、営業説明の例"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="timing">希望時期 <span class="req">必須</span></label>
+          <select id="timing" name="希望時期" required>
+            <option value="">選択してください</option>
+            <option value="30日以内">30日以内</option>
+            <option value="31〜90日">31〜90日</option>
+            <option value="91日以降">91日以降</option>
+            <option value="未定">未定</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="stage">検討できる段階 <span class="req">必須</span></label>
+          <select id="stage" name="検討できる段階" required>
+            <option value="">選択してください</option>
+            <option value="意味適合スプリント 50万円〜">意味適合スプリント 50万円〜</option>
+            <option value="実装も含めて検討">実装も含めて検討</option>
+            <option value="継続検証も含めて検討">継続検証も含めて検討</option>
+            <option value="まず適合性を確認したい">まず適合性を確認したい</option>
+            <option value="OEM">OEM（自社サービスへの組込み）</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="owner">事実確認を担う責任者 <span class="req">必須</span></label>
+          <input id="owner" name="事実確認責任者" type="text" required placeholder="氏名または部署・役割"/>
+        </div>
+        <div class="form-field">
+          <label for="notes">補足資料または補足事項 <span class="opt">（任意）</span></label>
+          <textarea id="notes" name="補足" rows="3" placeholder="営業資料のURL、既存施策、守秘の要望など"></textarea>
+        </div>
+        <div class="form-field">
+          <label style="display:flex; gap:8px; align-items:flex-start; font-weight:400">
+            <input type="checkbox" name="適合確認同意" required style="margin-top:6px; width:auto"/>
+            <span>この送信は詳細診断を依頼するものではなく、50万円〜の有償スプリントの導入適合性を確認するものと理解しました。 <span class="req">必須</span></span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn--primary" style="margin-top:20px; width:100%">既存URLで導入適合性を確認する</button>
       </form>
 
-      <hr style="margin:48px 0 24px; border:0; border-top:1px solid rgba(18,36,44,0.1)"/>
-      <p class="muted" style="font-size:13px; color:var(--muted); margin-bottom:0">いただいたご相談内容は、ご返信およびサービス案内の目的のみに使用し、第三者への提供は行いません。</p>
+      <p style="font-size:13px; color:var(--muted); margin-top:14px">
+        いただいた内容は、導入適合性の確認とご連絡のために使用します。機密情報を送る前に、守秘が必要な旨を補足欄へお知らせください。
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 7: FAQ -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Before You Submit</span>
+      <h2>よくある確認事項</h2>
+      <details class="faq-item">
+        <summary class="faq-q">このフォームで、詳細診断を受けられますか。</summary>
+        <div class="faq-a">いいえ。フォームでは、Meandleで扱うべき課題かを確認します。現在の意味のズレ、対象／対象外質問、意味仕様、実装方針を整理するのは、1商材・1URLで50万円〜の意味適合スプリントです。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">50万円〜のスプリントでは、どこまで進みますか。</summary>
+        <div class="faq-a">現状の意味診断、対象／対象外質問、8項目の意味仕様、実装方針、検証条件を整理します。ページ本文や構造への実装は、次段階の1ページ200万円前後の範囲です。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">すでにSEO会社、制作会社、AI検索の計測ツールを使っています。</summary>
+        <div class="faq-a">それらを置き換える前提ではありません。既存の観察結果や制作体制を、誰に何をどう伝えるかという実装可能な意味仕様へつなげます。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">AI検索での表示や商談成果は保証されますか。</summary>
+        <div class="faq-a">いいえ。AI応答や検索環境は変化するため、外部環境での表示や商談成果は保証できません。開始時に確認条件を定め、確認できたことと限界を分けて記録します。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">URLが公開前でも送れますか。</summary>
+        <div class="faq-a">はい。公開前の新商品や新規事業でも、対象、価値、根拠、対象外条件を先に整理できます。フォームの補足欄に公開前であることをお書きください。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">送信後、すぐに日程を予約できますか。</summary>
+        <div class="faq-a">送信後に日程予約は自動で開放しません。内容を確認し、適合する場合にだけ次の確認方法をご案内します。</div>
+      </details>
+
+      <p style="margin-top:16px"><a href="/how-it-works/">検証方法を見る →</a>　<a href="/blog/">検証ノートを見る →</a></p>
+    </div>
+  </section>
+
+  <!-- Section 8: Final -->
+  <section class="cta-block">
+    <div class="container container--narrow">
+      <span class="eyebrow" style="color:var(--hero-orange)">Start with Fit</span>
+      <h2>まず、対象URLと「来てほしい相手」を一つに絞ってください。</h2>
+      <p>Meandleは、広告費を増やす前に、AIと見込み客が拾える「売る意味」を整えるB2B意味設計です。対象、価値、根拠、対象外条件を確認し、実装へ進む価値があるかを判断します。</p>
+
+      <div style="text-align:left; max-width:520px; margin:20px auto 0; font-size:14px; color:rgba(255,255,255,0.85)">
+        <strong>送信前の確認</strong>
+        <ul style="margin-top:8px">
+          <li>整えたい既存URLまたは公開前ページがある</li>
+          <li>初回は50万円〜の有償スプリントであることを理解している</li>
+          <li>事業責任者または意思決定に関わる人が確認に参加できる</li>
+          <li>主張の根拠となる資料を提供できる</li>
+          <li>対象外の顧客や用途も定義する意思がある</li>
+          <li>順位、AI応答、商談成果の保証や、記事の量産を求めていない</li>
+        </ul>
+      </div>
+
+      <a href="#fit-form" class="btn btn--primary" style="margin-top:24px">既存URLで導入適合性を確認する</a>
+
+      <p style="color:rgba(255,255,255,0.65); font-size:12px; margin-top:20px">
+        Meandleは、Jag Yamamoto / Jag Projectが開発・監修するB2B意味設計ソリューションです。<br/>
+        運営元：<a href="https://jagproject.com/" target="_blank" rel="noopener" style="color:var(--hero-orange)">jagproject.com ↗</a>
+      </p>
     </div>
   </section>
 </BaseLayout>
+
+<style is:inline>
+  .hero-figure {
+    margin: 20px auto;
+    max-width: 720px;
+    background: var(--card);
+    border: 1px solid rgba(18,36,44,0.12);
+    border-radius: var(--radius);
+    padding: 12px;
+    box-shadow: var(--shadow);
+  }
+  .hero-figure img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  .hero-figure figcaption { font-size: 12.5px; color: var(--muted); margin-top: 10px; text-align: center; }
+  .faq-item { border-bottom: 1px solid rgba(18,36,44,0.12); padding: 16px 0; }
+  .faq-item[open] .faq-q { color: var(--hero-orange); }
+  .form textarea { min-height: 80px; resize: vertical; }
+</style>
