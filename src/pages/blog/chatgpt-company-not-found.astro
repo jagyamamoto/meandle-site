@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'ChatGPTで自社名・商材が出ないときの確認項目｜Meandle';
+const description = 'ChatGPT等で自社名・商材が出ない、説明が合わないと感じたときの確認順。公開・アクセス条件、事実の整合、意味仕様、外部環境を分けて整理します。';
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://meandle.jp/blog/chatgpt-company-not-found/#webpage',
+    url: 'https://meandle.jp/blog/chatgpt-company-not-found/',
+    name: title,
+    description: description,
+    inLanguage: 'ja-JP',
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    about: { '@id': 'https://meandle.jp/do-meandle/#service' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': 'https://meandle.jp/blog/chatgpt-company-not-found/#article',
+    mainEntityOfPage: { '@id': 'https://meandle.jp/blog/chatgpt-company-not-found/#webpage' },
+    headline: 'ChatGPTで自社名・商材が出ないとき、最初に分ける4つの確認',
+    description: description,
+    image: 'https://meandle.jp/images/blog/chatgpt-company-not-found/hero-v1.webp',
+    author: { '@type': 'Person', name: 'Jag Yamamoto', url: 'https://jagproject.com/' },
+    publisher: { '@id': 'https://meandle.jp/#organization' },
+    inLanguage: 'ja-JP',
+    // datePublished / dateModified are intentionally omitted until Jag confirms the actual publish date.
+  },
+];
+---
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="/blog/chatgpt-company-not-found/"
+  ogTitle={title}
+  ogDescription='「出ない」を一つの原因にせず、技術的な可視性と意味設計を分けて確認するための記事です。'
+  ogImage="/images/blog/chatgpt-company-not-found/hero-v1.webp"
+  ogType="article"
+  structuredData={structuredData}
+>
+  <article class="section">
+    <div class="article container container--narrow">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　<a href="/blog/">Blog</a>　/　ChatGPTで自社名・商材が出ないとき</nav>
+
+      <h1>ChatGPTで自社名・商材が出ないとき、<br/>最初に分ける4つの確認</h1>
+
+      <p class="lead" style="margin-top:16px">
+        ChatGPTなどで自社名や商材を尋ねたとき、出てこない。あるいは、出ても事業の説明が合わない。高単価B2Bでは、その違和感を放置しにくい場面があります。
+      </p>
+      <p>
+        ただし、「出ない」は一つの原因を示す言葉ではありません。公開・アクセスの条件、公式情報の整合、伝える意味の設計、外部環境の変動が重なって見える現象です。
+      </p>
+      <p>
+        まずは技術的に読み取れる状態かを切り分ける。そのうえで、誰に何をどう説明すべきかを整える。この順番を混ぜないことが、不要な施策を増やさないための出発点になります。
+      </p>
+
+      <div class="callout-note">
+        <strong>この記事で扱うこと：</strong>技術条件を確認する順番と、Meandleが担う「意味設計」の境界を整理します。AIの応答、引用、掲載、順位、商談の発生を保証する記事ではありません。
+      </div>
+
+      <figure class="hero-figure">
+        <img src="/images/blog/chatgpt-company-not-found/hero-v1.webp" alt="公開条件、事実の整合、意味仕様、外部環境という四つの確認領域を表す抽象イラスト" width="1536" height="1024" loading="eager" fetchpriority="high" />
+      </figure>
+
+      <h2>まず、技術的に読み取れる状態かを切り分ける</h2>
+      <p>Googleは、検索に掲載されるための最低限の技術条件として、Googlebotがブロックされていないこと、ページがHTTP 200で正常に動くこと、インデックス可能な内容があることを挙げています。ただし、条件を満たしてもクロール・インデックス・表示は保証されません。 <a href="https://developers.google.com/search/docs/essentials/technical?hl=ja" target="_blank" rel="noopener noreferrer">Google Search の技術要件</a></p>
+      <p>GoogleのAI機能についても、追加の特別な最適化や専用マークアップが必要だとは案内されていません。通常の検索にインデックスされ、スニペット表示の対象となることが技術上の前提であり、それでも掲載は保証されません。 <a href="https://developers.google.com/search/docs/appearance/ai-features?hl=ja" target="_blank" rel="noopener noreferrer">Google のAI機能とウェブサイト</a></p>
+      <p>ChatGPT Searchについては、OpenAIが、OAI-SearchBotのクロール許可と、ホスト／CDNが公開IPからの通信を許可することを案内しています。一方で、掲載順位を保証する方法はないとも明記しています。 <a href="https://help.openai.com/en/articles/9237897-chatgpt-search" target="_blank" rel="noopener noreferrer">ChatGPT Search（OpenAI）</a></p>
+      <p>したがって、最初に確認するのは「何を増やせば出るか」ではなく、次のような<strong>読める前提</strong>です。</p>
+      <ul>
+        <li>対象URLはログイン・パスワード・IP制限なしで公開されているか</li>
+        <li>HTTP 200で表示され、重要な説明がテキストとして存在するか</li>
+        <li><code>noindex</code>、robots.txt、CDN/WAF、ボット対策が意図せずアクセスを妨げていないか</li>
+        <li>GoogleとChatGPTでは、確認すべきクローラーや仕組みが同一ではないことを理解しているか</li>
+      </ul>
+      <p>robots.txtは主にクローラーのアクセスを管理するための仕組みであり、Googleの検索結果からページを完全に隠す用途そのものではありません。設定の目的と実際の挙動は、実装担当者と確認してください。 <a href="https://developers.google.com/search/docs/crawling-indexing/robots/intro?hl=ja" target="_blank" rel="noopener noreferrer">robots.txt の概要（Google）</a></p>
+      <p>ここで問題が見つかった場合、先に対応すべきは技術設定です。Meandleの意味設計は、この前提の代わりにはなりません。</p>
+
+      <h2>「出ない」の原因を、一つに断定しない</h2>
+      <p>技術条件に大きな問題が見当たらなくても、回答や紹介のされ方は固定されません。事業側では、次の4領域を分けて見ます。</p>
+
+      <h3>1. 公開・アクセス・索引の条件</h3>
+      <p>公開状態、HTTP応答、クロール許可、<code>noindex</code>、CDN/WAF、レンダリング、重要情報のテキスト化などです。ここはまず技術・運用の領域です。対象の検索・AI機能ごとに状況は異なり、条件を満たしたこと自体が表示を約束するものではありません。</p>
+
+      <h3>2. 事実・エンティティ・説明の整合</h3>
+      <p>会社名、商材名、提供主体、対象顧客、提供範囲、料金の扱い、根拠となる一次情報が、公式サイト内で矛盾なく説明されているかを見ます。これは「AI向けの言い換え」を足す話ではなく、事実が散らばったり食い違ったりしていないかを確かめる話です。</p>
+      <p>たとえば、会社紹介とサービスページで対象顧客が違う、同じ商材に別の呼び名が多い、導入範囲と対象外が書かれていない、といった状態では、読む人にも説明する側にも判断余地が残ります。</p>
+
+      <h3>3. 対象・価値・根拠・対象外の意味仕様</h3>
+      <p>事実が並んでいても、誰のどんな判断を助ける商材か、何を変えるのか、どの事実を根拠にするのか、何を請け負わないのかが一貫しなければ、説明はぼやけます。</p>
+      <p>Meandleが扱うのはこの領域です。広告費を増やす前に、AIと見込み客が拾える「売る意味」を整える。検索やAIの出力を操作するのではなく、既存の事業情報を、対象・価値・根拠・対象外まで含めて判断できる形に設計します。</p>
+
+      <h3>4. 外部環境の変動</h3>
+      <p>利用者の質問、モデルや検索の仕組み、外部情報源、地域・時点・文脈などは変わります。ChatGPT Searchは、質問を別の検索語に書き換えたり、複数の検索提供者を利用したりする場合があるとOpenAIは説明しています。 <a href="https://help.openai.com/en/articles/9237897-chatgpt-search" target="_blank" rel="noopener noreferrer">ChatGPT Search（OpenAI）</a></p>
+      <p>この領域は、サイト側が完全に制御できるものではありません。だからこそ、単発の応答を「成功」や「失敗」の証明にせず、技術条件と公式説明を分けて記録します。</p>
+
+      <figure class="hero-figure">
+        <img src="/images/blog/chatgpt-company-not-found/four-panel-v1.webp" alt="公開条件、事実の整合、意味仕様、外部環境の変動を順に確認する四コマの抽象イラスト" width="1536" height="1024" loading="lazy" />
+        <figcaption>1. 公開条件を確認する　2. 公式情報の整合を見る　3. 意味仕様を整える　4. 変動する外部環境と混同しない。</figcaption>
+      </figure>
+
+      <h2>確認は、上から順に進める</h2>
+
+      <h3>ステップ1：公開条件を技術担当と確認する</h3>
+      <p>ページが公開され、正常に返り、必要なクローラーを意図せず妨げていないかを確認します。対象がGoogleなのか、ChatGPT Searchなのか、他のサービスなのかで確認点は変わります。アクセス制御やクローラー設定を変更する際は、公開方針・セキュリティ方針と合わせて決めてください。</p>
+
+      <h3>ステップ2：公式の事実を一か所に集める</h3>
+      <p>会社名・商材名・提供主体・対象顧客・提供範囲・根拠・対象外を、現行の公式ページから拾い出します。この段階では文章を飾りません。食い違い、古い表現、説明の抜けを見つけるための材料をそろえます。</p>
+
+      <h3>ステップ3：何を、誰に、どこまで伝えるかを決める</h3>
+      <p>事業の強みを並べる前に、見込み客が判断に必要とする意味を決めます。Meandleでは、少なくとも次の8項目を一枚の意味仕様として整えます。</p>
+      <ol>
+        <li>対象顧客</li>
+        <li>判断の起点となる状況</li>
+        <li>提供する価値</li>
+        <li>提供範囲</li>
+        <li>根拠となる事実</li>
+        <li>適合しない対象</li>
+        <li>比較時に誤解されやすい点</li>
+        <li>表現・実装時の守る境界</li>
+      </ol>
+      <p>これは、AIへの特別な操作をするためのものではありません。営業、サイト、資料、紹介文で同じ事業判断を保つための設計図です。</p>
+
+      <h3>ステップ4：技術対応の後にも説明の問題が残るときだけ、設計を依頼する</h3>
+      <p>技術面のブロックを外せば終わる案件と、事業の説明自体を整える案件は違います。後者であれば、既存URLをもとに、意味適合スプリントの導入適合性を確認します。</p>
+      <p>導入適合性の確認では、診断レポートや優先順位案は作成しません。現在の事業フェーズ、対象URL、意思決定者、扱いたい商材の単価と複雑さを確認し、Meandleが責任を持てる範囲かを判断する入口です。</p>
+
+      <h2>Meandleが担うこと、担わないこと</h2>
+      <h3>担うこと：既存の事業情報を、売る意味として設計する</h3>
+      <p>意味適合スプリント（50万円〜）では、既存URLと事業情報を読み、対象／非対象、8項目の意味仕様、実装方針・差分案、基準値と検証の設計をまとめます。実装そのものは含みません。</p>
+      <p>この仕事の目的は、AIの一回の答えを変えることではなく、見込み客と社内が判断できる説明の土台を整えることです。</p>
+
+      <h3>担わないこと：技術的な到達・外部の出力・事業成果の保証</h3>
+      <p>Meandleは、クローラーのアクセス許可、ホスティング、CDN/WAF、インデックス、検索順位、AIの回答・引用、流入、商談、売上を保証しません。技術的な設定変更が必要な場合は、担当の開発・インフラ・SEO運用者と連携して進める前提です。</p>
+      <p>そのうえで、公式情報が対象顧客の判断に足りているか、提供価値と根拠が一貫しているか、対象外まで明示できているかを設計します。進め方は<a href="/how-it-works/">Meandleの進め方</a>をご覧ください。</p>
+      <p>自社が出ない問題と、出た説明の事実・適合条件が合わない問題は分けて扱います。後者は<a href="/blog/ai-misinformation-misrecommendation/">会社が見つからない課題と、誤認・誤推薦の違い</a>で整理しています。</p>
+
+      <h2>よくある質問</h2>
+      <details class="faq-item">
+        <summary class="faq-q">ChatGPTで自社名が出ないのは、技術的な問題ですか？</summary>
+        <div class="faq-a">そうとは限りません。公開・アクセス条件、公式情報の整合、質問の仕方、外部環境など複数の可能性があります。まず技術条件を確認し、その後に事実と意味の設計を分けて見ます。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">OAI-SearchBotを許可すれば、ChatGPTに必ず出ますか？</summary>
+        <div class="faq-a">いいえ。OpenAIは、クロール許可とホスト／CDNでの通信許可を案内していますが、掲載順位を保証する方法はないと説明しています。設定変更は公開・セキュリティ方針を確認のうえ、担当者が実施してください。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">GoogleとChatGPTの確認は同じですか？</summary>
+        <div class="faq-a">同じではありません。GoogleではGooglebotとインデックス可能性、ChatGPT SearchではOAI-SearchBotとホスト／CDNでの通信許可など、公式に案内される確認点が異なります。どちらも条件を満たしても表示は保証されません。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">自社で先にできることは何ですか？</summary>
+        <div class="faq-a">技術担当と公開・アクセス条件を確認し、公式ページにある会社名、商材名、対象顧客、提供範囲、根拠、対象外の事実を集めてください。個別の設定変更はサイトの公開・セキュリティ方針に関わるため、担当者と進めることをおすすめします。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">問い合わせ時に、診断や優先順位を出してもらえますか？</summary>
+        <div class="faq-a">行いません。お問い合わせでは、Meandleが責任を持てる対象かを確認します。詳細な読み解き、意味仕様、実装方針・差分案は、意味適合スプリント（50万円〜）で扱います。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Googleに出ていないなら、意味設計より先に何をするべきですか？</summary>
+        <div class="faq-a">まず公開・アクセス・インデックス可能性を技術担当と確認してください。Googleは、ページが公開され、Googlebotにブロックされず、HTTP 200で、インデックス可能な内容を持つことを技術上の最低条件として挙げています。それでも掲載は保証されません。</div>
+      </details>
+
+      <div class="callout-note">
+        技術条件を確認したあとも、「誰に、何を、どこまで提供する事業か」の説明に迷いが残るなら、既存URLをもとに導入適合性を確認します。
+      </div>
+
+      <div style="text-align:center; margin-top:24px">
+        <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+        <p style="font-size:13px; color:var(--muted); margin-top:12px">
+          初回は、1商材・1URLの意味適合スプリント 50万円〜です。<br/>
+          お問い合わせ段階では詳細な診断や優先順位提案を行わず、表示、引用、順位、AI応答、商談成果を保証しません。
+        </p>
+      </div>
+
+      <h2 style="margin-top:40px">公式情報・参照日</h2>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th scope="col">ID</th><th scope="col">支える主張</th><th scope="col">一次情報</th><th scope="col">取得日</th></tr></thead>
+          <tbody>
+            <tr><td>SRC-01</td><td>Googleのインデックス技術条件、満たしても保証されないこと</td><td><a href="https://developers.google.com/search/docs/essentials/technical?hl=en" target="_blank" rel="noopener noreferrer">Google Search technical requirements</a></td><td>2026-07-29</td></tr>
+            <tr><td>SRC-02</td><td>Google AI機能に追加の特別最適化は不要、通常検索の技術条件が前提、掲載は保証されないこと</td><td><a href="https://developers.google.com/search/docs/appearance/ai-features" target="_blank" rel="noopener noreferrer">AI features and your website</a></td><td>2026-07-29</td></tr>
+            <tr><td>SRC-03</td><td>robots.txtの役割と、検索結果から隠す仕組みとは異なること</td><td><a href="https://developers.google.com/search/docs/crawling-indexing/robots/intro" target="_blank" rel="noopener noreferrer">Introduction to robots.txt</a></td><td>2026-07-29</td></tr>
+            <tr><td>SRC-04</td><td>ChatGPT SearchでのOAI-SearchBot、ホスト/CDN、順位保証なし、検索語書き換え等</td><td><a href="https://help.openai.com/en/articles/9237897-chatgpt-search" target="_blank" rel="noopener noreferrer">ChatGPT Search</a></td><td>2026-07-29</td></tr>
+            <tr><td>SRC-05</td><td>公開サイト、OAI-SearchBot、noindexを読むにはクロール許可が必要なこと</td><td><a href="https://help.openai.com/en/articles/12627856" target="_blank" rel="noopener noreferrer">Publishers and Developers - FAQ</a></td><td>2026-07-29</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:inline>
+  .hero-figure { margin: 20px auto; max-width: 720px; background: var(--card); border: 1px solid rgba(18,36,44,0.12); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); }
+  .hero-figure img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  .hero-figure figcaption { font-size: 12.5px; color: var(--muted); margin-top: 10px; text-align: center; }
+  .faq-item { border-bottom: 1px solid rgba(18,36,44,0.12); padding: 16px 0; }
+  .faq-item[open] .faq-q { color: var(--hero-orange); }
+</style>

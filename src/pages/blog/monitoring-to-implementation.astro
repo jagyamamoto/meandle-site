@@ -1,0 +1,212 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'AIO・GEOの観測をページ実装へつなぐ方法｜Meandle';
+const description = 'AIO・GEOの観測結果を、対象・対象外・価値・根拠の意味仕様、実装差分、1ページ実装、初回比較記録へつなぐ方法。Meandle get leadは1ページ200万円前後です。';
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://meandle.jp/blog/monitoring-to-implementation/#webpage',
+    url: 'https://meandle.jp/blog/monitoring-to-implementation/',
+    name: title,
+    description: description,
+    inLanguage: 'ja-JP',
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    about: { '@id': 'https://meandle.jp/get-lead/#service' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': 'https://meandle.jp/blog/monitoring-to-implementation/#article',
+    mainEntityOfPage: { '@id': 'https://meandle.jp/blog/monitoring-to-implementation/#webpage' },
+    headline: '観測した後、ページの何をどう直すか。',
+    description: description,
+    image: 'https://meandle.jp/images/blog/monitoring-to-implementation/hero-v1.webp',
+    author: { '@type': 'Person', name: 'Jag Yamamoto', url: 'https://jagproject.com/' },
+    publisher: { '@id': 'https://meandle.jp/#organization' },
+    inLanguage: 'ja-JP',
+  },
+];
+---
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="/blog/monitoring-to-implementation/"
+  ogTitle='観測した後、ページの何をどう直すか。｜Meandle'
+  ogDescription='観測事実をコピーへ直結させず、意味仕様と実装差分を経て1ページへ反映する責任の鎖を説明します。'
+  ogImage="/images/blog/monitoring-to-implementation/hero-v1.webp"
+  ogType="article"
+  structuredData={structuredData}
+>
+  <article class="section">
+    <div class="article container container--narrow">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　<a href="/blog/">Blog</a>　/　観測をページ実装へつなぐ</nav>
+      <span class="eyebrow">From Monitoring to Implementation</span>
+
+      <h1>観測した後、<br/>ページの何をどう直すか。</h1>
+
+      <p class="lead" style="margin-top:16px">AIO／GEOの観測、検索データ、診断、コンサルティングで「見えていること」は増えても、既存ページの何を変え、何を残すかで止まることがあります。高単価B2Bでは、観測の数値をそのままコピーへ置き換えるだけでは、判断材料になりません。</p>
+      <p>Meandle get leadは、観測事実を、対象、対象外、価値、根拠の意味仕様に置き直し、実装差分を定めて、優先1ページへ反映する1ページ実装です。</p>
+      <p style="color:var(--muted); font-size:14px">これは観測ツールを置き換えるサービスではありません。観測で見つかった論点を、事業とページの実装判断へつなぐ役割です。AIの応答、引用、検索順位、リード、売上を保証するものではありません。</p>
+
+      <p style="margin-top:16px"><strong>1ページ実装＋実装後初回比較｜200万円前後</strong></p>
+      <div style="margin-top:12px"><a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a></div>
+      <p style="font-size:13px; color:var(--muted); margin-top:12px">原則として、対象・対象外・価値・根拠を定めた意味仕様を前提にします。意味仕様がない場合は、先に1商材・1URLの意味適合スプリント 50万円〜で実装の前提を確認します。</p>
+
+      <figure class="hero-figure">
+        <img src="/images/blog/monitoring-to-implementation/hero-v1.webp" alt="観測メモと根拠カードから、対象・価値・根拠・対象外条件の意味仕様をつくり、既存ページの実装差分を確認する二人のビジネス担当者" width="1536" height="1024" loading="eager" fetchpriority="high" />
+        <figcaption>観測は入力です。実装は、対象・価値・根拠・対象外条件を定めた後に進めます。</figcaption>
+      </figure>
+
+      <h2>観測結果、意味仕様、ページ実装は、同じ仕事ではありません。</h2>
+      <p>観測は「どのURLや質問が参照されているか」「どの説明が不足しているように見えるか」を知る材料になります。しかし、数字や引用の有無だけで、誰を対象にするか、何を比較から外すか、どの根拠を前に出すかは決まりません。</p>
+      <p>MicrosoftのBing Webmaster Toolsは、AI回答内の引用活動を確認するAI Performanceを公開プレビューとして提供しています。同時に、引用数は順位、権威性、表示位置を示すものではないと明記しています。観測は重要ですが、事業の実装判断そのものではありません。 <a href="https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview" target="_blank" rel="noopener noreferrer">Microsoft Bing Blogs</a></p>
+
+      <div class="table-wrap mt-3">
+        <table class="compare-table">
+          <thead><tr><th scope="col">役割</th><th scope="col">主に答える問い</th><th scope="col">残るもの</th><th scope="col">単独では決められないこと</th></tr></thead>
+          <tbody>
+            <tr><td>観測ツール・計測</td><td>何が見えているか、どのURL・質問が参照されているか</td><td>参照データ、傾向、観測記録</td><td>誰に売るか、何を対象外にするか</td></tr>
+            <tr><td>診断・コンサルティング</td><td>どこに論点があるか、何を検討すべきか</td><td>論点、仮説、優先候補</td><td>1ページの確定した実装差分と検収条件</td></tr>
+            <tr class="highlight"><td><strong>Meandleの意味仕様と実装</strong></td><td><strong>何を、誰へ、どの根拠で、何ではないものとして伝えるか</strong></td><td><strong>意味仕様、実装差分、1ページ実装、初回比較記録</strong></td><td><strong>AI応答・引用・順位・リード・売上の保証</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px">計測会社を替える必要はありません。Meandleは、観測事実を受け取り、商材の事実と対象条件を確認して、既存ページの実装責任へつなげます。</p>
+
+      <h2>観測事実から初回比較記録まで、途中の判断を飛ばしません。</h2>
+      <p>「引用されていないからFAQを足す」「流入があるから対象を広げる」といった短絡は、低単価の比較や根拠のない説明を増やすことがあります。Meandleでは、実装前に次の責任の鎖を通します。</p>
+
+      <h3>1. 観測事実を受け取る</h3>
+      <p>観測ツール、検索コンソール、既存の診断、営業・問い合わせの記録から、日時、対象URL、質問、参照元、見えている事実を確認します。ここでは、観測を効果の証明や正解のコピーとして扱いません。</p>
+
+      <h3>2. 意味仕様にする</h3>
+      <p>対象、対象外、価値、根拠を中心に、役割、利用場面、比較対象、比較軸、必須条件までを確認します。観測で見えた論点が、事業にとって直すべき説明なのかをここで決めます。</p>
+
+      <h3>3. 実装差分にする</h3>
+      <p>H1、導入、価値の説明、比較軸、根拠、対象外条件、FAQ、メタ情報のどこを変え、どこを残すかを明示します。既存制作会社が実装する場合も、同じ差分と検収条件を共有します。</p>
+
+      <h3>4. 優先1ページへ実装する</h3>
+      <p>合意した範囲で、情報設計、本文、根拠、FAQ、メタ情報を一つの意味で反映します。複数ページの同時改修、広告運用、記事量産は、1ページ実装の範囲に含みません。</p>
+
+      <h3>5. 事前合意した初回比較を記録する</h3>
+      <p>実装前に定めた対象／対象外の確認条件、日時、観察内容、限界を残します。これは成果の保証ではなく、次に更新するかを判断するための初回記録です。</p>
+
+      <p style="margin-top:12px; color:var(--muted); font-size:13px">この責任の鎖は、Meandleの設計方針です（E0）。公開環境の結果や事業成果を一般化したものではありません。</p>
+
+      <h2>実装前に必要なのは、成果の予測ではなく、説明項目の差分です。</h2>
+      <p>以下は、説明項目の差分サンプルです。<strong>匿名テンプレート</strong>であり、実在の顧客、実在のページ、実在の成果Before／Afterではありません。AI回答、引用、順位、リード、売上の変化を示すものでもありません。</p>
+
+      <div class="table-wrap mt-3">
+        <table class="compare-table">
+          <thead><tr><th scope="col">説明項目</th><th scope="col">実装前に確認する状態</th><th scope="col">意味仕様で決めること</th><th scope="col">実装差分の例</th></tr></thead>
+          <tbody>
+            <tr><td>Hero</td><td>誰に向けた商材かが広すぎる、または曖昧</td><td>優先する対象顧客と利用場面</td><td>H1・導入文に対象と状況を明示する</td></tr>
+            <tr><td>価値</td><td>機能はあるが、どの判断を支えるかが分からない</td><td>価値と比較軸</td><td>価値の説明を比較判断の近くへ置く</td></tr>
+            <tr><td>根拠</td><td>主張の根拠、条件、更新状態が離れている</td><td>価値を裏付ける事実と確認者</td><td>根拠、条件、更新情報を主張の近くへ配置する</td></tr>
+            <tr><td>対象外</td><td>適合しない用途や前提が末尾まで出ない</td><td>提供しない用途、先に必要な施策</td><td>FAQと問い合わせ導線に対象外条件を反映する</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>事実を受け取り、意味を定め、差分にして、1ページへ反映します。</h2>
+      <p>観測から実装までを、一つの担当者の勘に依存させません。何を受け取り、何を事業側で確認し、どの差分を実装し、何を初回記録として残すかを明確にします。</p>
+
+      <figure class="hero-figure">
+        <img src="/images/blog/monitoring-to-implementation/comic-v1.webp" alt="観測メモと根拠カードを受け取り、対象・価値・根拠・対象外条件の意味仕様を組み、1ページの説明項目の差分を定め、初回比較記録と引き継ぎを確認する4段階の図" width="1536" height="1024" loading="lazy" />
+      </figure>
+
+      <ol class="mt-3" style="font-size:15.5px; line-height:1.95">
+        <li><strong>観測事実を受け取る</strong>：対象URL、質問、日時、参照データなど、確認できる事実を受け取ります。</li>
+        <li><strong>意味仕様にする</strong>：対象、対象外、価値、根拠を定め、何を直すべき説明かを事業側と確認します。</li>
+        <li><strong>実装差分にする</strong>：H1、本文、比較、根拠、FAQ、メタ情報のどこを変え、どこを残すかを明示します。</li>
+        <li><strong>実装・初回比較を記録する</strong>：優先1ページへ反映し、事前合意した条件で初回比較記録と引き継ぎを残します。</li>
+      </ol>
+      <p style="margin-top:12px">実装後の初回比較は、結果を飾るためのものではありません。対象ページ、条件、日時、観察内容、限界を残し、次の更新判断を可能にする記録です。</p>
+
+      <h2>計測会社と既存制作会社の間に、実装の判断基準を置きます。</h2>
+      <p>計測会社は観測の精度を、既存制作会社はデザインシステム、CMS、公開運用を担えます。Meandleはそれぞれを置き換えず、商材の意味仕様をページ要件、差分、検収条件へ変える役割です。</p>
+
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th scope="col">担当</th><th scope="col">主な役割</th><th scope="col">Meandleとの接続</th></tr></thead>
+          <tbody>
+            <tr><td>観測・計測会社</td><td>参照データ、クロール・表示状況、観測方法の提供</td><td>見えている事実と観測条件を受け取る</td></tr>
+            <tr><td>Meandle</td><td>意味仕様、実装差分、1ページの情報設計・本文・確認条件</td><td>観測を実装の判断に変え、検収条件をそろえる</td></tr>
+            <tr><td>既存制作会社・開発チーム</td><td>デザインシステム、CMS、フロントエンド、公開運用</td><td>合意した差分と検収条件を実装する</td></tr>
+            <tr><td>事業側</td><td>商材、顧客、根拠、対象外条件の事実確認と承認</td><td>何を正しい説明とするかを決定する</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px">役割を分けることで、計測が制作指示の代わりになったり、制作が根拠確認を飛ばしたりすることを避けます。</p>
+
+      <h2>200万円前後で、意味仕様を優先1ページの実装と初回比較へつなげます。</h2>
+      <p>Meandle get leadは、意味仕様を情報設計、本文、比較軸、根拠、FAQ、メタ情報へ反映し、実装後に初回比較記録を残す1ページ実装です。原則として、事前に意味仕様と実装方針が定まった商材を対象にします。</p>
+
+      <div class="price-card mt-3">
+        <div class="price-label">Meandle get lead</div>
+        <div class="price">¥2,000,000<span class="price-unit"> 前後 / ページ</span></div>
+        <p><strong>含まれること：</strong></p>
+        <ul style="margin-bottom:8px">
+          <li>1ページの情報設計、見出し、本文、比較軸、根拠、対象外条件、FAQ、メタ情報の意味整合</li>
+          <li>実装担当と共有できる実装差分、変更理由、検収条件</li>
+          <li>事前合意した対象／対象外の確認条件による初回比較記録と引き継ぎ</li>
+        </ul>
+        <p><strong>含まれないこと：</strong></p>
+        <ul style="margin-bottom:0; font-size:13px; color:var(--muted)">
+          <li>意味仕様なしの見た目だけのリニューアル</li>
+          <li>複数ページの同時改修、ブランド刷新、広告運用、記事量産、順位計測だけの代行</li>
+          <li>AI応答、引用、検索順位、リード、売上の保証</li>
+        </ul>
+      </div>
+      <p style="margin-top:12px">意味仕様がまだない、または対象・根拠・対象外条件が事業側で確定していない場合は、先に<code>do.meandle 意味適合スプリント</code>（1商材・1URL、50万円〜）で実装の前提を確認します。</p>
+      <p style="margin-top:8px"><a href="/get-lead/">Meandle get leadの実装範囲を見る →</a></p>
+
+      <h2>FAQ</h2>
+      <details class="faq-item">
+        <summary class="faq-q">観測レポートだけで、実装内容を決められますか？</summary>
+        <div class="faq-a">決めません。観測レポートは、何が見えているかを確認する重要な入力です。ただし、対象顧客、対象外条件、価値、根拠、実装環境は事業側の確認が必要です。Meandleは、観測事実を意味仕様と実装差分へ変える役割を担います。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">すでにSEO会社やAIO／GEOツールを使っています。併用できますか？</summary>
+        <div class="faq-a">はい。Meandleは計測や技術SEOを置き換えるものではありません。観測条件や既存の技術要件を受け取り、ページで誰に何をどの根拠で伝え、誰を対象外とするかを、実装条件へ変えます。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">実在案件のBefore／Afterや成果は見られますか？</summary>
+        <div class="faq-a">本記事の差分表は匿名テンプレートであり、実在案件の成果ではありません。実在案件の例を公開する場合は、匿名化、変更範囲、実施日時、観察条件、根拠の確認、因果を断定しない注記がそろったものだけを扱います。現時点で公開できる実在成果物があるとは約束しません。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">初回比較では何をしますか？</summary>
+        <div class="faq-a">実装前に合意した対象／対象外の確認条件、対象URL、日時、観察内容、限界を記録します。確認する情報源、回数、画面記録、納品形式は、対象ページと実装環境に合わせて契約前に定めます。AI応答、引用、順位、リード、売上を保証する比較ではありません。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">意味仕様がありません。1ページ実装を依頼できますか？</summary>
+        <div class="faq-a">原則として、まず意味仕様が必要です。既存の仕様がある場合は、対象・価値・根拠・対象外条件が実装前提として使えるかを確認します。ない場合は、1商材・1URL、50万円〜の意味適合スプリントから始めます。問い合わせ段階では、詳細な優先順位案を作成しません。</div>
+      </details>
+    </div>
+  </article>
+
+  <section class="cta-block">
+    <div class="container container--narrow">
+      <span class="eyebrow" style="color:var(--hero-orange)">Move One Page Forward</span>
+      <h2>観測結果を、優先1ページの実装判断へ進める。</h2>
+      <p>すでにある観測レポート、診断、技術要件、既存URL、商材、来てほしい顧客、対象外にしたい顧客や用途をもとに、1ページ実装の前提がそろうかを確認します。適合する場合に、Meandle get leadの進め方をご案内します。</p>
+
+      <a href="/contact/" class="btn btn--primary" style="margin-top:20px">既存URLで導入適合性を確認する</a>
+      <p style="color:rgba(255,255,255,0.65); font-size:12px; margin-top:20px">
+        Meandleは、Jag Yamamoto / Jag Projectが開発・監修するB2B意味設計ソリューションです。<br/>
+        運営元：<a href="https://jagproject.com/" target="_blank" rel="noopener" style="color:var(--hero-orange)">jagproject.com ↗</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:inline>
+  .hero-figure { margin: 20px auto; max-width: 720px; background: var(--card); border: 1px solid rgba(18,36,44,0.12); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); }
+  .hero-figure img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  .hero-figure figcaption { font-size: 12.5px; color: var(--muted); margin-top: 10px; text-align: center; }
+  .faq-item { border-bottom: 1px solid rgba(18,36,44,0.12); padding: 16px 0; }
+  .faq-item[open] .faq-q { color: var(--hero-orange); }
+</style>

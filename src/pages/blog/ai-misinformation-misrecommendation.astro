@@ -1,0 +1,218 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'AIに誤って説明・推薦される不安をどう扱うか｜Meandle';
+const description = 'AIによる事実誤りと、対象外の相手への誤推薦は別の問題です。Meandleは、高単価B2Bの対象・価値・根拠・対象外条件を意味仕様にし、既存ページの実装方針を整理します。初回は50万円〜です。';
+const ogTitle = '誤認と誤推薦を、同じ問題として扱わない。｜Meandle';
+const ogDescription = 'AI回答を制御するのではなく、事実・対象条件・対象外条件を既存ページで矛盾なく伝えるための考え方を整理します。';
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://meandle.jp/blog/ai-misinformation-misrecommendation/#webpage',
+    url: 'https://meandle.jp/blog/ai-misinformation-misrecommendation/',
+    name: title,
+    description: description,
+    inLanguage: 'ja-JP',
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    about: { '@id': 'https://meandle.jp/do-meandle/#service' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': 'https://meandle.jp/blog/ai-misinformation-misrecommendation/#article',
+    mainEntityOfPage: { '@id': 'https://meandle.jp/blog/ai-misinformation-misrecommendation/#webpage' },
+    headline: '誤認と誤推薦を、同じ問題として扱わない。',
+    description: description,
+    image: 'https://meandle.jp/images/blog/ai-misinformation-misrecommendation/hero-v1.webp',
+    author: { '@type': 'Person', name: 'Jag Yamamoto', url: 'https://jagproject.com/' },
+    publisher: { '@id': 'https://meandle.jp/#organization' },
+    inLanguage: 'ja-JP',
+  },
+];
+---
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="/blog/ai-misinformation-misrecommendation/"
+  ogTitle={ogTitle}
+  ogDescription={ogDescription}
+  ogImage="/images/blog/ai-misinformation-misrecommendation/hero-v1.webp"
+  ogType="article"
+  structuredData={structuredData}
+>
+  <article class="section">
+    <div class="article container container--narrow">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　<a href="/blog/">Blog</a>　/　誤認と誤推薦を分ける</nav>
+      <span class="eyebrow">AI Misinformation & Misrecommendation</span>
+
+      <h1>誤認と誤推薦を、<br/>同じ問題として扱わない。</h1>
+
+      <p class="lead" style="margin-top:16px">AIの回答で、自社が事実と違って説明される。あるいは、適合しない相手にも向いているように扱われる。高単価B2Bでは、この二つは似て見えて、直すべき条件が異なります。</p>
+      <p>Meandleは、外部のAI回答を制御するサービスではありません。既存URLを起点に、対象、価値、根拠、対象外条件を意味仕様として定め、公開ページのどこをどう整えるかを決める方法です。</p>
+      <p style="color:var(--muted); font-size:14px">重要な事実は、AIの出力だけで決めず、一次資料や事業側の確認に戻る必要があります。本ページでは、公開資料とMeandleの設計方針を分けて説明します。情報取得日：2026年7月29日。</p>
+
+      <div style="margin-top:20px"><a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a></div>
+      <p style="font-size:13px; color:var(--muted); margin-top:12px">初回は、1商材・1URLの意味適合スプリント 50万円〜です。AIの応答、引用、検索順位、商談成果を保証するものではありません。</p>
+
+      <figure class="hero-figure">
+        <img src="/images/blog/ai-misinformation-misrecommendation/hero-v1.webp" alt="既存ページに対して、根拠を確認する情報経路と対象外条件を定める情報経路を分けて整理する二人のビジネス担当者" width="1536" height="1024" loading="eager" fetchpriority="high" />
+        <figcaption>事実の確認と、誰に向くかの条件は、別々に確かめてから一つのページへ反映します。<br/><small>盾・チェックの意匠は「事業側の証拠確認」を示すもので、外部AIの訂正保証ではありません。</small></figcaption>
+      </figure>
+
+      <h2>AIの出力を、重要な事実の最終根拠にはしない。</h2>
+      <p>OpenAIは、言語モデルが誤った、または誤解を招く出力を生成し得ること、確信を持ったように見えても正しいとは限らないことを説明しています。重要な情報は信頼できる情報源で確認するよう案内しています。 <a href="https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth" target="_blank" rel="noopener noreferrer">OpenAI Help：Does ChatGPT tell the truth?</a></p>
+      <p>これは「AIの利用をやめるべき」という意味ではありません。B2Bの事業責任者に必要なのは、どの事実を一次資料に戻して確認するか、どの顧客条件を公開ページで明示するかを分けることです。</p>
+      <p>Googleは、生成AI機能を含む検索で、独自性があり利用者に役立つ情報と既存SEOの基礎が重要だと説明しています。Microsoftも、AI回答での引用数は、順位、権威性、表示位置を示すものではないと明示しています。見える回数や引用だけで、説明の正しさや適合性を判断することはできません。 <a href="https://developers.google.com/search/blog/2026/05/a-new-resource-for-optimizing" target="_blank" rel="noopener noreferrer">Google Search Central Blog</a> / <a href="https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview" target="_blank" rel="noopener noreferrer">Microsoft Bing Blogs</a></p>
+
+      <div class="callout-note">
+        このページは、特定のAIが誤った説明や推薦をした事実を主張するものではありません。Meandleが扱うのは、公開される自社情報を、事実と対象条件に沿って整える設計範囲です。<br/>
+        自社名・商材が出ない場合に、公開・アクセス条件から確認する順番は、<a href="/blog/chatgpt-company-not-found/">ChatGPTで自社名・商材が出ないときの確認項目</a>で説明しています。
+      </div>
+
+      <h2>誤認は「事実」の問題。誤推薦は「適合条件」の問題です。</h2>
+      <p>次は理解のための<strong>仮想例</strong>です。実在企業、実在のAI回答、公開観察の記録ではありません。</p>
+
+      <h3>誤認：事実が違う、または条件が欠ける</h3>
+      <p>たとえば、ある法人向けサービスについて、提供していない機能、古い料金、別商品の実績が説明に混ざる状態です。優先するのは、一次資料、更新日、提供範囲、根拠の確認です。</p>
+
+      <h3>誤推薦：事実の一部は合っていても、相手・用途が合わない</h3>
+      <p>たとえば、高額な専門支援が、予算や意思決定条件の合わない小規模な用途にも一般的な選択肢として扱われる状態です。優先するのは、理想顧客、利用場面、比較軸、対象外条件の明示です。</p>
+
+      <div class="table-wrap mt-3">
+        <table class="compare-table">
+          <thead><tr><th scope="col">分ける観点</th><th scope="col">誤認</th><th scope="col">誤推薦</th></tr></thead>
+          <tbody>
+            <tr><td>主な問い</td><td>その説明は事実か</td><td>その相手・用途に適合するか</td></tr>
+            <tr><td>最初に確認するもの</td><td>根拠資料、公開日、提供範囲、一次情報</td><td>対象顧客、利用場面、必須条件、対象外条件</td></tr>
+            <tr><td>ページへ反映する場所</td><td>事実説明、根拠、更新日、FAQ</td><td>H1、対象条件、比較、FAQ、問い合わせ導線</td></tr>
+            <tr><td>Meandleの扱い</td><td>事実確認の前提を設計し、根拠の置き場所を決める</td><td>対象と対象外を意味仕様にし、比較の境界を明示する</td></tr>
+            <tr><td>約束しないこと</td><td>外部AIの回答を修正・削除すること</td><td>AIや検索サービスでの推薦を制御すること</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px">この区別は、Meandleの設計方針です（E0）。外部のAI出力や市場効果を測定した一般法則ではありません。</p>
+
+      <h2>高単価B2Bでは、「誰に向かないか」も正確な説明の一部です。</h2>
+      <p>高単価の商材は、同じカテゴリ名でも、導入規模、決裁者、社内の前提、使う場面によって適合が変わります。対象だけを書けば、似ているが適合しない相手まで比較に入ります。</p>
+      <p>そのためMeandleでは、価値を強く見せる前に、必要な条件と対象外の用途を言語化します。対象外条件は断るための文章ではなく、事業に合う相手が判断するための情報です。</p>
+
+      <h3>意味仕様に含める8項目</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th scope="col">項目</th><th scope="col">確認すること</th></tr></thead>
+          <tbody>
+            <tr><td>役割</td><td>その商材は顧客にとって何を担うか</td></tr>
+            <tr><td>利用場面</td><td>どの状況で必要になるか</td></tr>
+            <tr><td>比較対象</td><td>何と比べられやすいか</td></tr>
+            <tr><td>比較軸</td><td>何を基準に検討すべきか</td></tr>
+            <tr><td>価値</td><td>どの判断を支えるか</td></tr>
+            <tr><td>根拠</td><td>何が価値を裏付けるか</td></tr>
+            <tr><td>必須条件</td><td>適合に必要な顧客・用途・前提は何か</td></tr>
+            <tr><td>対象外条件</td><td>何ではないか。誰・どの用途を扱わないか</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px">8項目を既存URLから読み、実装方針にする手順は、<a href="/how-it-works/">意味設計の進め方</a>で説明しています。</p>
+
+      <h2>心配なAI回答を追い続ける前に、事業側で確かめられる条件を定めます。</h2>
+      <p>画面上の一つの回答を正解・不正解と急いで判定しません。どの情報が根拠か、どの相手には適合するか、既存ページはそれを伝えられているかを順に確認します。</p>
+
+      <figure class="hero-figure">
+        <img src="/images/blog/ai-misinformation-misrecommendation/comic-v1.webp" alt="既存ページの根拠不足と条件の曖昧さを確認し、根拠と対象外条件を分け、意味仕様をつくり、実装前後のページを確認する4段階の図" width="1536" height="1024" loading="lazy" />
+      </figure>
+
+      <ol class="mt-3" style="font-size:15.5px; line-height:1.95">
+        <li><strong>気になる説明を分ける</strong>：既存URLと事実資料を見て、事実の不足か、対象条件の不足かを分けます。</li>
+        <li><strong>根拠と適合条件を確かめる</strong>：提供範囲、更新日、根拠資料と、理想顧客、利用場面、対象外条件を別々に確認します。</li>
+        <li><strong>意味仕様にする</strong>：対象、価値、根拠、対象外条件を含む8項目の意味仕様にまとめます。</li>
+        <li><strong>既存ページの実装方針にする</strong>：見出し、本文、比較、根拠、FAQの変更箇所と、実装後に何を観察し何を断定しないかを定めます。</li>
+      </ol>
+      <p style="margin-top:12px">この流れで残るのは、外部AIの回答を直すための要求ではありません。自社の説明について、何を確認し、どこへ反映し、何を保証しないかの判断基準です。</p>
+
+      <h2>最初の50万円〜で、実装判断に必要な前提をつくります。</h2>
+      <p><code>do.meandle 意味適合スプリント</code>は、AIの出力を見てその場で答えを出す商品ではありません。1商材・1URLに絞り、公開ページ、事実資料、対象条件を確認し、次に何を実装するかの基準を整理します。</p>
+
+      <div class="price-card mt-3">
+        <div class="price-label">意味適合スプリント</div>
+        <div class="price">¥500,000<span class="price-unit">〜 / 1商材・1URL</span></div>
+        <p><strong>残るもの：</strong>現状の意味診断、対象／対象外質問、8項目の意味仕様、実装方針、確認条件。</p>
+        <p style="font-size:13px; color:var(--muted); margin-bottom:0"><strong>含まれないもの：</strong>外部AI回答の修正・削除依頼、AI応答の操作、順位計測だけ、記事の量産、広告運用、問い合わせ段階での詳細診断や実装優先順位提案、結果保証。</p>
+      </div>
+
+      <h3 style="margin-top:20px">必要な場合だけ、次の段階へ</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th scope="col">段階</th><th scope="col">価格</th><th scope="col">行うこと</th></tr></thead>
+          <tbody>
+            <tr><td>1ページの意味実装</td><td>1ページ 200万円前後</td><td>意味仕様を、情報設計、原稿、FAQ、メタ情報、実装差分へ反映する</td></tr>
+            <tr><td>回帰検証と更新</td><td>月120万円〜</td><td>商材・公開情報・対象条件の変化を確認し、説明のズレを更新する</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px">初回スプリントの対象条件と成果物は、<a href="/do-meandle/">do.meandle</a>で確認できます。</p>
+
+      <h2>観察したこと、設計として決めること、成果として言えることを混ぜません。</h2>
+      <p>Meandleでは、主張を証拠の強さで分けます。本記事で公開しているMeandle固有の説明はE0の設計方針です。実在企業のAI回答、引用、商談、売上に関する観察・成果は記載していません。</p>
+
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th scope="col">レベル</th><th scope="col">公開ラベル</th><th scope="col">このレベルで言えること</th><th scope="col">本記事での扱い</th></tr></thead>
+          <tbody>
+            <tr><td>E0</td><td>考え方／設計方針</td><td>Meandleがどのように対象・根拠・対象外を設計するか</td><td>本文の方法・8項目</td></tr>
+            <tr><td>E1</td><td>シミュレーション</td><td>条件内の自社スコア差</td><td>使用しない</td></tr>
+            <tr><td>E2</td><td>条件付き応答テスト</td><td>指定したモデル・質問・反復条件での応答差</td><td>使用しない</td></tr>
+            <tr><td>E3</td><td>公開環境での観察記録</td><td>日時・質問・URLを限定した表示や引用の観察</td><td>使用しない</td></tr>
+            <tr><td>E4</td><td>顧客確認済み事例</td><td>確認範囲の事業成果</td><td>使用しない</td></tr>
+            <tr><td>E5</td><td>再現検証</td><td>複数条件での再現性</td><td>使用しない</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px">将来、E2〜E5を公開する場合は、対象モデル、実施日、質問・反復条件、原資料、確認範囲を併記し、同等の結果を保証するものではないと明記します。</p>
+
+      <h2>先に分けておくべき質問</h2>
+      <details class="faq-item">
+        <summary class="faq-q">外部のAI回答を修正・削除できますか？</summary>
+        <div class="faq-a">できません。Meandleは外部サービスの回答、引用、推薦を制御するサービスではありません。自社が公開する情報について、根拠、更新状態、対象条件、対象外条件を確認し、既存ページの実装方針にすることを扱います。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">AIが自社を誤って説明したか、調べてもらえますか？</summary>
+        <div class="faq-a">お問い合わせ段階で個別のAI回答を調査・判定するサービスではありません。導入適合性確認では、既存URL、商材、来てほしい顧客、対象外にしたい顧客や用途をもとに、50万円〜の有償スプリントで扱うべき課題かを確認します。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">監視ツールやSEO会社があれば、Meandleは不要ですか？</summary>
+        <div class="faq-a">役割が異なります。監視やSEOは、公開情報が取得・参照される状態や変化を確認するために重要です。Meandleは、そこで見つかった曖昧さを、誰に何として、どの根拠で伝え、誰を対象外とするかの意味仕様へ変えます。既存の専門家と役割を分けて進めます。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">公開していないページでも確認できますか？</summary>
+        <div class="faq-a">公開前のページでも、意味適合スプリントの設計対象にはできます。ただし、アクセス制御、<code>robots.txt</code>、検索サービスの取得可否によって、公開環境での観察範囲は変わります。OpenAIも、技術上の理由、ペイウォール、<code>robots.txt</code>の設定により、必要な情報へアクセスできない場合があると説明しています。 <a href="https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth" target="_blank" rel="noopener noreferrer">OpenAI Help</a></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">AIの回答、引用、検索順位、問い合わせは保証されますか？</summary>
+        <div class="faq-a">保証しません。OpenAIは上位表示を保証しないことを明記し、Microsoftは引用数が順位や表示位置を示すものではないと説明しています。Meandleが約束するのは、確認できる事実に基づいて、対象・価値・根拠・対象外条件を実装可能な形に整理することです。</div>
+      </details>
+    </div>
+  </article>
+
+  <section class="cta-block">
+    <div class="container container--narrow">
+      <span class="eyebrow" style="color:var(--hero-orange)">Start With One Existing URL</span>
+      <h2>一つの回答を追いかける前に、<br/>一つの既存ページの意味を整える。</h2>
+      <p>既存URL、商材、来てほしい顧客、対象外にしたい顧客や用途、今の説明で起きているズレをお知らせください。Meandleで扱うべき課題かを確認し、適合する場合に、1商材・1URLの意味適合スプリントをご案内します。</p>
+
+      <a href="/contact/" class="btn btn--primary" style="margin-top:20px">既存URLで導入適合性を確認する</a>
+      <p style="color:rgba(255,255,255,0.75); font-size:13px; margin-top:12px">
+        初回は50万円〜です。外部AIの回答操作、問い合わせ段階での詳細診断、記事の量産、順位・引用・AI応答・商談成果の保証は行いません。
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:inline>
+  .hero-figure { margin: 20px auto; max-width: 720px; background: var(--card); border: 1px solid rgba(18,36,44,0.12); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); }
+  .hero-figure img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  .hero-figure figcaption { font-size: 12.5px; color: var(--muted); margin-top: 10px; text-align: center; }
+  .faq-item { border-bottom: 1px solid rgba(18,36,44,0.12); padding: 16px 0; }
+  .faq-item[open] .faq-q { color: var(--hero-orange); }
+</style>

@@ -1,0 +1,226 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'AIO・LLMO・GEO支援の選び方｜Meandle';
+const description = 'AIO、LLMO、GEOと呼ばれる支援を、費用より先に「観測・戦略・制作・意味設計・実装」の責任範囲で比較するための購入ガイドです。';
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://meandle.jp/blog/how-to-choose-ai-search-support/#webpage',
+    url: 'https://meandle.jp/blog/how-to-choose-ai-search-support/',
+    name: title,
+    description: description,
+    inLanguage: 'ja-JP',
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    about: { '@id': 'https://meandle.jp/do-meandle/#service' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': 'https://meandle.jp/blog/how-to-choose-ai-search-support/#article',
+    mainEntityOfPage: { '@id': 'https://meandle.jp/blog/how-to-choose-ai-search-support/#webpage' },
+    headline: 'AIO・LLMO・GEO支援の選び方：費用より先に、責任範囲を分ける',
+    description: description,
+    image: 'https://meandle.jp/images/blog/how-to-choose-ai-search-support/hero-v1.webp',
+    author: { '@type': 'Person', name: 'Jag Yamamoto', url: 'https://jagproject.com/' },
+    publisher: { '@id': 'https://meandle.jp/#organization' },
+    inLanguage: 'ja-JP',
+  },
+];
+---
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="/blog/how-to-choose-ai-search-support/"
+  ogTitle='AIO・LLMO・GEO支援の選び方｜費用と責任範囲の比較軸'
+  ogDescription='呼び方ではなく、観測から実装までのどこを誰が担うかで選ぶためのガイドです。'
+  ogImage="/images/blog/how-to-choose-ai-search-support/hero-v1.webp"
+  ogType="article"
+  structuredData={structuredData}
+>
+  <article class="section">
+    <div class="article container container--narrow">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　<a href="/blog/">Blog</a>　/　AI検索支援の選び方</nav>
+
+      <h1>AIO・LLMO・GEO支援の選び方：<br/>費用より先に、責任範囲を分ける</h1>
+
+      <p class="lead" style="margin-top:16px">AIO、LLMO、GEO。呼び方は違っても、AI検索への対応を支援するサービスは増えています。比較を始めると、ツール、診断、コンサルティング、記事制作、技術実装、継続支援が同じ言葉の中に並び、費用だけでは選びにくくなります。</p>
+      <p>発注前に分けるべきなのは、サービス名ではありません。<strong>観測する仕事、判断する仕事、作る仕事、実装する仕事、見直し続ける仕事</strong>です。どこまでを社内で持ち、どこからを外部に任せるのかが決まれば、比較の軸がはっきりします。</p>
+      <p>この記事は、AIの回答、引用、掲載、順位、流入、商談、売上を約束するものではありません。高単価B2Bが、事業の説明責任を残したまま外部パートナーを選ぶための購入ガイドです。</p>
+
+      <figure class="hero-figure">
+        <img src="/images/blog/how-to-choose-ai-search-support/hero-v1.webp" alt="AIO・LLMO・GEOと呼ばれる支援の責任範囲を分ける発注前の比較の場面" width="1536" height="1024" loading="eager" fetchpriority="high" />
+      </figure>
+
+      <h2>先に結論：比較するのは「名称」ではなく、5つの責任範囲</h2>
+      <p>AI検索支援は、次の5つを一社がすべて扱う場合も、複数社で分担する場合もあります。ここを混ぜると、観測だけの契約に実装まで期待したり、記事制作の費用に事業戦略まで含まれると考えたりしやすくなります。</p>
+
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th scope="col">責任範囲</th><th scope="col">仕事の中心</th><th scope="col">発注前に確認すること</th><th scope="col">費用の見方</th></tr></thead>
+          <tbody>
+            <tr><td>1. 観測ツール</td><td>AI検索や流入、参照・言及等の変化を記録する</td><td>何を、どの頻度・条件で観測するか。観測の外にある変数は何か</td><td>月額、計測量、対象サイト数、初期費用、オプション</td></tr>
+            <tr><td>2. 戦略助言</td><td>現状を読み、優先度・方針を決める</td><td>誰が事業理解を担い、何を意思決定資料として残すか</td><td>調査範囲、会議・資料、提案の深さ、継続頻度</td></tr>
+            <tr><td>3. コンテンツ／SEO実行</td><td>コンテンツ、SEO基盤、外部発信等を制作・運用する</td><td>誰が事実確認・監修・公開判断を担うか。制作数・技術対応の境界は何か</td><td>制作量、専門性、公開作業、運用・改修工数</td></tr>
+            <tr><td>4. 意味設計</td><td>対象、価値、根拠、対象外を一貫した仕様にする</td><td>現行事業の何を変えず、何を決め直すか。営業・サイト・資料とどう同期するか</td><td>既存情報の複雑さ、意思決定者の関与、仕様と差分案の範囲</td></tr>
+            <tr><td>5. ページ実装</td><td>意味仕様を一つのページに反映し、公開・確認する</td><td>誰がデザイン、CMS、法務、技術、公開後確認を担うか</td><td>ページ数、既存資産、制作・開発範囲、公開後の初期確認</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:16px">Googleは、AI OverviewsやAI Modeについて、通常のSEOの基本が引き続き重要で、追加の特別な最適化や専用のマークアップは不要だと案内しています。ページが技術要件を満たしてもクロール・インデックス・表示は保証されません。 <a href="https://developers.google.com/search/docs/appearance/ai-features" target="_blank" rel="noopener noreferrer">Google: AI features and your website</a></p>
+      <p>だからこそ、サービス選定では「AIに出す」といった結果の言葉より、上表のどこを成果物として受け取り、どこを自社が引き受けるかを確認します。</p>
+
+      <h2>5つの範囲は、同じ仕事ではない</h2>
+
+      <h3>1. 観測ツールは「いま起きていること」を残す</h3>
+      <p>観測ツールは、AI検索上の扱われ方、参照状況、流入などを継続して確認する用途に向きます。定点観測が必要な企業、複数のサイトやテーマを持つ企業、社内で改善施策を実行できる企業では、判断材料を整える役割を果たします。</p>
+      <p>ただし、観測は原因の断定でも、施策の実装でもありません。比較時は、対象AI、計測する問い、記録頻度、質問文／実行条件の管理、競合比較の定義、データの所有者、社内で解釈する担当を確認してください。</p>
+      <p>公開価格があるツール型サービスでも、初期費用、計測量、対象数、追加機能の費用は別に設計されることがあります。月額だけを比べず、意思決定と実行を誰が担うかまで見ます。</p>
+
+      <h3>2. 戦略助言は「何を先に決めるか」を扱う</h3>
+      <p>コンサルティングは、現状分析、競合・市場の読み解き、優先度、施策方針、効果確認の設計などを扱います。複数部署や複数サイトがあり、実行前に意思決定をそろえたい企業に向く範囲です。</p>
+      <p>依頼前には、レポートの納品だけで終わるのか、制作・開発のディレクションまであるのか、実装は誰が受け持つのかを確認します。戦略資料があっても、ページを変える権限や制作リソースがなければ、次の仕事は別途必要になります。</p>
+
+      <h3>3. コンテンツ／SEO実行は「情報を公開できる形にする」</h3>
+      <p>記事、FAQ、サービスページ、一次情報、テクニカルSEO、内部リンク、構造化データなどを制作・運用する範囲です。量産や運用の体制が必要な場合、SEO経験を持つ制作・運用パートナーは重要です。</p>
+      <p>一方で、高単価B2Bでは、制作物の前に「何を約束しないか」「どの顧客を対象外にするか」「根拠はどこにあるか」という事業判断が必要です。原稿の本数や施策の数だけでなく、事実確認の責任者、公開承認者、実装・改善の担当を見積もりに含めてください。</p>
+
+      <h3>4. 意味設計は「売る意味の判断を揃える」</h3>
+      <p>意味設計は、特定のAIや検索エンジンを操作する仕事ではありません。既存の事業情報から、対象顧客、判断の起点、提供価値、提供範囲、根拠、対象外、比較時の誤解、表現・実装の境界を一枚の仕様にします。</p>
+      <p>これは、営業、サイト、資料、紹介文で同じ事業判断を保つための設計です。観測の結果を見ても「何を変えるべきか」の判断が散る、ページを書き始めると対象が広がる、根拠と訴求が混じる、といった状況で意味があります。</p>
+      <p>Meandleが担うのはこの範囲です。広告費を増やす前に、AIと見込み客が拾える「売る意味」を整える。AI回答そのものを保証するのではなく、見込み客が判断できる説明の基準を作ります。</p>
+
+      <h3>5. ページ実装は「仕様を公開物に反映する」</h3>
+      <p>ページ実装は、意味仕様をデザイン、コピー、CMS、技術、公開確認まで反映する仕事です。設計と実装は密接ですが、責任は同じではありません。既存ページの状態、ブランド承認、法務、技術環境、フォーム・計測、公開権限で工数が変わります。</p>
+      <p>「実装支援」と書かれている場合も、実際に誰がコードを変更し、公開し、公開後の表示・計測を確認するのかを契約前に明文化してください。</p>
+
+      <figure class="hero-figure">
+        <img src="/images/blog/how-to-choose-ai-search-support/four-panel-v2.webp" alt="観測、戦略、意味仕様、ページ実装と継続確認を順に表す四コマの抽象イラスト" width="1536" height="1024" loading="lazy" />
+        <figcaption>観測する、優先度を決める、意味を仕様にする、ページへ反映し確認する。四つは連続しますが、責任は別々に置けます。</figcaption>
+      </figure>
+
+      <h2>費用は「単価」より、受け取る成果物と責任で読む</h2>
+      <p>比較表の月額・初期費用・制作費は入口にすぎません。次の順に確認すると、安く見える契約に必要な仕事が抜けることを避けやすくなります。</p>
+      <ol>
+        <li><strong>成果物は何か</strong> — ダッシュボード、診断、優先順位、意味仕様、原稿、公開済みページ、継続レポートのどれを受け取るか。</li>
+        <li><strong>誰が決めるか</strong> — 対象顧客、提供範囲、根拠、対象外、公開可否を、誰が最終判断するか。</li>
+        <li><strong>誰が実装するか</strong> — CMS・デザイン・技術設定・計測・公開後確認を、どのチームが持つか。</li>
+        <li><strong>何を保証しないか</strong> — AI回答、引用、掲載、順位、流入、商談、売上は外部環境にも左右されます。保証の対象と、契約で受け取る成果物を分けて確認します。</li>
+        <li><strong>変化をどう扱うか</strong> — 一度の診断で終えるのか、条件をそろえて定期観測・見直しをするのか。</li>
+      </ol>
+      <p>公開価格がある場合でも、上記の分担が変われば総費用は変わります。個別見積のサービスでは、見積書に「含むもの」と「含まないもの」を5範囲に沿って書き分けてもらうと、比較しやすくなります。</p>
+
+      <h2>Meandleを選ぶべき場面、選ばない場面</h2>
+      <p>Meandleは市場全体の「フラッグシップ」を名乗りません。客観的な比較でそれを証明していないためです。その代わり、観測後に残る<strong>事業の説明の不整合</strong>を、意味仕様とページ実装の責任範囲に分けて扱います。</p>
+
+      <div class="grid grid--2 mt-3">
+        <div>
+          <h3 style="color:var(--hero-orange)">Meandleが合う場面</h3>
+          <ul>
+            <li>観測や分析はあるが、結局誰に何をどう伝えるかが決まらない</li>
+            <li>高単価で、対象外まで含めた説明を営業・サイト・資料でそろえる必要がある</li>
+            <li>コンテンツ制作の前に、事実・根拠・提供範囲を整理したい</li>
+            <li>一ページを、商材の判断基準が伝わる公開物として作り直したい</li>
+            <li>継続観測の結果を、次の意味仕様・ページ更新に接続したい</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="color:var(--muted)">Meandleより先に別の支援が合う場面</h3>
+          <ul>
+            <li>まずクローラー、アクセス制御、HTTP応答、<code>noindex</code>、CDN/WAFなどの技術可視性を直す必要がある</li>
+            <li>定点観測だけが目的で、社内に判断・実行の担当がいる</li>
+            <li>大量の記事制作や大規模なSEO運用が主課題で、事業の説明軸はすでに確定している</li>
+            <li>既存の意味仕様があり、開発・デザイン実装だけを発注したい</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Meandleの費用は、成果物の直後に確認する</h2>
+      <p>Meandleは一律の定額商品ではなく、扱う商材・既存情報・意思決定・実装範囲に応じて設計します。次の価格帯は、何を受け取るかとセットで見てください。</p>
+
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th scope="col">仕事</th><th scope="col">受け取る成果物と責任範囲</th><th scope="col">目安</th></tr></thead>
+          <tbody>
+            <tr><td>do.meandle 意味適合スプリント</td><td>既存URL読解、対象／対象外、8項目の意味仕様、実装方針・差分案、基準値と検証の設計。<strong>実装そのものは含まない。</strong></td><td><strong>1商材・1URL 50万円〜</strong></td></tr>
+            <tr><td>Meandle get lead</td><td>意味仕様を踏まえた<strong>1ページの実装</strong>と、実装後の初回比較。対象ページ、既存資産、技術条件で範囲を決める。</td><td><strong>1ページ200万円前後</strong></td></tr>
+            <tr><td>do.meandle 伴走</td><td>条件をそろえた比較・回帰確認、意味仕様・ページの更新方針。AIや検索の出力・事業成果を保証するものではない。</td><td><strong>月120万円〜</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:12px">意味適合スプリントだけを依頼して、実装を社内や別の制作パートナーへ渡すこともできます。反対に、実装まで必要なら、ページの責任範囲を別途合意して進めます。 <a href="/how-it-works/">Meandleの進め方</a></p>
+
+      <h2>発注前の7つの質問</h2>
+      <ol>
+        <li>この契約で、観測・判断・制作・実装・継続確認のどこまでを受け取るか。</li>
+        <li>AI検索の観測条件は、問い・時点・対象・頻度まで再現可能な形で残るか。</li>
+        <li>会社名、商材名、対象、価値、根拠、対象外の事実確認は誰がするか。</li>
+        <li>提案後、誰が原稿・デザイン・CMS・技術設定を実装し公開するか。</li>
+        <li>料金に含まれない初期費用、計測量、制作量、外部費、公開後確認は何か。</li>
+        <li>表示・引用・順位・流入・商談・売上を、成果物ではなく保証として書いていないか。</li>
+        <li>変化が出たとき、観測結果を次の意思決定へ戻す担当と頻度は決まっているか。</li>
+      </ol>
+
+      <h2>よくある質問</h2>
+      <details class="faq-item">
+        <summary class="faq-q">AIO、LLMO、GEOはどれを選べばよいですか？</summary>
+        <div class="faq-a">呼称の厳密さより、対象にするAI・検索機能、観測の方法、制作・実装までの責任範囲を確認してください。同じ言葉でも、ツール提供、診断、コンサルティング、制作・実装支援では受け取る成果物が異なります。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">月額ツールだけで対策はできますか？</summary>
+        <div class="faq-a">社内に、観測結果を解釈し、優先度を決め、制作・実装・公開できる体制があれば有効です。ツールは観測の役割を担いますが、事業の説明を決めたり、ページを実装したりする責任まで自動的に含むわけではありません。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">コンサルティングと制作・実装は同じ契約にすべきですか？</summary>
+        <div class="faq-a">必ずしも同じである必要はありません。ただし、提案した人と実装する人が異なる場合、仕様・承認・技術条件・公開後確認の受け渡しを契約前に決めてください。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Meandleの50万円〜には何が含まれますか？</summary>
+        <div class="faq-a">意味適合スプリントでは、既存URLの読解、対象／対象外、8項目の意味仕様、実装方針・差分案、基準値と検証の設計を扱います。実装は含みません。対象商材と既存情報の複雑さに応じて範囲を決めます。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">MeandleはAI回答や引用を増やしますか？</summary>
+        <div class="faq-a">保証しません。Meandleが扱うのは、見込み客と社内が判断できるよう、対象・価値・根拠・対象外を一貫した意味仕様にすることです。AIの回答、引用、掲載、順位、流入、商談、売上は保証の対象にしません。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">問い合わせ時に、詳細な診断や優先順位の提案を受けられますか？</summary>
+        <div class="faq-a">お問い合わせでは、対象URL、商材、意思決定者、現在の体制をもとに、Meandleが責任を持てる範囲かを確認します。詳細な読み解きと優先順位の設計は、意味適合スプリントで扱います。</div>
+      </details>
+
+      <div class="callout-note">
+        観測の数字ではなく、誰に何をどこまで提供する事業なのかを、公開物として整える必要がある場合。まず既存URLをもとに、意味適合スプリントの対象になるかを確認します。
+      </div>
+
+      <div style="text-align:center; margin-top:24px">
+        <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+      </div>
+
+      <h2 style="margin-top:40px">公式参照</h2>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th scope="col">ID</th><th scope="col">URL</th><th scope="col">取得日</th></tr></thead>
+          <tbody>
+            <tr><td>SRC-01</td><td><a href="https://developers.google.com/search/docs/appearance/ai-features" target="_blank" rel="noopener noreferrer">Google: AI features and your website</a></td><td>2026-07-29</td></tr>
+            <tr><td>COMP-01</td><td><a href="https://rank-quest.jp/lp/17/" target="_blank" rel="noopener noreferrer">RankQuest LP</a>（AI可視性診断）</td><td>2026-07-29</td></tr>
+            <tr><td>COMP-02</td><td><a href="https://www.cinc-j.co.jp/service/analytics/geoconsulting" target="_blank" rel="noopener noreferrer">CINC GEOコンサルティング</a></td><td>2026-07-29</td></tr>
+            <tr><td>COMP-03</td><td><a href="https://mieru-ca.com/geo/" target="_blank" rel="noopener noreferrer">ミエルカGEO</a></td><td>2026-07-29</td></tr>
+            <tr><td>COMP-04</td><td><a href="https://ipeinc.jp/service/llmo/" target="_blank" rel="noopener noreferrer">ipe LLMOコンサルティング</a></td><td>2026-07-29</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12.5px; color:var(--muted); margin-top:12px">競合の記載は各社の公開ページを確認した記録です。優劣化はせず、成果表現は各社の自己説明として扱っています。</p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:inline>
+  .hero-figure { margin: 20px auto; max-width: 720px; background: var(--card); border: 1px solid rgba(18,36,44,0.12); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); }
+  .hero-figure img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  .hero-figure figcaption { font-size: 12.5px; color: var(--muted); margin-top: 10px; text-align: center; }
+  .faq-item { border-bottom: 1px solid rgba(18,36,44,0.12); padding: 16px 0; }
+  .faq-item[open] .faq-q { color: var(--hero-orange); }
+</style>
