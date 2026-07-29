@@ -2,7 +2,7 @@
 import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
 import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
 import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
-import { DEMO_SOURCES } from '../../../../../data/wizard-prototype';
+import { DEMO_SOURCES, DEMO_SOURCE_KINDS } from '../../../../../data/wizard-prototype';
 ---
 <WizardPrototypeLayout title="材料" description="Meandle Wizard 操作デモ — 材料" stage="materials">
   <WizardCampaignHeader slot="header" />
@@ -64,6 +64,24 @@ import { DEMO_SOURCES } from '../../../../../data/wizard-prototype';
             AIは「正式資料候補」までしか提案できません。
             <strong>正式資料として確認</strong>は、担当者本人が内容を確認したうえで押してください。
           </p>
+        </div>
+
+        <div class="wp-card wp-card--tight" style="margin-top:12px;">
+          <h3>対象の判断に使える資料種別</h3>
+          <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 10px;">
+            次の資料があると、対象候補の適合・市場規模・到達経路・予算を比較できます。プロトタイプでは実際のアップロードや外部接続は行いません。
+          </p>
+          <ul class="wp-list">
+            {DEMO_SOURCE_KINDS.map((kind) => (
+              <li style="display:flex;gap:10px;align-items:baseline;padding:8px 10px;border:1px solid var(--wp-border);border-radius:6px;">
+                <span class="wp-badge wp-badge--neutral">未追加</span>
+                <span style="font-size:13px;">
+                  <strong>{kind.label}</strong>
+                  <span style="display:block;color:var(--wp-ink-muted);font-size:12px;">{kind.note}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 

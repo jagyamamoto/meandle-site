@@ -1,10 +1,23 @@
 ---
 import WizardClientApprovalLayout from '../../../../layouts/WizardClientApprovalLayout.astro';
-import { DEMO_APPROVAL_ITEMS, DEMO_APPROVERS, DEMO_CAMPAIGN } from '../../../../data/wizard-prototype';
+import {
+  DEMO_APPROVAL_ITEMS,
+  DEMO_APPROVERS,
+  DEMO_CAMPAIGN,
+  DEMO_TARGET_APPROVAL_ITEM,
+  DEMO_TARGETS,
+  DEMO_TARGET_ARTIFACTS,
+} from '../../../../data/wizard-prototype';
 
 function approverName(id: string) {
   return DEMO_APPROVERS.find((a) => a.id === id)?.name ?? id;
 }
+
+function targetName(id: string) {
+  return DEMO_TARGETS.find((t) => t.id === id)?.neutralName ?? id;
+}
+
+const approvalItems = [DEMO_TARGET_APPROVAL_ITEM, ...DEMO_APPROVAL_ITEMS];
 ---
 <WizardClientApprovalLayout title={`${DEMO_CAMPAIGN} の確認依頼`}>
   <label class="wp-state-switcher" style="margin:12px 0;">
@@ -58,7 +71,7 @@ function approverName(id: string) {
     </header>
 
     <div class="wp-client-progress" role="status" aria-live="polite">
-      <span data-wp-approval-progress>0 / 4件を確認済み</span>
+      <span data-wp-approval-progress>0 / {approvalItems.length}件を確認済み</span>
       <span style="margin-left:auto;font-size:12px;">所要 約5分</span>
     </div>
 
@@ -67,11 +80,25 @@ function approverName(id: string) {
       表現の細かな校正ではなく、内容が事実と合っているかをご確認ください。所要時間は約5分です。
     </p>
 
-    {DEMO_APPROVAL_ITEMS.map((item) => (
+    {approvalItems.map((item) => (
       <article class="wp-client-item" data-wp-approval-item={item.id}>
         <p class="wp-client-item__scope">{item.scope}</p>
         <p class="wp-client-item__question">{item.question}</p>
         <div class="wp-client-item__proposed">{item.proposed}</div>
+        {item.id === 'ap-target-strategy' && (
+          <div style="margin-top:12px;font-size:14px;line-height:1.8;">
+            <p style="margin:0 0 6px;"><strong>現在の主対象</strong>：{targetName('tg-main')}</p>
+            <p style="margin:0 0 6px;"><strong>新しい対象候補</strong>：{targetName('tg-multisite')}（未検証の仮説）</p>
+            <p style="margin:0 0 6px;"><strong>採用しなかった候補の扱い</strong>：本番原稿には含めず、検証結果を待って改めて判断します。</p>
+            <p style="margin:0 0 6px;"><strong>未確認の仮定</strong>：検索語の一致がそのまま購買意向を示すとは限りません。</p>
+            <p style="margin:0 0 4px;"><strong>対象別に作成する成果物</strong></p>
+            <ul style="margin:0;padding-left:20px;">
+              {DEMO_TARGET_ARTIFACTS.map((a) => (
+                <li>{targetName(a.targetId)}：{a.label}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         {item.changedFromPrior && (
           <p class="wp-client-item__excerpt">
             <strong>前回からの変更:</strong> {item.changedFromPrior}
@@ -106,7 +133,7 @@ function approverName(id: string) {
     ))}
 
     <div class="wp-client-final">
-      <div class="wp-client-final__status" data-wp-approval-progress>0 / 4件を確認済み</div>
+      <div class="wp-client-final__status" data-wp-approval-progress>0 / {approvalItems.length}件を確認済み</div>
       <button class="wp-btn wp-btn--primary" type="button" data-wp-final-action disabled aria-disabled="true">
         確認結果を送る
       </button>

@@ -1,0 +1,411 @@
+---
+import {
+  DEMO_TARGETS,
+  DEMO_TARGET_EVIDENCE,
+  DEMO_TARGET_COMPARISON,
+  TARGET_STATUS_LABEL,
+  TARGET_TYPE_LABEL,
+  TARGET_STRATEGY_MODES,
+  SAME_CAMPAIGN_GATE_ITEMS,
+  EVIDENCE_LEVEL_LABEL,
+  type TargetOpportunityType,
+} from '../../data/wizard-prototype';
+
+const main = DEMO_TARGETS.find((t) => t.id === 'tg-main')!;
+const newSegment = DEMO_TARGETS.find((t) => t.id === 'tg-multisite')!;
+
+const byType = (type: TargetOpportunityType) =>
+  DEMO_TARGETS.filter((t) => t.kind !== 'current' && t.opportunityType === type);
+
+const tabs: { key: TargetOpportunityType; label: string }[] = [
+  { key: 'new_segment', label: TARGET_TYPE_LABEL.new_segment },
+  { key: 'buying_role', label: TARGET_TYPE_LABEL.buying_role },
+  { key: 'buying_situation', label: TARGET_TYPE_LABEL.buying_situation },
+];
+
+const evidenceFor = (targetId: string, stance: '支持' | '反対') =>
+  DEMO_TARGET_EVIDENCE.filter((e) => e.targetId === targetId && e.stance === stance);
+
+const steps = [
+  { key: 'current', label: '1. 現在の主対象を確認' },
+  { key: 'candidates', label: '2. 新しい対象候補を確認' },
+  { key: 'compare', label: '3. 両者を比較' },
+  { key: 'decide', label: '4. 今回の対象方針を決定' },
+];
+
+// デモでは新候補の判断材料が不足している状態を固定で表現する。
+const evidenceSufficient = false;
+---
+<div
+  class="wp-target"
+  data-wp-target-portfolio
+  data-evidence-sufficient={evidenceSufficient ? 'true' : 'false'}
+>
+  <p class="wp-target__lead">
+    ここで示すのは対象の候補です。資料と仮説を比較し、今回誰に伝えるかを人が決めます。
+  </p>
+
+  <div data-when-state="loading" hidden class="wp-job-banner">
+    <span class="wp-job-banner__icon">◐</span>
+    <span>資料から対象候補を整理しています。ほかの画面へ移動しても処理は続きます。</span>
+  </div>
+
+  <div data-when-state="empty" hidden class="wp-callout wp-callout--info">
+    <strong>新しい対象候補は見つかりませんでした</strong>
+    <p>
+      新しい候補を無理に作る必要はありません。現在の主対象に集中する判断も記録できます。
+    </p>
+  </div>
+
+  <div data-when-state="partial" hidden class="wp-callout wp-callout--warning">
+    <strong>規模情報が一部読み取れませんでした</strong>
+    <p>
+      判断材料が不足しているため、「小さく検証してから決める」をおすすめします。すでに確認した内容は保存されています。
+    </p>
+  </div>
+
+  <div data-when-state="error" hidden class="wp-callout wp-callout--danger">
+    <strong>対象候補の再計算に失敗しました</strong>
+    <p>入力済みの理由・見直し日・選択はこのブラウザに保存されています。時間をおいてもう一度お試しください。</p>
+    <button class="wp-btn wp-btn--secondary" type="button" onclick="window.location.reload()">もう一度試す</button>
+  </div>
+
+  <div data-when-state="offline" hidden class="wp-callout wp-callout--warning">
+    <strong>オフラインで動作中です</strong>
+    <p>保存済みの対象方針を表示しています。接続復旧後に変更を保存します。</p>
+  </div>
+
+  <div data-when-state="conflict" hidden class="wp-callout wp-callout--warning">
+    <strong>ほかの担当者が対象方針を更新しました</strong>
+    <p>
+      どちらが新しいかを比較してから反映してください。あなたの入力は保持されています。
+    </p>
+    <ul class="wp-list" style="font-size:13px;margin-top:8px;">
+      <li>保存済み（第1版 / 2026年7月29日 10:12）：現在の主対象に集中する</li>
+      <li>あなたの編集（未保存）：小さく検証してから決める</li>
+    </ul>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+      <button class="wp-btn wp-btn--secondary" type="button">最新版に自分の変更を反映</button>
+      <button class="wp-btn wp-btn--ghost" type="button">自分の入力をコピー</button>
+    </div>
+  </div>
+
+  <div class="wp-target__steps" role="group" aria-label="対象ポートフォリオ判断の4ステップ">
+    {steps.map((s, i) => (
+      <button
+        type="button"
+        class="wp-target__step"
+        data-wp-target-step={s.key}
+        aria-pressed={i === 0 ? 'true' : 'false'}
+      >
+        {s.label}
+      </button>
+    ))}
+  </div>
+
+  <!-- Step 1: 現在の主対象 -->
+  <section data-wp-target-step-panel="current" class="wp-target__panel">
+    <h3>現在の主対象</h3>
+    <div class="wp-card wp-card--tight">
+      <div class="wp-target__head">
+        <strong>{main.neutralName}</strong>
+        <span class="wp-badge wp-badge--success">✓ {TARGET_STATUS_LABEL[main.status]}</span>
+      </div>
+      <dl class="wp-target__dl">
+        <dt>困っている場面</dt><dd>{main.observation}</dd>
+        <dt>購入・相談が始まるきっかけ</dt><dd>{main.trigger}</dd>
+        <dt>現在の代替手段</dt><dd>{main.alternatives.join(' / ')}</dd>
+        <dt>本人が使う課題側の言葉</dt><dd>{main.buyerLanguage.join(' / ')}</dd>
+        <dt>向かない条件</dt><dd>{main.mustNot.join(' / ')}</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Step 2: 新しい対象候補（3タブ） -->
+  <section data-wp-target-step-panel="candidates" class="wp-target__panel" hidden>
+    <h3>新しい対象候補</h3>
+    <div class="wp-callout wp-callout--warning">
+      <strong>いずれも未検証の仮説です。</strong>
+      <p>AIは候補を提示するだけです。対象・規模・採否は人が決めます。AIの出力自体は根拠に数えません。</p>
+    </div>
+
+    <div class="wp-target__tablist" role="tablist" aria-label="対象候補の種類" data-wp-target-tablist>
+      {tabs.map((t, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`tgtab-${t.key}`}
+          aria-controls={`tgpanel-${t.key}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+          class="wp-target__tab"
+          data-wp-target-tab={t.key}
+        >
+          {t.label}
+        </button>
+      ))}
+    </div>
+
+    {tabs.map((t, i) => (
+      <div
+        role="tabpanel"
+        id={`tgpanel-${t.key}`}
+        aria-labelledby={`tgtab-${t.key}`}
+        tabindex="0"
+        hidden={i !== 0}
+        class="wp-target__tabpanel"
+      >
+        {t.key === 'buying_role' && (
+          <p class="wp-target__note">
+            この種類は、主対象と市場規模を競わせる相手ではありません。機能ではなく、個人情報、契約、運用リスク、信頼性を確認する役割として扱います。
+          </p>
+        )}
+        {t.key === 'buying_situation' && (
+          <p class="wp-target__note">
+            同じ相手でも別の契機で必要になります。同じ文章へ混ぜず、場面ごとに別の表現・原稿候補として扱います。
+          </p>
+        )}
+
+        {byType(t.key).map((tg) => (
+          <article class="wp-card wp-card--tight wp-target__candidate">
+            <div class="wp-target__head">
+              <strong>{tg.neutralName}</strong>
+              <span class="wp-badge wp-badge--warning">未検証の仮説</span>
+            </div>
+            <dl class="wp-target__dl">
+              <dt>企業条件・担当する役割</dt><dd>{tg.must.join(' / ')}</dd>
+              <dt>困っている場面</dt><dd>{tg.observation}</dd>
+              <dt>購入・相談が始まるきっかけ</dt><dd>{tg.trigger}</dd>
+              <dt>現在の代替手段</dt><dd>{tg.alternatives.join(' / ')}</dd>
+              <dt>本人が使う課題側の言葉</dt><dd>{tg.buyerLanguage.join(' / ')}</dd>
+              {tg.sharedWithMain && (<><dt>主対象との共通点</dt><dd>{tg.sharedWithMain.join(' / ')}</dd></>)}
+              {tg.differsFromMain && (<><dt>主対象との相違点</dt><dd>{tg.differsFromMain.join(' / ')}</dd></>)}
+              <dt>向かない条件</dt><dd>{tg.mustNot.join(' / ')}</dd>
+            </dl>
+
+            <div class="wp-target__evidence-grid">
+              <div>
+                <h4 class="wp-target__evidence-title">支持する根拠</h4>
+                {evidenceFor(tg.id, '支持').length ? (
+                  <ul class="wp-list">
+                    {evidenceFor(tg.id, '支持').map((e) => (
+                      <li class="wp-target__evidence-item">
+                        <span class="wp-badge wp-badge--success">＋ 支持</span>
+                        <p>{e.statement}</p>
+                        <p class="wp-target__evidence-meta">
+                          {e.sourceLabel} · {EVIDENCE_LEVEL_LABEL[e.evidenceLevel]} · 基準日 {e.asOf} · {e.humanState}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p class="wp-target__insufficient">判断材料が不足</p>
+                )}
+              </div>
+              <div>
+                <h4 class="wp-target__evidence-title">反対する根拠・不足情報</h4>
+                {evidenceFor(tg.id, '反対').length ? (
+                  <ul class="wp-list">
+                    {evidenceFor(tg.id, '反対').map((e) => (
+                      <li class="wp-target__evidence-item">
+                        <span class="wp-badge wp-badge--danger">− 反対</span>
+                        <p>{e.statement}</p>
+                        <p class="wp-target__evidence-meta">
+                          {e.sourceLabel} · {EVIDENCE_LEVEL_LABEL[e.evidenceLevel]} · 基準日 {e.asOf} · {e.humanState}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p class="wp-target__insufficient">判断材料が不足</p>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    ))}
+  </section>
+
+  <!-- Step 3: 比較 -->
+  <section data-wp-target-step-panel="compare" class="wp-target__panel" hidden>
+    <h3>現在の主対象と新しい企業候補の比較</h3>
+    <div class="wp-callout wp-callout--warning">
+      <strong>数値はすべて架空のデモ推計です。</strong>
+      <p>実在市場の数値ではありません。低・標準・高のレンジで示し、判断材料がない項目は 0 とせず「判断材料が不足」と表示します。</p>
+    </div>
+
+    <div class="wp-table--scroll">
+      <table class="wp-table wp-target__table">
+        <caption class="wp-target__caption">
+          比較項目ごとの主対象と新候補。重複が不明なため、両者を足し合わせていません。
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">比較項目</th>
+            <th scope="col">{main.neutralName}</th>
+            <th scope="col">{newSegment.neutralName}（未検証の仮説）</th>
+            <th scope="col">根拠レベル</th>
+          </tr>
+        </thead>
+        <tbody>
+          {DEMO_TARGET_COMPARISON.map((row) => (
+            <tr>
+              <th scope="row">{row.label}</th>
+              <td>{row.mainValue}</td>
+              <td>
+                {row.newInsufficient ? (
+                  <span class="wp-target__insufficient">{row.newValue}</span>
+                ) : (
+                  row.newValue
+                )}
+              </td>
+              <td class="wp-target__level">{row.evidenceLevel}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <details class="wp-target__details">
+      <summary>数値の単位・地域・対象期間・算定式・出典・仮定・基準日・重複</summary>
+      <ul class="wp-list wp-target__meta-list">
+        {DEMO_TARGET_COMPARISON.filter((r) => r.formula).map((row) => (
+          <li>
+            <strong>{row.label}</strong>
+            <div class="wp-target__evidence-meta">
+              単位: {row.unit ?? '—'} / 地域: {row.geography ?? '—'} / 対象期間: {row.period ?? '—'} /
+              基準日: {row.asOf ?? '—'}
+              <br />算定式: {row.formula}
+              <br />出典: {row.source ?? '—'}
+              {row.assumptions && <><br />仮定: {row.assumptions}</>}
+              {row.overlap && <><br />主対象との重複: {row.overlap}</>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </details>
+  </section>
+
+  <!-- Step 4: 対象方針の決定 -->
+  <section data-wp-target-step-panel="decide" class="wp-target__panel" hidden>
+    <h3>今回の対象方針</h3>
+
+    <div
+      class="wp-callout wp-callout--danger"
+      data-wp-target-errors
+      hidden
+      tabindex="-1"
+      role="alert"
+    ></div>
+
+    <div data-wp-when-target-decided hidden class="wp-callout wp-callout--success">
+      <strong>対象方針を保存しました：<span data-wp-target-mode-label></span></strong>
+      <p>
+        版: <span data-wp-target-version-out></span> ·
+        承認状態: <span data-wp-target-approval-status></span> ·
+        見直し日: <span data-wp-target-review-out></span>
+      </p>
+    </div>
+
+    <div data-wp-when-target-stale hidden class="wp-callout wp-callout--warning">
+      <strong>対象方針が変更されました</strong>
+      <p>
+        影響する対象方針の承認、原稿、観測条件だけが再確認になります。関係のない承認済み項目はそのまま維持されます。
+      </p>
+    </div>
+
+    <form class="wp-card" onsubmit="return false;">
+      <fieldset class="wp-target__fieldset">
+        <legend class="wp-field__label">今回の対象方針を選んでください</legend>
+        {TARGET_STRATEGY_MODES.map((m) => (
+          <label class="wp-target__radio">
+            <input type="radio" name="target-strategy-mode" value={m.mode} />
+            <span>
+              <strong>{m.label}</strong>
+              <span class="wp-target__radio-note">{m.description}</span>
+            </span>
+          </label>
+        ))}
+      </fieldset>
+
+      <div
+        class="wp-callout wp-callout--warning"
+        data-wp-target-evidence-warning
+        hidden
+      >
+        <strong>この候補は判断材料が不足しています</strong>
+        <p>
+          市場規模や根拠が不足しているため、「現在の主対象に集中する」または「小さく検証してから決める」以外では確定できません。
+        </p>
+      </div>
+
+      <div data-wp-new-only-notice hidden class="wp-callout wp-callout--warning">
+        <strong>新しい候補だけへ切り替える判断です</strong>
+        <p>代理店レビューとクライアント承認が必要な状態として保存されます。主対象はAIが自動で外しません。</p>
+      </div>
+
+      <fieldset class="wp-target__fieldset" data-wp-same-campaign-fieldset hidden>
+        <legend class="wp-field__label">
+          「両方を同じ施策で扱う」を選ぶには、次の4つがすべて同じであることを人が確認してください
+        </legend>
+        {SAME_CAMPAIGN_GATE_ITEMS.map((item) => (
+          <label class="wp-target__check">
+            <input type="checkbox" data-wp-same-campaign-gate={item.id} />
+            <span>{item.label}</span>
+          </label>
+        ))}
+      </fieldset>
+
+      <div class="wp-callout wp-callout--warning" data-wp-same-campaign-warning hidden>
+        <strong>対象ごとに困りごとや探し方が異なります。</strong>
+        <p>
+          同じ原稿に混ぜると、どちらにも伝わりにくくなる可能性があります。「両方を別の原稿・LP・チャネルで扱う」をおすすめします。
+        </p>
+      </div>
+
+      <div class="wp-form-grid">
+        <label class="wp-field">
+          <span class="wp-field__label">この方針にした決め手<span class="wp-field__required">必須</span></span>
+          <textarea data-wp-target-rationale aria-describedby="tg-help-rationale"></textarea>
+          <span class="wp-field__help" id="tg-help-rationale">何を根拠にこの方針を選んだかを記録します。</span>
+        </label>
+        <label class="wp-field">
+          <span class="wp-field__label">採用しなかった選択肢と理由<span class="wp-field__required">必須</span></span>
+          <textarea data-wp-target-rejected aria-describedby="tg-help-rejected"></textarea>
+          <span class="wp-field__help" id="tg-help-rejected">見送った判断も正常な成果として記録します。</span>
+        </label>
+        <label class="wp-field">
+          <span class="wp-field__label">支持する根拠<span class="wp-field__required">必須</span></span>
+          <textarea data-wp-target-supporting></textarea>
+        </label>
+        <label class="wp-field">
+          <span class="wp-field__label">反対する根拠・不足情報<span class="wp-field__required">必須</span></span>
+          <textarea data-wp-target-opposing></textarea>
+        </label>
+        <label class="wp-field">
+          <span class="wp-field__label">未確認の仮定<span class="wp-field__required">必須</span></span>
+          <textarea data-wp-target-assumptions></textarea>
+        </label>
+        <label class="wp-field">
+          <span class="wp-field__label">見直す日<span class="wp-field__required">必須</span></span>
+          <input type="text" data-wp-target-review-date placeholder="2026年11月30日" autocomplete="off" />
+        </label>
+      </div>
+
+      <p class="wp-field__help">
+        判断者: 山田 花子（案件編集者） · 判断日時とバージョンは保存時に記録されます。
+      </p>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+        <button type="button" class="wp-btn wp-btn--primary" data-wp-target-decide>
+          対象方針を確認
+        </button>
+      </div>
+    </form>
+
+    <p class="wp-target__note">
+      新しい候補を無理に作る必要はありません。現在の主対象に集中する判断も記録できます。
+    </p>
+  </section>
+</div>

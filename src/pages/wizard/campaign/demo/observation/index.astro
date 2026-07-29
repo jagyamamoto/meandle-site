@@ -2,6 +2,7 @@
 import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
 import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
 import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
+import { DEMO_TARGET_OBSERVATION } from '../../../../../data/wizard-prototype';
 ---
 <WizardPrototypeLayout title="公開前の観測条件" description="Meandle Wizard 操作デモ — 公開前の観測条件" stage="observation">
   <WizardCampaignHeader slot="header" />
@@ -87,6 +88,33 @@ import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astr
       </div>
     </div>
   </div>
+
+  <section class="wp-card" style="margin-top:24px;">
+    <h2>対象ごとの観測条件</h2>
+    <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 12px;">
+      対象が違えば、使う言葉も比較対象も変わります。合算せず、対象ごとに分けて記録します。
+    </p>
+
+    <div class="wp-split">
+      {DEMO_TARGET_OBSERVATION.map((t) => (
+        <div class="wp-card wp-card--tight">
+          <h3>{t.name}</h3>
+          <dl class="wp-target__dl">
+            <dt>対象が使う課題表現</dt><dd>{t.problemLanguage.join(' / ')}</dd>
+            <dt>想定する質問</dt><dd>{t.questions.join(' / ')}</dd>
+            <dt>導入検討の兆候</dt><dd>{t.adoptionSignals.join(' / ')}</dd>
+            <dt>比較対象</dt><dd>{t.comparedWith.join(' / ')}</dd>
+            <dt>成功条件</dt><dd>{t.successCondition}</dd>
+          </dl>
+        </div>
+      ))}
+    </div>
+
+    <div data-wp-when-target-stale hidden class="wp-callout wp-callout--warning" style="margin-top:12px;">
+      <strong>対象方針が変更されたため、観測条件の再確認が必要です</strong>
+      <p>対象が変わると、比較対象と成功条件が変わります。確定前に内容を見直してください。</p>
+    </div>
+  </section>
 
   <div style="display:flex;justify-content:space-between;margin-top:24px;flex-wrap:wrap;gap:8px;">
     <a class="wp-btn wp-btn--secondary" href="/wizard/campaign/demo/approval/preview/">← 確認・公開に戻る</a>

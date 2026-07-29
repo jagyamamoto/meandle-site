@@ -2,6 +2,7 @@
 import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
 import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
 import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
+import { DEMO_TARGET_RESULTS } from '../../../../../data/wizard-prototype';
 ---
 <WizardPrototypeLayout title="結果と次の一手" description="Meandle Wizard 操作デモ — 結果と次の一手" stage="results">
   <WizardCampaignHeader slot="header" status="観測中" />
@@ -29,6 +30,54 @@ import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astr
         </p>
       </li>
     </ol>
+  </section>
+
+  <section class="wp-card">
+    <h2>対象別の結果</h2>
+    <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 12px;">
+      主対象と新候補は合算しません。重複が不明なため、母数を足し合わせずに対象ごとに表示します。
+    </p>
+
+    <div class="wp-table--scroll">
+      <table class="wp-table" aria-label="対象別の結果">
+        <thead>
+          <tr>
+            <th scope="col">項目</th>
+            {DEMO_TARGET_RESULTS.map((t) => (<th scope="col">{t.name}</th>))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">到達</th>{DEMO_TARGET_RESULTS.map((t) => (<td>{t.reach}</td>))}</tr>
+          <tr><th scope="row">有望反応</th>{DEMO_TARGET_RESULTS.map((t) => (<td>{t.promisingResponse}</td>))}</tr>
+          <tr><th scope="row">商談</th>{DEMO_TARGET_RESULTS.map((t) => (<td>{t.meetings}</td>))}</tr>
+          <tr>
+            <th scope="row">売上見込み</th>
+            {DEMO_TARGET_RESULTS.map((t) => (
+              <td><span class="wp-target__insufficient">{t.revenueOutlook}</span></td>
+            ))}
+          </tr>
+          <tr><th scope="row">費用</th>{DEMO_TARGET_RESULTS.map((t) => (<td>{t.cost}</td>))}</tr>
+          <tr><th scope="row">営業期間</th>{DEMO_TARGET_RESULTS.map((t) => (<td>{t.salesCycle}</td>))}</tr>
+          <tr><th scope="row">提供工数</th>{DEMO_TARGET_RESULTS.map((t) => (<td>{t.deliveryHours}</td>))}</tr>
+          <tr>
+            <th scope="row">仮説の判定</th>
+            {DEMO_TARGET_RESULTS.map((t) => (
+              <td>
+                {t.hypothesis === '支持' && <span class="wp-badge wp-badge--success">✓ 支持</span>}
+                {t.hypothesis === '不支持' && <span class="wp-badge wp-badge--danger">× 不支持</span>}
+                {t.hypothesis === '判断不能' && <span class="wp-badge wp-badge--warning">— 判断不能</span>}
+              </td>
+            ))}
+          </tr>
+          <tr><th scope="row">次回方針</th>{DEMO_TARGET_RESULTS.map((t) => (<td>{t.nextAction}</td>))}</tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div data-wp-when-target-decided hidden style="margin-top:12px;font-size:13px;color:var(--wp-ink-muted);">
+      今回の対象方針: <strong data-wp-target-mode-label></strong>（<span data-wp-target-version-out></span>）·
+      見直し日: <span data-wp-target-review-out></span>
+    </div>
   </section>
 
   <div class="wp-callout wp-callout--info">

@@ -2,10 +2,42 @@
 // Persists demo state in localStorage under a single key.
 // Emits DOM events so components can update.
 
-const STORAGE_KEY = 'meandle-wizard-prototype-v1';
+const STORAGE_KEY_V1 = 'meandle-wizard-prototype-v1';
+const STORAGE_KEY = 'meandle-wizard-prototype-v2';
+
+type TargetStrategyMode =
+  | 'main_only'
+  | 'new_only'
+  | 'both_same_campaign'
+  | 'both_separate'
+  | 'test_first';
+
+type TargetPortfolioState = {
+  decision: {
+    mode: TargetStrategyMode | null;
+    primaryTargetId?: string;
+    secondaryTargetIds: string[];
+    rationale: string;
+    rejectedAlternatives: { mode: string; reason: string }[];
+    supportingEvidence: string;
+    opposingEvidence: string;
+    unverifiedAssumptions: string;
+    artifactAssignments: { targetId: string; assetIds: string[] }[];
+    reviewDate: string;
+    version: number;
+    decidedBy: string;
+    decidedAt: string;
+    approvalStatus: 'draft' | 'agency_reviewed' | 'client_approved';
+  } | null;
+  sameCampaignGate: Record<string, boolean>;
+  targetStatus: Record<string, string>;
+  activeTab: string;
+  /** 対象方針の変更で再確認が必要になった項目 */
+  staleAfterTargetChange: string[];
+};
 
 type WizardState = {
-  version: 1;
+  version: 2;
   updatedAt: string;
   campaign: {
     priceConfirmed?: '25' | '30';
@@ -27,11 +59,12 @@ type WizardState = {
     protocol?: 'baseline' | 'no-comparison';
     protocolConfirmedAt?: string;
   };
+  targetPortfolio: TargetPortfolioState;
   reportInternalVisible: boolean;
 };
 
 const DEFAULT_STATE: WizardState = {
-  version: 1,
+  version: 2,
   updatedAt: '',
   campaign: {
     mustFixResolved: [],
@@ -48,27 +81,90 @@ const DEFAULT_STATE: WizardState = {
     resolvedAs: null,
   },
   observation: {},
+  targetPortfolio: {
+    decision: null,
+    sameCampaignGate: {},
+    targetStatus: {},
+    activeTab: 'new_segment',
+    staleAfterTargetChange: [],
+  },
   reportInternalVisible: true,
 };
 
-function loadState(): WizardState {
-  if (typeof window === 'undefined') return { ...DEFAULT_STATE };
+/**
+ * v1 / v2 いずれの保存データも v2 形状へ正規化する純粋関数。
+ * v1 に存在したキーは失わず、v2 で追加された既定値を深くマージする。
+ */
+export function migrateToV2(rawV2: string | null, rawV1: string | null): WizardState {
+  const base: WizardState = JSON.parse(JSON.stringify(DEFAULT_STATE));
+  const source = safeParse(rawV2) ?? safeParse(rawV1);
+  if (!source) return base;
+
+  return {
+    version: 2,
+    updatedAt: typeof source.updatedAt === 'string' ? source.updatedAt : base.updatedAt,
+    campaign: { ...base.campaign, ...(source.campaign ?? {}) },
+    meaning: { ...base.meaning, ...(source.meaning ?? {}) },
+    approval: {
+      itemDecisions: { ...base.approval.itemDecisions, ...(source.approval?.itemDecisions ?? {}) },
+      changeReasons: { ...base.approval.changeReasons, ...(source.approval?.changeReasons ?? {}) },
+    },
+    publication: { ...base.publication, ...(source.publication ?? {}) },
+    observation: { ...base.observation, ...(source.observation ?? {}) },
+    targetPortfolio: {
+      ...base.targetPortfolio,
+      ...(source.targetPortfolio ?? {}),
+      sameCampaignGate: {
+        ...base.targetPortfolio.sameCampaignGate,
+        ...(source.targetPortfolio?.sameCampaignGate ?? {}),
+      },
+      targetStatus: {
+        ...base.targetPortfolio.targetStatus,
+        ...(source.targetPortfolio?.targetStatus ?? {}),
+      },
+      staleAfterTargetChange: Array.isArray(source.targetPortfolio?.staleAfterTargetChange)
+        ? source.targetPortfolio.staleAfterTargetChange
+        : base.targetPortfolio.staleAfterTargetChange,
+    },
+    reportInternalVisible:
+      typeof source.reportInternalVisible === 'boolean'
+        ? source.reportInternalVisible
+        : base.reportInternalVisible,
+  };
+}
+
+function safeParse(raw: string | null): any {
+  if (!raw) return null;
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return { ...DEFAULT_STATE };
     const parsed = JSON.parse(raw);
-    if (parsed && parsed.version === 1) return { ...DEFAULT_STATE, ...parsed };
-    return { ...DEFAULT_STATE };
+    return parsed && typeof parsed === 'object' ? parsed : null;
   } catch {
-    return { ...DEFAULT_STATE };
+    return null;
+  }
+}
+
+function loadState(): WizardState {
+  if (typeof window === 'undefined') return JSON.parse(JSON.stringify(DEFAULT_STATE));
+  try {
+    return migrateToV2(
+      window.localStorage.getItem(STORAGE_KEY),
+      window.localStorage.getItem(STORAGE_KEY_V1)
+    );
+  } catch {
+    return JSON.parse(JSON.stringify(DEFAULT_STATE));
   }
 }
 
 function saveState(state: WizardState) {
   if (typeof window === 'undefined') return;
   try {
+    state.version = 2;
     state.updatedAt = new Date().toISOString();
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    // v2 の保存が成功した後にだけ v1 を片付ける。
+    if (window.localStorage.getItem(STORAGE_KEY_V1)) {
+      window.localStorage.removeItem(STORAGE_KEY_V1);
+    }
     setSaveIndicator('saved');
     document.dispatchEvent(new CustomEvent('wizard:state', { detail: state }));
   } catch {
@@ -102,6 +198,7 @@ function resetState() {
   if (!confirmed) return;
   try {
     window.localStorage.removeItem(STORAGE_KEY);
+    window.localStorage.removeItem(STORAGE_KEY_V1);
   } catch {
     // ignore
   }
@@ -458,6 +555,308 @@ function reflectStateOnPage() {
   });
 }
 
+/* ==== 対象ポートフォリオ判断 ==== */
+
+const MODES_NEEDING_EVIDENCE: TargetStrategyMode[] = [
+  'new_only',
+  'both_same_campaign',
+  'both_separate',
+];
+
+/** 新候補の判断材料が不足しているか（デモでは固定条件） */
+function newTargetLacksEvidence(): boolean {
+  const root = document.querySelector<HTMLElement>('[data-wp-target-portfolio]');
+  return root?.getAttribute('data-evidence-sufficient') !== 'true';
+}
+
+function sameCampaignGateSatisfied(state: WizardState): boolean {
+  const boxes = document.querySelectorAll<HTMLInputElement>('[data-wp-same-campaign-gate]');
+  if (!boxes.length) return false;
+  return Array.from(boxes).every((b) => {
+    const id = b.getAttribute('data-wp-same-campaign-gate') || '';
+    return b.checked || state.targetPortfolio.sameCampaignGate[id] === true;
+  });
+}
+
+function selectedMode(): TargetStrategyMode | null {
+  const checked = document.querySelector<HTMLInputElement>('input[name="target-strategy-mode"]:checked');
+  return (checked?.value as TargetStrategyMode) ?? null;
+}
+
+function updateTargetModeFeedback() {
+  const state = loadState();
+  const mode = selectedMode();
+  const gateOk = sameCampaignGateSatisfied(state);
+  const lacksEvidence = newTargetLacksEvidence();
+
+  const gateWarning = document.querySelector<HTMLElement>('[data-wp-same-campaign-warning]');
+  if (gateWarning) {
+    gateWarning.hidden = !(mode === 'both_same_campaign' && !gateOk);
+  }
+
+  const evidenceWarning = document.querySelector<HTMLElement>('[data-wp-target-evidence-warning]');
+  if (evidenceWarning) {
+    evidenceWarning.hidden = !(
+      lacksEvidence &&
+      mode !== null &&
+      mode !== 'main_only' &&
+      mode !== 'test_first'
+    );
+  }
+
+  const approvalNotice = document.querySelector<HTMLElement>('[data-wp-new-only-notice]');
+  if (approvalNotice) approvalNotice.hidden = mode !== 'new_only';
+
+  const gateFieldset = document.querySelector<HTMLElement>('[data-wp-same-campaign-fieldset]');
+  if (gateFieldset) gateFieldset.hidden = mode !== 'both_same_campaign';
+
+  const submit = document.querySelector<HTMLButtonElement>('[data-wp-target-decide]');
+  if (!submit) return;
+  let blocked = mode === null;
+  if (mode === 'both_same_campaign' && !gateOk) blocked = true;
+  if (lacksEvidence && mode !== null && mode !== 'main_only' && mode !== 'test_first') blocked = true;
+  submit.disabled = blocked;
+  submit.setAttribute('aria-disabled', blocked ? 'true' : 'false');
+}
+
+function bindTargetPortfolio() {
+  const root = document.querySelector<HTMLElement>('[data-wp-target-portfolio]');
+  if (!root) return;
+  const state = loadState();
+  const saved = state.targetPortfolio.decision;
+
+  document.querySelectorAll<HTMLInputElement>('input[name="target-strategy-mode"]').forEach((radio) => {
+    if (saved?.mode && radio.value === saved.mode) radio.checked = true;
+    radio.addEventListener('change', updateTargetModeFeedback);
+  });
+
+  document.querySelectorAll<HTMLInputElement>('[data-wp-same-campaign-gate]').forEach((box) => {
+    const id = box.getAttribute('data-wp-same-campaign-gate') || '';
+    if (state.targetPortfolio.sameCampaignGate[id]) box.checked = true;
+    box.addEventListener('change', updateTargetModeFeedback);
+  });
+
+  const rationale = document.querySelector<HTMLTextAreaElement>('[data-wp-target-rationale]');
+  const rejected = document.querySelector<HTMLTextAreaElement>('[data-wp-target-rejected]');
+  const supporting = document.querySelector<HTMLTextAreaElement>('[data-wp-target-supporting]');
+  const opposing = document.querySelector<HTMLTextAreaElement>('[data-wp-target-opposing]');
+  const assumptions = document.querySelector<HTMLTextAreaElement>('[data-wp-target-assumptions]');
+  const reviewDate = document.querySelector<HTMLInputElement>('[data-wp-target-review-date]');
+
+  if (saved) {
+    if (rationale) rationale.value = saved.rationale || '';
+    if (rejected) rejected.value = (saved.rejectedAlternatives || []).map((r) => r.reason).join('\n');
+    if (supporting) supporting.value = saved.supportingEvidence || '';
+    if (opposing) opposing.value = saved.opposingEvidence || '';
+    if (assumptions) assumptions.value = saved.unverifiedAssumptions || '';
+    if (reviewDate) reviewDate.value = saved.reviewDate || '';
+  }
+
+  const errorBox = document.querySelector<HTMLElement>('[data-wp-target-errors]');
+  const submit = document.querySelector<HTMLButtonElement>('[data-wp-target-decide]');
+
+  submit?.addEventListener('click', () => {
+    const mode = selectedMode();
+    const errors: string[] = [];
+    if (!mode) errors.push('今回の対象方針を選択してください。');
+    if (!(rationale?.value || '').trim()) errors.push('この方針にした決め手を入力してください。');
+    if (!(rejected?.value || '').trim()) errors.push('採用しなかった選択肢とその理由を入力してください。');
+    if (!(supporting?.value || '').trim()) errors.push('支持する根拠を入力してください。');
+    if (!(opposing?.value || '').trim()) errors.push('反対する根拠・不足情報を入力してください。');
+    if (!(assumptions?.value || '').trim()) errors.push('未確認の仮定を入力してください。');
+    if (!(reviewDate?.value || '').trim()) errors.push('見直す日を入力してください。');
+    if (mode === 'both_same_campaign' && !sameCampaignGateSatisfied(loadState())) {
+      errors.push('「両方を同じ施策で扱う」は、4つの条件すべてを人が確認した場合だけ保存できます。');
+    }
+    if (newTargetLacksEvidence() && mode && mode !== 'main_only' && mode !== 'test_first') {
+      errors.push(
+        '新しい候補は判断材料が不足しています。「現在の主対象に集中する」または「小さく検証してから決める」を選んでください。'
+      );
+    }
+
+    if (errorBox) {
+      errorBox.hidden = errors.length === 0;
+      errorBox.innerHTML = errors.length
+        ? `<strong>保存できません</strong><ul>${errors.map((e) => `<li>${e}</li>`).join('')}</ul>`
+        : '';
+    }
+    if (errors.length) {
+      errorBox?.focus();
+      return;
+    }
+
+    setSaveIndicator('saving');
+    const next = loadState();
+    const previousMode = next.targetPortfolio.decision?.mode ?? null;
+    const gate: Record<string, boolean> = {};
+    document.querySelectorAll<HTMLInputElement>('[data-wp-same-campaign-gate]').forEach((b) => {
+      gate[b.getAttribute('data-wp-same-campaign-gate') || ''] = b.checked;
+    });
+
+    next.targetPortfolio.sameCampaignGate = gate;
+    next.targetPortfolio.decision = {
+      mode: mode as TargetStrategyMode,
+      primaryTargetId: mode === 'new_only' ? 'tg-multisite' : 'tg-main',
+      secondaryTargetIds:
+        mode === 'both_same_campaign' || mode === 'both_separate' || mode === 'test_first'
+          ? ['tg-multisite']
+          : [],
+      rationale: (rationale?.value || '').trim(),
+      rejectedAlternatives: [{ mode: 'その他の選択肢', reason: (rejected?.value || '').trim() }],
+      supportingEvidence: (supporting?.value || '').trim(),
+      opposingEvidence: (opposing?.value || '').trim(),
+      unverifiedAssumptions: (assumptions?.value || '').trim(),
+      artifactAssignments:
+        mode === 'both_separate'
+          ? [
+              { targetId: 'tg-main', assetIds: ['release-v2', 'lp-v1'] },
+              { targetId: 'tg-multisite', assetIds: ['lp-multisite-v1'] },
+            ]
+          : [{ targetId: 'tg-main', assetIds: ['release-v2', 'lp-v1'] }],
+      reviewDate: (reviewDate?.value || '').trim(),
+      version: (next.targetPortfolio.decision?.version ?? 0) + 1,
+      decidedBy: '山田 花子（案件編集者）',
+      decidedAt: new Date().toISOString(),
+      approvalStatus: mode === 'new_only' ? 'draft' : 'agency_reviewed',
+    };
+
+    // 方針が変わった場合だけ、影響する項目を再確認へ戻す。
+    if (previousMode && previousMode !== mode) {
+      next.targetPortfolio.staleAfterTargetChange = ['ap-target-strategy', 'asset-main', 'observation'];
+      delete next.approval.itemDecisions['ap-target-strategy'];
+      delete next.approval.changeReasons['ap-target-strategy'];
+    } else if (!previousMode) {
+      next.targetPortfolio.staleAfterTargetChange = [];
+    }
+
+    saveState(next);
+    window.setTimeout(() => window.location.reload(), 200);
+  });
+
+  updateTargetModeFeedback();
+}
+
+function bindTargetTabs() {
+  const tablist = document.querySelector<HTMLElement>('[data-wp-target-tablist]');
+  if (!tablist) return;
+  const tabs = Array.from(tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+  if (!tabs.length) return;
+
+  const activate = (tab: HTMLButtonElement, persist = true) => {
+    tabs.forEach((t) => {
+      const selected = t === tab;
+      t.setAttribute('aria-selected', selected ? 'true' : 'false');
+      t.tabIndex = selected ? 0 : -1;
+      const panelId = t.getAttribute('aria-controls');
+      const panel = panelId ? document.getElementById(panelId) : null;
+      if (panel) panel.hidden = !selected;
+    });
+    if (!persist) return;
+    tab.focus();
+    const state = loadState();
+    state.targetPortfolio.activeTab = tab.getAttribute('data-wp-target-tab') || 'new_segment';
+    saveState(state);
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => activate(tab));
+    tab.addEventListener('keydown', (e) => {
+      const i = tabs.indexOf(tab);
+      let target: HTMLButtonElement | null = null;
+      if (e.key === 'ArrowRight') target = tabs[(i + 1) % tabs.length];
+      else if (e.key === 'ArrowLeft') target = tabs[(i - 1 + tabs.length) % tabs.length];
+      else if (e.key === 'Home') target = tabs[0];
+      else if (e.key === 'End') target = tabs[tabs.length - 1];
+      if (target) {
+        e.preventDefault();
+        activate(target);
+      }
+    });
+  });
+
+  const savedTab = loadState().targetPortfolio.activeTab;
+  const initial = tabs.find((t) => t.getAttribute('data-wp-target-tab') === savedTab) ?? tabs[0];
+  activate(initial, false);
+}
+
+function bindTargetSteps() {
+  const steps = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-wp-target-step]'));
+  const panels = Array.from(document.querySelectorAll<HTMLElement>('[data-wp-target-step-panel]'));
+  if (!steps.length || !panels.length) return;
+  const show = (key: string) => {
+    panels.forEach((p) => {
+      p.hidden = p.getAttribute('data-wp-target-step-panel') !== key;
+    });
+    steps.forEach((s) => {
+      s.setAttribute('aria-pressed', s.getAttribute('data-wp-target-step') === key ? 'true' : 'false');
+    });
+  };
+  steps.forEach((s) => {
+    s.addEventListener('click', () => show(s.getAttribute('data-wp-target-step') || ''));
+  });
+  show(steps[0].getAttribute('data-wp-target-step') || '');
+}
+
+function reflectTargetStateOnPage() {
+  const s = loadState();
+  const decision = s.targetPortfolio.decision;
+
+  document.querySelectorAll<HTMLElement>('[data-wp-when-target-decided]').forEach((el) => {
+    el.hidden = !decision;
+  });
+  document.querySelectorAll<HTMLElement>('[data-wp-when-no-target-decision]').forEach((el) => {
+    el.hidden = !!decision;
+  });
+  document.querySelectorAll<HTMLElement>('[data-wp-when-target-mode]').forEach((el) => {
+    const wanted = (el.getAttribute('data-wp-when-target-mode') || '').split(',').map((x) => x.trim());
+    el.hidden = !decision || !wanted.includes(decision.mode as string);
+  });
+  document.querySelectorAll<HTMLElement>('[data-wp-target-mode-label]').forEach((el) => {
+    if (decision) el.textContent = modeLabel(decision.mode as TargetStrategyMode);
+  });
+  document.querySelectorAll<HTMLElement>('[data-wp-target-rationale-out]').forEach((el) => {
+    if (decision) el.textContent = decision.rationale;
+  });
+  document.querySelectorAll<HTMLElement>('[data-wp-target-assumptions-out]').forEach((el) => {
+    if (decision) el.textContent = decision.unverifiedAssumptions;
+  });
+  document.querySelectorAll<HTMLElement>('[data-wp-target-review-out]').forEach((el) => {
+    if (decision) el.textContent = decision.reviewDate;
+  });
+  document.querySelectorAll<HTMLElement>('[data-wp-target-version-out]').forEach((el) => {
+    if (decision) el.textContent = `第${decision.version}版`;
+  });
+  document.querySelectorAll<HTMLElement>('[data-wp-when-target-stale]').forEach((el) => {
+    el.hidden = s.targetPortfolio.staleAfterTargetChange.length === 0;
+  });
+  document.querySelectorAll<HTMLElement>('[data-wp-target-approval-status]').forEach((el) => {
+    if (!decision) return;
+    el.textContent =
+      decision.approvalStatus === 'draft'
+        ? '代理店レビューとクライアント承認が必要'
+        : decision.approvalStatus === 'agency_reviewed'
+          ? '代理店レビュー済み'
+          : 'クライアント承認済み';
+  });
+}
+
+function modeLabel(mode: TargetStrategyMode): string {
+  switch (mode) {
+    case 'main_only':
+      return '現在の主対象に集中する';
+    case 'new_only':
+      return '新しい候補へ切り替える';
+    case 'both_same_campaign':
+      return '両方を同じ施策で扱う';
+    case 'both_separate':
+      return '両方を別の原稿・LP・チャネルで扱う';
+    case 'test_first':
+      return '小さく検証してから決める';
+    default:
+      return '未決定';
+  }
+}
+
 function initAll() {
   bindResetButtons();
   bindStateSwitcher();
@@ -470,7 +869,11 @@ function initAll() {
   bindObservationProtocol();
   bindReportToggle();
   bindDecisionNav();
+  bindTargetSteps();
+  bindTargetTabs();
+  bindTargetPortfolio();
   reflectStateOnPage();
+  reflectTargetStateOnPage();
 }
 
 if (typeof window !== 'undefined') {

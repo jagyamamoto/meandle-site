@@ -2,7 +2,14 @@
 import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
 import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
 import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
-import { DEMO_FINDINGS } from '../../../../../data/wizard-prototype';
+import { DEMO_FINDINGS, DEMO_TARGET_FINDINGS } from '../../../../../data/wizard-prototype';
+
+const allFindings = [...DEMO_FINDINGS, ...DEMO_TARGET_FINDINGS];
+const countBySeverity = (severity: string) =>
+  allFindings.filter((f) => f.severity === severity).length;
+const blockerCount = countBySeverity('公開前に直す');
+const warnCount = countBySeverity('確認が必要');
+const suggestCount = countBySeverity('改善候補');
 ---
 <WizardPrototypeLayout title="公開前チェック" description="Meandle Wizard 操作デモ — 公開前チェック" stage="preflight">
   <WizardCampaignHeader slot="header" />
@@ -10,36 +17,63 @@ import { DEMO_FINDINGS } from '../../../../../data/wizard-prototype';
 
   <div data-wp-when-resolved="f-industry-no1">
     <div class="wp-callout wp-callout--success">
-      <strong>今回のチェック範囲では、公開を止める問題は見つかりませんでした。</strong>
-      <p>確認が必要な項目が1件、改善候補が1件あります。クライアント確認画面の作成に進めます。</p>
-      <a class="wp-btn wp-btn--primary" href="/wizard/campaign/demo/approval/preview/" style="margin-top:8px;">
-        クライアント確認画面を作成
-      </a>
+      <strong>「業界No.1」の指摘は対応済みです。</strong>
+      <p>
+        残りの「公開前に直す」項目（{blockerCount - 1}件）と、確認が必要 {warnCount}件、改善候補 {suggestCount}件を確認してください。
+      </p>
     </div>
   </div>
 
   <div data-wp-when-unresolved="f-industry-no1">
     <div class="wp-callout wp-callout--danger">
-      <strong>公開前に直す項目が 1件 あります</strong>
-      <p>「業界No.1」の根拠が確認できていません。この項目を対応するか、代理店レビュー担当が理由付きで例外受容するまで、クライアント確認画面は作成できません。</p>
+      <strong>公開前に直す項目が {blockerCount}件 あります</strong>
+      <p>
+        「業界No.1」の根拠が確認できていません。この項目を対応するか、代理店レビュー担当が理由付きで例外受容するまで、クライアント確認画面は作成できません。
+      </p>
     </div>
   </div>
 
-  <div class="wp-split--three" style="display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr) minmax(0,320px);gap:16px;">
+  <div data-wp-when-target-mode="both_separate" hidden>
+    <div class="wp-callout wp-callout--danger">
+      <strong>対象方針と成果物が一致していません</strong>
+      <p>
+        「両方を別の原稿・LP・チャネルで扱う」を選んでいますが、成果物が主対象向けの1種類しかありません。原則として「公開前に直す」項目です。
+      </p>
+    </div>
+  </div>
+
+  <div data-wp-when-no-target-decision hidden>
+    <div class="wp-callout wp-callout--warning">
+      <strong>対象方針がまだ決まっていません</strong>
+      <p>
+        選んだ対象に根拠があるかを判定できません。
+        <a href="/wizard/campaign/demo/meaning/">伝え方の基準で対象方針を決める →</a>
+      </p>
+    </div>
+  </div>
+
+  <div data-wp-when-target-decided hidden>
+    <div class="wp-callout wp-callout--info">
+      <strong>対象方針: <span data-wp-target-mode-label></span>（<span data-wp-target-version-out></span>）</strong>
+      <p>この方針に照らして、対象の混在・根拠の流用・CTAの整合をチェックしています。</p>
+    </div>
+  </div>
+
+  <div class="wp-split wp-split--three">
     <div>
       <h2 style="font-size:16px;margin:0 0 12px;">指摘一覧</h2>
       <div style="display:flex;flex-direction:column;gap:8px;">
         <div class="wp-card wp-card--tight" style="border-left:4px solid var(--wp-danger);">
           <div style="font-size:12px;color:var(--wp-danger);font-weight:700;">公開前に直す</div>
-          <p style="margin:4px 0 0;font-size:14px;font-weight:600;">1件</p>
+          <p style="margin:4px 0 0;font-size:14px;font-weight:600;">{blockerCount}件</p>
         </div>
         <div class="wp-card wp-card--tight" style="border-left:4px solid var(--wp-warning);">
           <div style="font-size:12px;color:var(--wp-warning);font-weight:700;">確認が必要</div>
-          <p style="margin:4px 0 0;font-size:14px;font-weight:600;">1件</p>
+          <p style="margin:4px 0 0;font-size:14px;font-weight:600;">{warnCount}件</p>
         </div>
         <div class="wp-card wp-card--tight" style="border-left:4px solid #6b7280;">
           <div style="font-size:12px;color:#6b7280;font-weight:700;">改善候補</div>
-          <p style="margin:4px 0 0;font-size:14px;font-weight:600;">1件</p>
+          <p style="margin:4px 0 0;font-size:14px;font-weight:600;">{suggestCount}件</p>
         </div>
       </div>
 
@@ -50,7 +84,7 @@ import { DEMO_FINDINGS } from '../../../../../data/wizard-prototype';
 
     <div>
       <h2 style="font-size:16px;margin:0 0 12px;">原稿と修正候補</h2>
-      {DEMO_FINDINGS.map((f) => (
+      {allFindings.map((f) => (
         <div class="wp-finding" data-severity={f.severity}>
           <div class="wp-finding__head">
             <span class="wp-badge" class:list={[f.severity === '公開前に直す' ? 'wp-badge--danger' : f.severity === '確認が必要' ? 'wp-badge--warning' : 'wp-badge--neutral']}>

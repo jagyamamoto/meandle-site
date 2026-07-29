@@ -2,6 +2,7 @@
 import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
 import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
 import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
+import WizardTargetCard from '../../../../../components/wizard/WizardTargetCard.astro';
 import { DEMO_MEANING_CARDS } from '../../../../../data/wizard-prototype';
 ---
 <WizardPrototypeLayout title="伝え方の基準" description="Meandle Wizard 操作デモ — 伝え方の基準" stage="meaning">
@@ -43,6 +44,8 @@ import { DEMO_MEANING_CARDS } from '../../../../../data/wizard-prototype';
           <p style="font-size:12px;color:var(--wp-ink-muted);">
             出典: {c.sourceRef}
           </p>
+
+          {c.id === 'audience_context' && <WizardTargetCard />}
 
           <p style="font-size:13px;color:var(--wp-ink-muted);margin-top:12px;">
             <strong>提案理由</strong>：資料内の該当箇所と、根拠リスト上の関連項目から抽出しました。この内容で確認するか、編集するか、クライアント確認へ回すかを選んでください。
