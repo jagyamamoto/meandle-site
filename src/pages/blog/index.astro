@@ -1,123 +1,102 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const experiments = [
+const title = 'Blog｜検証ノートと購入前ガイド｜Meandle';
+const description = 'AI検索の観測、条件付きLLM応答テスト、意味設計、支援会社の選び方などを整理した検証ノートと購入前ガイドです。成果を約束するものではありません。';
+
+const articles = [
   {
-    no: '#1',
-    title: 'CLOコンパス みんどりシミュレーション結果レポート',
-    target: '物流DX B2Bサービス（CLOコンパス）',
-    finding: 'LLM誤認3種→0種、スコア最大6.75倍、ノイズクエリ3/3で除外確認',
-    status: '公開済',
+    slug: 'chatgpt-company-not-found',
+    title: 'ChatGPTで自社名・商材が出ないとき、最初に分ける4つの確認',
+    excerpt: '「出ない」を一つの原因にせず、公開・アクセス条件、事実の整合、意味仕様、外部環境を分けて確認するための記事。',
+    tag: '購入前ガイド',
+  },
+  {
+    slug: 'ai-misinformation-misrecommendation',
+    title: '誤認と誤推薦を、同じ問題として扱わない。',
+    excerpt: 'AIによる事実誤りと、対象外の相手への誤推薦は別の問題。高単価B2Bの対象・価値・根拠・対象外条件を意味仕様にする考え方。',
+    tag: '購入前ガイド',
+  },
+  {
+    slug: 'how-to-choose-ai-search-support',
+    title: 'AIO・LLMO・GEO支援の選び方：費用より先に、責任範囲を分ける',
+    excerpt: '呼び方ではなく、観測から実装までのどこを誰が担うかで選ぶためのガイド。5範囲・7質問・費用の読み方。',
+    tag: '購入前ガイド',
+  },
+  {
+    slug: 'monitoring-to-implementation',
+    title: '観測した後、ページの何をどう直すか。',
+    excerpt: 'AIO／GEOの観測結果を、対象・対象外・価値・根拠の意味仕様、実装差分、優先1ページ実装、初回比較記録へつなぐ責任の鎖。',
+    tag: '実装ガイド',
+  },
+  {
     slug: 'clo',
+    title: '同一質問に、異なる情報を与えると何が変わるか：条件付きLLM応答テストの設計ノート',
+    excerpt: '条件付き応答テスト（CLO＝作業ラベル）の方法と限界。公開WebやAI検索の効果を示すものではありません。',
+    tag: '検証ノート',
   },
+];
+
+const structuredData = [
   {
-    no: '#2',
-    title: '温度×時間センシングインクは、AIに「食べ頃予測の技術」として届くか',
-    target: '日立産機システム PRリリース参照（自主実験）',
-    finding: 'スコア最大24倍（Q2: 2.5→60.1）、境界設計 3/3（隣接で正しい競合が1位）',
-    status: '公開済',
-    slug: 'hitachi',
-  },
-  {
-    no: '#3',
-    title: '温度×時間センシングインクは、検索とLLMに「しっかり届く」か',
-    target: '日立 PRリリース／文字バイグラム overlap 検証',
-    finding: '名称中心 vs i フレーム化で目標 10 クエリ・隣接 5 クエリのスコア差を可視化',
-    status: '公開済',
-    slug: 'temperature-sensing-ink',
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': 'https://meandle.jp/blog/#webpage',
+    url: 'https://meandle.jp/blog/',
+    name: title,
+    description: description,
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    inLanguage: 'ja-JP',
   },
 ];
 ---
 <BaseLayout
-  title="Self Do.meandle — 実験シリーズ｜Meandle"
-  description="Jag Yamamotoが自主的に実施した実験記録を公開します。いずれもクライアント委託ではなく、公開情報をもとにした独立した検証実験です。"
+  title={title}
+  description={description}
+  canonical="/blog/"
+  ogTitle={title}
+  ogDescription={description}
+  structuredData={structuredData}
 >
-  <section class="hero">
+  <section class="hero hero--split">
+    <div class="hero__bg-grid" aria-hidden="true"></div>
+    <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
-      <span class="eyebrow hero__eyebrow">Self Do.meandle</span>
-      <h1 class="hero-copy">実験シリーズ<br/>──自主実験を積み重ね、理論を実務に接続する</h1>
-      <p style="margin-top:24px">Jag Yamamoto が自主的に実施した実験記録を公開します。<br/>いずれもクライアント委託ではなく、公開情報をもとにした独立した検証実験です。</p>
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　Blog</nav>
+      <span class="eyebrow hero__eyebrow">Meandle Notes</span>
+      <h1 class="hero-copy">検証ノートと購入前ガイド</h1>
+      <p class="lead" style="margin-top:20px">
+        AI検索の観測、条件付きLLM応答テスト、意味設計、支援会社の選び方などを整理したノートです。<br/>
+        AI応答、引用、順位、流入、商談、売上を約束するものではありません。
+      </p>
     </div>
   </section>
 
   <section class="section">
-    <div class="container">
-      <span class="eyebrow">Experiment Index</span>
-      <h2>実験一覧</h2>
-
-      <div class="table-wrap">
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th style="width:8%">実験</th>
-              <th>対象</th>
-              <th>主な発見</th>
-              <th style="width:14%">ステータス</th>
-            </tr>
-          </thead>
-          <tbody>
-            {experiments.map((e) => (
-              <tr>
-                <td><strong>{e.no}</strong></td>
-                <td>
-                  {e.slug
-                    ? <a href={`/blog/${e.slug}/`}><strong>{e.title}</strong></a>
-                    : <strong>{e.title}</strong>}
-                  <br/><small style="color:var(--muted)">{e.target}</small>
-                </td>
-                <td>{e.finding}</td>
-                <td>
-                  {e.status === '公開済'
-                    ? <span style="color:var(--hero-orange); font-weight:700">{e.status}</span>
-                    : <span style="color:var(--muted)">{e.status}</span>}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div class="container container--narrow">
+      <div class="grid grid--2 mt-3">
+        {articles.map((article) => (
+          <a href={`/blog/${article.slug}/`} class="service-card">
+            <div class="eyebrow" style="color:var(--hero-orange); margin-bottom:6px">{article.tag}</div>
+            <h3>{article.title}</h3>
+            <p style="font-size:14px; margin:10px 0">{article.excerpt}</p>
+            <span>読む →</span>
+          </a>
+        ))}
       </div>
 
-      <div class="callout-note" style="margin-top:24px">
-        すべての実験は自主実験（クライアント委託ではない）です。スコアは仮説シミュレーション値または LLM 応答実測値です。実際の検索流入・リード数・受注を示すものではありません。highprofilm.jp の AI Overview 登場は別途実測で確認しています。
+      <div class="callout-note" style="margin-top:32px">
+        すべての記事は、Meandleの設計方針（E0）または一次情報の整理として書かれています。実在案件のBefore／Afterや成果は、証拠台帳と許諾が揃った場合にだけ公開します。
       </div>
     </div>
   </section>
 
-  <!-- Featured experiment cards -->
-  <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">Featured Experiments</span>
-      <h2>注目の検証ノート</h2>
-
-      <div class="grid grid--2 mt-3">
-        <a href="/blog/clo/" class="service-card">
-          <div class="eyebrow" style="color:var(--hero-orange); margin-bottom:6px">実験 #1</div>
-          <h3>CLOコンパス みんどりシミュレーション結果レポート</h3>
-          <p style="font-size:14px; margin:10px 0">物流統括管理者（CLO）向けB2Bサービスを題材に、みんどりIndex の効果を文字バイグラム × フィールド重み付きスコアリングで検証。LLM 応答比較も Anthropic API で実測。</p>
-          <ul style="font-size:13px; color:var(--muted); padding-left:18px; margin-bottom:10px">
-            <li>目標クエリ 4/4 で 1 位（最大 6.75 倍）</li>
-            <li>ノイズクエリ 3/3 でマイナス（must_not 機能）</li>
-            <li>LLM 誤認 3 種すべてが 100% → 0% に改善</li>
-          </ul>
-          <span>詳細レポートを読む →</span>
-        </a>
-
-        <a href="/blog/hitachi/" class="service-card">
-          <div class="eyebrow" style="color:var(--hero-orange); margin-bottom:6px">実験 #2</div>
-          <h3>温度×時間センシングインクは、AIに「食べ頃予測の技術」として届くか</h3>
-          <p style="font-size:14px; margin:10px 0">日立産機システムが公開した PRリリースを題材に、名称のみと meandle Index 文脈追加でのスコア差を検証。「届くべきでない問いに届かない」境界設計も併せて評価。</p>
-          <ul style="font-size:13px; color:var(--muted); padding-left:18px; margin-bottom:10px">
-            <li>目標クエリ 3/3 で 1 位（Q2 は 24 倍）</li>
-            <li>隣接 3/3 で正しい競合が 1 位（過剰反応なし）</li>
-            <li>非主対象 3/3 でスコアゼロ以下（除外確認）</li>
-          </ul>
-          <span>詳細レポートを読む →</span>
-        </a>
-      </div>
-
-      <p class="muted" style="font-size:13px; margin-top:18px">
-        ※ 上記 2 件は分析レポート形式。記事形式の解説版は <a href="/blog/temperature-sensing-ink/">実験 #3「温度×時間センシングインクは、検索とLLMに『しっかり届く』か」</a> を参照。
-      </p>
+  <section class="cta-block">
+    <div class="container container--narrow">
+      <span class="eyebrow" style="color:var(--hero-orange)">Start with One URL</span>
+      <h2>既存URLで導入適合性を確認する。</h2>
+      <p>初回は、1商材・1URLの意味適合スプリント 50万円〜です。</p>
+      <a href="/contact/" class="btn btn--primary" style="margin-top:16px">既存URLで導入適合性を確認する</a>
     </div>
   </section>
 </BaseLayout>

@@ -1,269 +1,281 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Meandle PR｜発表の事実を、PR文・LP・記事化素材へ整える｜Meandle';
+const description = 'Meandle PRは、製品事実を対象・価値・根拠・対象外条件の意味仕様にし、PR文、LP、記事化素材へ一貫して反映します。1 PRセット50万円〜。';
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://meandle.jp/pr/#webpage',
+    url: 'https://meandle.jp/pr/',
+    name: title,
+    description: description,
+    inLanguage: 'ja',
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    about: { '@id': 'https://meandle.jp/pr/#service' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': 'https://meandle.jp/pr/#service',
+    name: 'Meandle PR',
+    serviceType: 'B2B意味設計 / PR素材の意味整合',
+    url: 'https://meandle.jp/pr/',
+    description: '製品事実を対象・価値・根拠・対象外条件の意味仕様にし、PR文、LP、記事化素材へ一貫して反映するB2Bサービス。配信・掲載・引用・順位・売上を保証しません。',
+    provider: { '@id': 'https://meandle.jp/#organization' },
+    areaServed: 'JP',
+  },
+];
 ---
 <BaseLayout
-  title="Meandle PR — プレスリリースを出して、5時間後にAIが答え始めた｜Meandle"
-  description="highprofilm.jpの実証事例：みんどり最適化サイト＋プレスリリース配信から5時間でGoogle AI Overviewに登場。Google広告では達成できないオーガニックなAI認知を獲得します。"
+  title={title}
+  description={description}
+  canonical="/pr/"
+  ogTitle='発表の事実を、同じ意味で伝わる素材へ整える｜Meandle PR'
+  ogDescription='PR配信・掲載・引用を約束するのではなく、製品事実からPR文、LP、記事化素材、観察条件までを一つの意味仕様で整えます。'
+  ogImage="/images/pr/meandle-pr-hero-v1.webp"
+  structuredData={structuredData}
 >
-  <section class="hero">
+  <!-- Section 1: Hero -->
+  <section class="hero hero--split">
+    <div class="hero__bg-grid" aria-hidden="true"></div>
+    <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　Meandle PR</nav>
       <span class="eyebrow hero__eyebrow">Meandle PR</span>
-      <h1 class="hero-copy">プレスリリースを出して、<br/>5時間後にAIが答え始めた。</h1>
-      <p style="margin-top:24px">スマホフィルムの販売サイト「highprofilm.jp」をみんどり最適化し、プレスリリースを配信。発行後わずか<strong>5時間</strong>で、Google AI Overviewに「スマホフィルム 在庫リスク少ないもの教えて」の回答として登場しました。</p>
-      <p>Meandle PRは、「みんどり最適化サイト制作／LP制作」＋「みんどりプレスリリース配信」＋「メディア記事化」の3点セットで、AIが「このサービスとはこういうものだ」と正確に理解・推薦できる状態を作ります。</p>
+      <h1 class="hero-copy">発表の事実を、<br/>同じ意味で伝わる素材へ整える。</h1>
+
+      <p class="lead" style="margin-top:20px">
+        新商品、新技術、事業の転換を発表するとき、PR文、LP、営業資料、記事化素材で説明が少しずつ変わると、誰に何を提供するのかがぼやけます。高単価B2Bでは、配信より前に、製品事実と判断条件をそろえる必要があります。
+      </p>
+      <p>
+        Meandle PRは、対象、対象外、価値、根拠を意味仕様にし、PR文、LP、記事化素材へ一貫して反映するPR設計です。配信、掲載、引用、順位、問い合わせ、売上を保証するサービスではありません。
+      </p>
+
+      <p style="margin-top:16px"><strong>1 PRセット 50万円〜</strong></p>
+
+      <div class="hero__cta-group">
+        <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+      </div>
+      <p style="font-size:13px; color:var(--muted); margin-top:12px">
+        既存URL、製品・サービスの事実資料、発表する理由、来てほしい相手、対象外にしたい相手や用途を確認します。<br/>
+        お問い合わせ段階では、詳細な診断や配信優先順位の提案は行いません。
+      </p>
+
+      <figure class="hero-figure">
+        <img src="/images/pr/meandle-pr-hero-v1.webp" alt="製品事実の資料から対象・価値・根拠・対象外条件を整理し、PR文、LP、記事化素材へ展開する二人のビジネス担当者" width="1536" height="1024" loading="eager" fetchpriority="high" />
+        <figcaption>発表の前に、誰に何を伝え、何を伝えないかを一つの仕様にします。</figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- Real case: highprofilm.jp -->
-  <section class="section">
-    <div class="container">
-      <span class="eyebrow">実証事例</span>
-      <h2>highprofilm.jp の AI Overview 登場</h2>
-      <span class="ev-badge ev-badge--real">🟢 実証事例 — 実際のAI検索結果</span>
+  <!-- Section 2: Problem -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Before Distribution</span>
+      <h2>発表素材が増えるほど、製品の意味はずれやすくなります。</h2>
+      <p>製品ページでは専門性を説明し、PR文では話題性を優先し、営業資料では機能を並べ、記事化の素材では背景だけを渡す。この状態では、同じ商材でも読む人によって別のものに見えます。</p>
+      <p>とくに高単価B2Bでは、対象顧客、導入場面、比較軸、根拠、対象外条件が揃っていない発表は、関心を集めても適合判断につながりにくくなります。Meandle PRは、素材を増やす前に、説明の判断基準をそろえます。</p>
 
-      <div class="ev-box ev-box--real">
-        <div class="flow motion-stagger">
-          <div class="flow-step flow-step--real">
-            <div class="flow-num flow-num--real">1</div>
-            <span>highprofilm.jp を<br/>みんどり最適化</span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-step flow-step--real">
-            <div class="flow-num flow-num--real">2</div>
-            <span>プレスリリース<br/>配信</span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-step flow-step--real">
-            <div class="flow-num flow-num--real">3</div>
-            <span><strong style="color:var(--hero-orange)">5時間後</strong></span>
-          </div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-step flow-step--real">
-            <div class="flow-num flow-num--real">4</div>
-            <span>Google AI Overview<br/>に登場</span>
-          </div>
-        </div>
-
-        <p style="margin-top:18px; font-size:14px">
-          登場したAI検索クエリ：<code>スマホフィルム 在庫リスク少ないもの教えて</code><br/>
-          この「在庫リスク少ない」という観点は、スマホフィルムの購入者が本当に抱えている課題語です。みんどり最適化によりこの語と高くマッチする構造を持たせたことで、AI Overview が highprofilm をこのクエリへの回答候補として選びました。
-        </p>
-
-        <figure class="ai-overview-shot">
-          <img
-            src="/images/highpro.jpg"
-            alt="Google AI Overview で「スマホフィルム 在庫リスク少ないもの教えて」のクエリに対し highprofilm.jp が回答候補として登場した実際のスクリーンショット"
-            loading="lazy"
-          />
-          <figcaption>Google AI Overview に highprofilm.jp が登場した実際の表示（配信から5時間後の観察）</figcaption>
-        </figure>
-
-        <div style="font-size:12px; color:var(--muted); margin-top:10px; padding-top:10px; border-top:1px solid rgba(233,143,34,0.25); line-height:1.7">
-          ※ Jag Yamamoto が観察した実測結果。Google AI Overview の表示は個人・地域・タイミングにより異なります。同等の成果を保証するものではありません。
-        </div>
+      <div class="grid grid--2 mt-4">
+        <div class="card"><h3>製品の事実と価値の説明が離れている</h3><p style="margin-bottom:0">事実はあるのに、それが顧客のどの判断を支えるかが分からない状態です。</p></div>
+        <div class="card"><h3>対象顧客と利用場面が広すぎる</h3><p style="margin-bottom:0">誰にでも当てはまる表現では、専門性が必要な相手に向けた理由が伝わりません。</p></div>
+        <div class="card"><h3>対象外条件がない</h3><p style="margin-bottom:0">提供しない用途や、先に別の条件が必要な状態を示さないと、発表後に期待の調整が必要になります。</p></div>
+        <div class="card"><h3>素材ごとに根拠が変わる</h3><p style="margin-bottom:0">PR文、LP、記事化素材で異なる数字や表現が使われると、確認の手間と誤解の可能性が増えます。</p></div>
       </div>
     </div>
   </section>
 
-  <!-- Google Ads comparison -->
+  <!-- Section 3: Meaning specification -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">One Meaning Before Many Materials</span>
+      <h2>製品事実を、発表前に「誰に・何を・何ではないか」へ整理します。</h2>
+      <p>Meandle PRは、PR文を書き始める前に、事業側が確認できる製品事実と対象条件をまとめます。これは、外部のAIやメディアの扱いを制御するものではなく、自社が公開する説明に一貫性を持たせる設計です。</p>
+
+      <div class="table-wrap mt-3">
+        <table class="compare-table">
+          <thead><tr><th scope="col">項目</th><th scope="col">発表前に定めること</th><th scope="col">素材への反映先</th></tr></thead>
+          <tbody>
+            <tr><td>役割</td><td>製品・サービスは顧客にとって何を担うか</td><td>PRの導入、LPのH1、記事化素材の要約</td></tr>
+            <tr><td>利用場面</td><td>どの状況で必要になるか</td><td>本文、発表背景、FAQ</td></tr>
+            <tr><td>比較対象・比較軸</td><td>何と比べられ、何を基準に検討すべきか</td><td>価値説明、営業連携用素材</td></tr>
+            <tr><td>価値</td><td>どの判断を支えるか</td><td>PRの主張、LPの価値説明</td></tr>
+            <tr><td>根拠</td><td>何が価値を裏付けるか</td><td>事実資料、注記、記事化素材</td></tr>
+            <tr><td>必須条件</td><td>適合に必要な顧客・用途・前提</td><td>LP、FAQ、問い合わせ導線</td></tr>
+            <tr><td>対象外条件</td><td>何ではないか。誰・どの用途を扱わないか</td><td>FAQ、比較、問い合わせ導線</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:16px">意味仕様は、強い表現をつくるためのものではありません。公開できる事実と、まだ断定しないことを分け、発表素材で矛盾しないための基準です。</p>
+    </div>
+  </section>
+
+  <!-- Section 4: Deliverables -->
   <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">Cost Simulation</span>
-      <h2>Google広告との比較シミュレーション</h2>
+    <div class="container container--narrow">
+      <span class="eyebrow">One Fact Set, Three Materials</span>
+      <h2>PR文、LP、記事化素材を、別々に量産しません。</h2>
+      <p>一つの意味仕様から、発表に必要な三つの素材をつくります。実際の配信先、掲載先、制作範囲、法務確認、公開手順は、発表内容と既存体制に応じて契約前に定めます。</p>
+
+      <div class="grid grid--2 mt-4">
+        <div class="card"><h3>1. PR文</h3><p style="margin-bottom:0">発表の理由、対象顧客、提供価値、根拠、条件を、一つの主張の流れにします。未確認の効果、比較、将来の約束は入れません。</p></div>
+        <div class="card"><h3>2. LPまたは既存ページのPR連携部分</h3><p style="margin-bottom:0">PR文で興味を持った相手が、対象、利用場面、価値、根拠、対象外条件を確認できる場所を整えます。全面的なサイト改修や複数ページ実装は含みません。</p></div>
+        <div class="card"><h3>3. 記事化素材</h3><p style="margin-bottom:0">第三者が記事化を検討するときに確認できる、製品事実、背景、対象顧客、根拠、画像・資料の利用条件を整理します。掲載や編集方針、第三者による表現、転載は管理できません。</p></div>
+      </div>
 
       <div class="callout-note">
-        <strong>重要な前提：</strong>Google広告（検索広告・ディスプレイ広告）は Google AI Overview への掲載を保証しません。AI Overview はオーガニックなアルゴリズムで選定されます。「みんどることで5時間で AI Overview に登場した」実績は、有料広告では達成できない成果です。
-      </div>
-
-      <span class="ev-badge ev-badge--sim">⚠ SIMULATION — 参考試算値</span>
-
-      <div class="sim-box">
-        <span class="sim-label">Google広告 vs Meandle PR コスト試算</span>
-        <p style="font-size:13.5px">前提：B2B / C向けサービスの AI 検索上での認知獲得を目標とする場合</p>
-
-        <div class="table-wrap">
-          <table class="compare-table">
-            <thead>
-              <tr>
-                <th>手法</th>
-                <th>月額費用</th>
-                <th>AI Overview掲載</th>
-                <th>年間概算</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Google検索広告<br/><small style="color:var(--muted)">（B2B高競合キーワード）</small></td>
-                <td>40〜300万円</td>
-                <td>❌ 保証されない<br/><small style="color:var(--muted)">（広告と AI Overview は別システム）</small></td>
-                <td>480〜3,600万円</td>
-              </tr>
-              <tr>
-                <td>プレスリリース配信<br/><small style="color:var(--muted)">（従来型、みんどりなし）</small></td>
-                <td>5〜20万円/回</td>
-                <td>△ 構造なしでは AI 採用率低</td>
-                <td>複数回で100〜300万円+</td>
-              </tr>
-              <tr class="highlight">
-                <td><strong>Meandle PR</strong><br/><small style="color:var(--muted)">（みんどり最適化＋PR）</small></td>
-                <td><strong>50万円〜/セット</strong></td>
-                <td><strong>✅ 実証：5時間で登場</strong></td>
-                <td><strong>50万円〜（初回）</strong></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="fact-bar fact-bar--highlight" style="margin-top:14px">
-          <span class="fact-bar__icon">📊</span>
-          <div><strong>ポイント：</strong>Google広告は「広告表示」に課金するモデルで、Google AI Overview とは別システムです。Meandle PR は「AIに正しく認識される構造を作る」アプローチで、有料広告では代替できないオーガニックな AI 認知を獲得します。highprofilm.jp の5時間登場はその実証です。</div>
-        </div>
-
-        <div class="sim-disclaimer">
-          ※ Google広告費用は2025〜2026年B2B広告市場ベンチマーク（CPC 300〜2,000円）をもとにした試算。実際のコストは業種・競合・キーワードにより変動します。Meandle PR の効果は個別案件により異なり、5時間での登場を保証するものではありません。
-        </div>
+        <strong>範囲外：</strong>無制限のメディア配信、掲載保証、転載保証、広告運用、記事の量産、順位計測だけの代行、外部AIの応答操作は含みません。
       </div>
     </div>
   </section>
 
-  <!-- Hitachi tech reference -->
+  <!-- Section 5: Flow -->
   <section class="section">
-    <div class="container">
-      <span class="eyebrow">技術的根拠</span>
-      <h2>みんどりがPRリリースにどう作用するか</h2>
-      <span class="ev-badge ev-badge--sim">🔵 自主実験（シミュレーション）— 日立産機システムPR参照</span>
+    <div class="container container--narrow">
+      <span class="eyebrow">From Product Facts to a Conditional Record</span>
+      <h2>製品事実から観察記録まで、確認できる範囲を分けます。</h2>
+      <p>公開結果を先に約束しません。製品事実を確認し、意味仕様をつくり、発表素材へ反映したうえで、必要な場合だけ条件を明示した観察記録を残します。</p>
 
-      <div class="ev-box ev-box--sim">
-        <p style="font-size:14.5px">日立産機システムが公開したPRリリース（温度×時間センシングインク）を参照した仮説シミュレーションでは、みんどり最適化により目標クエリでのスコアが名称のみ<strong>5.0点→49.7点（9.94倍）</strong>に変化。同時に、非主対象クエリ（賞味期限ラベル・鮮度保持材）では<strong>−8.0〜0.0点</strong>（除外確認）。</p>
-        <p style="font-size:14.5px">この「届くべき人に届き、届かなくていい人には届かない」という境界設計が、Meandle PR の技術的な核です。新技術のPRリリースも、みんどる構造を持たせることで隣接カテゴリへの意味の流出を防ぎます。</p>
-        <div style="margin-top:14px; padding-top:10px; border-top:1px solid rgba(18,36,44,0.15); font-size:12px; color:var(--muted); line-height:1.7">
-          ※ 日立産機システムの委託実験ではなく Jag Yamamoto の自主実験。同社との提携関係なし。スコアは仮説シミュレーション値。
-        </div>
-      </div>
+      <figure class="hero-figure">
+        <img src="/images/pr/meandle-pr-meaning-flow-comic-v1.webp" alt="製品事実の資料を確認し、対象・価値・根拠・対象外条件の意味仕様をつくり、PR文・LP・記事化素材をまとめ、観察条件を記録する4段階の図" width="1536" height="1024" loading="lazy" />
+      </figure>
 
-      <p style="margin-top:16px"><a href="/blog/temperature-sensing-ink/">→ 日立PRリリースを題材にした実験記事を読む</a></p>
+      <ol class="mt-4" style="font-size:15.5px; line-height:1.95">
+        <li><strong>製品事実を確認する</strong>：公開できる仕様、根拠、更新日、画像・資料の利用条件を事業側と確認します。</li>
+        <li><strong>意味仕様にする</strong>：対象、価値、根拠、対象外条件を定め、どの主張をどの条件で公開できるかをそろえます。</li>
+        <li><strong>発表素材へ反映する</strong>：PR文、LP、記事化素材に同じ意味を通し、確認先と公開責任を明確にします。</li>
+        <li><strong>条件付き観察を記録する</strong>：公開後に観察する場合は、URL、日時、質問、地域・端末、観察内容、限界を記録します。</li>
+      </ol>
+
+      <p style="margin-top:16px">条件付き観察記録は、配信・掲載・引用・順位・問い合わせ・売上の成果を約束するものではありません。公開した事実と観察条件を、次の更新判断に残すための記録です。</p>
     </div>
   </section>
 
-  <!-- Featured CTA: CLO compass detailed analysis -->
-  <section class="section">
-    <div class="container">
-      <div class="cta-analysis">
-        <div class="cta-analysis__inner">
-          <div class="cta-analysis__body">
-            <span class="ev-badge ev-badge--real" style="margin-bottom:14px">📈 ANALYSIS REPORT — 詳細レポート公開中</span>
-            <h2 style="margin-bottom:14px; font-size:clamp(22px, 2.8vw, 30px)">実際の分析イメージを<br/>見てみる</h2>
-            <p style="font-size:15px; line-height:1.9; margin-bottom:18px">
-              「みんどり最適化」が実際にどう機能するのか──CLOコンパス（物流DX B2Bサービス）を題材にした、目標クエリ／ノイズクエリ別のスコアリング、LLM応答の Before/After 実測比較を <strong>1 つのレポート</strong> にまとめました。
-            </p>
-            <ul style="font-size:14px; line-height:1.85; padding-left:20px; margin-bottom:20px">
-              <li>目標 4 クエリ／ノイズ 3 クエリのスコア詳細（5 候補比較）</li>
-              <li>LLM 3 問 × 2 条件 = 6 回の API 実測応答</li>
-              <li>must_not による誤推薦の構造的防止メカニズム</li>
-              <li>「中小企業向けと誤答」「曖昧回避」「機能誤記」が <strong>100% → 0%</strong> に</li>
-            </ul>
-            <a href="/blog/clo/" class="btn btn--primary cta-analysis__btn">実際の分析イメージを見てみる →</a>
-          </div>
-          <div class="cta-analysis__visual" aria-hidden="true">
-            <div class="cta-analysis__chip">
-              <div class="cta-analysis__chip-label">スコア改善（最大）</div>
-              <div class="cta-analysis__chip-num"><span class="motion-count" data-count-to="6.75" data-decimals="2" data-suffix="×">6.75×</span></div>
-              <div class="cta-analysis__chip-sub">名称のみ比</div>
-            </div>
-            <div class="cta-analysis__chip cta-analysis__chip--alt">
-              <div class="cta-analysis__chip-label">LLM 誤認</div>
-              <div class="cta-analysis__chip-num">3/3 → 0/3</div>
-              <div class="cta-analysis__chip-sub">3 問すべて改善</div>
-            </div>
-            <div class="cta-analysis__chip">
-              <div class="cta-analysis__chip-label">ノイズ排除率</div>
-              <div class="cta-analysis__chip-num"><span class="motion-count" data-count-to="100" data-decimals="0" data-suffix="%">100%</span></div>
-              <div class="cta-analysis__chip-sub">3/3 クエリ</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <style is:inline>
-    .cta-analysis {
-      background: linear-gradient(135deg, rgba(233,143,34,0.12) 0%, rgba(201,222,220,0.40) 100%);
-      border: 2px solid var(--hero-orange);
-      border-radius: 12px;
-      padding: 36px 32px;
-      box-shadow: 0 4px 20px rgba(233,143,34,0.18);
-    }
-    .cta-analysis__inner {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 28px;
-      align-items: center;
-    }
-    @media (min-width: 900px) {
-      .cta-analysis__inner { grid-template-columns: 1.5fr 1fr; }
-    }
-    .cta-analysis__btn {
-      font-size: 17px;
-      padding: 16px 32px;
-      display: inline-block;
-    }
-    .cta-analysis__visual {
-      display: grid;
-      gap: 12px;
-    }
-    .cta-analysis__chip {
-      background: var(--white);
-      border: 1px solid rgba(18,36,44,0.10);
-      border-left: 4px solid var(--hero-orange);
-      border-radius: var(--radius);
-      padding: 14px 18px;
-      box-shadow: var(--shadow);
-    }
-    .cta-analysis__chip--alt { border-left-color: var(--ink); }
-    .cta-analysis__chip-label {
-      font-size: 11.5px;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      font-weight: 700;
-    }
-    .cta-analysis__chip-num {
-      font-size: 30px;
-      font-weight: 900;
-      color: var(--hero-orange);
-      line-height: 1.1;
-      margin: 4px 0 2px;
-    }
-    .cta-analysis__chip--alt .cta-analysis__chip-num { color: var(--ink); }
-    .cta-analysis__chip-sub { font-size: 12px; color: var(--muted); }
-  </style>
-
-  <!-- Service flow -->
+  <!-- Section 6: Observation module -->
   <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">サービス内容</span>
-      <h2>Meandle PR の流れ</h2>
-      <div class="flow">
-        <div class="flow-step"><div class="flow-num">1</div>サービス・技術の<br/>みんどり最適化</div>
-        <span class="flow-arrow">→</span>
-        <div class="flow-step"><div class="flow-num">2</div>みんどり最適化<br/>LP/サイト制作</div>
-        <span class="flow-arrow">→</span>
-        <div class="flow-step"><div class="flow-num">3</div>みんどり<br/>プレスリリース配信</div>
-        <span class="flow-arrow">→</span>
-        <div class="flow-step"><div class="flow-num">4</div>メディア<br/>記事化</div>
+    <div class="container container--narrow">
+      <span class="eyebrow">Public Observation Record</span>
+      <h2>highprofilmの観察は、証拠台帳が揃った後だけ公開します。</h2>
+
+      <div class="callout-note">
+        現時点では、元URL、公開日時、観察日時、質問、地域・端末、画像の原本、実施施策、許諾を一つに結びつける証拠台帳がそろっていません。このため、表示・所要時間・因果関係・成果を本文へ掲載していません。証拠が確認され、Jagの公開承認が得られた場合にだけ、この場所に <code>公開環境での観察記録（E3）</code> モジュールを追加します。
       </div>
 
-      <div class="price-card" style="margin-top:24px">
-        <div class="price-label">Meandle PR — 1セット</div>
+      <h3 style="margin-top:16px">公開するために必要な証拠</h3>
+      <ul>
+        <li>元URLと公開時点の保存記録</li>
+        <li>PRまたは対象ページの公開日時とタイムゾーン</li>
+        <li>観察日時、観察者、質問文、検索・回答画面の種類</li>
+        <li>地域、言語、端末、ログイン状態など再現条件</li>
+        <li>日時が確認できる画像原本と、掲載許諾・権利関係</li>
+        <li>実施施策の時系列と、外部施策・変更の有無</li>
+        <li>「観察した」範囲を超えて因果を断定しない注記</li>
+      </ul>
+      <p style="margin-top:12px">条件が揃った場合も、<code>公開環境での観察記録（E3）</code>と表示します。「Meandleだけが原因」「同じ結果が出る」「AIが推薦した」とは書きません。観察日時、質問、URL、地域・端末、画面、限界を近接して表示します。</p>
+    </div>
+  </section>
+
+  <!-- Section 7: Commercial path -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">One PR Set</span>
+      <h2>1 PRセット50万円〜で、発表の事実と素材の意味をそろえます。</h2>
+      <p>Meandle PRは、製品事実を確認し、意味仕様、PR文、LPまたは既存ページのPR連携部分、記事化素材、必要な場合の観察条件を設計します。実際の配信、掲載先、公開手順、実装範囲、権利処理は、対象商材と既存体制を確認して個別に定めます。</p>
+
+      <div class="price-card mt-3">
+        <div class="price-label">Meandle PR — 1 PRセット</div>
         <div class="price">¥500,000<span class="price-unit">〜</span></div>
-        <div class="price-note">みんどりLP制作 ＋ プレスリリース作成・配信 ＋ メディア記事化（1媒体）の3点セット</div>
+        <p style="margin-bottom:0">意味仕様＋PR文＋LP／既存ページのPR連携部分＋記事化素材の設計。配信、掲載、引用、順位、商談、売上は保証しません。</p>
+      </div>
+
+      <div class="grid grid--2 mt-4">
+        <div>
+          <h3 style="color:var(--hero-orange)">向いているケース</h3>
+          <ul>
+            <li>専門性が高く、短い発表文だけでは価値が伝わりにくい</li>
+            <li>製品ページ、PR文、営業資料の説明が揃っていない</li>
+            <li>新技術、新サービス、事業転換の対象顧客と対象外条件を明確にしたい</li>
+            <li>公開できる根拠資料と、確認に参加できる事業責任者がいる</li>
+            <li>配信、公開、法務、既存の制作・PR体制の担当を決められる</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="color:var(--muted)">向いていないケース</h3>
+          <ul>
+            <li>配信件数、掲載件数、引用、順位、問い合わせ、売上の保証を求めている</li>
+            <li>事実資料、利用条件、対象顧客、対象外条件を共有できない</li>
+            <li>一度の発表で複数商材・複数市場を同時に扱いたい</li>
+            <li>記事の本数だけを増やしたい</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:24px">
+        <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
       </div>
     </div>
   </section>
 
+  <!-- Section 8: FAQ -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">FAQ</span>
+      <h2>PRを始める前に、範囲を分けておく質問。</h2>
+      <details class="faq-item">
+        <summary class="faq-q">PR配信やメディア掲載は保証されますか？</summary>
+        <div class="faq-a">保証されません。配信先、編集判断、掲載、転載、読者の反応は、Meandleが管理できない要素を含みます。Meandle PRが扱うのは、自社が公開するPR文、LP、記事化素材の意味をそろえることです。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">AIの回答、引用、検索順位は保証されますか？</summary>
+        <div class="faq-a">保証しません。公開ページがどのように扱われるかは、検索・回答サービス、質問、地域、端末、時間、公開状態などにより変わります。Meandleは、公開できる事実と対象条件を一貫して伝えるための設計を行います。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">既存のPR会社、広報、制作会社と進められますか？</summary>
+        <div class="faq-a">はい。Meandleは、既存の体制を置き換えることが目的ではありません。事業側が確認した製品事実と意味仕様を、PR文、LP、記事化素材、公開責任、観察条件へ変え、各担当が同じ判断基準で進められる状態をつくります。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">highprofilmの観察結果は見られますか？</summary>
+        <div class="faq-a">現時点では、公開に必要な証拠台帳と許諾が揃っていないため、結果としては掲載しません。必要な条件が確認され、Jagの承認が得られた場合だけ、観察日時、質問、URL、再現条件、画面、限界を併記した公開環境での観察記録として掲載します。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">配信前に何を用意すればよいですか？</summary>
+        <div class="faq-a">既存URL、製品・サービスの事実資料、公開できる根拠、発表する理由、来てほしい顧客、対象外にしたい顧客や用途、既存のPR・制作・法務の担当をお知らせください。送信だけで詳細な診断や配信優先順位の提案を行うものではありません。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">料金は固定ですか？</summary>
+        <div class="faq-a">1 PRセット50万円〜です。発表内容、事実確認、LPの範囲、記事化素材、配信・公開の責任分担、権利処理によって必要な範囲を個別に定めます。固定の成果や配信範囲を示す商品ではありません。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Section 9: Final -->
   <section class="cta-block">
-    <h2>予定のPRを、1つ教えてください。</h2>
-    <p>配信前のタイミングで、意味の作りを30分壁打ちします。</p>
-    <a href="/contact/" class="btn btn--primary">PRセットを相談する</a>
+    <div class="container container--narrow">
+      <span class="eyebrow" style="color:var(--hero-orange)">Start With One Announcement</span>
+      <h2>まず、次に発表する1件を教えてください。</h2>
+      <p>製品・サービス、既存URL、事実資料、来てほしい相手、対象外にしたい相手や用途、既存のPR・制作・法務の担当を確認します。Meandleで扱うべき発表かを判断し、適合する場合に、1 PRセット50万円〜の進め方をご案内します。</p>
+
+      <a href="/contact/" class="btn btn--primary" style="margin-top:20px">既存URLで導入適合性を確認する</a>
+      <p style="color:rgba(255,255,255,0.75); font-size:13px; margin-top:12px">
+        お問い合わせ段階では、詳細な診断や配信優先順位の提案は行いません。<br/>
+        配信、掲載、引用、順位、問い合わせ、売上は保証しません。
+      </p>
+      <p style="color:rgba(255,255,255,0.65); font-size:12px; margin-top:20px">
+        Meandleは、Jag Yamamoto / Jag Projectが開発・監修するB2B意味設計ソリューションです。<br/>
+        運営元：<a href="https://jagproject.com/" target="_blank" rel="noopener" style="color:var(--hero-orange)">jagproject.com ↗</a>
+      </p>
+    </div>
   </section>
 </BaseLayout>
+
+<style is:inline>
+  .hero-figure { margin: 20px auto; max-width: 720px; background: var(--card); border: 1px solid rgba(18,36,44,0.12); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); }
+  .hero-figure img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  .hero-figure figcaption { font-size: 12.5px; color: var(--muted); margin-top: 10px; text-align: center; }
+  .faq-item { border-bottom: 1px solid rgba(18,36,44,0.12); padding: 16px 0; }
+  .faq-item[open] .faq-q { color: var(--hero-orange); }
+</style>

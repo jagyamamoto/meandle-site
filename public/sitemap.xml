@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Meandle sitemap
+  Note: The site is currently pre-launch. Basic Auth + noindex,nofollow are active.
+  This sitemap lists the 13 core revenue pages plus the blog index.
+  Loc URLs use trailing slashes to match astro.config trailingSlash: 'always'.
+  <lastmod> is intentionally omitted until Jag confirms actual publish/update dates.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://meandle.jp/</loc><priority>1.0</priority></url>
+  <url><loc>https://meandle.jp/contact/</loc><priority>0.9</priority></url>
+  <url><loc>https://meandle.jp/do-meandle/</loc><priority>0.9</priority></url>
+  <url><loc>https://meandle.jp/get-lead/</loc><priority>0.9</priority></url>
+  <url><loc>https://meandle.jp/how-it-works/</loc><priority>0.8</priority></url>
+  <url><loc>https://meandle.jp/oem/</loc><priority>0.8</priority></url>
+  <url><loc>https://meandle.jp/ai-search-optimization/</loc><priority>0.8</priority></url>
+  <url><loc>https://meandle.jp/pr/</loc><priority>0.8</priority></url>
+  <url><loc>https://meandle.jp/blog/</loc><priority>0.7</priority></url>
+  <url><loc>https://meandle.jp/blog/chatgpt-company-not-found/</loc><priority>0.6</priority></url>
+  <url><loc>https://meandle.jp/blog/ai-misinformation-misrecommendation/</loc><priority>0.6</priority></url>
+  <url><loc>https://meandle.jp/blog/how-to-choose-ai-search-support/</loc><priority>0.6</priority></url>
+  <url><loc>https://meandle.jp/blog/monitoring-to-implementation/</loc><priority>0.6</priority></url>
+  <url><loc>https://meandle.jp/blog/clo/</loc><priority>0.6</priority></url>
+</urlset>
