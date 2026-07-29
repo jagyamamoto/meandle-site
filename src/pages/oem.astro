@@ -1,120 +1,333 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Meandle OEM｜診断を実装できる意味仕様へ｜Meandle';
+const description = 'Meandle OEMは、AI検索・SEO・PR・採用・マッチング等の観測や診断を、対象・価値・根拠・対象外条件を含む実装可能な意味仕様へ変える共同提供です。連携方式はPoCで個別設計します。';
+const ogTitle = '貴社の診断を、実装できる意味仕様へ｜Meandle OEM';
+const ogDescription = '観測、意味仕様、実装、再確認をつなぐ共同提供。対象用途、入出力、役割、検収条件を先に定めます。';
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://meandle.jp/oem/#webpage',
+    url: 'https://meandle.jp/oem/',
+    name: title,
+    description: description,
+    inLanguage: 'ja',
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    about: { '@id': 'https://meandle.jp/oem/#service' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': 'https://meandle.jp/oem/#service',
+    name: 'Meandle OEM',
+    serviceType: 'B2B意味設計の共同提供・OEM PoC',
+    url: 'https://meandle.jp/oem/',
+    description: '観測や診断を、顧客ページで実装できる意味仕様、実装差分、検収条件へ変え、パートナーの提案、制作、再確認へつなぐ共同提供です。',
+    provider: { '@id': 'https://meandle.jp/#organization' },
+    areaServed: 'JP',
+    audience: {
+      '@type': 'BusinessAudience',
+      audienceType: '観測・診断・コンサルティングを提供し、実装の標準化を検討するサービス事業者',
+    },
+  },
+];
 ---
 <BaseLayout
-  title="Meandle OEM — 御社のサービスへの技術提供｜Meandle"
-  description="みんどる理論（特許出願中）の技術を御社サービス向けにOEM提供。求人マッチングサービス・PR配信サービス・SEO/AIOツール等への組み込み。"
+  title={title}
+  description={description}
+  canonical="/oem/"
+  ogTitle={ogTitle}
+  ogDescription={ogDescription}
+  ogImage="/images/oem/oem-hero-v1.webp"
+  structuredData={structuredData}
 >
+  <!-- Section 1: Hero -->
   <section class="hero hero--split">
     <div class="hero__bg-grid" aria-hidden="true"></div>
     <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
-      <div class="hero__split">
-        <div class="hero__left">
-          <span class="eyebrow hero__eyebrow">Meandle OEM</span>
-          <h1 class="hero-copy">Meandle OEM：<br/>御社のサービスへの技術提供</h1>
-          <p style="margin-top:20px">みんどる理論（特許出願中）の技術を御社サービス向けに OEM 提供します。<strong>求人マッチング／PR配信／SEO・AIOツール</strong> への組み込み実績前提の設計です。</p>
-        </div>
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　OEM</nav>
+      <span class="eyebrow hero__eyebrow">Meandle OEM / For Service Providers</span>
+      <h1 class="hero-copy">貴社の診断を、<br/>実装できる意味仕様へ。</h1>
 
-        <aside class="proof-panel" aria-label="OEM 提供形態 ライブ表示">
-          <div class="proof-panel__head">
-            <span class="proof-panel__led"></span>
-            <span class="proof-panel__label">DELIVERY&nbsp;FORMATS</span>
-            <span class="proof-panel__timer"></span>
-          </div>
-          <div class="proof-stage">
-            <div class="proof-slide is-active">
-              <div class="proof-slide__type">🧩 API 提供</div>
-              <div class="proof-slide__num proof-slide__num--label">REST&nbsp;API</div>
-              <div class="proof-slide__name">みんどりIndex 計算エンジン</div>
-              <div class="proof-slide__body">JSON Schema Draft 2020-12 準拠。<code>POST /score</code> で <code>{"{ query, record }"}</code> を投げると、フィールド別重み付きスコアと must_not ペナルティを含む結果が返却。</div>
-              <div class="proof-slide__query">$id: mndr:index/v1</div>
-            </div>
-            <div class="proof-slide">
-              <div class="proof-slide__type">📦 SDK / ホワイトラベル</div>
-              <div class="proof-slide__num proof-slide__num--label">SDK&nbsp;+&nbsp;WL</div>
-              <div class="proof-slide__name">貴社ブランドで提供</div>
-              <div class="proof-slide__body">Node/Python SDK ＋ ホワイトラベル UI（設定テンプレート・運用ガイド付き）。<strong>貴社のブランドで顧客に提供</strong>できます。</div>
-              <div class="proof-slide__query">ブランド完全独立・共同開発でも可</div>
-            </div>
-            <div class="proof-slide">
-              <div class="proof-slide__type">🔒 独占ライセンス</div>
-              <div class="proof-slide__num proof-slide__num--label">EXCLUSIVE</div>
-              <div class="proof-slide__name">業界・領域単位</div>
-              <div class="proof-slide__body">特定業界／領域での<strong>独占ライセンス</strong>供与も個別協議可能。特許 <code>MNDR-2026-001</code>（出願中）のカバー範囲で優先実施権を設計します。</div>
-              <div class="proof-slide__query">MNDR-2026-001 · patent pending</div>
-            </div>
-          </div>
-          <div class="proof-panel__dots">
-            <button class="proof-dot is-active" data-i="0" aria-label="API"></button>
-            <button class="proof-dot" data-i="1" aria-label="SDK"></button>
-            <button class="proof-dot" data-i="2" aria-label="Exclusive"></button>
-          </div>
-        </aside>
-      </div>
+      <p class="lead" style="margin-top:20px">
+        言及、引用、競合差、誤認の可能性を見つけた後、顧客ページをどう直すか。<br/>
+        Meandleは、観測結果を対象、価値、根拠、対象外条件、実装差分、検収条件へ変え、貴社ブランドの提案、制作、再確認へつなぐ共同提供です。
+      </p>
+      <p>
+        測る。決める。実装する。確かめる。<br/>
+        観測と顧客ページの間にある「何をどう直すか」を、担当者の経験だけにしないためのOEMです。
+      </p>
 
-      <div class="hero-marquee" aria-hidden="true">
-        <div class="hero-marquee__track">
-          <span class="hero-marquee__lead">◉ MNDR SDK · READY</span>
-          <span>▸ REST API / Node / Python SDK</span>
-          <span>▸ White-label UI + templates</span>
-          <span>▸ Field-weighted 2-gram overlap</span>
-          <span>▸ record-side exclusion (RSE)</span>
-          <span>▸ MNDR-2026-001 · patent pending</span>
-          <span class="hero-marquee__lead">◉ MNDR SDK · READY</span>
-          <span>▸ REST API / Node / Python SDK</span>
-          <span>▸ White-label UI + templates</span>
-          <span>▸ Field-weighted 2-gram overlap</span>
-          <span>▸ record-side exclusion (RSE)</span>
-          <span>▸ MNDR-2026-001 · patent pending</span>
-        </div>
+      <div class="hero__cta-group">
+        <a href="/contact/" class="btn btn--primary">OEM導入適合性を確認する</a>
       </div>
+      <p style="font-size:13px; color:var(--muted); margin-top:12px">
+        共同検証では、対象用途、入出力、顧客への提供範囲、検収条件、運用責任を先に確認します。<br/>
+        API、SDK、ホワイトラベル等の連携方式は、要件と技術条件を確認した上で個別に設計します。
+      </p>
+
+      <figure class="hero-figure">
+        <img
+          src="/images/oem/oem-hero-v1.webp"
+          alt="観測結果を意味仕様へ整理し、パートナーの顧客ページ実装と確認へつなぐ共同ワークフローのイメージ"
+          width="1536" height="1024"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <figcaption>共同提供の構想図です。提供済みのAPIや即時連携画面を示すものではありません。観測結果を、顧客ページで実行できる判断と差分へ変える流れを表しています。</figcaption>
+      </figure>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <span class="eyebrow">OEM Use Cases</span>
-      <h2>具体的な提供イメージ</h2>
-      <ul style="font-size:15.5px; line-height:2; margin-top:12px">
-        <li><strong>求人マッチングサービスへの提供：</strong>AIマッチング精度の飛躍的向上</li>
-        <li><strong>PR配信サービスへの提供：</strong>みんどり最適化プレスリリースの自動生成</li>
-        <li><strong>SEO/AIOツールへの提供：</strong>みんどりIndex計算エンジンの組み込み</li>
-      </ul>
-    </div>
-  </section>
-
+  <!-- Section 2: The Gap After Observation -->
   <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">Format</span>
-      <h2>提供形態</h2>
-      <ul style="font-size:15.5px; line-height:2; margin-top:12px">
-        <li>設計テンプレート＋運用ガイド</li>
-        <li>API もしくは SDK 提供</li>
-        <li>ホワイトラベル提供</li>
-        <li>業界・領域単位での独占ライセンス（個別）</li>
-      </ul>
-      <p style="margin-top:16px; color:var(--muted); font-size:14px">意味設計と検索文脈の整合に関する方法について、特許出願中の技術です（整理番号：MNDR-2026-001）。</p>
+    <div class="container container--narrow">
+      <span class="eyebrow">After Observation</span>
+      <h2>観測できても、「顧客ページの何を直すか」が決まらなければ、提案は止まります。</h2>
+      <p>AI検索の観測、競合比較、誤情報の確認、PRや求人の分析は、重要な出発点です。</p>
+      <p>しかし顧客が次に求めるのは、問題の指摘ではありません。誰に、何を、なぜ提供し、何を対象外にするか。どのページの、どの要素を、どの根拠で直すかという実装判断です。</p>
+
+      <div class="grid grid--2 mt-4">
+        <div class="card"><h3>観測から、提案商品へ進めない</h3><p style="margin-bottom:0">問題を可視化しても、実装の範囲が人によって変わると、有料の次商品にできません。</p></div>
+        <div class="card"><h3>制作チームへ渡す要件がない</h3><p style="margin-bottom:0">「AIに誤解されている」「引用されていない」だけでは、制作会社や顧客の実装担当は変更の優先順位を決められません。</p></div>
+        <div class="card"><h3>対象外条件を検収できない</h3><p style="margin-bottom:0">対象質問だけを確認すると、本来は合わない顧客や用途への説明が悪化しても見落とします。</p></div>
+      </div>
+
+      <p style="margin-top:20px">Meandle OEMは、観測結果を「実装できる意味仕様」に変えます。貴社は既存の診断・顧客接点を活かしたまま、実装と再確認までを一つの提供価値にできます。</p>
     </div>
   </section>
 
+  <!-- Section 3: Who It Is For -->
   <section class="section">
-    <div class="container">
-      <span class="eyebrow">Pricing</span>
-      <h2>料金</h2>
-      <div class="price-card">
-        <div class="price-label">Meandle OEM</div>
-        <div class="price">要見積もり</div>
-        <div class="price-note">
-          対象サービス規模・組み込み範囲・独占性により個別設計。まずはお問い合わせください。
-        </div>
+    <div class="container container--narrow">
+      <span class="eyebrow">Partner Fit</span>
+      <h2>観測を強みに持ち、実装の標準化を次の成長商品にしたい事業者へ。</h2>
+
+      <div class="grid grid--2 mt-4">
+        <div class="card"><h3>AI検索・GEO・LLMO等の観測サービス</h3><p style="margin-bottom:0">言及、引用、競合差、誤認の観測結果を、顧客が実装できる要件と有料提案へつなげたい事業者。</p></div>
+        <div class="card"><h3>SEO・コンテンツ・AIO支援会社</h3><p style="margin-bottom:0">戦略や計測の後に、制作チームへ渡せる意味仕様と、対象外条件を含む検収基準を標準化したい事業者。</p></div>
+        <div class="card"><h3>PR配信・広報支援サービス</h3><p style="margin-bottom:0">発表内容を、PR文だけで終わらせず、LP、記事化素材、既存ページの説明まで一貫させたい事業者。</p></div>
+        <div class="card"><h3>採用・求人・マッチングサービス</h3><p style="margin-bottom:0">求める対象、条件、対象外を、掲載情報とマッチング後の説明までそろえたい事業者。</p></div>
+        <div class="card"><h3>CMS・Web制作・業界特化SaaS</h3><p style="margin-bottom:0">顧客ごとの説明品質、要件定義、検収基準を、担当者の経験だけに依存させずにそろえたい事業者。</p></div>
+      </div>
+
+      <h3 style="margin-top:24px; color:var(--muted)">対象外となるケース</h3>
+      <ul>
+        <li>月額の順位計測や言及数の表示だけを追加したい</li>
+        <li>すぐに利用できるAPI、SDK、ホワイトラベル製品だけを探している</li>
+        <li>対象用途、顧客への責任、事実確認、検収に関わる担当者を置けない</li>
+        <li>顧客ページの実装や再確認を提供範囲に含める意思がない</li>
+        <li>検索順位、AI応答、売上、リード数の保証を共同商品に求める</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section 4: OEM Workflow -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Observe to Implement</span>
+      <h2>観測から実装までを、貴社の既存提供へ接続できる形にします。</h2>
+      <p>共同提供では、パートナーの観測・診断と、Meandleの意味仕様・実装判断を分けて持ち寄ります。顧客と制作担当を早い段階で含め、何を確認し、誰が実装し、何をもって検収するかを共有します。</p>
+
+      <figure class="hero-figure">
+        <img
+          src="/images/oem/oem-poc-comic-v2.webp"
+          alt="観測結果の確認、共同での意味仕様設計、顧客ページへの実装、比較記録と次の判断を示す4段階の図"
+          width="1536" height="1024"
+          loading="lazy"
+        />
+        <figcaption>共同検証の構想図です。結果より先に、対象用途、役割、比較条件、検収条件を固定します。</figcaption>
+      </figure>
+
+      <ol class="mt-4" style="font-size:15.5px; line-height:1.95">
+        <li><strong>観測する</strong>：パートナーが持つ観測、診断、顧客課題を確認し、対象質問と対象外質問を定めます。</li>
+        <li><strong>意味仕様にする</strong>：対象、価値、根拠、比較軸、対象外条件を、顧客ページで使える共通仕様にします。</li>
+        <li><strong>承認して実装する</strong>：パートナー、顧客、実装担当が、変更範囲、役割、公開条件を確認し、既存ページやCMSへ反映します。</li>
+        <li><strong>比較して次を決める</strong>：事前に定めた条件で確認し、観察記録、限界、次の更新判断を共有します。</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Section 5: Co-Delivery Use Cases -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">From Report to Delivery</span>
+      <h2>観測後の実装を、貴社の次の商品にできます。</h2>
+      <p>顧客へのブランド表示と提供責任は、共同検証の契約条件に合わせて決めます。</p>
+      <p>貴社が既に持つ観測、顧客関係、制作体制を使い、問題の発見から実装判断までを一貫した提供へ変えることが目的です。</p>
+
+      <div class="grid grid--2 mt-4">
+        <div class="card"><h3>観測サービス向け：分析の次に、実装モジュールをつくる</h3><p style="margin-bottom:0">顧客ごとの言及や競合差を、対象、価値、根拠、対象外条件、実装差分へ変えます。観測レポートの後に、顧客が実行できる有料の実装支援を提案できます。</p></div>
+        <div class="card"><h3>コンサルティング向け：制作チームに渡せる要件をそろえる</h3><p style="margin-bottom:0">戦略資料を、見出し、本文、比較軸、FAQ、メタ情報、検収条件へ翻訳します。担当者ごとの提案のばらつきを抑え、既存の制作パートナーへ渡しやすくします。</p></div>
+        <div class="card"><h3>PR・採用・マッチング向け：説明の軸を複数接点でそろえる</h3><p style="margin-bottom:0">発表文、求人、マッチング条件、顧客ページで、対象と対象外の説明が分かれないようにします。接点ごとの表現は変えても、判断の軸をそろえられます。</p></div>
+        <div class="card"><h3>CMS・制作事業者向け：検収品質を標準化する</h3><p style="margin-bottom:0">「分かりやすくする」という抽象的な依頼を、顧客ごとの意味仕様、差分、対象／対象外の確認条件へ変えます。制作後に何を確認するかも、案件の最初に決められます。</p></div>
       </div>
     </div>
   </section>
 
+  <!-- Section 6: PoC Scope and Acceptance -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Joint PoC</span>
+      <h2>共同検証は、1用途に絞り、検収できる形で始めます。</h2>
+      <p>最初から全顧客や全機能へ広げません。対象となる顧客類型、1用途、対象ページまたは記録単位、役割、入出力、確認条件を定め、共同で検証します。</p>
+
+      <h3 style="margin-top:20px">PoCで先に決めること</h3>
+      <ul>
+        <li>対象となる顧客類型と、1つの利用場面</li>
+        <li>パートナーから渡す観測・診断情報と、Meandleが返す意味仕様の範囲</li>
+        <li>対象質問と、対象外質問</li>
+        <li>顧客・パートナー・Meandle・実装担当それぞれの承認責任</li>
+        <li>既存ページ／CMS／資料への反映範囲</li>
+        <li>実装前の記録、実装差分、実装後の比較条件</li>
+        <li>検収する成果物、判断できること、判断できないこと</li>
+      </ul>
+
+      <h3 style="margin-top:20px">PoCの検収物</h3>
+      <ul>
+        <li>1用途に対する対象／対象外を含む意味仕様</li>
+        <li>観測結果から実装へ変換する差分と、担当者用の説明</li>
+        <li>顧客ページまたは対象記録へ反映するための実装要件</li>
+        <li>対象質問・対象外質問の確認条件と、実施記録</li>
+        <li>役割分担、承認記録、次の本番設計に必要な未解決事項</li>
+      </ul>
+
+      <div class="callout-note">
+        <strong>検収の原則：</strong>対象質問だけで評価しません。対象外の条件が悪化していないか、実装に必要な根拠がそろっているか、誰が次の更新を判断するかまで確認します。実際の外部表示、AI応答、売上、リード数を保証するものではありません。
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: Roles and Delivery Forms -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Roles Before Technology</span>
+      <h2>先に役割とデータ境界を決め、連携方式はその後に選びます。</h2>
+
+      <div class="table-wrap mt-3">
+        <table class="compare-table">
+          <thead><tr><th scope="col">担当</th><th scope="col">役割</th></tr></thead>
+          <tbody>
+            <tr><td>パートナー</td><td>観測・診断、顧客接点、提供商品、既存データの範囲を定める</td></tr>
+            <tr><td>Meandle</td><td>意味仕様、対象／対象外条件、実装差分、検収条件、比較記録の設計を担う</td></tr>
+            <tr><td>顧客</td><td>商材・顧客像・根拠の事実確認、公開可否、実装優先順位を承認する</td></tr>
+            <tr><td>実装担当</td><td>CMS、ページ、プロダクト、運用環境への反映と、技術的な確認を担う</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:20px">連携方式は、既存システム、利用件数、顧客への提供範囲、データ要件、審査工程を確認した上で個別に設計します。共同検証では、まず意味仕様、実装差分、確認記録を共有する方法から始めます。API、SDK、ホワイトラベル等が必要な場合は、PoCで必要性と実現条件を確認してから、導入環境に合わせて設計します。</p>
+
+      <h3 style="margin-top:20px">データ・運用の確認項目</h3>
+      <ul>
+        <li>扱うデータの種類、入力元、出力先、利用目的</li>
+        <li>顧客データへのアクセス範囲、権限、保管、削除、再利用の条件</li>
+        <li>ブランド表示、顧客への説明、責任分界点</li>
+        <li>障害時の連絡、変更管理、監査記録、提供終了時の移行</li>
+      </ul>
+
+      <div class="callout-note">
+        API、SDK、ホワイトラベル、Sandbox、認証、SLA、セキュリティ、監査ログ、テナント分離について、現在公開できる提供仕様はありません。これらが必要な場合は、PoCの対象用途と技術要件を確認し、提供可否、責任分担、条件を個別に定めます。
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 8: Pricing -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Commercial Model</span>
+      <h2>料金は、共同提供の範囲と検収条件から個別に設計します。</h2>
+
+      <div class="price-card mt-3">
+        <div class="price-label">Meandle OEM</div>
+        <div class="price" style="font-size:24px">個別見積もり</div>
+        <p style="margin-bottom:0">対象用途、利用件数、顧客への提供形態、実装範囲、データ要件、ブランド条件、検収条件を確認した上で設計します。共同検証と本番導入を分ける場合も、PoCで確認する範囲と、次の導入判断を最初に合意します。</p>
+      </div>
+
+      <div class="callout-note">
+        API、SDK、ホワイトラベル、独占性、年間最低利用料などを前提とする価格は、技術・運用・契約の実態が確認できるまで公開しません。
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 9: FAQ -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">OEM Questions</span>
+      <h2>OEM導入前によくある確認</h2>
+      <details class="faq-item">
+        <summary class="faq-q">APIやSDKは、すぐに利用できますか。</summary>
+        <div class="faq-a">現在、公開できるAPI仕様、SDK、Sandbox、認証方式、SLAはありません。必要な場合は、対象用途、入出力、利用件数、データ要件、運用責任を有償PoCの候補要件として確認します。適合確認の時点で、提供や開発を約束するものではありません。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">ホワイトラベルで顧客へ提供できますか。</summary>
+        <div class="faq-a">ホワイトラベルを含むブランド提供は、対象用途、顧客への説明、運用責任、技術要件を確認した上で検討します。現時点で、即時利用できるホワイトラベル製品を提供しているわけではありません。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Meandleは、観測ツールやコンサルティングを置き換えますか。</summary>
+        <div class="faq-a">いいえ。パートナーが持つ観測、診断、顧客接点を活かし、その結果を実装可能な意味仕様と検収条件へ変える役割です。既存の強みを補完する共同提供を想定しています。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">共同検証では、何を検収しますか。</summary>
+        <div class="faq-a">1用途に対する意味仕様、実装要件、対象／対象外の確認条件、実施記録、役割分担、次の導入判断に必要な事項を検収対象とします。外部表示、AI応答、売上、リード数の保証は含みません。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">機密情報を含む場合、どのように進めますか。</summary>
+        <div class="faq-a">取り扱う情報、共有範囲、保管、アクセス、契約条件を、共同検証の開始前に確認します。必要な守秘・セキュリティ要件に対応できるかは、要件を確認した上で判断します。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">どのくらいの期間で始められますか。</summary>
+        <div class="faq-a">対象用途、顧客の承認体制、実装環境、データ要件、契約条件により異なります。開始前に、役割、検収条件、進め方を含む計画をご案内します。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Meandleの名称を顧客へ出す必要がありますか。</summary>
+        <div class="faq-a">顧客への表示、ブランドの扱い、提供責任は、共同検証の対象用途と契約条件に合わせて決めます。現時点で固定のブランド提供方式はありません。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Section 10: Final -->
   <section class="cta-block">
-    <h2>貴社サービスとの組み合わせを、相談してください。</h2>
-    <p>NDA から進めることもできます。まずは概要だけでも。</p>
-    <a href="/contact/" class="btn btn--primary">OEMを相談する</a>
+    <div class="container container--narrow">
+      <span class="eyebrow" style="color:var(--hero-orange)">Start with One Use Case</span>
+      <h2>まず、共同で検証したい1つの用途をお知らせください。</h2>
+      <p>現在提供している観測・診断、対象顧客、実装の課題、既存システム、顧客への提供範囲を確認します。</p>
+      <p>Meandle OEMで扱うべき用途かを判断し、適合する場合に、有償PoCの対象、成果物、検収条件、見積もりをご提案します。適合確認では、詳細な統合設計や技術検証は行いません。</p>
+
+      <div style="text-align:left; max-width:520px; margin:20px auto 0; font-size:14px; color:rgba(255,255,255,0.85)">
+        <strong>送信前の確認</strong>
+        <ul style="margin-top:8px">
+          <li>観測・診断・コンサルティング等、既存の顧客提供がある</li>
+          <li>実装へつなげたい1つの用途または顧客類型が決まっている</li>
+          <li>顧客、実装担当、事実確認の関係者を含める意思がある</li>
+          <li>対象／対象外の条件と、検収に関わる担当を置ける</li>
+          <li>即時利用できるAPIや成果保証ではなく、共同検証と個別設計を求めている</li>
+        </ul>
+      </div>
+
+      <a href="/contact/" class="btn btn--primary" style="margin-top:24px">OEM導入適合性を確認する</a>
+      <p style="color:rgba(255,255,255,0.75); font-size:13px; margin-top:12px">
+        相談区分で「OEM（技術提供）」を選択してください。<br/>
+        この送信だけで詳細な統合設計や技術検証を行うものではありません。機密情報は、必要な共有条件を確認してから扱います。
+      </p>
+
+      <p style="color:rgba(255,255,255,0.65); font-size:12px; margin-top:20px">
+        Meandleは、Jag Yamamoto / Jag Projectが開発・監修するB2B意味設計ソリューションです。<br/>
+        意味設計と検索文脈の整合に関する方法は、特許出願中です。<br/>
+        運営元：<a href="https://jagproject.com/" target="_blank" rel="noopener" style="color:var(--hero-orange)">jagproject.com ↗</a>
+      </p>
+    </div>
   </section>
 </BaseLayout>
+
+<style is:inline>
+  .hero-figure { margin: 20px auto; max-width: 720px; background: var(--card); border: 1px solid rgba(18,36,44,0.12); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); }
+  .hero-figure img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  .hero-figure figcaption { font-size: 12.5px; color: var(--muted); margin-top: 10px; text-align: center; }
+  .faq-item { border-bottom: 1px solid rgba(18,36,44,0.12); padding: 16px 0; }
+  .faq-item[open] .faq-q { color: var(--hero-orange); }
+</style>

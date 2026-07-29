@@ -1,0 +1,308 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'AI検索最適化とは｜AIO・LLMO・GEOと意味設計｜Meandle';
+const description = 'AI検索最適化、AIO、LLMO、GEOを一次情報で整理。Meandleは、観測結果を高単価B2Bの対象・価値・根拠・対象外条件の意味仕様へ変え、既存ページへ実装します。';
+const ogTitle = 'AI検索を測った後、何を直すか。｜Meandle';
+const ogDescription = 'AIO・LLMO・GEOの用語と限界を一次情報で整理し、観測結果を既存ページの意味設計へつなぐ方法を説明します。';
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://meandle.jp/ai-search-optimization/#webpage',
+    url: 'https://meandle.jp/ai-search-optimization/',
+    name: title,
+    description: description,
+    inLanguage: 'ja-JP',
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    about: { '@id': 'https://meandle.jp/do-meandle/#service' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': 'https://meandle.jp/ai-search-optimization/#article',
+    mainEntityOfPage: { '@id': 'https://meandle.jp/ai-search-optimization/#webpage' },
+    headline: 'AI検索を測った後、何を直すかを決める。',
+    description: 'AIO・LLMO・GEOの用語と限界をGoogle、Microsoft、OpenAIの公開資料で整理し、観測結果を既存ページの意味設計へつなぐ方法。',
+    inLanguage: 'ja-JP',
+    author: { '@type': 'Person', name: 'Jag Yamamoto', url: 'https://jagproject.com/' },
+    publisher: { '@id': 'https://meandle.jp/#organization' },
+    // datePublished / dateModified are intentionally omitted until Jag confirms the actual publish date.
+  },
+];
+---
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="/ai-search-optimization/"
+  ogTitle={ogTitle}
+  ogDescription={ogDescription}
+  ogImage="/images/ai-search-optimization/meandle-ai-search-optimization-hero-v1.webp"
+  ogType="article"
+  structuredData={structuredData}
+>
+  <!-- Section 1: Hero -->
+  <section class="hero hero--split">
+    <div class="hero__bg-grid" aria-hidden="true"></div>
+    <div class="hero__bg-noise" aria-hidden="true"></div>
+    <div class="container">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　AI検索最適化とは</nav>
+      <span class="eyebrow hero__eyebrow">AI Search Optimization</span>
+      <h1 class="hero-copy">AI検索を測った後、<br/>何を直すかを決める。</h1>
+
+      <p class="lead" style="margin-top:20px">
+        AIO、LLMO、GEOといった言葉は広がっています。しかし、高単価で説明が複雑なB2B商材に必要なのは、観測画面を増やすことだけではありません。誰に、何として、なぜ必要なのか。根拠は何か。誰・どの用途には向かないのか。既存ページがこの条件を一貫して伝えているかを定めることです。
+      </p>
+      <p>
+        Meandleは、検索や生成AIの応答を操作するサービスではありません。観測で見つかった曖昧さを、対象、価値、根拠、対象外条件を含む意味仕様に変え、既存ページへ実装するための設計です。
+      </p>
+      <p style="color:var(--muted); font-size:14px">
+        本ページでは、Google、Microsoft、OpenAIの公開資料に基づき、できることと断定できないことを分けます。公開情報の取得日：2026年7月29日。
+      </p>
+
+      <div class="hero__cta-group">
+        <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+      </div>
+      <p style="font-size:13px; color:var(--muted); margin-top:12px">
+        初回は、1商材・1URLの意味適合スプリント 50万円〜です。検索順位、AIの応答、引用、商談成果を保証するものではありません。
+      </p>
+
+      <figure class="hero-figure">
+        <img
+          src="/images/ai-search-optimization/meandle-ai-search-optimization-hero-v1.webp"
+          alt="複数の情報経路を一つの既存ページの意味仕様にまとめる二人のビジネス担当者"
+          width="1536" height="1024"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <figcaption>観測結果そのものではなく、既存ページで誰に何を伝えるかを実装可能な形にします。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Section 2: Terms -->
+  <section class="section section--alt" id="terms">
+    <div class="container container--narrow">
+      <span class="eyebrow">Working Definitions</span>
+      <h2>AIO・LLMO・GEOは、共通規格ではなく実務上の呼び名です。</h2>
+      <p>これらの略語には、すべての検索サービスや生成AIに共通する公式な定義はありません。ここでは、検討時の混線を避けるために、次の作業用の意味で使います。Googleは、AEO・GEOをオンラインでよく使われる言葉として扱い、Google Searchでの生成AI向けの最適化はSEOと同じ基本に立つと説明しています。（<a href="https://developers.google.com/search/docs/fundamentals/ai-optimization-guide" target="_blank" rel="noopener noreferrer">Google Search Central</a>／取得日：2026年7月29日）</p>
+
+      <div class="table-wrap mt-3">
+        <table class="compare-table">
+          <thead><tr><th scope="col">用語</th><th scope="col">このページでの作業用の意味</th><th scope="col">誤解しないための補足</th></tr></thead>
+          <tbody>
+            <tr><td>AIO</td><td>AIが介在する検索・発見経路を見据え、公開情報の読み取りやすさを整える広い呼び方</td><td>Googleの公式なサービス分類ではありません。AIの応答を制御する意味ではありません。</td></tr>
+            <tr><td>LLMO</td><td>大規模言語モデルが参照し得る公開情報について、主語、条件、根拠、更新状態を明確にする取り組み</td><td>モデルの回答や引用を約束する用語ではありません。公式の共通規格もありません。</td></tr>
+            <tr><td>GEO</td><td>生成AIを含む検索・回答画面で、公開情報がどのように扱われるかを観測・改善する取り組み</td><td>GoogleはGEOを一般的な呼び名として紹介し、SEOの基本を土台としています。MicrosoftはAI PerformanceをGEOに向けた観測機能として公開プレビューしています。</td></tr>
+            <tr><td>SEO</td><td>クロール、インデックス、技術的な可読性、利用者に役立つ独自の情報を整える基礎</td><td>生成AI向けの施策とは別世界ではありません。Googleは、既存の検索の基礎と品質システムが生成AI機能にも重要だと説明しています。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout-note">
+        用語の整理は、サービスの効果を示すものではありません。実際に何を行うべきかは、対象の検索サービス、公開状態、サイトの技術条件、商材の事実と対象顧客によって変わります。
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Primary sources -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">What Primary Sources Actually Say</span>
+      <h2>まず、公開資料が言っていること以上を約束しない。</h2>
+      <p>AI検索に関する提案は、観測の数字や流行語だけで強く見えがちです。一次情報を確認すると、技術的な適格性と、表示・引用・成果の保証は別の話だと分かります。</p>
+
+      <h3 style="margin-top:20px">Google Search</h3>
+      <p>Googleは、生成AI機能に向けた最適化について、通常のSEOの基礎を重要な土台として扱っています。人のために作られた、独自性があり信頼できる情報、クロール可能な公開コンテンツ、意味のあるHTML、適切な技術SEOが前提です。一方、生成AIのためだけの特別なマークアップ、<code>llms.txt</code>、ページの分割、AIへの言及を増やす書き換えは必要ないと説明しています。</p>
+      <p>また、スニペットの対象となる条件を満たしても、クロール、インデックス、表示が保証されるわけではありません。（<a href="https://developers.google.com/search/docs/fundamentals/ai-optimization-guide" target="_blank" rel="noopener noreferrer">Google Search Central：AI features and your website</a>／取得日：2026年7月29日）</p>
+
+      <h3 style="margin-top:20px">Microsoft Bing / Copilot</h3>
+      <p>MicrosoftのBing Webmaster Tools「AI Performance」は、Copilot、BingのAI要約、一部の提携先における引用を確認するための公開プレビューです。ただし、そこで示される引用数は、順位、権威性、表示位置を示すものではないと明記されています。観測は「何が起きたか」を見る材料であり、「どの説明が事業にとって正しいか」を決める材料とは別です。（<a href="https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview" target="_blank" rel="noopener noreferrer">Microsoft Bing Blogs：Introducing AI Performance in Bing Webmaster Tools</a>／取得日：2026年7月29日）</p>
+
+      <h3 style="margin-top:20px">OpenAI / ChatGPT search</h3>
+      <p>OpenAIは、公開サイトがChatGPT searchで見つかり、表示・引用される対象になるためには、<code>OAI-SearchBot</code>をブロックしないことを案内しています。同時に、検索結果での上位表示は保証しないと明示しています。現在のMeandleサイトは公開承認までBasic Authと<code>noindex,nofollow</code>を維持する方針のため、この状態では公開検索向けの確認対象にはなりません。公開時には、Jag承認のもとでサイト全体の公開手順として見直します。（<a href="https://help.openai.com/en/articles/12627856" target="_blank" rel="noopener noreferrer">OpenAI Help：Publishers and developers - FAQ</a>／<a href="https://help.openai.com/en/articles/9237897-chatgpt-search" target="_blank" rel="noopener noreferrer">ChatGPT search</a>／取得日：2026年7月29日）</p>
+
+      <h3 style="margin-top:20px">一次情報の一覧</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th scope="col">ID</th><th scope="col">公開元・資料</th><th scope="col">本ページで参照する論点</th><th scope="col">取得日</th></tr></thead>
+          <tbody>
+            <tr><td>PS-01</td><td><a href="https://developers.google.com/search/docs/fundamentals/ai-optimization-guide" target="_blank" rel="noopener noreferrer">Google Search Central：AI features and your website</a></td><td>SEOの基礎、独自性、技術要件、特別なAI用マークアップが必須ではないこと、表示非保証</td><td>2026-07-29</td></tr>
+            <tr><td>PS-02</td><td><a href="https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports" target="_blank" rel="noopener noreferrer">Google Search Central Blog：Generative AI performance reports</a></td><td>生成AIのパフォーマンスレポートは一部サイトからの提供であること</td><td>2026-07-29</td></tr>
+            <tr><td>PS-03</td><td><a href="https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview" target="_blank" rel="noopener noreferrer">Microsoft Bing Blogs：AI Performance in Bing Webmaster Tools</a></td><td>引用観測、公開プレビュー、引用数は順位・権威性・位置ではないこと</td><td>2026-07-29</td></tr>
+            <tr><td>PS-04</td><td><a href="https://help.openai.com/en/articles/12627856" target="_blank" rel="noopener noreferrer">OpenAI Help：Publishers and developers - FAQ</a></td><td>OAI-SearchBot、公開サイト、参照トラフィックの確認</td><td>2026-07-29</td></tr>
+            <tr><td>PS-05</td><td><a href="https://help.openai.com/en/articles/9237897-chatgpt-search" target="_blank" rel="noopener noreferrer">OpenAI Help：ChatGPT search</a></td><td>クロール許可と上位表示の非保証</td><td>2026-07-29</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:16px">Meandleは、上記の公開資料を「効果の根拠」に読み替えません。技術条件を満たすこと、観測できること、商材の説明が適切であることは、それぞれ別に確認します。</p>
+    </div>
+  </section>
+
+  <!-- Section 4: Roles -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Different Jobs, Different Decisions</span>
+      <h2>観測、技術SEO、コンテンツ、意味設計は、同じ仕事ではありません。</h2>
+      <p>どれか一つを否定するのではなく、意思決定の役割を混ぜないことが重要です。Meandleは、既存のツールやSEOの専門家と競合するのではなく、観測後に「何を、誰へ、どの根拠で伝えるか」を決める層を担います。</p>
+
+      <div class="table-wrap mt-3">
+        <table class="compare-table">
+          <thead><tr><th scope="col">役割</th><th scope="col">主に答える問い</th><th scope="col">主な成果物</th><th scope="col">それだけでは決まらないこと</th></tr></thead>
+          <tbody>
+            <tr><td>観測</td><td>どの質問・参照・流入が見えているか</td><td>検索コンソール、参照データ、観測レポート</td><td>誰に向けた商材か、何を捨てるか</td></tr>
+            <tr><td>技術SEO</td><td>検索サービスが公開ページを取得・理解しやすいか</td><td>クロール、インデックス、HTML、構造化データの整備</td><td>商材の価値、比較軸、営業上の優先順位</td></tr>
+            <tr><td>コンテンツ制作</td><td>必要な事実や説明をページに置けるか</td><td>本文、FAQ、事例、資料</td><td>量を増やすべきか、対象外にすべきか</td></tr>
+            <tr class="highlight"><td><strong>Meandleの意味設計</strong></td><td><strong>正しい相手が、正しい理由で判断できる説明か</strong></td><td><strong>対象・価値・根拠・対象外条件を含む意味仕様と実装差分</strong></td><td><strong>順位、引用、AIの応答、商談を保証すること</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:16px">たとえば、観測で「よく引用される説明」が見つかっても、その説明が低単価の比較を招くなら、増やすべきとは限りません。逆に、技術要件が整っていても、対象顧客、利用場面、根拠、対象外条件が曖昧なら、高単価商材の判断は進みません。</p>
+      <p>Meandleが設計するのは、露出を増やす前に、AIと見込み客が拾える「売る意味」を整えることです。</p>
+    </div>
+  </section>
+
+  <!-- Section 5: Flow -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">From Observation to Existing-page Implementation</span>
+      <h2>観測結果を、ページの実装条件へ変える4段階です。</h2>
+      <p>数字や引用の有無を、正解のコピーに直結させません。対象顧客と商材の事実を確認して初めて、既存ページに反映する条件が定まります。</p>
+
+      <figure class="hero-figure">
+        <img
+          src="/images/ai-search-optimization/meandle-ai-search-optimization-meaning-flow-comic-v1.webp"
+          alt="複数の情報経路を観察し、既存ページの曖昧さを確認し、対象・価値・根拠・対象外条件を定め、実装前後のページを確認する4段階の図"
+          width="1774" height="887"
+          loading="lazy"
+        />
+      </figure>
+
+      <ol class="mt-4" style="font-size:15.5px; line-height:1.95">
+        <li><strong>観測する</strong>：検索、生成AI、営業、問い合わせなどから、今どの説明が参照され、どこが混線しているかを確認します。</li>
+        <li><strong>読み解く</strong>：観測を正解扱いせず、既存URL、営業資料、事実確認をもとに、曖昧な主語、比較、条件を分けます。</li>
+        <li><strong>意味仕様にする</strong>：対象、価値、根拠、対象外条件を含む8項目の意味仕様にし、実装判断をそろえます。</li>
+        <li><strong>既存ページへ実装する</strong>：見出し、本文、比較、根拠、FAQ、メタ情報へ反映し、何を観察し、何を断定しないかを定めます。</li>
+      </ol>
+
+      <p style="margin-top:16px">この工程で残すのは、単発の「AI検索向けコピー」ではありません。ページの変更理由、実装差分、確認条件、次回更新時に見直す条件です。</p>
+    </div>
+  </section>
+
+  <!-- Section 6: Boundary -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">High-price B2B Needs Boundaries</span>
+      <h2>高単価B2Bでは、「対象外」まで決めない説明は、むしろ弱くなります。</h2>
+      <p>高価格の商材ほど、同じカテゴリ名でも、必要とする企業規模、意思決定者、導入前提、比較対象は違います。対象だけを書けば、似ているが適合しない問い合わせや、価格だけの比較を呼び込みやすくなります。</p>
+      <p>Meandleは、「提供できること」だけでなく、何を提供しないか、先に別の施策が必要なのはどんな状態か、どの比較を受けないかを意味仕様に入れます。これは断るための表現ではなく、適合する相手が判断しやすくなるための条件です。</p>
+
+      <h3 style="margin-top:20px">意味仕様に含める8項目</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th scope="col">項目</th><th scope="col">このページで決めること</th></tr></thead>
+          <tbody>
+            <tr><td>役割</td><td>商材は顧客にとって何を担うか</td></tr>
+            <tr><td>利用場面</td><td>どの状況で必要になるか</td></tr>
+            <tr><td>比較対象</td><td>何と比べられやすいか</td></tr>
+            <tr><td>比較軸</td><td>何を基準に検討すべきか</td></tr>
+            <tr><td>価値</td><td>どの判断を支えるか</td></tr>
+            <tr><td>根拠</td><td>何が価値を裏付けるか</td></tr>
+            <tr><td>必須条件</td><td>適合に必要な顧客・用途・前提は何か</td></tr>
+            <tr><td>対象外条件</td><td>何ではないか。誰・どの用途を扱わないか</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:16px">8項目をどう読み、定め、実装し、確認するかは、<a href="/how-it-works/">意味設計の進め方</a>で説明しています。</p>
+    </div>
+  </section>
+
+  <!-- Section 7: Commercial path -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">From Meaning Fit to Update</span>
+      <h2>設計、実装、回帰検証は、別の責任範囲として進めます。</h2>
+      <p>観測画面や記事本数を売るのではなく、必要な意思決定を先に切り分けます。すべての案件を継続支援へ進める前提にはしません。</p>
+
+      <div class="price-card mt-4">
+        <div class="price-label">1. do.meandle 意味適合スプリント</div>
+        <div class="price">¥500,000<span class="price-unit">〜 / 1商材・1URL</span></div>
+        <p><strong>残るもの：</strong>現状の意味診断、対象／対象外質問、8項目の意味仕様、実装方針、確認条件。</p>
+        <p style="font-size:13px; color:var(--muted); margin-bottom:0"><strong>含まれないこと：</strong>詳細なページ実装、記事の量産、広告運用、順位・引用・AI応答の保証。</p>
+        <p style="margin-top:8px; font-size:13px"><a href="/do-meandle/">do.meandleの詳細を見る →</a></p>
+      </div>
+      <div class="price-card">
+        <div class="price-label">2. 1ページの意味実装</div>
+        <div class="price">¥2,000,000<span class="price-unit"> 前後 / ページ</span></div>
+        <p style="margin-bottom:0">意味仕様に基づく情報設計、原稿、実装差分、メタ情報、FAQ、公開前の確認条件。</p>
+      </div>
+      <div class="price-card">
+        <div class="price-label">3. 回帰検証と更新</div>
+        <div class="price">¥1,200,000<span class="price-unit"> / 月〜</span></div>
+        <p style="margin-bottom:0">商材・公開情報・対象条件の変化を確認し、説明のズレを更新するための運用。観測可能な事実と、まだ断定しないことを分けて記録します。</p>
+      </div>
+
+      <p style="margin-top:20px">最初の導入適合性確認では、50万円〜のスプリントで扱うべき課題かを確認します。お問い合わせ段階での詳細診断や、結果保証を前提とした提案は行いません。</p>
+    </div>
+  </section>
+
+  <!-- Section 8: FAQ -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">FAQ</span>
+      <h2>AI検索に関する、先に分けておくべき質問。</h2>
+      <details class="faq-item">
+        <summary class="faq-q"><code>llms.txt</code>を置けばよいですか？</summary>
+        <div class="faq-a">Google Searchについては、生成AI機能のために<code>llms.txt</code>が必要とはしていません。まず公開ページが検索サービスに取得・理解される基本条件、そして人が判断できる独自で信頼できる情報を確認します。他のサービスの仕様は変わり得るため、必要性は対象サービスの公式要件で都度確認します。（<a href="https://developers.google.com/search/docs/fundamentals/ai-optimization-guide" target="_blank" rel="noopener noreferrer">Google Search Central</a>）</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">構造化データを入れれば、AI検索で表示・引用されますか？</summary>
+        <div class="faq-a">いいえ。構造化データは、検索サービスにページの意味を伝えるための技術的な選択肢の一つですが、生成AI機能のための特別なマークアップが必須とはGoogleは説明していません。クロール、インデックス、表示、引用、順位はいずれも保証されません。（<a href="https://developers.google.com/search/docs/fundamentals/ai-optimization-guide" target="_blank" rel="noopener noreferrer">Google Search Central</a>）</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">ChatGPT searchに出るようにできますか？</summary>
+        <div class="faq-a">公開サイトが見つかり、表示・引用の対象となるには、<code>OAI-SearchBot</code>をブロックしないことがOpenAIの案内です。ただし、これは上位表示や表示・引用を保証するものではありません。現在のMeandleサイトは公開前のアクセス制御を維持しているため、公開切替前にこの確認を行いません。（<a href="https://help.openai.com/en/articles/12627856" target="_blank" rel="noopener noreferrer">OpenAI Help</a>）</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">既存のSEO会社や観測ツールがあっても依頼できますか？</summary>
+        <div class="faq-a">はい。Meandleは、観測や技術実装を置き換えることが目的ではありません。既存データや技術要件を参照しながら、高単価B2Bの対象、価値、根拠、対象外条件を、既存ページで矛盾なく伝える判断基準にします。各社の役割と公開責任を事前に分けます。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">検索順位、AIの回答、引用、問い合わせは保証されますか？</summary>
+        <div class="faq-a">保証しません。Google、Microsoft、OpenAIの公開資料も、技術的な条件や観測可能な指標と、表示位置・引用・成果の保証を分けています。Meandleが約束するのは、確認できる事実を使い、説明の条件と実装範囲を明確にすることです。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Section 9: Final -->
+  <section class="cta-block">
+    <div class="container container--narrow">
+      <span class="eyebrow" style="color:var(--hero-orange)">Start With One Existing URL</span>
+      <h2>AI検索の対策を増やす前に、<br/>その商材が何として伝わるべきかを確認する。</h2>
+      <p>対象URL、来てほしい顧客、対象外にしたい顧客や用途、今の説明で起きているズレをお知らせください。Meandleで扱うべき課題かを確認し、適合する場合に、1商材・1URLの意味適合スプリントをご案内します。</p>
+
+      <a href="/contact/" class="btn btn--primary" style="margin-top:20px">既存URLで導入適合性を確認する</a>
+
+      <p style="color:rgba(255,255,255,0.75); font-size:13px; margin-top:12px">
+        初回は50万円〜です。お問い合わせ段階での詳細診断、記事の量産、順位・引用・AI応答・商談成果の保証は行いません。
+      </p>
+
+      <p style="color:rgba(255,255,255,0.65); font-size:12px; margin-top:20px">
+        Meandleは、Jag Yamamoto / Jag Projectが開発・監修するB2B意味設計ソリューションです。<br/>
+        運営元：<a href="https://jagproject.com/" target="_blank" rel="noopener" style="color:var(--hero-orange)">jagproject.com ↗</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:inline>
+  .hero-figure { margin: 20px auto; max-width: 720px; background: var(--card); border: 1px solid rgba(18,36,44,0.12); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); }
+  .hero-figure img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  .hero-figure figcaption { font-size: 12.5px; color: var(--muted); margin-top: 10px; text-align: center; }
+  .faq-item { border-bottom: 1px solid rgba(18,36,44,0.12); padding: 16px 0; }
+  .faq-item[open] .faq-q { color: var(--hero-orange); }
+</style>

@@ -2,11 +2,10 @@
   { "label": "ホーム", "href": "/" },
   { "label": "仕組み", "href": "/how-it-works/" },
   { "label": "do.meandle", "href": "/do-meandle/" },
+  { "label": "get lead", "href": "/get-lead/" },
   { "label": "PR", "href": "/pr/" },
-  { "label": "リード獲得", "href": "/get-lead/" },
-  { "label": "採用", "href": "/recruit/" },
   { "label": "OEM", "href": "/oem/" },
-  { "label": "代理店", "href": "/partner/" },
+  { "label": "AI検索最適化", "href": "/ai-search-optimization/" },
   { "label": "Blog", "href": "/blog/" },
   { "label": "相談する", "href": "/contact/" }
 ]
