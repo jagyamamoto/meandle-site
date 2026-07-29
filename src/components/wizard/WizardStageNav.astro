@@ -1,0 +1,40 @@
+---
+import { DEMO_STAGE_LABELS } from '../../data/wizard-prototype';
+
+interface Props {
+  current?: string | null;
+  blockedFrom?: string;
+}
+
+const { current = null, blockedFrom } = Astro.props;
+const stageOrder = DEMO_STAGE_LABELS.map((s) => s.key);
+const blockedIndex = blockedFrom ? stageOrder.indexOf(blockedFrom) : -1;
+---
+<nav class="wp-stage-nav" aria-label="案件の段階">
+  {DEMO_STAGE_LABELS.map((stage, i) => {
+    const isCurrent = current === stage.key;
+    const isDone = current ? i < stageOrder.indexOf(current) : false;
+    const isBlocked = blockedIndex >= 0 && i > blockedIndex;
+    const classes = [
+      'wp-stage-nav__item',
+      isDone ? 'wp-stage-nav__item--done' : '',
+      isBlocked ? 'wp-stage-nav__item--blocked' : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+    return (
+      <a
+        class={classes}
+        href={stage.href}
+        aria-current={isCurrent ? 'page' : undefined}
+      >
+        <span class="wp-stage-nav__mark" aria-hidden="true">
+          {isDone ? '✓' : isBlocked ? '⛔' : `${i + 1}`}
+        </span>
+        <span>{stage.label}</span>
+        {isCurrent && <span class="wp-badge wp-badge--info" style="margin-left:8px;">現在</span>}
+        {isBlocked && <span class="wp-badge wp-badge--warning" style="margin-left:8px;">前段階を先に</span>}
+      </a>
+    );
+  })}
+</nav>

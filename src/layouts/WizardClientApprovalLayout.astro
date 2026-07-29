@@ -1,0 +1,53 @@
+---
+// Client approval portal layout — no agency navigation, no rail.
+// Mobile-first, larger body text.
+
+import '../styles/wizard-prototype.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Meandle Wizard 操作デモ — クライアント確認画面',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} | クライアント確認</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="wizard-client">
+    <a class="wp-skip" href="#wp-main">本文へスキップ</a>
+
+    <div class="wp-demo-banner" role="status" aria-live="polite">
+      <strong>操作デモ</strong>
+      <span>架空のデータを使用しています。実在企業の資料や機密情報は入力しないでください。</span>
+    </div>
+
+    <header class="wp-client-topbar">
+      <span class="wp-client-topbar__brand">デモ代理店 / Meandle</span>
+      <span>PR代理店からの確認依頼</span>
+    </header>
+
+    <main class="wp-client-shell" id="wp-main">
+      <slot />
+    </main>
+
+    <script>
+      import '../scripts/wizard-prototype.ts';
+    </script>
+  </body>
+</html>

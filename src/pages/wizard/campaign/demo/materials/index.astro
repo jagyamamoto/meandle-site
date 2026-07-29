@@ -1,0 +1,138 @@
+---
+import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
+import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
+import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
+import { DEMO_SOURCES } from '../../../../../data/wizard-prototype';
+---
+<WizardPrototypeLayout title="材料" description="Meandle Wizard 操作デモ — 材料" stage="materials">
+  <WizardCampaignHeader slot="header" />
+  <WizardStageNav slot="stage" current="materials" />
+
+  <div data-when-state="loading" hidden class="wp-job-banner">
+    <span class="wp-job-banner__icon">◐</span>
+    <span>3つの資料を読み取っています。この画面を閉じても処理は続きます。</span>
+  </div>
+
+  <div data-when-state="empty" hidden>
+    <div class="wp-empty">
+      <h3>判断に使う資料を追加してください</h3>
+      <p>Webページ、PDF、Word、テキストを追加すると、事実・数値・注意点の候補を整理します。</p>
+      <button class="wp-btn wp-btn--primary" type="button" onclick="window.location.search='?demoState=normal'">最初の資料を追加</button>
+    </div>
+  </div>
+
+  <div data-when-state="offline" hidden>
+    <div class="wp-callout wp-callout--warning">
+      <strong>オフラインです</strong>
+      <p>接続復旧後に、追加した資料の読み取りをやり直します。</p>
+    </div>
+  </div>
+
+  <div data-hide-when-state="loading,empty">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+      <button class="wp-btn wp-btn--primary" type="button" onclick="alert('プロトタイプではデモ資料が既に追加済みです。');">
+        資料を追加（デモ）
+      </button>
+      <button class="wp-btn wp-btn--secondary" type="button">URLから取得</button>
+      <button class="wp-btn wp-btn--secondary" type="button">テキストを貼り付け</button>
+      <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/evidence/" style="margin-left:auto;">根拠リストを確認 →</a>
+    </div>
+
+    <div class="wp-split">
+      <div>
+        <h2 style="font-size:16px;margin:0 0 8px;">資料一覧</h2>
+        {DEMO_SOURCES.map((source, i) => (
+          <div class="wp-source" aria-current={i === 0 ? 'true' : undefined}>
+            <span class="wp-source__icon">{source.type === 'PDF' ? '📄' : '🌐'}</span>
+            <div>
+              <p class="wp-source__title">{source.title}</p>
+              <p class="wp-source__meta">
+                {source.authority} · {source.confidentiality} · 更新 {source.updatedAt}
+                {source.partial && <> · <span style="color:var(--wp-warning);">一部読み取れませんでした</span></>}
+              </p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
+              {source.state === '準備完了' && <span class="wp-badge wp-badge--success">準備完了</span>}
+              {source.state === '一部成功' && <span class="wp-badge wp-badge--warning">一部成功</span>}
+              {source.state === '失敗' && <span class="wp-badge wp-badge--danger">失敗</span>}
+            </div>
+          </div>
+        ))}
+        <div class="wp-callout wp-callout--info" style="margin-top:12px;">
+          <strong>資料の種類</strong>
+          <p style="font-size:13px;margin:6px 0 0;">
+            AIは「正式資料候補」までしか提案できません。
+            <strong>正式資料として確認</strong>は、担当者本人が内容を確認したうえで押してください。
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <h2 style="font-size:16px;margin:0 0 8px;">選択中の資料: 営業資料_最新版.pdf</h2>
+        <div class="wp-card wp-card--tight">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+            <span class="wp-badge wp-badge--warning">一部成功</span>
+            <span class="wp-badge wp-badge--neutral">社内限定</span>
+            <span class="wp-badge wp-badge--info">正式資料候補</span>
+          </div>
+          <p style="font-size:13px;color:var(--wp-ink-muted);">
+            3ページ中1ページのみ画像化されており読み取れませんでした。ほかの2ページと、すでに確認した内容は保存されています。
+          </p>
+
+          <h3 style="margin-top:16px;">抽出された項目</h3>
+          <ul class="wp-list">
+            <li>
+              <div class="wp-evidence">
+                <div class="wp-evidence__head">
+                  <span class="wp-evidence__statement">月額料金：<strong>30万円（標準構成）</strong></span>
+                  <span class="wp-badge wp-badge--danger">食い違いあり</span>
+                </div>
+                <div class="wp-evidence__excerpt">
+                  「月額 300,000 円（標準構成）」— 営業資料_最新版.pdf p.4
+                </div>
+                <p style="font-size:13px;color:var(--wp-danger);">
+                  他資料には「月額25万円」の記載があります。
+                  <a href="/wizard/campaign/demo/evidence/">根拠リストで確認する →</a>
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="wp-evidence">
+                <div class="wp-evidence__head">
+                  <span class="wp-evidence__statement">業界No.1の受電一次対応SaaS</span>
+                  <span class="wp-badge wp-badge--warning">確認待ち</span>
+                </div>
+                <div class="wp-evidence__excerpt">
+                  「業界No.1の受電一次対応SaaS」— 営業資料_最新版.pdf p.1
+                </div>
+                <p style="font-size:13px;color:var(--wp-warning);">
+                  「業界No.1」を裏付ける第三者調査・出典が根拠リストにありません。
+                </p>
+              </div>
+            </li>
+          </ul>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+            <button class="wp-btn wp-btn--secondary" type="button">正式資料として確認</button>
+            <button class="wp-btn wp-btn--ghost" type="button">再解析</button>
+            <button class="wp-btn wp-btn--ghost" type="button">画像化ページを差し替え</button>
+          </div>
+        </div>
+
+        <div data-when-state="partial" hidden class="wp-callout wp-callout--warning" style="margin-top:12px;">
+          <strong>2件は読み取れました。「営業資料_最新版.pdf」の1ページはパスワード付きのため確認できません。</strong>
+          <p>解除したファイルを追加してください。他の資料の処理は続いています。</p>
+        </div>
+
+        <div data-when-state="error" hidden class="wp-callout wp-callout--danger" style="margin-top:12px;">
+          <strong>資料の取得に失敗しました</strong>
+          <p>すでに追加した内容と、担当者による編集は保存されています。時間をおいてもう一度お試しください。</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;margin-top:24px;">
+      <a class="wp-btn wp-btn--primary" href="/wizard/campaign/demo/evidence/">根拠リストを確認 →</a>
+    </div>
+  </div>
+</WizardPrototypeLayout>

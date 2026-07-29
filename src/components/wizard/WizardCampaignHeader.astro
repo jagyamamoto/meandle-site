@@ -1,0 +1,32 @@
+---
+import {
+  DEMO_CLIENT,
+  DEMO_CAMPAIGN,
+  DEMO_PUBLISH_DATE,
+  DEMO_AGENCY_OWNER,
+} from '../../data/wizard-prototype';
+import WizardSaveState from './WizardSaveState.astro';
+import WizardStateSwitcher from './WizardStateSwitcher.astro';
+
+interface Props {
+  status?: string;
+  showStateSwitcher?: boolean;
+}
+
+const { status = '社内確認', showStateSwitcher = true } = Astro.props;
+---
+<header class="wp-campaign-header">
+  <div class="wp-page-header__breadcrumb">
+    <a href="/wizard/" style="color:inherit;text-decoration:none;">今日の作業</a>
+    <span aria-hidden="true"> › </span>
+    <span>{DEMO_CLIENT}</span>
+  </div>
+  <h1 class="wp-campaign-header__title">{DEMO_CAMPAIGN}</h1>
+  <div class="wp-campaign-header__meta">
+    <span><strong>ステータス:</strong> {status}</span>
+    <span><strong>公開予定:</strong> {DEMO_PUBLISH_DATE}</span>
+    <span><strong>担当:</strong> {DEMO_AGENCY_OWNER}</span>
+    <WizardSaveState />
+    {showStateSwitcher && <WizardStateSwitcher />}
+  </div>
+</header>

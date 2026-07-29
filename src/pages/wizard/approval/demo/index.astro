@@ -1,0 +1,122 @@
+---
+import WizardClientApprovalLayout from '../../../../layouts/WizardClientApprovalLayout.astro';
+import { DEMO_APPROVAL_ITEMS, DEMO_APPROVERS, DEMO_CAMPAIGN } from '../../../../data/wizard-prototype';
+
+function approverName(id: string) {
+  return DEMO_APPROVERS.find((a) => a.id === id)?.name ?? id;
+}
+---
+<WizardClientApprovalLayout title={`${DEMO_CAMPAIGN} の確認依頼`}>
+  <label class="wp-state-switcher" style="margin:12px 0;">
+    <span>デモ状態:</span>
+    <select data-wp-state-switcher aria-label="クライアント状態を切り替え">
+      <option value="normal">通常</option>
+      <option value="expired">期限切れ</option>
+      <option value="revoked">取消済み</option>
+      <option value="wrong-recipient">別の宛先</option>
+      <option value="stale">内容が更新済み</option>
+    </select>
+  </label>
+
+  <div data-when-state="expired" hidden>
+    <div class="wp-client-blocking">
+      <h2>この招待リンクの有効期限が切れています</h2>
+      <p>お手数ですが、招待元の担当者（デモ代理店）に再発行を依頼してください。</p>
+    </div>
+  </div>
+
+  <div data-when-state="revoked" hidden>
+    <div class="wp-client-blocking">
+      <h2>この確認依頼は取り消されました</h2>
+      <p>最新の依頼について、表示されている代理店担当者（デモ代理店）へお問い合わせください。</p>
+    </div>
+  </div>
+
+  <div data-when-state="wrong-recipient" hidden>
+    <div class="wp-client-blocking">
+      <h2>この依頼は別のメールアドレス宛てです</h2>
+      <p>依頼を受けたアドレスで確認してください。このリンクではクライアント案件の内容は表示されません。</p>
+    </div>
+  </div>
+
+  <div data-when-state="stale" hidden>
+    <div class="wp-callout wp-callout--warning">
+      <strong>内容が更新されました</strong>
+      <p>一部の項目は代理店側で修正され、再確認が必要です。以下では最新版が表示されます。すでに確認済みの項目はそのまま残ります。</p>
+    </div>
+  </div>
+
+  <div data-hide-when-state="expired,revoked,wrong-recipient">
+    <header class="wp-client-header">
+      <p style="font-size:12px;color:var(--wp-ink-muted);letter-spacing:0.06em;">
+        デモ代理店 / Meandle
+      </p>
+      <h1>RelayOne 新サービス発表 の確認依頼</h1>
+      <p class="wp-client-header__meta">
+        公開予定: 2026年9月15日 · 担当代理店: デモ代理店 山田 花子
+      </p>
+    </header>
+
+    <div class="wp-client-progress" role="status" aria-live="polite">
+      <span data-wp-approval-progress>0 / 4件を確認済み</span>
+      <span style="margin-left:auto;font-size:12px;">所要 約5分</span>
+    </div>
+
+    <p style="font-size:15px;line-height:1.8;">
+      <strong>公開前に、事業上の事実と約束をご確認ください。</strong>
+      表現の細かな校正ではなく、内容が事実と合っているかをご確認ください。所要時間は約5分です。
+    </p>
+
+    {DEMO_APPROVAL_ITEMS.map((item) => (
+      <article class="wp-client-item" data-wp-approval-item={item.id}>
+        <p class="wp-client-item__scope">{item.scope}</p>
+        <p class="wp-client-item__question">{item.question}</p>
+        <div class="wp-client-item__proposed">{item.proposed}</div>
+        {item.changedFromPrior && (
+          <p class="wp-client-item__excerpt">
+            <strong>前回からの変更:</strong> {item.changedFromPrior}
+          </p>
+        )}
+        {item.evidenceExcerpt && (
+          <p class="wp-client-item__excerpt">
+            <strong>出典:</strong> {item.evidenceExcerpt}
+          </p>
+        )}
+        <p style="font-size:13px;color:var(--wp-ink-muted);margin:8px 0 0;">
+          承認者: {item.assignedTo.map(approverName).join(' / ')}
+          {item.assignedTo.length > 1 && <span style="color:var(--wp-danger);"> (全員の承認が必要)</span>}
+        </p>
+
+        <div class="wp-client-item__actions">
+          <button class="wp-btn wp-btn--primary" type="button" data-wp-approve>この内容で問題ない</button>
+          <button class="wp-btn wp-btn--secondary" type="button" data-wp-request-change>修正を依頼</button>
+        </div>
+
+        <div class="wp-client-item__change">
+          <label class="wp-field">
+            <span class="wp-field__label">修正内容の理由<span class="wp-field__required">必須</span></span>
+            <textarea data-wp-change-reason placeholder="どこを、どのように修正してほしいかをご記入ください。"></textarea>
+          </label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="wp-btn wp-btn--danger" type="button" data-wp-submit-change>修正依頼を送る</button>
+            <button class="wp-btn wp-btn--ghost" type="button" data-wp-cancel-change>キャンセル</button>
+          </div>
+        </div>
+      </article>
+    ))}
+
+    <div class="wp-client-final">
+      <div class="wp-client-final__status" data-wp-approval-progress>0 / 4件を確認済み</div>
+      <button class="wp-btn wp-btn--primary" type="button" data-wp-final-action disabled aria-disabled="true">
+        確認結果を送る
+      </button>
+      <p style="font-size:12px;color:var(--wp-ink-muted);margin:0;">
+        全ての必須項目にご回答いただくと、送信できます。プロトタイプではこの送信ボタンは実際にはメールを送りません。
+      </p>
+    </div>
+
+    <p style="font-size:12px;color:var(--wp-ink-muted);margin-top:24px;text-align:center;">
+      このブラウザに保存されているため、途中で閉じても同じリンクから再開できます。
+    </p>
+  </div>
+</WizardClientApprovalLayout>

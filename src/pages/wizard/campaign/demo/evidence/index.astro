@@ -1,0 +1,148 @@
+---
+import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
+import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
+import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
+import { DEMO_EVIDENCE, DEMO_SOURCES } from '../../../../../data/wizard-prototype';
+
+function sourceTitle(id: string) {
+  return DEMO_SOURCES.find((s) => s.id === id)?.title ?? id;
+}
+---
+<WizardPrototypeLayout title="根拠リスト" description="Meandle Wizard 操作デモ — 根拠リスト" stage="materials">
+  <WizardCampaignHeader slot="header" />
+  <WizardStageNav slot="stage" current="materials" />
+
+  <div class="wp-callout wp-callout--danger">
+    <strong>価格の食い違いがあります</strong>
+    <p>「月額料金」について、公式サービスページ／料金表は <strong>25万円</strong>、営業資料は <strong>30万円</strong> と記載されています。正しい価格を確認してから、伝え方の基準を確定してください。</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+      <button class="wp-btn wp-btn--primary" type="button" data-wp-confirm-price="25">
+        「月額25万円」を確認
+      </button>
+      <button class="wp-btn wp-btn--secondary" type="button" data-wp-confirm-price="30">
+        「月額30万円」を確認
+      </button>
+      <button class="wp-btn wp-btn--ghost" type="button">
+        担当者へ確認を依頼
+      </button>
+    </div>
+    <p data-wp-when-price="25" hidden style="margin-top:12px;color:var(--wp-success);">
+      ✓ 「月額25万円」が確認済みになりました。営業資料の 30万円 表記は<strong>使用しない</strong>として保存されます。
+    </p>
+    <p data-wp-when-price="30" hidden style="margin-top:12px;color:var(--wp-success);">
+      ✓ 「月額30万円」が確認済みになりました。他資料の 25万円 表記は<strong>使用しない</strong>として保存されます。
+    </p>
+  </div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center;">
+    <h2 style="margin:0;font-size:20px;">根拠リスト</h2>
+    <span class="wp-badge wp-badge--neutral">種類 × 確認状態</span>
+    <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/meaning/" style="margin-left:auto;">伝え方の基準へ →</a>
+  </div>
+
+  <div class="wp-table--scroll">
+    <table class="wp-table" aria-label="根拠一覧">
+      <thead>
+        <tr>
+          <th>抽出内容</th>
+          <th>種類</th>
+          <th>由来</th>
+          <th>確認状態</th>
+          <th>出典</th>
+          <th>担当</th>
+        </tr>
+      </thead>
+      <tbody>
+        {DEMO_EVIDENCE.map((ev) => (
+          <tr>
+            <td>{ev.statement}</td>
+            <td>
+              <span class="wp-badge wp-badge--neutral">{ev.type}</span>
+            </td>
+            <td style="font-size:12px;color:var(--wp-ink-muted);">{ev.origin}</td>
+            <td>
+              {ev.state === '確認済み' && <span class="wp-badge wp-badge--success">{ev.state}</span>}
+              {ev.state === '食い違いあり' && <span class="wp-badge wp-badge--danger">{ev.state}</span>}
+              {ev.state === '確認待ち' && <span class="wp-badge wp-badge--warning">{ev.state}</span>}
+              {ev.state === 'AI候補' && <span class="wp-badge wp-badge--info">{ev.state}</span>}
+              {ev.state === '使用しない' && <span class="wp-badge wp-badge--neutral">{ev.state}</span>}
+              {ev.state === '期限切れ' && <span class="wp-badge wp-badge--neutral">{ev.state}</span>}
+            </td>
+            <td style="font-size:12px;color:var(--wp-ink-muted);">{sourceTitle(ev.sourceId)}</td>
+            <td style="font-size:12px;">{ev.assignedTo ?? '—'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <section class="wp-card" style="margin-top:24px;">
+    <h2>詳細と対応</h2>
+
+    <div class="wp-evidence wp-evidence--conflict">
+      <div class="wp-evidence__head">
+        <span class="wp-evidence__statement">RelayOne の月額料金は 25万円</span>
+        <span class="wp-badge wp-badge--danger">食い違いあり</span>
+      </div>
+      <div class="wp-evidence__excerpt">
+        「月額 250,000 円（税別）」— RelayOne 公式サービスページ 第2セクション
+      </div>
+      <div class="wp-evidence__meta">
+        由来: AIによる候補 · 種類: 事実 · 対立: ev-price-30
+      </div>
+      <div class="wp-evidence__actions">
+        <button class="wp-btn wp-btn--primary" type="button" data-wp-confirm-price="25">
+          この価格で確認
+        </button>
+        <button class="wp-btn wp-btn--secondary" type="button">担当者に確認</button>
+        <button class="wp-btn wp-btn--ghost" type="button">今回は使わない</button>
+      </div>
+    </div>
+
+    <div class="wp-evidence">
+      <div class="wp-evidence__head">
+        <span class="wp-evidence__statement">業界No.1（受電一次対応SaaSカテゴリ）</span>
+        <span class="wp-badge wp-badge--warning">確認待ち</span>
+      </div>
+      <div class="wp-evidence__excerpt">
+        「業界No.1の受電一次対応SaaS」— 営業資料_最新版.pdf p.1
+      </div>
+      <div class="wp-evidence__meta">
+        由来: AIによる候補 · 種類: 主張 · 担当: 田中 健
+      </div>
+      <p style="color:var(--wp-danger);font-size:13px;margin:8px 0;">
+        <strong>根拠未確認</strong>：この主張を裏付ける第三者調査・出典が確認されていません。
+      </p>
+      <div class="wp-evidence__actions">
+        <button class="wp-btn wp-btn--secondary" type="button">「根拠未確認」の主張として残す</button>
+        <button class="wp-btn wp-btn--ghost" type="button">別の根拠を追加</button>
+        <button class="wp-btn wp-btn--ghost" type="button">今回は使わない</button>
+      </div>
+    </div>
+
+    <div class="wp-evidence">
+      <div class="wp-evidence__head">
+        <span class="wp-evidence__statement">中堅B2B企業の問い合わせ一次対応が主な用途</span>
+        <span class="wp-badge wp-badge--success">確認済み</span>
+      </div>
+      <div class="wp-evidence__excerpt">
+        「中堅B2B企業様の受電・チャット一次応答を自動化」— RelayOne 公式サービスページ 冒頭
+      </div>
+    </div>
+
+    <div class="wp-evidence">
+      <div class="wp-evidence__head">
+        <span class="wp-evidence__statement">医療診断用途には対応しない</span>
+        <span class="wp-badge wp-badge--success">確認済み</span>
+      </div>
+      <div class="wp-evidence__excerpt">
+        「医療診断・医療行為・救急対応を伴う用途にはご利用いただけません」— 利用規約より
+      </div>
+    </div>
+  </section>
+
+  <div style="display:flex;justify-content:flex-end;margin-top:24px;gap:8px;">
+    <a class="wp-btn wp-btn--secondary" href="/wizard/campaign/demo/materials/">← 材料に戻る</a>
+    <a class="wp-btn wp-btn--primary" href="/wizard/campaign/demo/meaning/">伝え方の基準を確認 →</a>
+  </div>
+</WizardPrototypeLayout>

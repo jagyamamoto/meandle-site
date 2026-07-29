@@ -1,0 +1,107 @@
+---
+import WizardPrototypeLayout from '../../../../../../layouts/WizardPrototypeLayout.astro';
+import WizardCampaignHeader from '../../../../../../components/wizard/WizardCampaignHeader.astro';
+import WizardStageNav from '../../../../../../components/wizard/WizardStageNav.astro';
+import { DEMO_APPROVAL_ITEMS, DEMO_APPROVERS } from '../../../../../../data/wizard-prototype';
+
+function approverName(id: string) {
+  return DEMO_APPROVERS.find((a) => a.id === id)?.name ?? id;
+}
+---
+<WizardPrototypeLayout title="クライアント確認の作成" description="Meandle Wizard 操作デモ — クライアント確認の作成・プレビュー" stage="approval">
+  <WizardCampaignHeader slot="header" />
+  <WizardStageNav slot="stage" current="approval" />
+
+  <div class="wp-callout wp-callout--info">
+    <strong>クライアントに送る前に、内容と表示を確認してください</strong>
+    <p>社内限定の根拠と代理店メモは表示されません。承認スコープを選び、プレビューで確認したうえで送信してください。</p>
+  </div>
+
+  <div class="wp-split">
+    <div>
+      <h2 style="font-size:18px;margin:0 0 12px;">承認依頼の設定</h2>
+      <div class="wp-card">
+        <h3>承認スコープ</h3>
+        <label style="display:flex;gap:8px;padding:8px 0;font-size:14px;">
+          <input type="radio" name="scope" checked /> 事実・約束・対象外の確認
+        </label>
+        <label style="display:flex;gap:8px;padding:8px 0;font-size:14px;">
+          <input type="radio" name="scope" /> 事実・約束＋最終原稿の承認（公開版として承認）
+        </label>
+
+        <h3 style="margin-top:16px;">依頼内容</h3>
+        <ul class="wp-list" style="font-size:13px;">
+          {DEMO_APPROVAL_ITEMS.map((item) => (
+            <li style="padding:8px 12px;border:1px solid var(--wp-border);border-radius:6px;">
+              <strong>{item.scope}</strong>：{item.question}
+              <div style="color:var(--wp-ink-muted);font-size:12px;margin-top:4px;">
+                承認者: {item.assignedTo.map(approverName).join(' / ')}
+                {item.assignedTo.length > 1 && <span style="color:var(--wp-danger);"> (全員の承認が必要)</span>}
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <h3 style="margin-top:16px;">期限と担当割当</h3>
+        <p style="font-size:13px;color:var(--wp-ink-muted);">
+          料金・契約条件：田中 健<br />
+          商品の約束：佐藤 真紀、田中 健（2名全員の承認が必要）<br />
+          対象外：田中 健<br />
+          修正案：佐藤 真紀<br />
+          回答期限：2026年8月2日 17:00
+        </p>
+
+        <div style="margin-top:16px;">
+          <p style="font-size:13px;color:var(--wp-ink-muted);">
+            <strong>{DEMO_APPROVAL_ITEMS.length}項目を2名へ送ります。</strong>
+            回答期限は8月2日です。社内限定の根拠3件と代理店メモは表示されません。
+          </p>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+          <a class="wp-btn wp-btn--primary" href="/wizard/approval/demo/">
+            デモ確認依頼を作成
+          </a>
+          <button class="wp-btn wp-btn--secondary" type="button">下書きとして保存</button>
+        </div>
+
+        <p style="font-size:12px;color:var(--wp-ink-muted);margin-top:12px;">
+          プロトタイプでは実メールを送信しません。作成後はクライアント確認画面が別画面で開きます。
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <h2 style="font-size:18px;margin:0 0 12px;">クライアント画面プレビュー</h2>
+      <div class="wp-card" style="background:var(--wp-page);padding:12px;">
+        <div style="max-width:420px;margin:0 auto;background:var(--wp-card);border:1px solid var(--wp-border);border-radius:8px;padding:20px;">
+          <div style="font-size:12px;color:var(--wp-ink-muted);letter-spacing:0.06em;margin-bottom:8px;">
+            デモ代理店 / Meandle
+          </div>
+          <h3 style="font-size:16px;margin:0 0 8px;">RelayOne 新サービス発表 の確認依頼</h3>
+          <p style="font-size:14px;color:var(--wp-ink-muted);margin:0 0 12px;">
+            公開前に、事業上の事実と約束をご確認ください。所要時間は約5分です。
+          </p>
+          <div style="background:var(--wp-info-soft);padding:8px 12px;border-radius:6px;font-size:13px;color:#1e3a8a;margin-bottom:12px;">
+            0 / 4件を確認済み · 約5分
+          </div>
+          <div style="border:1px solid var(--wp-border);border-radius:6px;padding:12px;margin-bottom:8px;">
+            <span style="font-size:11px;color:var(--wp-ink-muted);">事実</span>
+            <p style="font-size:14px;margin:4px 0;font-weight:600;">RelayOne の月額料金は「月額25万円」で確定してよろしいでしょうか。</p>
+            <div style="background:var(--wp-page);padding:8px;border-radius:4px;font-size:13px;">月額25万円（税別）</div>
+            <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">
+              <button class="wp-btn wp-btn--primary" type="button" disabled>この内容で問題ない</button>
+              <button class="wp-btn wp-btn--secondary" type="button" disabled>修正を依頼</button>
+            </div>
+          </div>
+          <p style="font-size:12px;color:var(--wp-ink-muted);text-align:center;">
+            （プレビューのため操作は無効）
+          </p>
+        </div>
+        <p style="font-size:12px;color:var(--wp-ink-muted);text-align:center;margin-top:12px;">
+          モバイル 420px 幅のプレビュー — デスクトップでも同じ最大幅で表示されます
+        </p>
+      </div>
+    </div>
+  </div>
+</WizardPrototypeLayout>

@@ -1,0 +1,105 @@
+---
+import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
+import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
+import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
+---
+<WizardPrototypeLayout title="公開版の記録" description="Meandle Wizard 操作デモ — 公開版の記録" stage="publication">
+  <WizardCampaignHeader slot="header" />
+  <WizardStageNav slot="stage" current="approval" />
+
+  <div class="wp-card">
+    <label style="display:flex;gap:8px;align-items:center;padding:8px;background:var(--wp-warning-soft);border-radius:6px;">
+      <input type="checkbox" data-wp-publication-mismatch />
+      <span style="font-size:14px;">
+        <strong>デモ toggle：</strong>「承認版と公開版が違う」状態を再現する
+      </span>
+    </label>
+  </div>
+
+  <div data-wp-when-mismatch hidden>
+    <div class="wp-callout wp-callout--danger">
+      <strong>承認版と公開版に違いがあります</strong>
+      <p>
+        承認された版と、実際に公開された内容に差分があります。単なるメモだけでは記録できません。
+        次のどちらかを選んでください：
+      </p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+        <button class="wp-btn wp-btn--primary" type="button" data-wp-publication-resolve="new-version">
+          公開内容を新版として取り込む
+        </button>
+        <button class="wp-btn wp-btn--secondary" type="button" data-wp-publication-resolve="external-approval">
+          外部で得た承認を記録
+        </button>
+      </div>
+    </div>
+
+    <div data-wp-when-mismatch-resolved="new-version" hidden>
+      <div class="wp-callout wp-callout--info">
+        <strong>公開内容を新版として取り込みました</strong>
+        <p>
+          新しい asset version が作成されました。関連する公開前チェックが再確認になり、
+          影響のある承認項目のみ再依頼される予定です。他の承認は維持されます。
+        </p>
+      </div>
+    </div>
+
+    <div data-wp-when-mismatch-resolved="external-approval" hidden>
+      <div class="wp-callout wp-callout--info">
+        <strong>外部承認の記録を保存しました</strong>
+        <p>
+          この記録は「外部承認を記録」として保存されます。「Meandle上で承認」とは区別されます。
+          実承認者、日時、対象版、証跡がひとまとまりで保存されます。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <fieldset class="wp-card" style="border:none;padding:0;margin-top:16px;">
+    <legend style="padding:0;font-size:18px;font-weight:700;margin-bottom:12px;">公開情報</legend>
+    <div class="wp-card">
+      <div class="wp-form-grid">
+        <label class="wp-field">
+          <span class="wp-field__label">公開日時</span>
+          <input type="text" value="2026年9月15日 10:00 JST" />
+        </label>
+        <label class="wp-field">
+          <span class="wp-field__label">公開URL</span>
+          <input type="text" value="https://example.co.jp/news/relayone-launch/" />
+        </label>
+        <label class="wp-field">
+          <span class="wp-field__label">配信先</span>
+          <input type="text" value="PR TIMES / 自社ニュースルーム" />
+        </label>
+        <label class="wp-field">
+          <span class="wp-field__label">承認済みasset version</span>
+          <input type="text" value="release-v2.1 / lp-v1.4 / sales-deck-v3.0" readonly />
+        </label>
+        <label class="wp-field">
+          <span class="wp-field__label">観測protocol version</span>
+          <input type="text" value="obs-v1（baseline あり）" readonly data-wp-when-observation="baseline" />
+          <input type="text" value="比較可能な事前観測なし" readonly data-wp-when-observation="no-comparison" />
+          <input type="text" value="（観測条件が未確定）" readonly data-wp-when-no-observation />
+        </label>
+      </div>
+    </div>
+  </fieldset>
+
+  <div data-wp-when-mismatch hidden>
+    <div style="opacity:0.5;pointer-events:none;padding:16px;background:var(--wp-page);border:1px dashed var(--wp-border-strong);border-radius:6px;margin-top:16px;text-align:center;font-size:14px;">
+      承認版と公開版の不一致が解決されるまで、公開記録は保存できません。
+    </div>
+  </div>
+
+  <div data-wp-when-no-mismatch>
+    <div style="display:flex;justify-content:flex-end;margin-top:16px;">
+      <button class="wp-btn wp-btn--primary" type="button" onclick="window.location.href='/wizard/campaign/demo/results/';">
+        公開版を記録
+      </button>
+    </div>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;margin-top:24px;flex-wrap:wrap;gap:8px;">
+    <a class="wp-btn wp-btn--secondary" href="/wizard/campaign/demo/observation/">← 観測条件に戻る</a>
+    <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/results/">結果と次の一手へ →</a>
+  </div>
+</WizardPrototypeLayout>

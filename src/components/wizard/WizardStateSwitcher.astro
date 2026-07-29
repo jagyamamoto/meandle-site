@@ -1,0 +1,18 @@
+---
+import { DEMO_STATES, CLIENT_APPROVAL_STATES } from '../../data/wizard-prototype';
+
+interface Props {
+  variant?: 'agency' | 'client';
+}
+
+const { variant = 'agency' } = Astro.props;
+const states = variant === 'client' ? CLIENT_APPROVAL_STATES : DEMO_STATES;
+---
+<label class="wp-state-switcher">
+  <span>デモ状態:</span>
+  <select data-wp-state-switcher aria-label="デモ状態を切り替え">
+    {states.map((s) => (
+      <option value={s.key}>{s.label}</option>
+    ))}
+  </select>
+</label>

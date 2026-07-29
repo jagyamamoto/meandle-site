@@ -1,0 +1,94 @@
+---
+import WizardPrototypeLayout from '../../../../layouts/WizardPrototypeLayout.astro';
+import WizardSaveState from '../../../../components/wizard/WizardSaveState.astro';
+import WizardStateSwitcher from '../../../../components/wizard/WizardStateSwitcher.astro';
+import { DEMO_CLIENT, DEMO_BRAND, DEMO_CAMPAIGN, DEMO_PUBLISH_DATE, DEMO_AGENCY_OWNER } from '../../../../data/wizard-prototype';
+---
+<WizardPrototypeLayout title="案件を作成" description="Meandle Wizard 操作デモ — 案件を作成">
+  <header class="wp-page-header" slot="header">
+    <div class="wp-page-header__breadcrumb">
+      <a href="/wizard/" style="color:inherit;text-decoration:none;">今日の作業</a>
+      <span aria-hidden="true"> › </span>
+      <span>案件を作成</span>
+    </div>
+    <div class="wp-page-header__top">
+      <h1>案件を作成</h1>
+      <div class="wp-page-header__actions">
+        <WizardSaveState />
+        <WizardStateSwitcher />
+      </div>
+    </div>
+    <p class="wp-page-header__sub">
+      案件の基本情報を入力してください。実在企業の情報は入力しないでください（このデモは架空データを使用しています）。
+    </p>
+  </header>
+
+  <div class="wp-callout wp-callout--info">
+    <strong>初期値は固定デモデータです</strong>
+    <p>このプロトタイプでは、以下のデモデータで案件が作成されます。実データは送信されません。</p>
+  </div>
+
+  <form class="wp-card" onsubmit="event.preventDefault(); window.location.href='/wizard/campaign/demo/materials/';" novalidate>
+    <h2>案件の基本情報</h2>
+    <div class="wp-form-grid">
+      <label class="wp-field">
+        <span class="wp-field__label">クライアント<span class="wp-field__required">必須</span></span>
+        <input type="text" value={DEMO_CLIENT} required autocomplete="off" />
+        <span class="wp-field__help">既存クライアントから選択、または新規作成します。</span>
+      </label>
+      <label class="wp-field">
+        <span class="wp-field__label">ブランド／商品<span class="wp-field__required">必須</span></span>
+        <input type="text" value={DEMO_BRAND} required autocomplete="off" />
+      </label>
+      <label class="wp-field">
+        <span class="wp-field__label">案件名<span class="wp-field__required">必須</span></span>
+        <input type="text" value={DEMO_CAMPAIGN} required autocomplete="off" />
+      </label>
+      <label class="wp-field">
+        <span class="wp-field__label">担当<span class="wp-field__required">必須</span></span>
+        <input type="text" value={DEMO_AGENCY_OWNER} required autocomplete="off" />
+      </label>
+      <label class="wp-field">
+        <span class="wp-field__label">公開予定日<span class="wp-field__required">必須</span></span>
+        <input type="text" value={DEMO_PUBLISH_DATE} required autocomplete="off" />
+      </label>
+      <label class="wp-field">
+        <span class="wp-field__label">対象成果物<span class="wp-field__required">必須</span></span>
+        <select required>
+          <option>プレスリリース、LP、営業資料</option>
+          <option>プレスリリースのみ</option>
+          <option>LPのみ</option>
+        </select>
+      </label>
+    </div>
+
+    <h3 style="margin-top:24px;">任意項目</h3>
+    <div class="wp-form-grid">
+      <label class="wp-field">
+        <span class="wp-field__label">案件の目的</span>
+        <textarea placeholder="例：新サービス発表とパートナー企業への告知">RelayOne 新サービス発表と、想定パートナーへの初期告知。</textarea>
+      </label>
+      <label class="wp-field">
+        <span class="wp-field__label">クライアント承認者</span>
+        <textarea>佐藤 真紀（事業責任者） / 田中 健（法務担当）</textarea>
+      </label>
+    </div>
+
+    <div class="wp-callout wp-callout--warning" style="margin-top:16px;">
+      <strong>実在企業の入力を避けてください</strong>
+      <p>このプロトタイプは架空データでの操作確認用です。実データはブラウザに保存され、サーバへは送信されません。</p>
+    </div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+      <button type="submit" class="wp-btn wp-btn--primary">案件を作成して資料を追加</button>
+      <a href="/wizard/" class="wp-btn wp-btn--secondary">下書きとして保存して戻る</a>
+    </div>
+  </form>
+
+  <div data-when-state="conflict" hidden>
+    <div class="wp-callout wp-callout--warning">
+      <strong>類似の案件がすでに存在します</strong>
+      <p>同じクライアント・商品・案件名の下書きがあります。既存案件を開くか、別の名称で作成してください。</p>
+    </div>
+  </div>
+</WizardPrototypeLayout>

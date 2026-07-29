@@ -1,0 +1,95 @@
+---
+import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
+import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
+import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
+import { DEMO_MEANING_CARDS } from '../../../../../data/wizard-prototype';
+---
+<WizardPrototypeLayout title="伝え方の基準" description="Meandle Wizard 操作デモ — 伝え方の基準" stage="meaning">
+  <WizardCampaignHeader slot="header" />
+  <WizardStageNav slot="stage" current="meaning" />
+
+  <div class="wp-callout wp-callout--info">
+    <strong>AI は候補を出すだけです。</strong>
+    <p>
+      「確認済み」にするのは人だけです。
+      <strong>該当なし</strong>を選ぶ場合は、その理由を必ず入力してください（AIは自動選択できません）。
+    </p>
+  </div>
+
+  <div class="wp-decision">
+    <div class="wp-decision__nav" role="tablist" aria-label="判断カード">
+      {DEMO_MEANING_CARDS.map((c, i) => (
+        <button
+          type="button"
+          role="tab"
+          data-wp-decision-select={c.id}
+          aria-pressed={i === 0 ? 'true' : 'false'}
+        >
+          <span class="wp-decision__nav-mark">{i + 1}</span>
+          <span style="flex:1;">{c.heading}</span>
+          <span class="wp-decision__nav-status" data-wp-meaning-status={c.id}>{c.status}</span>
+        </button>
+      ))}
+    </div>
+
+    <div>
+      {DEMO_MEANING_CARDS.map((c, i) => (
+        <div class="wp-decision__body" role="tabpanel" data-wp-decision-panel={c.id} hidden={i !== 0}>
+          <p class="wp-page-header__breadcrumb">{i + 1} / 6 判断カード</p>
+          <h2>{c.heading}</h2>
+
+          <div class="wp-decision__ai-label">AIによる候補</div>
+          <div class="wp-decision__draft">{c.aiDraft}</div>
+          <p style="font-size:12px;color:var(--wp-ink-muted);">
+            出典: {c.sourceRef}
+          </p>
+
+          <p style="font-size:13px;color:var(--wp-ink-muted);margin-top:12px;">
+            <strong>提案理由</strong>：資料内の該当箇所と、根拠リスト上の関連項目から抽出しました。この内容で確認するか、編集するか、クライアント確認へ回すかを選んでください。
+          </p>
+
+          <div class="wp-decision__actions">
+            <button class="wp-btn wp-btn--primary" type="button" data-wp-meaning-confirm={c.id}>
+              この内容で確認
+            </button>
+            <button class="wp-btn wp-btn--secondary" type="button">編集</button>
+            <button class="wp-btn wp-btn--secondary" type="button" data-wp-meaning-client={c.id}>
+              クライアント確認が必要
+            </button>
+            <button class="wp-btn wp-btn--ghost" type="button">今回は使わない（理由必須）</button>
+          </div>
+
+          <p style="font-size:12px;color:var(--wp-ink-muted);margin-top:16px;">
+            現在の状態: <strong data-wp-meaning-status={c.id}>{c.status}</strong>
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <div class="wp-decision__evidence">
+      <h3>根拠</h3>
+      <p style="font-size:13px;color:var(--wp-ink-muted);">
+        判断に使う資料と、関連する根拠項目を右側に表示します。
+      </p>
+      <ul class="wp-list" style="margin-top:8px;">
+        <li style="font-size:13px;padding:8px;border:1px solid var(--wp-border);border-radius:6px;">
+          <strong>RelayOne 公式サービスページ</strong><br />
+          <span style="color:var(--wp-ink-muted);font-size:12px;">正式資料として確認</span>
+        </li>
+        <li style="font-size:13px;padding:8px;border:1px solid var(--wp-border);border-radius:6px;">
+          <strong>料金表_2026.pdf</strong><br />
+          <span style="color:var(--wp-ink-muted);font-size:12px;">正式資料として確認 / 社内限定</span>
+        </li>
+        <li style="font-size:13px;padding:8px;border:1px solid var(--wp-border);border-radius:6px;">
+          <strong>営業資料_最新版.pdf</strong><br />
+          <span style="color:var(--wp-warning);font-size:12px;">正式資料候補 / 一部成功</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;margin-top:24px;flex-wrap:wrap;gap:8px;">
+    <a class="wp-btn wp-btn--secondary" href="/wizard/campaign/demo/evidence/">← 根拠リストに戻る</a>
+    <a class="wp-btn wp-btn--primary" href="/wizard/campaign/demo/preflight/">公開前チェックへ →</a>
+  </div>
+</WizardPrototypeLayout>

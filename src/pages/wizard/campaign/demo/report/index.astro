@@ -1,0 +1,120 @@
+---
+import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
+import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
+import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
+---
+<WizardPrototypeLayout title="レポートプレビュー" description="Meandle Wizard 操作デモ — レポートプレビュー" stage="report">
+  <WizardCampaignHeader slot="header" status="完了" />
+  <WizardStageNav slot="stage" current="results" />
+
+  <div class="wp-report-controls">
+    <button class="wp-btn wp-btn--secondary" type="button" data-wp-report-internal-toggle>
+      社内向けの表示を隠す
+    </button>
+    <button class="wp-btn wp-btn--secondary" type="button" data-wp-print>
+      印刷・PDF保存
+    </button>
+    <button class="wp-btn wp-btn--secondary" type="button" data-wp-copy-link>
+      デモ共有リンクをコピー
+    </button>
+    <span style="margin-left:auto;font-size:12px;color:var(--wp-ink-muted);">
+      プロトタイプではPDF生成・access log・期限リンクはシミュレーションです。
+    </span>
+  </div>
+
+  <article class="wp-report" data-wp-report-canvas>
+    <p style="font-size:12px;color:var(--wp-ink-muted);letter-spacing:0.06em;text-transform:uppercase;">
+      デモ代理店 · Meandle Wizard
+    </p>
+    <h1>RelayOne 新サービス発表 レポート</h1>
+    <p class="wp-report__meta">
+      対象クライアント: 北辰産業デモ株式会社 / ブランド: RelayOne<br />
+      レポート版: report-v1（snapshot 2026-09-22 15:00 JST）<br />
+      作成者: デモ代理店 山田 花子
+    </p>
+
+    <h2>1. 要約</h2>
+    <p>
+      RelayOne 新サービス発表について、公開前に事実と約束の統一を行い、営業資料に含まれていた「業界No.1」表現と、料金の食い違い（25万円／30万円）を整理しました。
+      公開後の観測では、AI応答での商品名一致 10/12、対象外用途の混同 1/12 まで抑えられました。
+    </p>
+
+    <h2>2. 確認した範囲</h2>
+    <ul>
+      <li>資料: RelayOne 公式サービスページ、料金表_2026.pdf、営業資料_最新版.pdf の 3 点</li>
+      <li>成果物: プレスリリース、LP、営業資料</li>
+      <li>期間: 2026年7月20日〜9月20日</li>
+    </ul>
+
+    <h2>3. 決定と根拠</h2>
+    <ul>
+      <li>月額料金: <strong>25万円</strong>（RelayOne 公式サービスページ / 料金表_2026.pdf を根拠として確認済み）</li>
+      <li>約束: 中堅B2B企業の受電・チャット一次対応の自動化（商談化は保証しない）</li>
+      <li>対象外: 医療診断用途 / 完全自動での商談化</li>
+    </ul>
+
+    <h2>4. 公開前に見つけた問題と対応</h2>
+    <ul>
+      <li><strong>「業界No.1」（公開前に直す）</strong> → 「導入企業へのヒアリングで高評価をいただいた」へ差し替え</li>
+      <li><strong>月額料金の食い違い（確認が必要）</strong> → 25万円で統一、営業資料の 30万円 表記を修正</li>
+      <li><strong>対象条件の未明記（改善候補）</strong> → 「中堅B2B / 医療診断用途を除く」の一文をリリースに追記</li>
+    </ul>
+
+    <h2>5. 公開記録</h2>
+    <ul>
+      <li>公開日時: 2026年9月15日 10:00 JST</li>
+      <li>公開URL: https://example.co.jp/news/relayone-launch/</li>
+      <li>配信先: PR TIMES / 自社ニュースルーム</li>
+      <li>承認済みasset version: release-v2.1 / lp-v1.4 / sales-deck-v3.0</li>
+    </ul>
+
+    <h2>6. 観測</h2>
+    <p data-wp-when-observation="baseline">
+      比較可能な baseline（obs-v1）と、公開7日後のfollow-upで比較しました。
+      商品名の言及率: baseline 3/12 → follow-up 10/12。
+      「業界No.1」表現の再現: baseline 2/12 → follow-up 0/12。
+      対象外用途の混同: baseline 4/12 → follow-up 1/12。
+    </p>
+    <p data-wp-when-observation="no-comparison">
+      比較可能な事前観測なし。公開7日後のスナップショットとして次を記録しました：商品名の言及率 10/12、対象外用途の混同 1/12。
+      これは「公開前後の比較」ではなく、公開後スナップショットです。
+    </p>
+    <p data-wp-when-no-observation>観測条件は設定されていません。</p>
+
+    <h2>7. 限界と不足データ</h2>
+    <ul>
+      <li>問い合わせ数（12件）は複数要因を含み、Meandle 単独の効果とはできません。</li>
+      <li>AI応答の観測は単発調査です（method: 質問4件×3回）。継続監視は次フェーズで検討します。</li>
+      <li>営業資料の1ページは画像化されており、その部分は今回の解析対象外です。</li>
+    </ul>
+
+    <h2>8. 次の3アクション</h2>
+    <ol>
+      <li>料金条件の根拠をFAQへ追加</li>
+      <li>LPとリリースの対象表現を統一</li>
+      <li>独立した導入事例を1件追加</li>
+    </ol>
+
+    <h2>9. 方法と出典</h2>
+    <ul>
+      <li>意味整理: 6枚の判断カード（audience_context / discovery_language / promise / proof / boundaries / differentiation）</li>
+      <li>公開前チェック: severity 3段階（公開前に直す / 確認が必要 / 改善候補）</li>
+      <li>観測: 質問セット固定、prompt version 1、locale ja-JP、sample = 4×3</li>
+      <li>出典: RelayOne 公式サービスページ、料金表_2026.pdf、営業資料_最新版.pdf、利用規約</li>
+    </ul>
+
+    <aside class="wp-report__internal">
+      <strong>社内向けメモ（内部セクション）</strong>
+      <p style="font-size:13px;margin:6px 0 0;">
+        「社内向けの表示を隠す」で、この内部セクションを非表示にできます。クライアント共有リンクにはこの部分は含まれません。<br />
+        代理店内部の作業時間: 材料整理 25分 / 判断カード 12分 / 承認画面作成 5分。
+      </p>
+    </aside>
+
+    <p class="wp-report__note">
+      本レポートは Meandle Wizard により snapshot として生成されました。方法・出典・限界の記載を削除することはできません。
+      レポート内の数値は、記載の方法・母数・取得日時の範囲においてのみ解釈できます。
+      売上、AI引用、検索順位の因果効果は保証されません。
+    </p>
+  </article>
+</WizardPrototypeLayout>

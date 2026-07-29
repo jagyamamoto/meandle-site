@@ -1,0 +1,125 @@
+---
+import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
+import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
+import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
+---
+<WizardPrototypeLayout title="結果と次の一手" description="Meandle Wizard 操作デモ — 結果と次の一手" stage="results">
+  <WizardCampaignHeader slot="header" status="観測中" />
+  <WizardStageNav slot="stage" current="results" />
+
+  <section class="wp-card">
+    <h2>次に直すもの（3つまで）</h2>
+    <ol style="padding-left:20px;margin:0;">
+      <li style="margin-bottom:12px;">
+        <strong>料金条件の根拠をFAQへ追加</strong>
+        <p style="font-size:13px;color:var(--wp-ink-muted);margin:4px 0;">
+          対象: LP / FAQ · 根拠: ev-price-25（確認済み） · 担当: 山田 花子 · 期日: 2026年9月20日
+        </p>
+      </li>
+      <li style="margin-bottom:12px;">
+        <strong>LP とリリースの対象表現を統一</strong>
+        <p style="font-size:13px;color:var(--wp-ink-muted);margin:4px 0;">
+          対象: リリース / LP · 根拠: ev-b2b-target / ev-not-medical · 担当: 山田 花子 · 期日: 2026年9月22日
+        </p>
+      </li>
+      <li>
+        <strong>独立した導入事例を追加</strong>
+        <p style="font-size:13px;color:var(--wp-ink-muted);margin:4px 0;">
+          対象: LP · 根拠: 未整備（次回計測前に追加検討） · 担当: 佐藤 真紀 · 期日: 2026年10月5日
+        </p>
+      </li>
+    </ol>
+  </section>
+
+  <div class="wp-callout wp-callout--info">
+    <strong>総合スコアは表示しません。</strong>
+    <p>
+      3つの層（業務結果／語られ方／外部結果）を別々に見ます。因果効果は保証しません。
+      「実数 / 母数 / 取得日 / source / method / limitation」を各指標に併記します。
+    </p>
+  </div>
+
+  <div class="wp-metric-row">
+    <div class="wp-metric">
+      <p class="wp-metric__label">業務結果 — 承認までの往復</p>
+      <p class="wp-metric__value">3回</p>
+      <p style="font-size:12px;color:var(--wp-ink-muted);">/ 案件平均 5.2回（method: 過去4案件、限界: サンプル少）</p>
+    </div>
+    <div class="wp-metric">
+      <p class="wp-metric__label">業務結果 — 公開前に見つけた問題</p>
+      <p class="wp-metric__value">3件</p>
+      <p style="font-size:12px;color:var(--wp-ink-muted);">公開前に直す 1 / 確認が必要 1 / 改善候補 1</p>
+    </div>
+    <div class="wp-metric">
+      <p class="wp-metric__label">語られ方 — AI応答での商品名一致</p>
+      <p class="wp-metric__value">10 / 12</p>
+      <p style="font-size:12px;color:var(--wp-ink-muted);">取得: 2026-09-20 / method: 質問4×3回 / 限界: 単発調査</p>
+    </div>
+    <div class="wp-metric">
+      <p class="wp-metric__label">外部結果 — 独立記事</p>
+      <p class="wp-metric__value">1件</p>
+      <p style="font-size:12px;color:var(--wp-ink-muted);">配信リリース転載 3件は別区分で表示</p>
+    </div>
+  </div>
+
+  <div class="wp-split">
+    <section class="wp-card">
+      <h3>業務結果</h3>
+      <ul class="wp-list" style="font-size:13px;">
+        <li>実作業時間（材料→承認依頼）: 42分 / 目標 30分以内</li>
+        <li>クライアント承認の所要時間: 4分（サンプル 3名）</li>
+        <li>公開前チェックで解決した問題: 3件 / 5件検出</li>
+      </ul>
+    </section>
+    <section class="wp-card">
+      <h3>語られ方</h3>
+      <div data-wp-when-observation="baseline">
+        <p style="font-size:13px;color:var(--wp-ink-muted);">公開前後の比較（protocol version obs-v1）：</p>
+        <ul class="wp-list" style="font-size:13px;">
+          <li>商品名の言及率: baseline 3/12 → follow-up 10/12</li>
+          <li>「業界No.1」表現の再現: baseline 2/12 → follow-up 0/12</li>
+          <li>対象外用途の混同（医療系）: baseline 4/12 → follow-up 1/12</li>
+        </ul>
+      </div>
+      <div data-wp-when-observation="no-comparison">
+        <p style="font-size:13px;color:var(--wp-warning);">
+          <strong>公開後スナップショット</strong>（比較可能なbaselineなし）：
+        </p>
+        <ul class="wp-list" style="font-size:13px;">
+          <li>商品名の言及率: 10/12</li>
+          <li>「業界No.1」表現の再現: 0/12</li>
+          <li>対象外用途の混同（医療系）: 1/12</li>
+        </ul>
+        <p style="font-size:12px;color:var(--wp-ink-muted);">
+          「公開前後の比較」ではありません。事前観測条件が確定されていなかったため、公開前との差分は算出できません。
+        </p>
+      </div>
+      <div data-wp-when-no-observation>
+        <p style="font-size:13px;color:var(--wp-ink-muted);">
+          観測条件がまだ確定されていません。
+          <a href="/wizard/campaign/demo/observation/">観測条件を設定 →</a>
+        </p>
+      </div>
+    </section>
+    <section class="wp-card">
+      <h3>外部結果</h3>
+      <ul class="wp-list" style="font-size:13px;">
+        <li>独立記事: 1件（NIKKEI Digital）</li>
+        <li>配信リリース転載: 3件（別区分）</li>
+        <li>問い合わせ: 12件（source: 自社CRM / 期間 9/15-9/22 / 限界: attribution 不明）</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="wp-callout wp-callout--warning">
+    <strong>因果効果は保証しません</strong>
+    <p>
+      問い合わせ数の変化は複数要因（時期、他媒体、既存キャンペーン）を含みます。「Meandle 導入により売上が X% 増加」といった表現は使いません。
+    </p>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;margin-top:24px;flex-wrap:wrap;gap:8px;">
+    <a class="wp-btn wp-btn--secondary" href="/wizard/campaign/demo/publication/">← 公開版の記録に戻る</a>
+    <a class="wp-btn wp-btn--primary" href="/wizard/campaign/demo/report/">レポートプレビューを作成 →</a>
+  </div>
+</WizardPrototypeLayout>
