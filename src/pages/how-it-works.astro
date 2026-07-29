@@ -1,1431 +1,303 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const eightFields = [
-  { num: 1, name: 'ジョブ',   desc: '顧客が片づけたい本当の用件。「何を解決したいか」の出発点。' },
-  { num: 2, name: 'シーン',   desc: 'その用件が立ち上がる場面と時間。「どんな状況のときに必要になるか」。' },
-  { num: 3, name: '代替案',   desc: '現在使われている解決手段（含：何もしない）。「今、代わりに何をしているか」。' },
-  { num: 4, name: '比較軸',   desc: '選ばれるときに使われる判断のものさし。「何で選ぶ・選ばれるか」。' },
-  { num: 5, name: '価値',     desc: '比較軸の上で固有に提供できる便益。「なぜ我々が選ばれるか」。' },
-  { num: 6, name: '証拠',     desc: '信じてもらうための根拠と数字。「それを裏付けるものは何か」。' },
-];
+const title = '意味設計の進め方｜対象と対象外を既存ページへ実装｜Meandle';
+const description = 'Meandleは、複雑なB2B商材の対象・価値・根拠・対象外条件を8項目の意味仕様にし、既存ページへ実装します。初回は1商材・1URL、50万円〜です。';
+const ogTitle = '対象と対象外を、実装できる意味仕様にする｜Meandle';
+const ogDescription = '読む、定める、実装する、確認する。Meandleの方法、確認できること・できないこと、50万円〜からの進め方を説明します。';
 
-const domains = [
-  { num: '①', title: '事業・事業課題をみんどる',
-    desc: '事業の見える化をするうえで、何が見えていないかも明確にします。変えるべき部分と、そのままの部分を整理し、社内・事業部内・顧客に対して方向性を共通言語化。どこがズレると成功するのか、どうズレると上手くいかないのか――その構造を把握することで、事業の最大効果が出せる形に導きます。',
-    href: '/do-meandle/' },
-  { num: '②', title: 'ソリューション・プロダクトをみんどる',
-    desc: '競合製品との差別化において、競合にあって自社にない部分を弱みではなく意味として捉え直します。単純な比較ではなく、プロダクトの「個性」をエンドユーザー・バイヤー・ディストリビュータに「強さ」として伝わる形に整えます。',
-    href: '/do-meandle/' },
-  { num: '③', title: 'Webマーケティング／B2Bマーケティングをみんどる',
-    desc: '競合・ベンチマーク・市場背景をみんどり、自社をみんどったものと比較・分析。ブレない方向性をつくり、ブレていく様子自体もみんどっていくことで、どこが成功方程式かを見つけ、成功確率を高めていきます。',
-    href: '/get-lead/' },
-  { num: '④', title: 'Webコンテンツをみんどる',
-    desc: '潜在的なユーザーに正しく届くために、AIがしっかり把握できる形に整えます。必要のない問い合わせを減らし、これまでリーチできていなかった層にも、誤解なく適切に届けることが可能になります。',
-    href: '/pr/' },
-];
-
-// Sample record (CLOコンパス) — same data as /blog/clo/
-const sampleRecord = {
-  candidate_name: 'CLOコンパス 物流統括管理者向け意思決定支援ツール',
-  must: 'CLO 物流統括管理者向け 全社横断KPI可視化 法令対応レポート自動生成 WMS TMS データ連携 経営意思決定支援',
-  scene: '経営戦略立案 改正物流効率化法 定期報告 取締役会 全社KPIダッシュボード',
-  examples: 'CLO報告書作成 全社KPIダッシュボード 国交省定期報告 取締役会向け物流改革報告 積載率 荷待ち時間',
-  visible_text: 'CLOコンパスは物流を成功に導く 意思決定支援ツール',
-  must_not: 'WMS TMS 現場オペレーション 中小企業 運送会社 配送最適化 在庫管理',
-};
-
-const presetQueries = [
-  { label: 'CLO向け意思決定支援ツール',  type: 'target' },
-  { label: '法令対応 レポート 自動生成', type: 'target' },
-  { label: 'CLO選任 何から始める',       type: 'target' },
-  { label: 'WMS 比較 クラウド',          type: 'noise'  },
-  { label: '配送 ルート 最適化',          type: 'noise'  },
-  { label: '中小企業 物流管理',           type: 'noise'  },
-];
-
-// --- Raw Materials: code blocks (defined as strings so JSX braces don't break) ---
-
-const researchNote = `# Research documentation
-
-  status:       in progress
-  organization: ジャグプロジェクト合同会社 (jagproject.com)
-  researcher:   Jag Yamamoto
-
-  # 学術引用（BibTeX / APA / IEEE 等の完全な形式）は
-  # 研究成果の公式公開後（2027年3月以降）に掲載予定です。
-
-  # このページで開示している数値・実測値は、
-  # 進行中の研究および実務検証から得られた参考値です。
-
-  # 特許は出願中（MNDR-2026-001, Pending）。
-`;
-
-const reqBefore = `POST /v1/messages
-Host: api.anthropic.com
-Content-Type: application/json
-x-api-key: sk-ant-***
-anthropic-version: 2023-06-01
-
-{
-  "model": "claude-haiku-4-5-20251001",
-  "max_tokens": 512,
-  "system": "あなたはB2Bサービスに詳しいアシスタントです。",
-  "messages": [{
-    "role": "user",
-    "content": "以下のサービスについて質問に答えてください。\\n\\n【サービス】CLOコンパス\\n【カテゴリ】物流DXサービス\\n\\n【質問】CLOコンパスはWMSですか？どのような企業に向いていますか？"
-  }]
-}`;
-
-const resBefore = `200 OK
-content-type: application/json
-
-{
-  "id": "msg_01Hb...",
-  "type": "message",
-  "role": "assistant",
-  "model": "claude-haiku-4-5-20251001",
-  "content": [{
-    "type": "text",
-    "text": "CLOコンパスは、WMS（倉庫管理システム）ではなく、物流DXプラットフォームです。\\n\\n向いている企業：\\n・中小物流企業・3PL企業：導入・運用負担が少ない\\n・急速に成長中の企業：柔軟なシステム対応が可能..."
-  }],
-  "stop_reason": "end_turn",
-  "usage": { "input_tokens": 417, "output_tokens": 128 }
-}`;
-
-const reqAfter = `POST /v1/messages
-Host: api.anthropic.com
-Content-Type: application/json
-x-api-key: sk-ant-***
-anthropic-version: 2023-06-01
-
-{
-  "model": "claude-haiku-4-5-20251001",
-  "max_tokens": 512,
-  "system": "あなたはB2Bサービスに詳しいアシスタントです。",
-  "messages": [{
-    "role": "user",
-    "content": "以下のサービスについて質問に答えてください。\\n\\n【サービス】CLOコンパス\\n【カテゴリ】物流DXサービス\\n【みんどりIndex】\\n  must: CLO向け・全社横断KPI可視化・法令対応レポート自動生成・経営意思決定支援\\n  must_not: WMSではない・TMSではない・現場オペレーションではない・中小企業向けではない・運送会社向けではない\\n  examples: CLO報告書作成・全社KPIダッシュボード・国交省定期報告\\n\\n【質問】CLOコンパスはWMSですか？どのような企業に向いていますか？"
-  }]
-}`;
-
-const resAfter = `200 OK
-content-type: application/json
-
-{
-  "id": "msg_01Rt...",
-  "type": "message",
-  "role": "assistant",
-  "model": "claude-haiku-4-5-20251001",
-  "content": [{
-    "type": "text",
-    "text": "WMSではありません。CLOコンパスはWMS（倉庫管理システム）ではなく、CLO（物流統括管理者）向けの経営意思決定支援ツールです。\\n\\n向いている企業：大規模荷主企業の経営層・CLOが対象\\n・複数の物流拠点を運営している\\n・改正物流効率化法への対応が必要..."
-  }],
-  "stop_reason": "end_turn",
-  "usage": { "input_tokens": 652, "output_tokens": 194 }
-}`;
-
-const schemaJson = `{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id":     "https://meandle.jp/schema/mndr/index/v1.json",
-  "title":   "mindori Index",
-  "type":    "object",
-  "required": ["candidate_name", "must"],
-  "properties": {
-    "candidate_name":  { "type": "string", "description": "サービス・製品・記事の識別名（必須）" },
-    "must":            { "type": "string", "description": "満たされねばならない中核条件（w=2.0）" },
-    "must_not":        { "type": "string", "description": "該当したら候補外にする条件（w=-3.0, RSE）" },
-    "scene":           { "type": "string", "description": "利用場面・文脈（w=1.5）" },
-    "examples":        { "type": "string", "description": "典型例・具体語（w=1.5）" },
-    "counterexamples": { "type": "string", "description": "反例・似て非なるもの（w=0.5）" },
-    "observation":     { "type": "string", "description": "第三者観察・実証（w=1.2）" },
-    "visible_text":    { "type": "string", "description": "既存LPに実際に書かれている文（w=1.0）" }
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://meandle.jp/how-it-works/#webpage',
+    url: 'https://meandle.jp/how-it-works/',
+    name: title,
+    description: description,
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    about: { '@id': 'https://meandle.jp/do-meandle/#service' },
+    inLanguage: 'ja',
   },
-  "additionalProperties": false
-}`;
-
+];
 ---
 <BaseLayout
-  title="How Meandle works — Meandle Theory (MNDR) v1.0｜Meandle"
-  description="Meandle Theory (MNDR): field-weighted 2-gram overlap scoring with record-side exclusion (RSE). 数式・アルゴリズム・インタラクティブデモで、みんどりの仕組みを開示します。"
+  title={title}
+  description={description}
+  canonical="/how-it-works/"
+  ogTitle={ogTitle}
+  ogDescription={ogDescription}
+  ogImage="/images/how-it-works/meandle-how-it-works-hero-v1.webp"
+  structuredData={structuredData}
 >
-  <!-- ── SECTION 1 : Tech Plate ── -->
-  <section class="tech-plate-section">
+  <!-- Section 1: Hero -->
+  <section class="hero hero--split">
+    <div class="hero__bg-grid" aria-hidden="true"></div>
+    <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
-      <div class="tech-plate">
-        <div class="tech-plate__status" aria-hidden="true">
-          <span class="tech-plate__led"></span>
-          <span class="tech-plate__status-label">SYSTEM ACTIVE</span>
-        </div>
-        <div class="tech-plate__row">
-          <span class="tech-plate__key">System</span>
-          <span class="tech-plate__val">Meandle Theory <span class="tech-plate__accent">(MNDR)</span></span>
-          <span class="tech-plate__meta">v1.0</span>
-        </div>
-        <div class="tech-plate__row">
-          <span class="tech-plate__key">Patent</span>
-          <span class="tech-plate__val">MNDR-2026-001</span>
-          <span class="tech-plate__meta">Pending / 出願中</span>
-        </div>
-        <div class="tech-plate__row">
-          <span class="tech-plate__key">Core</span>
-          <span class="tech-plate__val">record-side exclusion <span class="tech-plate__accent">(RSE)</span></span>
-          <span class="tech-plate__meta">specification</span>
-        </div>
-        <div class="tech-plate__row">
-          <span class="tech-plate__key">Scoring</span>
-          <span class="tech-plate__val">field-weighted 2-gram overlap</span>
-          <span class="tech-plate__meta">custom implementation</span>
-        </div>
-        <div class="tech-plate__row">
-          <span class="tech-plate__key">Research</span>
-          <span class="tech-plate__val">Jag Yamamoto</span>
-          <span class="tech-plate__meta">in progress</span>
-        </div>
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　仕組み</nav>
+      <span class="eyebrow hero__eyebrow">How Meandle Works</span>
+      <h1 class="hero-copy">見つけた後に、<br/>何を変えるかを意味仕様にします。</h1>
+
+      <p class="lead" style="margin-top:20px">
+        複雑なB2B商材は、露出を増やす前に、誰に、何として、なぜ必要かをそろえる必要があります。Meandleは、対象、価値、根拠、対象外条件を一つの意味仕様にし、既存ページへ実装します。
+      </p>
+      <p>
+        AIの応答や検索順位を操作することではなく、見込み客とAIが商材を取り違えにくい説明条件を整える方法です。
+      </p>
+      <p style="color:var(--muted); font-size:14px">
+        意味設計と検索文脈の整合に関する方法は、特許出願中です。MeandleはJag Yamamoto / Jag Projectが開発・監修しています。
+      </p>
+
+      <div class="hero__cta-group">
+        <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
       </div>
+      <p style="font-size:13px; color:var(--muted); margin-top:12px">
+        初回は、1商材・1URLの意味適合スプリント 50万円〜です。AIの応答、検索順位、商談成果を保証するものではありません。
+      </p>
+
+      <figure class="hero-figure">
+        <img
+          src="/images/how-it-works/meandle-how-it-works-hero-v1.webp"
+          alt="既存のWebページと複数の顧客条件を見ながら、意味仕様をまとめる二人のビジネス担当者"
+          width="1536" height="1024"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <figcaption>ページを作る前に、対象、価値、根拠、対象外条件を一つの仕様へまとめます。</figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- ── SECTION 2 : Formula Hero ── -->
-  <section class="formula-section">
-    <div class="container">
-      <span class="eyebrow" style="color:var(--hero-orange)">Scoring Formula</span>
-      <h1 class="formula-title">意味の届きやすさを、<br/>この 1 式で計算しています。</h1>
+  <!-- Section 2: Method -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">From URL to Implementation</span>
+      <h2>読む、定める、実装方針にする、実装後に確認する。順番を飛ばしません。</h2>
+      <p>既存ページをすぐに作り直すのではなく、まず今の説明がどう読まれ得るかを確認します。その後、売上に必要な判断条件を定め、実装範囲と確認条件を決めます。</p>
 
-      <div class="formula-hero motion-formula" aria-label="スコア計算式">
-        <div class="formula-line formula-line--main">
-          <span class="tok tok-fn">Score</span><span class="tok tok-pun">(</span><span class="tok tok-var">Q</span><span class="tok tok-pun">,</span> <span class="tok tok-var">X</span><span class="tok tok-pun">)</span> <span class="tok tok-op">=</span>
-          <span class="tok tok-op">Σ</span><sub class="tok tok-sub">f ∈ F</sub>
-          <span class="tok tok-var">w<sub>f</sub></span> <span class="tok tok-op">·</span>
-          <span class="tok tok-fn">overlap</span><sub class="tok tok-sub">2</sub><span class="tok tok-pun">(</span><span class="tok tok-var">Q</span><span class="tok tok-pun">,</span> <span class="tok tok-var">X<sub>f</sub></span><span class="tok tok-pun">)</span>
-        </div>
-        <div class="formula-line formula-line--sub">
-          <span class="formula-indent">　　　　　　　　　</span><span class="tok tok-op tok-neg">−</span> <span class="tok tok-num">3.0</span> <span class="tok tok-op">·</span>
-          <span class="tok tok-pun">|</span><span class="tok tok-var">Q</span> <span class="tok tok-op">∩</span> <span class="tok tok-var">X</span><span class="tok tok-pun">.</span><span class="tok tok-key">must_not</span><span class="tok tok-pun">|</span>
-        </div>
-      </div>
+      <figure class="hero-figure">
+        <img
+          src="/images/how-it-works/meandle-how-it-works-method-comic-v1.webp"
+          alt="既存ページを確認し、8項目の意味仕様を組み立て、実装方針を整理し、変更後の確認条件を定める4段階の図"
+          width="1536" height="1024"
+          loading="lazy"
+        />
+      </figure>
 
-      <dl class="formula-legend">
-        <div><dt><code>Q</code></dt>          <dd>クエリ（検索語・AI への問いかけ）</dd></div>
-        <div><dt><code>X</code></dt>          <dd>対象レコード（サービス／製品／記事）</dd></div>
-        <div><dt><code>F</code></dt>          <dd>{`{ must, examples, scene, candidate_name, visible_text }`}</dd></div>
-        <div><dt><code>w<sub>f</sub></code></dt><dd>フィールド重み（下記の重み表）</dd></div>
-        <div><dt><code>overlap₂(A,B)</code></dt><dd>2 文字連続（文字バイグラム）集合の共通要素数</dd></div>
-        <div><dt><code>must_not</code></dt>  <dd>該当したら減点するフィールド。<strong>record-side exclusion (RSE)</strong> の中核</dd></div>
-      </dl>
+      <ol class="mt-4" style="font-size:15.5px; line-height:1.95">
+        <li><strong>読む</strong>：既存URL、営業資料、実際の問い合わせから、今のページがどのように読まれ得るかを確認します。</li>
+        <li><strong>定める</strong>：対象、利用場面、比較、価値、根拠、対象外条件を一つの意味仕様へまとめます。</li>
+        <li><strong>実装方針にする</strong>：見出し、本文、比較軸、根拠、FAQ、メタ情報のどこへ反映するかを決めます。</li>
+        <li><strong>実装後に確認する</strong>：対象質問と対象外質問を分け、変更後に何を観察し、何は断定しないかを定めます。</li>
+      </ol>
 
-      <div class="weights-table">
-        <table class="compare-table" style="font-family:var(--font-mono); font-size:13.5px">
+      <p style="margin-top:16px">この流れで残るのは、ページ案だけではありません。説明の判断基準、実装差分、確認条件、更新時に見直す条件です。</p>
+    </div>
+  </section>
+
+  <!-- Section 3: Deliverable — 8 items -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">The Meaning Specification</span>
+      <h2>8項目で、「誰に・何を・何ではないか」を共通化します。</h2>
+      <p>一つのコピーだけでは、複雑な商材の意味は保てません。Meandleでは、営業、Web、PR、採用の説明をそろえるために、次の8項目を一つの仕様として扱います。</p>
+
+      <div class="table-wrap mt-3">
+        <table class="compare-table">
           <thead>
-            <tr><th>フィールド</th><th style="text-align:right">重み w<sub>f</sub></th></tr>
+            <tr><th scope="col">項目</th><th scope="col">仕様にする内容</th><th scope="col">実装で確認する場所</th></tr>
           </thead>
           <tbody>
-            <tr><td>must</td>                                <td style="text-align:right">+2.0</td></tr>
-            <tr><td>examples / scene / candidate_name</td>   <td style="text-align:right">+1.5</td></tr>
-            <tr><td>observation</td>                          <td style="text-align:right">+1.2</td></tr>
-            <tr><td>visible_text</td>                         <td style="text-align:right">+1.0</td></tr>
-            <tr><td>counterexamples</td>                      <td style="text-align:right">+0.5</td></tr>
-            <tr class="highlight"><td>must_not（ペナルティ）</td><td style="text-align:right">−3.0</td></tr>
+            <tr><td>1. 役割</td><td>商材は、顧客にとって何を担うのか</td><td>title、H1、導入文</td></tr>
+            <tr><td>2. 利用場面</td><td>どのような状況で必要になるのか</td><td>本文、導入事例、FAQ</td></tr>
+            <tr><td>3. 比較対象</td><td>何と比較されやすいのか</td><td>比較軸、対象外条件</td></tr>
+            <tr><td>4. 比較軸</td><td>何を基準に検討されるべきか</td><td>見出し、価値の説明</td></tr>
+            <tr><td>5. 価値</td><td>どの判断を支えるのか</td><td>本文、営業資料、PR</td></tr>
+            <tr><td>6. 根拠</td><td>何がその価値を裏付けるのか</td><td>実績、仕様、条件、出典</td></tr>
+            <tr><td>7. 必須条件</td><td>適合に必要な顧客、用途、前提は何か</td><td>適合条件、フォーム、FAQ</td></tr>
+            <tr><td>8. 対象外条件</td><td>何ではないか。誰・どの用途を対象にしないか</td><td>比較、FAQ、問い合わせ導線</td></tr>
           </tbody>
         </table>
       </div>
+
+      <p style="margin-top:16px">8項目は、説明を長くするためのチェックリストではありません。<strong>商材の意味が部署やページごとに変わらないようにする判断基準</strong>です。</p>
     </div>
   </section>
 
-  <!-- ── SECTION 3 : Interactive Scoring Demo ── -->
-  <section class="section section--alt" id="demo">
-    <div class="container">
-      <span class="eyebrow" style="color:var(--hero-orange)">Interactive Demo</span>
-      <h2>クエリを入れると、スコアがリアルタイムに動きます。</h2>
-      <p>サンプルレコード：<strong>CLOコンパス（物流DX B2Bサービス）</strong>のみんどりIndex。下のプリセット、または自由入力でスコアを試せます。</p>
+  <!-- Section 4: Boundary -->
+  <section class="section section--alt" id="target-non-target-design">
+    <div class="container container--narrow">
+      <span class="eyebrow">Target and Non-target Design</span>
+      <h2>対象外条件は、断るための文章ではなく、誤解を減らす設計です。</h2>
+      <p>「誰向けか」だけでは、似ているが適合しない相手まで候補に入ります。たとえば、同じ業界でも、導入規模、役割、利用場面、決裁条件が違えば、必要な説明は変わります。</p>
+      <p>Meandleでは、提供できることだけでなく、提供しない用途、先に別の施策を行うべき条件、比較対象ではないものを仕様に含めます。対象外を明確にすることで、営業が説明し直す前提を減らし、適合する相手が判断しやすい状態をつくります。</p>
 
-      <div class="demo" id="scoringDemo">
-        <!-- Query input row -->
-        <div class="demo-input-wrap">
-          <label class="demo-label" for="demoQuery">Query <span class="demo-label__q">Q</span></label>
-          <input
-            type="text"
-            id="demoQuery"
-            class="demo-input"
-            placeholder="例：CLO向け意思決定支援ツール"
-            value="CLO向け意思決定支援ツール"
-            autocomplete="off"
-          />
-        </div>
-
-        <!-- Preset chips -->
-        <div class="demo-presets" role="tablist" aria-label="プリセットクエリ">
-          {presetQueries.map((p) => (
-            <button
-              type="button"
-              class={`demo-chip demo-chip--${p.type}`}
-              data-q={p.label}
-            >
-              {p.type === 'target' ? '🎯' : '🚫'} {p.label}
-            </button>
-          ))}
-        </div>
-
-        <!-- Bigram tokenization view -->
-        <div class="demo-panel">
-          <div class="demo-panel__label">
-            ① Tokenize（文字バイグラム分解）
-            <span class="demo-panel__count"><span id="qCount">0</span> tokens</span>
-          </div>
-          <div class="demo-bigrams" id="qBigrams" aria-live="polite"></div>
-        </div>
-
-        <!-- Per-field overlap -->
-        <div class="demo-panel">
-          <div class="demo-panel__label">
-            ② Field-weighted overlap（フィールド別 一致数 × 重み）
-          </div>
-          <div class="demo-fields" id="fieldOverlap"></div>
-        </div>
-
-        <!-- Total score -->
-        <div class="demo-score">
-          <div class="demo-score__label">
-            ③ Total Score <span class="demo-score__eq">= Σ contributions</span>
-          </div>
-          <div class="demo-score__bar-track">
-            <div class="demo-score__bar" id="scoreBar" style="width:0%"></div>
-            <div class="demo-score__bar demo-score__bar--neg" id="scoreBarNeg" style="width:0%"></div>
-          </div>
-          <div class="demo-score__num" id="scoreNum">0.00</div>
-          <div class="demo-score__hint" id="scoreHint">クエリを入力するとスコアが動きます</div>
-        </div>
-
-        <!-- Record disclosure -->
-        <details class="demo-record">
-          <summary>▸ サンプルレコード（CLOコンパスのみんどりIndex）を表示</summary>
-          <pre class="demo-record__pre"><code>{JSON.stringify(sampleRecord, null, 2)}</code></pre>
-        </details>
-
-        <p class="demo-note">
-          ※ 本デモは教育用の簡易実装（正規化を省略した raw 2-gram overlap × field weight）。本実装値（BM25 併用・IDF 補正あり）とは異なりますが、<strong>「なぜ must で加点／must_not で減点されるか」の機構</strong>を可視化する目的です。
-        </p>
+      <h3 style="margin-top:24px">対象外条件を設計する4つの観点</h3>
+      <div class="grid grid--2 mt-3">
+        <div class="card"><h3>似ているが別の商品</h3><p style="margin-bottom:0">同じカテゴリ名で呼ばれても、目的や意思決定者が違う商品は、比較対象から分けます。</p></div>
+        <div class="card"><h3>先に別の施策が必要な状態</h3><p style="margin-bottom:0">事実確認、対象顧客、公開ページが整っていない場合は、意味実装より先に行うべきことを明確にします。</p></div>
+        <div class="card"><h3>提供しない用途</h3><p style="margin-bottom:0">記事の量産、順位計測だけ、短期の結果保証など、Meandleが主な提供価値としない用途を記載します。</p></div>
+        <div class="card"><h3>確認できない主張</h3><p style="margin-bottom:0">根拠、条件、顧客確認がない価値は、強い表現として実装しません。確認できる事実と、まだ言えないことを分けます。</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ── SECTION 4 : Algorithm Flow ── -->
+  <!-- Section 5: Commercial path -->
   <section class="section">
-    <div class="container">
-      <span class="eyebrow" style="color:var(--hero-orange)">Algorithm Pipeline</span>
-      <h2>1 クエリを、この 5 段で処理します。</h2>
+    <div class="container container--narrow">
+      <span class="eyebrow">From Specification to Update</span>
+      <h2>設計、ページ実装、回帰検証を、別の責任範囲として進めます。</h2>
+      <p>すべての案件を同じ範囲で受けるわけではありません。まず意味仕様と実装方針を定め、実装の価値が確認できた場合にだけ次の段階を個別に設計します。</p>
 
-      <div class="algo-flow motion-flow">
-        <svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="アルゴリズム・フロー図">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto">
-              <path d="M0,0 L10,5 L0,10 z" fill="#12242C"/>
-            </marker>
-          </defs>
-          <g font-family="var(--font-mono)" font-size="12" fill="#12242C">
-            {[
-              { x: 20,  label: '① Input',      sub: 'Query Q' },
-              { x: 195, label: '② Tokenize',   sub: '2-gram set' },
-              { x: 370, label: '③ Overlap',    sub: '|Q ∩ Xf|' },
-              { x: 545, label: '④ Weight',     sub: 'Σ wf · ...' },
-              { x: 720, label: '⑤ Penalty',    sub: '− 3.0 · MN' },
-            ].map((n, i, arr) => (
-              <>
-                <rect x={n.x} y="60" width="160" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
-                <text x={n.x + 80} y="92" text-anchor="middle" font-size="13" font-weight="700">{n.label}</text>
-                <text x={n.x + 80} y="118" text-anchor="middle" font-size="11" fill="#6F7777">{n.sub}</text>
-                {i < arr.length - 1 && (
-                  <line x1={n.x + 160} y1="100" x2={n.x + 173} y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow)"/>
-                )}
-              </>
-            ))}
-            <text x="450" y="30" text-anchor="middle" font-size="14" font-weight="700" fill="#E98F22">Pipeline (RSE-aware)</text>
-            <text x="800" y="180" text-anchor="middle" font-size="13" font-weight="700" fill="#12242C">▶ Score</text>
-          </g>
-        </svg>
+      <div class="price-card mt-4">
+        <div class="price-label">1. 意味適合スプリント</div>
+        <div class="price">¥500,000<span class="price-unit">〜 / 1商材・1URL</span></div>
+        <p><strong>残るもの：</strong>現状の意味診断、対象／対象外質問、8項目の意味仕様、実装方針、確認条件。</p>
+        <p style="margin-bottom:0; font-size:13px; color:var(--muted)"><strong>範囲外：</strong>詳細なページ実装、記事の量産、広告運用、外部環境での結果保証。</p>
+      </div>
+      <div class="price-card">
+        <div class="price-label">2. 1ページの意味実装</div>
+        <div class="price">¥2,000,000<span class="price-unit"> 前後 / ページ</span></div>
+        <p><strong>残るもの：</strong>意味仕様を反映したページ、実装差分、初回比較記録。見出し、本文、比較軸、根拠、FAQ、メタ情報を一貫させます。</p>
+        <p style="margin-bottom:0; font-size:13px; color:var(--muted)"><strong>範囲外：</strong>AIの応答や検索順位、商談成果の保証。実装範囲は既存サイトの環境と事実確認の可否により定めます。</p>
+      </div>
+      <div class="price-card">
+        <div class="price-label">3. 回帰検証と更新</div>
+        <div class="price">¥1,200,000<span class="price-unit"> / 月〜</span></div>
+        <p><strong>残るもの：</strong>複数ページ、複数商材、公開情報の変化を踏まえた確認記録と更新判断。対象と対象外の条件が変わっていないかを確認します。</p>
+        <p style="margin-bottom:0; font-size:13px; color:var(--muted)"><strong>範囲外：</strong>結果を保証した運用や、件数だけを追う継続制作。対象ページ数、頻度、確認範囲は個別に定めます。</p>
       </div>
 
-      <p class="muted" style="font-size:13px; text-align:center; margin-top:8px">
-        ⑤ の Penalty ステップが RSE。record 側で「これに触れたら候補から外す」を保持することで、query 側の除外指定なしにミスマッチを構造的に抑制する（特許 MNDR-2026-001 §1）。
-      </p>
+      <div class="callout-note">
+        表示価格は提供価格の下限または目安です。対象商材、ページ数、事実確認、実装範囲により個別に設計します。外部環境での表示や商談成果を保証するものではありません。
+      </div>
+
+      <p style="margin-top:12px"><a href="/do-meandle/">意味適合スプリントの詳細 →</a>　<a href="/get-lead/">1ページの意味実装 →</a></p>
     </div>
   </section>
 
-  <!-- ── SECTION 5 : (existing) 8 Fields ── -->
+  <!-- Section 6: Evidence levels -->
   <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">Schema</span>
-      <h2>意味は、8 つのフィールドで定義できる。</h2>
-      <p class="lead">この 8 項目は社内会議用の表ではありません。営業・マーケティング・Web制作・AI検索が同じ意味を扱うための地図です。</p>
+    <div class="container container--narrow">
+      <span class="eyebrow">Evidence by Method</span>
+      <h2>結果の種類を混ぜず、確認できた範囲だけを記録します。</h2>
+      <p>AIの応答、公開ページの表示、商談は、同じ種類の証拠ではありません。Meandleでは、設計方針、内部の比較、条件付き応答、公開環境の観察、顧客確認済みの事実、反復検証を分けて扱います。</p>
 
-      <table style="margin-top:24px">
-        <thead><tr><th style="width:25%">フィールド</th><th>説明</th></tr></thead>
-        <tbody>
-          {eightFields.map((f) => (
-            <tr>
-              <td><strong>{f.num}. {f.name}</strong></td>
-              <td>{f.desc}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div class="table-wrap mt-3">
+        <table class="compare-table">
+          <thead>
+            <tr><th scope="col">レベル</th><th scope="col">公開ラベル</th><th scope="col">確認できること</th><th scope="col">確認できないこと</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>E0</td><td>考え方／設計方針</td><td>Meandleがどのように対象・対象外を設計するか</td><td>外部環境で効果が出たこと</td></tr>
+            <tr><td>E1</td><td>シミュレーション</td><td>定めた条件内で、設計上の差を確認したこと</td><td>検索、AI応答、売上への効果</td></tr>
+            <tr><td>E2</td><td>条件付き応答テスト</td><td>同じ条件で情報を与えた応答の差</td><td>公開ページのクロール効果や一般的再現性</td></tr>
+            <tr><td>E3</td><td>公開環境での観察記録</td><td>日時、質問、URLを定めた表示・引用の観察</td><td>Meandleだけが原因であること</td></tr>
+            <tr><td>E4</td><td>顧客確認済み事例</td><td>顧客が確認した範囲の商談、売上、工数の事実</td><td>他社でも同じ結果になること</td></tr>
+            <tr><td>E5</td><td>再現検証</td><td>複数条件・複数回で確認した範囲の再現性</td><td>未検証の業界や条件への無制限な一般化</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-      <div class="must-card" style="margin-top:24px">
-        <h4>7. must</h4>
-        <p style="margin-bottom:0">決して外せない約束。文脈の中核。<br/>「これが満たされなければ話にならない条件」。</p>
+      <div class="callout-note">
+        E1〜E3の記録には、実施日、条件、質問、回数、比較対象、取得元を付けます。各記録は条件内で確認した参考情報であり、同等の結果を保証するものではありません。
       </div>
-      <div class="must-not-card" style="margin-top:12px">
-        <h4>8. must_not</h4>
-        <p style="margin-bottom:0">決して該当しない・提供しないこと。<br/>「これに当てはまったら対象外」。<br/>この項目が RSE の入力になります。</p>
-      </div>
+
+      <p style="margin-top:12px"><a href="/blog/">検証ノートを見る →</a></p>
     </div>
   </section>
 
-  <!-- ── SECTION 6 : (existing) Evidence ── -->
+  <!-- Section 7: Limits -->
   <section class="section">
-    <div class="container">
-      <span class="eyebrow">Evidence</span>
-      <h2>意味を整えると、AIに引き当てられやすくなる。</h2>
-      <p>Top-1 正解率（同一クエリ集合に対する、Before/After の比較）</p>
-      <div style="max-width:720px; margin-top:20px">
-        <div class="evidence-bar evidence-bar--before">
-          <span style="min-width:200px">Before（名称のみ）</span>
-          <span class="motion-count" data-count-to="63.3" data-decimals="1" data-suffix="%">63.3%</span>
+    <div class="container container--narrow">
+      <span class="eyebrow">What We Can and Cannot Confirm</span>
+      <h2>確認できるのは、説明のズレと検証条件です。未来の結果ではありません。</h2>
+
+      <div class="grid grid--2 mt-4">
+        <div>
+          <h3 style="color:var(--hero-orange)">確認できること</h3>
+          <ul>
+            <li>現在のページに、対象、価値、根拠、対象外条件が明示されているか</li>
+            <li>営業資料、Web、FAQ、メタ情報の説明が矛盾していないか</li>
+            <li>対象質問と対象外質問を分けて確認する条件があるか</li>
+            <li>公開観察や条件付き応答テストで、何を記録すべきか</li>
+            <li>変更後に、どの情報を更新判断に使うか</li>
+          </ul>
         </div>
-        <div class="evidence-bar evidence-bar--after">
-          <span style="min-width:200px">After（8フィールド適用）</span>
-          <span class="motion-count" data-count-to="90.0" data-decimals="1" data-suffix="%">90.0%</span>
+        <div>
+          <h3 style="color:var(--muted)">確認できないこと</h3>
+          <ul>
+            <li>AIの回答内容を確実に変えられること</li>
+            <li>検索順位、表示、引用を確実に得られること</li>
+            <li>問い合わせ数、商談数、売上が必ず増えること</li>
+            <li>一つの観察やテストを、他業界や他の条件へそのまま一般化すること</li>
+            <li>事実確認されていない競合比較や顧客成果</li>
+          </ul>
         </div>
-        <p style="font-size:13px; color:var(--muted); margin-top:12px; font-family:var(--font-mono)">
-          Boschloo検定  p = <span class="motion-count" data-count-to="0.015" data-decimals="3">0.015</span> ／ Cohen's h = <span class="motion-count" data-count-to="0.657" data-decimals="3">0.657</span>
-        </p>
       </div>
-      <div class="note">
-        ※この数値は特定条件下の内部検証です。すべての事業・検索環境で同じ結果を保証するものではありません。
-      </div>
-      <p style="margin-top:24px">
-        <a href="/blog/clo/">→ CLOコンパスの詳細スコア＋LLM応答実測（実験 #1）</a><br/>
-        <a href="/blog/hitachi/">→ 日立産機システム PR を題材にした境界設計検証（実験 #2）</a>
-      </p>
+
+      <p style="margin-top:20px">だからこそ、Meandleは強い数字だけを先に出しません。何を変え、どの条件で観察し、どこまでを判断できるかを先に定めます。</p>
     </div>
   </section>
 
-  <!-- ── SECTION 6.5 : Raw Materials (Phase 2) ── -->
-  <section class="section" id="raw">
-    <div class="container">
-      <span class="eyebrow" style="color:var(--hero-orange)">Raw Materials</span>
-      <h2>生資料で見る、みんどりの中身</h2>
-      <p>要約ではなく、<strong>実際に動いている資料そのもの</strong>を開示します。API リクエスト・レスポンス、Schema 定義、特許請求項の要旨、研究資料。</p>
-
-      <!-- 7.1 LLM API log -->
-      <div class="raw-block">
-        <div class="raw-block__head">
-          <span class="raw-badge">RAW</span>
-          <h3 class="raw-block__title">7.1　Live LLM API Log</h3>
-          <span class="raw-block__meta">Anthropic Messages API / claude-haiku-4-5-20251001 / 2026-06-02</span>
-        </div>
-        <p class="raw-block__lead">
-          CLOコンパス実験 Q1「CLOコンパスは WMS ですか？どのような企業に向いていますか？」の実 API コール（Before/After 2 リクエスト）。
-        </p>
-
-        <div class="grid grid--2 mt-3">
-          <!-- Before -->
-          <div class="raw-log">
-            <div class="raw-log__label raw-log__label--before">
-              <span>▸ Condition A（名称のみ）</span>
-              <span class="raw-log__meta">417 in ／ 128 out tokens</span>
-            </div>
-            <pre class="raw-log__pre raw-log__pre--req"><code>{reqBefore}</code></pre>
-            <pre class="raw-log__pre raw-log__pre--res"><code>{resBefore}</code></pre>
-            <div class="raw-log__verdict raw-log__verdict--fail">
-              ⚠ must_not 違反：「中小物流企業・3PL企業」を対象として誤答
-            </div>
-          </div>
-
-          <!-- After -->
-          <div class="raw-log">
-            <div class="raw-log__label raw-log__label--after">
-              <span>▸ Condition B（みんどりIndex 付き）</span>
-              <span class="raw-log__meta">652 in ／ 194 out tokens</span>
-            </div>
-            <pre class="raw-log__pre raw-log__pre--req"><code>{reqAfter}</code></pre>
-            <pre class="raw-log__pre raw-log__pre--res"><code>{resAfter}</code></pre>
-            <div class="raw-log__verdict raw-log__verdict--pass">
-              ✓ must_not「中小企業向けではない」「WMS ではない」が機能
-            </div>
-          </div>
-        </div>
-
-        <p class="raw-block__foot">
-          追加した <code>【みんどりIndex】</code> ブロック 235 tokens（+56%）で誤認が消える。全 6 コール（3 問 × 2 条件）の完全ログは <a href="/blog/clo/#llm">実験 #1 レポート</a> に掲載。
-        </p>
-      </div>
-
-      <!-- 7.2 mindori Index Schema -->
-      <div class="raw-block">
-        <div class="raw-block__head">
-          <span class="raw-badge">RAW</span>
-          <h3 class="raw-block__title">7.2　mindori Index Schema v1.0</h3>
-          <span class="raw-block__meta">JSON Schema Draft 2020-12 / <code>$id: mndr:index/v1</code></span>
-        </div>
-        <p class="raw-block__lead">
-          意味の輪郭を規定する、公式スキーマ。すべてのみんどりIndex は本スキーマに準拠します。
-        </p>
-
-        <pre class="raw-log__pre raw-log__pre--schema"><code>{schemaJson}</code></pre>
-
-        <p class="raw-block__foot">
-          スキーマは公開仕様。BM25 実装・LLM プロンプト構築の両方で同じ Index を再利用できます。
-        </p>
-      </div>
-
-      <!-- 7.3 Patent Claim -->
-      <div class="raw-block">
-        <div class="raw-block__head">
-          <span class="raw-badge">RAW</span>
-          <h3 class="raw-block__title">7.3　Patent Claim §1（Public Summary）</h3>
-          <span class="raw-block__meta">MNDR-2026-001 / 出願中・全文非公開</span>
-        </div>
-        <p class="raw-block__lead">
-          出願中のため請求項全文は非公開。以下は<strong>公開情報から作成した要旨</strong>（Public Summary）です。
-        </p>
-
-        <div class="patent-claim">
-          <div class="patent-claim__head">
-            <span class="patent-claim__id">§1</span>
-            <span class="patent-claim__topic">record-side exclusion (RSE)</span>
-          </div>
-          <div class="patent-claim__body">
-            <p><strong>【claim summary】</strong></p>
-            <p>クエリ側で除外語を明示していない場合であっても、<strong>レコード側に保持された <code>must_not</code> 条件</strong>に対し、クエリと当該レコード <code>must_not</code> フィールドとの <em>n</em>-gram overlap を検出したときに、スコアリング関数に負の重み（本実装では w = −3.0）を乗じてスコアから減算する方法。これにより、除外指定を持たないクエリからでも、意味が近いが提供対象外である候補を、構造的に候補集合から排除しうる。</p>
-            <p><strong>【effect】</strong>従来のクエリサイド除外（NOT クエリ等）に依らず、record 側の宣言だけで誤マッチを抑制。人手による NOT クエリ設計の負荷を伴わない。</p>
-          </div>
-          <div class="patent-claim__foot">
-            <span class="patent-claim__stamp">Pending</span>
-            <span class="patent-claim__note">全文開示は出願確定後。本要旨は公開情報からの再構成であり、請求項本文と一字一句一致するものではありません。</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 7.4 Research Status -->
-      <div class="raw-block">
-        <div class="raw-block__head">
-          <span class="raw-badge">RAW</span>
-          <h3 class="raw-block__title">7.4　Research Status</h3>
-          <span class="raw-block__meta">In progress / documentation forthcoming</span>
-        </div>
-
-        <div class="cite-grid">
-          <div class="cite-card">
-            <div class="cite-card__label">Research Documentation</div>
-            <pre class="raw-log__pre raw-log__pre--cite"><code>{researchNote}</code></pre>
-          </div>
-
-          <div class="cite-card">
-            <div class="cite-card__label">Researcher</div>
-            <div class="cite-card__body">
-              <p><strong>Jag Yamamoto</strong><br/>ジャグプロジェクト合同会社 代表<br/>意味構造化・B2B マーケティング・情報検索の実務研究に従事。<br/><a href="https://www.jagproject.com/" target="_blank" rel="noopener">jagproject.com&nbsp;↗</a></p>
-            </div>
-
-            <div class="cite-card__label" style="margin-top:14px">Publication Timeline</div>
-            <div class="cite-card__body">
-              <p>本理論の学術引用形式（BibTeX / APA / IEEE 等）は、研究成果の公式公開後（<strong>2027 年 3 月以降</strong>）に本ページ上で改めて掲載します。それまでの数値はすべて、進行中の研究および実務検証における参考値です。</p>
-            </div>
-
-            <div class="cite-card__label" style="margin-top:14px">Related Work</div>
-            <div class="cite-card__body">
-              <ul style="font-size:13px; padding-left:18px; margin:0">
-                <li>Robertson, S. E., et al. (2009). <em>The Probabilistic Relevance Framework: BM25 and Beyond</em>. Foundations and Trends in IR.</li>
-                <li>Boschloo, R. D. (1970). Raised conditional level of significance for the 2×2-table. <em>Statistica Neerlandica</em>.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── SECTION 7 : (existing) 4 domains ── -->
+  <!-- Section 8: FAQ -->
   <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">Applications</span>
-      <h2>4 つの領域で、同じ仕組みが使えます。</h2>
-      <div class="service-grid" style="margin-top:24px">
-        {domains.map((d) => (
-          <a href={d.href} class="service-card">
-            <h3>{d.num}{d.title}</h3>
-            <p style="color:var(--muted); font-size:14px">{d.desc}</p>
-            <span>関連サービスをみる →</span>
-          </a>
-        ))}
-      </div>
+    <div class="container container--narrow">
+      <span class="eyebrow">Questions Before Implementation</span>
+      <h2>よくある確認事項</h2>
+      <details class="faq-item">
+        <summary class="faq-q">MeandleはSEOやAI検索の計測ツールですか。</summary>
+        <div class="faq-a">いいえ。Meandleは、対象、価値、根拠、対象外条件を意味仕様にし、既存ページへ実装するB2B意味設計です。計測結果を使うことはありますが、順位計測やダッシュボード提供を主な価値にはしていません。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">対象外条件を書くと、問い合わせが減りませんか。</summary>
+        <div class="faq-a">合わない問い合わせを減らすことはあります。一方で、適合する相手が、自社に必要な理由を判断しやすくなります。件数ではなく、商談になる理由を増やすために対象外条件を扱います。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">既存のSEO会社や制作会社と併用できますか。</summary>
+        <div class="faq-a">はい。Meandleはそれらを置き換えるのではなく、観察結果や事業の事実を、実装可能な意味仕様へつなげます。既存チームが実装できる形で差分を整理することもできます。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">AIの応答や検索順位は保証されますか。</summary>
+        <div class="faq-a">いいえ。AI応答や検索環境は継続的に変わるため、表示、順位、引用、商談成果は保証できません。確認できた事実と、判断できないことを分けて記録します。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">「特許出願中」とは、何が提供済みという意味ですか。</summary>
+        <div class="faq-a">意味設計と検索文脈の整合に関する方法が特許出願中であることを示す表現です。提供範囲、実装方法、検証条件は、案件の対象商材と環境を確認した上で個別に定めます。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">どの段階から始めますか。</summary>
+        <div class="faq-a">原則として、1商材・1URLの意味適合スプリント 50万円〜から始めます。意味仕様と実装方針を確認した後、必要な場合だけページ実装や継続検証へ進みます。</div>
+      </details>
+
+      <p style="margin-top:14px"><a href="/oem/">OEMの進め方 →</a></p>
     </div>
   </section>
 
-  <!-- ── SECTION 8 : (existing) Credentials ── -->
-  <section class="section">
-    <div class="container">
-      <span class="eyebrow">Credentials</span>
-      <h2>設計の根拠</h2>
-      <div class="service-grid" style="margin-top:24px">
-        <div class="card">
-          <h3>6 年以上の実務実績</h3>
-          <p style="margin-bottom:0">Jag Yamamoto / Jag Project が積み重ねてきた、事業定義・商品企画・BtoBウェブマーケティング・メディア設計の知見を意味設計として体系化したものです。</p>
-        </div>
-        <div class="card">
-          <h3>運営元</h3>
-          <p style="margin-bottom:0"><strong>ジャグプロジェクト合同会社</strong>／代表 Jag Yamamoto。B2B事業定義・商品企画・BtoBウェブマーケティング・メディア設計の実務を長年運営。<br/><a href="https://www.jagproject.com/" target="_blank" rel="noopener">jagproject.com&nbsp;↗</a></p>
-        </div>
-        <div class="card">
-          <h3>特許出願中</h3>
-          <p style="margin-bottom:0">意味設計と検索文脈の整合に関する方法について、<strong>MNDR-2026-001 として特許出願中</strong>です。</p>
-        </div>
-      </div>
-      <div style="margin-top:32px; padding:24px; background:var(--card); border-radius:6px; border:1px solid rgba(18,36,44,0.1)">
-        <p style="margin:0"><strong>監修</strong>：Jag Yamamoto</p>
-        <p style="margin:8px 0 0"><strong>運営元</strong>：<a href="https://jagproject.com/" target="_top" rel="noopener">Jag Project</a></p>
-      </div>
-    </div>
-  </section>
-
+  <!-- Section 9: Final -->
   <section class="cta-block">
-    <h2>まずは、既存 URL を1つ送ってください。</h2>
-    <p>理論より先に、自社のページで確認する方が早いです。URLを送ってもらえれば、みんどり値を示します。</p>
-    <a href="/contact/" class="btn btn--primary">既存URLで診断する</a>
+    <div class="container container--narrow">
+      <span class="eyebrow" style="color:var(--hero-orange)">Start with One URL</span>
+      <h2>まず、既存URLと来てほしい相手を一つに絞ってください。</h2>
+      <p>対象URL、商材、来てほしい顧客、対象外にしたい顧客や用途を確認します。意味適合スプリントの前提に合うかを確認し、適合する場合に初回の有償スプリントをご案内します。</p>
+
+      <a href="/contact/" class="btn btn--primary" style="margin-top:20px">既存URLで導入適合性を確認する</a>
+      <p style="color:rgba(255,255,255,0.75); font-size:13px; margin-top:12px">
+        初回は1商材・1URL、50万円〜です。この送信は詳細診断の依頼ではなく、導入適合性の確認です。
+      </p>
+
+      <p style="color:rgba(255,255,255,0.65); font-size:12px; margin-top:20px">
+        Meandleは、Jag Yamamoto / Jag Projectが開発・監修するB2B意味設計ソリューションです。<br/>
+        運営元：<a href="https://jagproject.com/" target="_blank" rel="noopener" style="color:var(--hero-orange)">jagproject.com ↗</a>
+      </p>
+    </div>
   </section>
 </BaseLayout>
 
 <style is:inline>
-  :root {
-    --font-mono: 'JetBrains Mono', 'Menlo', 'Courier New', monospace;
-  }
-
-  /* ── Section 1: Tech Plate ── */
-  .tech-plate-section {
-    background: var(--dark);
-    padding: 44px 0 40px;
-  }
-  .tech-plate {
-    background: linear-gradient(180deg, #0e1a20 0%, #060e12 100%);
-    border: 1px solid rgba(233,143,34,0.30);
-    border-radius: 4px;
-    padding: 22px 26px;
-    max-width: 780px;
-    margin: 0 auto;
-    font-family: var(--font-mono);
-    box-shadow: 0 0 0 1px rgba(233,143,34,0.10), 0 8px 24px rgba(0,0,0,0.35);
-  }
-  .tech-plate__row {
-    display: grid;
-    grid-template-columns: 108px 1fr auto;
-    gap: 16px;
-    padding: 8px 0;
-    border-bottom: 1px dashed rgba(255,255,255,0.08);
-    align-items: baseline;
-    font-size: 13px;
-  }
-  .tech-plate__row:last-child { border-bottom: 0; }
-  .tech-plate__key {
-    color: var(--hero-orange);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 700;
-    font-size: 10.5px;
-  }
-  .tech-plate__val {
-    color: #F3F0E7;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-  .tech-plate__accent { color: var(--hero-orange); }
-  .tech-plate__meta {
-    color: rgba(243,240,231,0.55);
-    font-size: 11.5px;
-    letter-spacing: 0.04em;
-    white-space: nowrap;
-  }
-
-  @media (max-width: 640px) {
-    .tech-plate__row { grid-template-columns: 84px 1fr; }
-    .tech-plate__meta { grid-column: 2; font-size: 11px; }
-  }
-
-  /* ── Section 2: Formula Hero ── */
-  .formula-section {
-    padding: 64px 0 56px;
-  }
-  .formula-title {
-    font-size: clamp(22px, 3vw, 32px);
-    line-height: 1.4;
-    margin-bottom: 32px;
-  }
-  .formula-hero {
-    background: var(--card);
-    border: 1px solid rgba(18,36,44,0.15);
-    border-left: 4px solid var(--hero-orange);
-    border-radius: var(--radius);
-    padding: 32px 24px;
-    margin: 16px 0 24px;
-    box-shadow: var(--shadow);
-    overflow-x: auto;
-  }
-  .formula-line {
-    font-family: var(--font-mono);
-    font-size: clamp(18px, 2.6vw, 28px);
-    line-height: 1.7;
-    color: var(--ink);
-    text-align: center;
-    letter-spacing: 0.01em;
-    white-space: nowrap;
-  }
-  .formula-line--sub { margin-top: 4px; text-align: center; }
-  .formula-indent { visibility: hidden; }
-  .tok { display: inline-block; }
-  .tok-fn  { color: #2A5D8B; font-weight: 700; }
-  .tok-var { color: #12242C; font-weight: 600; font-style: italic; }
-  .tok-op  { color: #6F7777; margin: 0 4px; }
-  .tok-op.tok-neg { color: #C05B2E; }
-  .tok-num { color: #C05B2E; font-weight: 700; }
-  .tok-key { color: #E98F22; font-weight: 700; }
-  .tok-pun { color: #6F7777; }
-  .tok-sub { font-size: 0.7em; color: #6F7777; }
-
-  .formula-legend {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px 24px;
-    margin: 24px 0 20px;
-    padding: 16px 20px;
-    background: rgba(201,222,220,0.20);
-    border-radius: var(--radius);
-    font-size: 13.5px;
-  }
-  @media (min-width: 720px) {
-    .formula-legend { grid-template-columns: repeat(2, 1fr); }
-  }
-  .formula-legend > div { display: flex; align-items: baseline; gap: 12px; }
-  .formula-legend dt {
-    font-family: var(--font-mono);
-    color: var(--hero-orange);
-    font-weight: 700;
-    flex-shrink: 0;
-    min-width: 88px;
-  }
-  .formula-legend dd { margin: 0; color: var(--ink); }
-
-  .weights-table { margin-top: 20px; overflow-x: auto; }
-
-  /* ── Section 3: Interactive Demo ── */
-  .demo {
-    background: var(--white);
-    border: 1px solid rgba(18,36,44,0.15);
-    border-radius: var(--radius);
-    padding: 24px;
-    margin-top: 20px;
-    box-shadow: var(--shadow);
-  }
-  .demo-input-wrap {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 14px;
-  }
-  .demo-label {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--muted);
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-  .demo-label__q {
-    color: var(--hero-orange);
-    font-size: 16px;
-    margin-left: 6px;
-  }
-  .demo-input {
-    flex: 1;
-    padding: 12px 14px;
-    border: 1.5px solid rgba(18,36,44,0.2);
-    border-radius: var(--radius);
-    font-size: 15px;
-    color: var(--ink);
-    background: var(--paper);
-    font-family: inherit;
-  }
-  .demo-input:focus {
-    outline: 2px solid var(--hero-orange);
-    outline-offset: 1px;
-    border-color: var(--hero-orange);
-  }
-
-  .demo-presets {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 20px;
-  }
-  .demo-chip {
-    padding: 6px 12px;
-    border-radius: 100px;
-    border: 1px solid rgba(18,36,44,0.15);
-    background: var(--paper-2);
-    font-size: 12px;
-    cursor: pointer;
-    color: var(--ink);
-    font-family: inherit;
-    transition: background 0.15s, border-color 0.15s;
-  }
-  .demo-chip:hover { background: var(--card); border-color: var(--hero-orange); }
-  .demo-chip--target { border-color: rgba(233,143,34,0.35); }
-  .demo-chip--noise  { border-color: rgba(192,91,46,0.35); }
-
-  .demo-panel {
-    background: rgba(201,222,220,0.15);
-    border-left: 3px solid var(--hero-orange);
-    border-radius: 0 var(--radius) var(--radius) 0;
-    padding: 14px 18px;
-    margin-bottom: 14px;
-  }
-  .demo-panel__label {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--muted);
-    margin-bottom: 10px;
-    letter-spacing: 0.02em;
-  }
-  .demo-panel__count {
-    color: var(--hero-orange);
-    font-weight: 700;
-  }
-  .demo-bigrams {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    min-height: 30px;
-  }
-  .bigram {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    padding: 3px 8px;
-    background: var(--white);
-    border: 1px solid rgba(18,36,44,0.15);
-    border-radius: 3px;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-    transition: all 0.2s;
-  }
-  .bigram.is-matched {
-    background: rgba(233,143,34,0.15);
-    color: var(--ink);
-    border-color: var(--hero-orange);
-    font-weight: 700;
-  }
-  .bigram.is-matched-neg {
-    background: rgba(192,91,46,0.15);
-    color: #C05B2E;
-    border-color: #C05B2E;
-    font-weight: 700;
-  }
-
-  .demo-fields {
-    display: grid;
-    gap: 8px;
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-  }
-  .demo-field-row {
-    display: grid;
-    grid-template-columns: 130px 60px 1fr 70px;
-    align-items: center;
-    gap: 10px;
-  }
-  @media (max-width: 640px) {
-    .demo-field-row { grid-template-columns: 96px 50px 1fr 60px; font-size: 11.5px; }
-  }
-  .demo-field-name { color: var(--ink); font-weight: 600; }
-  .demo-field-weight { color: var(--muted); text-align: right; }
-  .demo-field-weight.is-neg { color: #C05B2E; font-weight: 700; }
-  .demo-field-bar-track {
-    background: var(--paper-2);
-    height: 8px;
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
-  }
-  .demo-field-bar {
-    height: 100%;
-    background: var(--hero-orange);
-    border-radius: 4px;
-    transition: width 0.35s ease;
-  }
-  .demo-field-bar.is-neg { background: #C05B2E; }
-  .demo-field-contrib {
-    text-align: right;
-    font-weight: 700;
-    color: var(--ink);
-  }
-  .demo-field-contrib.is-neg { color: #C05B2E; }
-  .demo-field-contrib.is-zero { color: rgba(18,36,44,0.30); font-weight: 400; }
-
-  .demo-score {
-    background: var(--dark);
-    color: var(--white);
-    border-radius: var(--radius);
-    padding: 20px 22px;
-    margin-top: 20px;
-  }
-  .demo-score__label {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: rgba(255,255,255,0.65);
-    margin-bottom: 12px;
-    letter-spacing: 0.02em;
-  }
-  .demo-score__eq { color: rgba(255,255,255,0.4); font-size: 11px; }
-  .demo-score__bar-track {
-    background: rgba(255,255,255,0.10);
-    height: 12px;
-    border-radius: 6px;
-    overflow: hidden;
-    position: relative;
-    margin-bottom: 12px;
-  }
-  .demo-score__bar {
-    height: 100%;
-    background: var(--hero-orange);
-    border-radius: 6px;
-    transition: width 0.4s ease;
-    position: absolute;
-    left: 50%;
-    top: 0;
-  }
-  .demo-score__bar--neg {
-    background: #E24B4A;
-    left: auto;
-    right: 50%;
-  }
-  .demo-score__num {
-    font-family: var(--font-mono);
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--hero-orange);
-    line-height: 1;
-  }
-  .demo-score__hint {
-    font-size: 12px;
-    color: rgba(255,255,255,0.55);
-    margin-top: 8px;
-  }
-
-  .demo-record {
-    margin-top: 20px;
-    border: 1px solid rgba(18,36,44,0.12);
-    border-radius: var(--radius);
-    padding: 8px 14px;
-    background: var(--paper);
-  }
-  .demo-record summary {
-    cursor: pointer;
-    font-size: 13px;
-    color: var(--muted);
-    font-weight: 700;
-    padding: 6px 0;
-  }
-  .demo-record__pre {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    background: #0E1A20;
-    color: #E1E8DC;
-    padding: 16px;
-    border-radius: 4px;
-    overflow-x: auto;
-    line-height: 1.7;
-    margin-top: 10px;
-  }
-  .demo-record__pre code { background: transparent; padding: 0; color: inherit; }
-
-  .demo-note {
-    font-size: 11.5px;
-    color: var(--muted);
-    margin-top: 14px;
-    line-height: 1.75;
-    padding: 10px 14px;
-    background: var(--paper-2);
-    border-radius: var(--radius);
-  }
-
-  /* ── Section 7: Raw Materials (Phase 2) ── */
-  .raw-block {
-    margin: 40px 0 32px;
-    padding: 24px 22px;
-    background: var(--card);
-    border: 1px solid rgba(18,36,44,0.14);
-    border-left: 4px solid var(--hero-orange);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-  }
-  .raw-block__head {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 6px;
-    padding-bottom: 12px;
-    border-bottom: 1px dashed rgba(18,36,44,0.15);
-  }
-  .raw-badge {
-    background: var(--dark);
-    color: var(--hero-orange);
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    padding: 3px 8px;
-    border-radius: 3px;
-  }
-  .raw-block__title {
-    font-size: 17px;
-    font-weight: 700;
-    margin: 0;
-    flex: 1 1 auto;
-  }
-  .raw-block__meta {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.02em;
-  }
-  .raw-block__meta code {
-    background: var(--paper-2);
-    padding: 1px 5px;
-    font-size: 10.5px;
-  }
-  .raw-block__lead {
-    font-size: 14px;
-    color: var(--ink);
-    margin: 12px 0 4px;
-    line-height: 1.8;
-  }
-  .raw-block__foot {
-    font-size: 12.5px;
-    color: var(--muted);
-    margin-top: 14px;
-    padding-top: 12px;
-    border-top: 1px dashed rgba(18,36,44,0.12);
-    line-height: 1.8;
-  }
-  .raw-block__foot code {
-    background: var(--paper-2);
-    padding: 1px 5px;
-    font-size: 12px;
-  }
-
-  /* 7.1 API log */
-  .raw-log { display: flex; flex-direction: column; gap: 8px; }
-  .raw-log__label {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    font-weight: 700;
-    padding: 6px 10px;
-    border-radius: 3px 3px 0 0;
-    letter-spacing: 0.02em;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .raw-log__label--before {
-    background: rgba(226,75,74,0.12);
-    color: #A32D2D;
-    border: 1px solid rgba(226,75,74,0.35);
-    border-bottom: none;
-  }
-  .raw-log__label--after {
-    background: rgba(233,143,34,0.14);
-    color: var(--ink);
-    border: 1px solid rgba(233,143,34,0.45);
-    border-bottom: none;
-  }
-  .raw-log__meta {
-    font-weight: 400;
-    font-size: 11px;
-    color: var(--muted);
-  }
-  .raw-log__pre {
-    font-family: var(--font-mono);
-    font-size: 11.5px;
-    background: #0E1A20;
-    color: #E1E8DC;
-    padding: 14px 16px;
-    border-radius: 3px;
-    overflow-x: auto;
-    line-height: 1.7;
-    margin: 0;
-    white-space: pre;
-  }
-  .raw-log__pre code { background: transparent; padding: 0; color: inherit; font-size: inherit; }
-  .raw-log__pre--req { border-left: 3px solid #6F7777; }
-  .raw-log__pre--res { border-left: 3px solid var(--hero-orange); }
-  .raw-log__pre--schema { border-left: 3px solid #2A5D8B; margin-top: 12px; }
-  .raw-log__pre--cite { border-left: 3px solid var(--muted); font-size: 11px; margin: 0; }
-  .raw-log__verdict {
-    font-size: 12px;
-    font-weight: 700;
-    padding: 8px 12px;
-    border-radius: 3px;
-    line-height: 1.6;
-  }
-  .raw-log__verdict--fail {
-    background: rgba(226,75,74,0.10);
-    color: #A32D2D;
-    border: 1px solid rgba(226,75,74,0.25);
-  }
-  .raw-log__verdict--pass {
-    background: rgba(233,143,34,0.10);
-    color: var(--ink);
-    border: 1px solid rgba(233,143,34,0.35);
-  }
-
-  /* 7.3 Patent claim */
-  .patent-claim {
-    margin-top: 12px;
-    background: var(--paper);
-    border: 1px solid rgba(18,36,44,0.20);
-    border-radius: var(--radius);
-    overflow: hidden;
-    position: relative;
-  }
-  .patent-claim__head {
-    background: linear-gradient(90deg, var(--dark) 0%, #1a2c33 100%);
-    color: var(--white);
-    padding: 12px 18px;
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    font-family: var(--font-mono);
-  }
-  .patent-claim__id {
-    color: var(--hero-orange);
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-  }
-  .patent-claim__topic {
-    color: rgba(255,255,255,0.85);
-    font-size: 13px;
-    letter-spacing: 0.04em;
-  }
-  .patent-claim__body {
-    padding: 18px 22px;
-    font-size: 14px;
-    line-height: 1.9;
-  }
-  .patent-claim__body p { margin-bottom: 10px; }
-  .patent-claim__body p:last-child { margin-bottom: 0; }
-  .patent-claim__body code {
-    background: var(--paper-2);
-    padding: 1px 6px;
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-  }
-  .patent-claim__foot {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 18px;
-    background: var(--paper-2);
-    border-top: 1px solid rgba(18,36,44,0.12);
-    font-size: 11.5px;
-    color: var(--muted);
-    flex-wrap: wrap;
-  }
-  .patent-claim__stamp {
-    background: #C05B2E;
-    color: var(--white);
-    padding: 3px 10px;
-    border-radius: 3px;
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: 0.10em;
-    text-transform: uppercase;
-    flex-shrink: 0;
-  }
-  .patent-claim__note { line-height: 1.6; }
-
-  /* 7.4 Citations */
-  .cite-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-top: 14px;
-  }
-  @media (min-width: 720px) {
-    .cite-grid { grid-template-columns: 1fr 1fr; }
-  }
-  .cite-card {
-    background: var(--paper);
-    border: 1px solid rgba(18,36,44,0.12);
-    border-radius: var(--radius);
-    padding: 14px 16px;
-  }
-  .cite-card__label {
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    color: var(--hero-orange);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .cite-card__body {
-    font-size: 13.5px;
-    line-height: 1.8;
-    color: var(--ink);
-  }
-  .cite-card__body p { margin-bottom: 0; }
-
-  /* ── Section 4: Algorithm flow ── */
-  .algo-flow {
-    background: var(--card);
-    border: 1px solid rgba(18,36,44,0.12);
-    border-radius: var(--radius);
-    padding: 20px;
-    margin: 20px 0 12px;
-    box-shadow: var(--shadow);
-    overflow-x: auto;
-  }
-  .algo-flow svg { width: 100%; height: auto; min-width: 720px; display: block; }
-
-  /* ── Ambient motion: Tech Plate (page-specific) ── */
-  .tech-plate {
-    position: relative;
-    overflow: hidden;
-  }
-  .tech-plate::before {
-    content: '';
-    position: absolute;
-    inset: -30% -10%;
-    background: radial-gradient(circle at 20% 40%, rgba(233,143,34,0.10), transparent 55%),
-                radial-gradient(circle at 85% 70%, rgba(201,222,220,0.05), transparent 60%);
-    animation: platePulse 9s ease-in-out infinite;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .tech-plate > * { position: relative; z-index: 1; }
-  @keyframes platePulse {
-    0%, 100% { transform: scale(1)   translateX(0);   opacity: 0.55; }
-    50%      { transform: scale(1.15) translateX(2%); opacity: 1;    }
-  }
-  .tech-plate__status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    justify-content: flex-end;
-    padding-bottom: 12px;
-    margin-bottom: 4px;
-    border-bottom: 1px solid rgba(233,143,34,0.20);
-  }
-  .tech-plate__led {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #4ade80;
-    box-shadow: 0 0 8px rgba(74,222,128,0.7), 0 0 2px rgba(74,222,128,1);
-    animation: ledBlink 2.4s ease-in-out infinite;
-  }
-  @keyframes ledBlink {
-    0%, 40%, 100% { opacity: 1;   transform: scale(1);   }
-    45%           { opacity: 0.3; transform: scale(0.85); }
-    50%           { opacity: 1;   transform: scale(1);   }
-  }
-  .tech-plate__status-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    color: rgba(74,222,128,0.85);
-    font-weight: 700;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .tech-plate::before,
-    .tech-plate__led { animation: none !important; }
-  }
-
-  /* ── Interactive Demo focus glow ── */
-  .demo-input:focus {
-    box-shadow: 0 0 0 4px rgba(233,143,34,0.15);
-  }
-  .demo-chip {
-    transition: background 0.15s, border-color 0.15s, transform 0.15s;
-  }
-  .demo-chip:active { transform: scale(0.96); }
-  .demo-score__num {
-    transition: color 0.25s ease;
-  }
+  .hero-figure { margin: 20px auto; max-width: 720px; background: var(--card); border: 1px solid rgba(18,36,44,0.12); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); }
+  .hero-figure img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  .hero-figure figcaption { font-size: 12.5px; color: var(--muted); margin-top: 10px; text-align: center; }
+  .faq-item { border-bottom: 1px solid rgba(18,36,44,0.12); padding: 16px 0; }
+  .faq-item[open] .faq-q { color: var(--hero-orange); }
 </style>
-
-<script is:inline>
-(function () {
-  const RECORD = {
-    candidate_name: 'CLOコンパス 物流統括管理者向け意思決定支援ツール',
-    must:           'CLO 物流統括管理者向け 全社横断KPI可視化 法令対応レポート自動生成 WMS TMS データ連携 経営意思決定支援',
-    scene:          '経営戦略立案 改正物流効率化法 定期報告 取締役会 全社KPIダッシュボード',
-    examples:       'CLO報告書作成 全社KPIダッシュボード 国交省定期報告 取締役会向け物流改革報告 積載率 荷待ち時間',
-    visible_text:   'CLOコンパスは物流を成功に導く 意思決定支援ツール',
-    must_not:       'WMS TMS 現場オペレーション 中小企業 運送会社 配送最適化 在庫管理',
-  };
-
-  const FIELDS = [
-    { key: 'must',           weight: 2.0, label: 'must' },
-    { key: 'examples',       weight: 1.5, label: 'examples' },
-    { key: 'scene',          weight: 1.5, label: 'scene' },
-    { key: 'candidate_name', weight: 1.5, label: 'candidate_name' },
-    { key: 'visible_text',   weight: 1.0, label: 'visible_text' },
-  ];
-  const MUST_NOT_PENALTY = -3.0;
-
-  // Pre-compute record bigrams
-  function bigrams(text) {
-    if (!text) return new Set();
-    const clean = text.replace(/[\s　]+/g, '');
-    const set = new Set();
-    for (let i = 0; i < clean.length - 1; i++) {
-      set.add(clean.substring(i, i + 2));
-    }
-    return set;
-  }
-  const RECORD_GRAMS = {};
-  for (const k of Object.keys(RECORD)) RECORD_GRAMS[k] = bigrams(RECORD[k]);
-
-  const $q         = document.getElementById('demoQuery');
-  const $qBigrams  = document.getElementById('qBigrams');
-  const $qCount    = document.getElementById('qCount');
-  const $fields    = document.getElementById('fieldOverlap');
-  const $scoreBar  = document.getElementById('scoreBar');
-  const $scoreNeg  = document.getElementById('scoreBarNeg');
-  const $scoreNum  = document.getElementById('scoreNum');
-  const $scoreHint = document.getElementById('scoreHint');
-  if (!$q) return;
-
-  // Pre-build the fields DOM
-  const rows = {};
-  FIELDS.concat([{ key: 'must_not', weight: MUST_NOT_PENALTY, label: 'must_not' }]).forEach((f) => {
-    const row = document.createElement('div');
-    row.className = 'demo-field-row';
-    const isNeg = f.weight < 0;
-    row.innerHTML = `
-      <span class="demo-field-name">${f.label}</span>
-      <span class="demo-field-weight${isNeg ? ' is-neg' : ''}">${isNeg ? '−' : '+'}${Math.abs(f.weight).toFixed(1)}</span>
-      <div class="demo-field-bar-track"><div class="demo-field-bar${isNeg ? ' is-neg' : ''}" data-bar style="width:0%"></div></div>
-      <span class="demo-field-contrib is-zero" data-contrib>0.00</span>
-    `;
-    $fields.appendChild(row);
-    rows[f.key] = row;
-  });
-
-  const SCORE_MAX_ABS = 12; // for bar scaling
-
-  function compute(query) {
-    const qGrams = bigrams(query);
-    const contribs = {};
-    let total = 0;
-    let posSum = 0;
-    let mustNotHits = new Set();
-
-    // Positive fields
-    for (const f of FIELDS) {
-      const common = new Set();
-      for (const g of qGrams) if (RECORD_GRAMS[f.key].has(g)) common.add(g);
-      const c = f.weight * common.size;
-      contribs[f.key] = { common, count: common.size, contribution: c };
-      total += c;
-      posSum += c;
-    }
-    // must_not penalty
-    for (const g of qGrams) if (RECORD_GRAMS.must_not.has(g)) mustNotHits.add(g);
-    const penalty = MUST_NOT_PENALTY * mustNotHits.size;
-    contribs.must_not = { common: mustNotHits, count: mustNotHits.size, contribution: penalty };
-    total += penalty;
-
-    return { qGrams, contribs, total, penalty };
-  }
-
-  function render(query) {
-    const { qGrams, contribs, total, penalty } = compute(query);
-
-    // Compute which qGrams matched any positive field vs must_not
-    const posMatched = new Set();
-    for (const f of FIELDS) for (const g of contribs[f.key].common) posMatched.add(g);
-    const negMatched = contribs.must_not.common;
-
-    // Bigram tokens display
-    $qCount.textContent = qGrams.size;
-    $qBigrams.innerHTML = '';
-    if (qGrams.size === 0) {
-      $qBigrams.innerHTML = '<span style="font-size:12px; color:var(--muted)">（クエリを入力してください）</span>';
-    } else {
-      for (const g of qGrams) {
-        const el = document.createElement('span');
-        el.className = 'bigram';
-        if (negMatched.has(g)) el.classList.add('is-matched-neg');
-        else if (posMatched.has(g)) el.classList.add('is-matched');
-        el.textContent = g;
-        $qBigrams.appendChild(el);
-      }
-    }
-
-    // Per-field bars
-    const maxContribAbs = Math.max(1, ...Object.values(contribs).map(c => Math.abs(c.contribution)));
-    for (const f of FIELDS.concat([{ key: 'must_not' }])) {
-      const row = rows[f.key];
-      const c = contribs[f.key];
-      const bar = row.querySelector('[data-bar]');
-      const cn = row.querySelector('[data-contrib]');
-      const pct = Math.min(100, (Math.abs(c.contribution) / maxContribAbs) * 100);
-      bar.style.width = pct + '%';
-      cn.textContent = (c.contribution >= 0 ? '+' : '') + c.contribution.toFixed(2);
-      cn.classList.toggle('is-zero', c.contribution === 0);
-      cn.classList.toggle('is-neg', c.contribution < 0);
-    }
-
-    // Total score bar
-    $scoreNum.textContent = (total >= 0 ? '+' : '') + total.toFixed(2);
-    $scoreNum.style.color = total >= 0 ? 'var(--hero-orange)' : '#E24B4A';
-    const posPct = Math.min(50, (Math.max(0, total) / SCORE_MAX_ABS) * 50);
-    const negPct = Math.min(50, (Math.abs(Math.min(0, total)) / SCORE_MAX_ABS) * 50);
-    $scoreBar.style.width = posPct + '%';
-    $scoreNeg.style.width = negPct + '%';
-
-    // Hint
-    if (qGrams.size === 0) {
-      $scoreHint.textContent = 'クエリを入力するとスコアが動きます';
-    } else if (total > 3) {
-      $scoreHint.textContent = '🎯 このクエリは正しく届く（候補として上位に来る）';
-    } else if (total < -0.5) {
-      $scoreHint.textContent = '🚫 must_not が発動：このクエリには推薦されない（意図した挙動）';
-    } else if (total > 0) {
-      $scoreHint.textContent = '△ 弱いマッチ（もう少しレコード側の文脈を厚くする余地あり）';
-    } else {
-      $scoreHint.textContent = '～ ほぼ関係なし。境界の外側のクエリ';
-    }
-  }
-
-  // Wire events
-  $q.addEventListener('input', (e) => render(e.target.value));
-  document.querySelectorAll('.demo-chip').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      $q.value = btn.dataset.q;
-      render(btn.dataset.q);
-    });
-  });
-
-  // Initial render
-  render($q.value);
-})();
-</script>
-

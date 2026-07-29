@@ -1,252 +1,328 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Meandle get lead｜高単価B2Bの売る意味を1ページへ実装｜Meandle';
+const description = 'Meandle get leadは、意味適合スプリントで定めた対象・価値・根拠・対象外条件を、商談に必要な1ページへ実装し、初回比較まで行うB2B意味実装です。1ページ200万円前後。';
+const ogTitle = '商談に必要な売る意味を、1ページへ実装する｜Meandle get lead';
+const ogDescription = '意味仕様を、情報設計、本文、比較軸、根拠、FAQ、メタ情報へ反映。既存制作会社とも役割を分け、実装後に初回比較を行います。';
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://meandle.jp/get-lead/#webpage',
+    url: 'https://meandle.jp/get-lead/',
+    name: title,
+    description: description,
+    inLanguage: 'ja',
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    about: { '@id': 'https://meandle.jp/get-lead/#service' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': 'https://meandle.jp/get-lead/#service',
+    name: 'Meandle get lead',
+    serviceType: 'B2B意味実装',
+    url: 'https://meandle.jp/get-lead/',
+    description: '意味仕様を、情報設計、本文、比較軸、根拠、FAQ、メタ情報へ一貫して反映し、実装後の初回比較まで行う高単価B2B向けの1ページ実装です。',
+    provider: { '@id': 'https://meandle.jp/#organization' },
+    areaServed: 'JP',
+    audience: {
+      '@type': 'BusinessAudience',
+      audienceType: '高単価で説明が複雑なB2B商材の経営者、事業責任者、営業・マーケティング責任者',
+    },
+  },
+];
 ---
 <BaseLayout
-  title='Meandle Get Lead — 広告ゼロ・資料請求サービスゼロ・「正しく理解した人」だけが来る状態をつくる｜Meandle'
-  description="CLOコンパスのLLM実験では、みんどり前のターゲット誤認100%が「みんどり後0%」に。研究データでは非広告流入75.1%、商談69件、受注確定8件。AIに「対象者像」を正確に伝えることでミスマッチを排除します。"
+  title={title}
+  description={description}
+  canonical="/get-lead/"
+  ogTitle={ogTitle}
+  ogDescription={ogDescription}
+  ogImage="/images/get-lead/get-lead-hero-v2.webp"
+  structuredData={structuredData}
 >
+  <!-- Section 1: Hero -->
   <section class="hero hero--split">
     <div class="hero__bg-grid" aria-hidden="true"></div>
     <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
-      <div class="hero__split">
-        <div class="hero__left">
-          <span class="eyebrow hero__eyebrow">Meandle Get Lead</span>
-          <h1 class="hero-copy">広告ゼロ。資料請求サービスゼロ。<br/>「正しく理解した人」だけが来る状態をつくる。</h1>
-          <p style="margin-top:20px">リード数は多くても、「的外れな問い合わせ」では営業工数が増えるだけです。<br/>みんどると、AIが「このサービスの対象者はこういう人だ」と正確に理解してから見込み客に紹介します。届く前から<strong>ミスマッチが排除</strong>されている状態が、みんどりの最大の価値です。</p>
-        </div>
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　Meandle get lead</nav>
+      <span class="eyebrow hero__eyebrow">Meandle get lead / Meaning Implementation</span>
+      <h1 class="hero-copy">商談に必要な「売る意味」を、<br/>1ページへ実装する。</h1>
 
-        <aside class="proof-panel" aria-label="リード品質 ライブ表示">
-          <div class="proof-panel__head">
-            <span class="proof-panel__led"></span>
-            <span class="proof-panel__label">LEAD&nbsp;QUALITY</span>
-            <span class="proof-panel__timer"></span>
-          </div>
-          <div class="proof-stage">
-            <div class="proof-slide is-active">
-              <div class="proof-slide__type">🔵 CLO実験：ターゲット誤認率</div>
-              <div class="proof-slide__num"><span class="proof-num" data-count-to="0">100</span><span class="proof-slide__unit">%&nbsp;→&nbsp;0%</span></div>
-              <div class="proof-slide__name">みんどり前 100% → みんどり後 0%</div>
-              <div class="proof-slide__body"><strong>中小・3PL 向けと誤答</strong>していた LLM が、「大規模荷主の経営層・CLO向け」と<strong>正確に限定</strong>して回答するように。3問全問で誤認消失。</div>
-              <div class="proof-slide__query">「CLOコンパスはどんな企業向け？」</div>
-            </div>
-            <div class="proof-slide">
-              <div class="proof-slide__type">💼 実務データ：非広告流入比率</div>
-              <div class="proof-slide__num"><span class="proof-num" data-count-to="75.1" data-decimals="1">75.1</span><span class="proof-slide__unit">%</span></div>
-              <div class="proof-slide__name">広告停止期間中も 26 件問い合わせ</div>
-              <div class="proof-slide__body">B2B 専門サイトでの実務観察値。<strong>広告経由ではないオーガニックな引き寄せ</strong>が、ページ構造の意味設計だけで安定継続。</div>
-              <div class="proof-slide__query">総セッション 31,626 中の内訳</div>
-            </div>
-            <div class="proof-slide">
-              <div class="proof-slide__type">📈 実務データ：商談→受注ファネル</div>
-              <div class="proof-slide__num"><span class="proof-num" data-count-to="69">69</span><span class="proof-slide__unit">→&nbsp;8&nbsp;件</span></div>
-              <div class="proof-slide__name">商談 69 件 · 受注 8 件確定</div>
-              <div class="proof-slide__body">受注単価 <strong>500 万〜 2,000 万円</strong>。理解の質が高い問い合わせだけが到達するので、営業工数を集中投下できる状態。</div>
-              <div class="proof-slide__query">Jag Yamamoto の実務観察</div>
-            </div>
-          </div>
-          <div class="proof-panel__dots">
-            <button class="proof-dot is-active" data-i="0" aria-label="LLM誤認率"></button>
-            <button class="proof-dot" data-i="1" aria-label="非広告流入"></button>
-            <button class="proof-dot" data-i="2" aria-label="商談→受注"></button>
-          </div>
-        </aside>
-      </div>
+      <p class="lead" style="margin-top:20px">
+        だれに、何を、なぜ提供し、何ではないか。<br/>
+        Meandle get leadは、意味仕様を情報設計、本文、比較軸、根拠、FAQ、メタ情報へ一貫して反映し、実装後の初回比較まで行う高単価B2B向けの1ページ実装です。
+      </p>
+      <p>
+        広告費を増やす前に、AIと見込み客が拾える「売る意味」を整える。その前提が定まった商材だけを、商談で判断される1ページへ実装します。
+      </p>
 
-      <div class="hero-marquee" aria-hidden="true">
-        <div class="hero-marquee__track">
-          <span class="hero-marquee__lead">◉ LEAD QUALITY MODE</span>
-          <span>▸ LLM misclassification 100% → 0%</span>
-          <span>▸ Non-ad traffic 75.1%</span>
-          <span>▸ 商談 69 · 受注 8 · 単価 500〜2,000 万円</span>
-          <span>▸ must_not · record-side exclusion</span>
-          <span>▸ MNDR-2026-001 · patent pending</span>
-          <span class="hero-marquee__lead">◉ LEAD QUALITY MODE</span>
-          <span>▸ LLM misclassification 100% → 0%</span>
-          <span>▸ Non-ad traffic 75.1%</span>
-          <span>▸ 商談 69 · 受注 8 · 単価 500〜2,000 万円</span>
-          <span>▸ must_not · record-side exclusion</span>
-          <span>▸ MNDR-2026-001 · patent pending</span>
-        </div>
+      <p style="margin-top:16px"><strong>1ページ実装＋実装後初回比較｜200万円前後</strong></p>
+
+      <div class="hero__cta-group">
+        <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
       </div>
+      <p style="font-size:13px; color:var(--muted); margin-top:12px">
+        原則として、do.meandleの意味適合スプリント完了後に進みます。<br/>
+        既存の意味仕様がある場合は、実装の前提として使用できるかを確認します。
+      </p>
+
+      <figure class="hero-figure">
+        <img
+          src="/images/get-lead/get-lead-hero-v2.webp"
+          alt="複数の意味仕様の層が、一つのB2Bページへ実装され、意思決定者の検討材料になるイメージ"
+          width="1536" height="1024"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <figcaption>定めた意味を、1ページの全ての判断材料へ通します。</figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- CLO Compass: lead quality proof -->
-  <section class="section">
-    <div class="container">
-      <span class="eyebrow">リード品質の証拠</span>
-      <h2>CLOコンパス LLM実験</h2>
-      <span class="ev-badge ev-badge--sim">🔵 自主実験（LLM応答実測）— CLOコンパス参照</span>
-
-      <div class="ev-box ev-box--sim">
-        <p style="font-size:14px">CLOコンパス（物流DXサービス）のみんどり前後で LLM 応答がどう変わるかを実測しました。</p>
-
-        <div class="table-wrap">
-          <table class="compare-table">
-            <thead>
-              <tr>
-                <th style="width:28%">AI質問</th>
-                <th>みんどり前（名称のみ）</th>
-                <th>みんどり後</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="font-size:12.5px">「CLOコンパスはどんな企業向けですか」</td>
-                <td style="font-size:12.5px">❌ 中小物流企業・3PL向けと<strong>誤答</strong></td>
-                <td style="font-size:12.5px; background:rgba(233,143,34,0.10)">✅ 大規模荷主の経営層・CLO向けと<strong>正確に回答</strong></td>
-              </tr>
-              <tr>
-                <td style="font-size:12.5px">「中小企業でも使えますか」</td>
-                <td style="font-size:12.5px">❌ 対象外を明言せず<strong>曖昧に誘導</strong></td>
-                <td style="font-size:12.5px; background:rgba(233,143,34,0.10)">✅ 中小企業向けではないと<strong>明言</strong></td>
-              </tr>
-              <tr>
-                <td style="font-size:12.5px">「物流管理システムを検討中。特徴を教えて」</td>
-                <td style="font-size:12.5px">❌ 配送管理・在庫管理システムと<strong>誤記</strong></td>
-                <td style="font-size:12.5px; background:rgba(233,143,34,0.10)">✅ 積載率・荷待ち・法令対応を<strong>正確に説明</strong></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="metric-grid" style="margin-top:20px">
-          <div class="metric-card">
-            <div class="label">ターゲット誤認</div>
-            <div class="value"><span class="motion-count" data-count-to="100" data-decimals="0" data-suffix="%">100%</span></div>
-            <div class="sub">→ みんどり後 <strong style="color:var(--hero-orange)">0%</strong></div>
-          </div>
-          <div class="metric-card">
-            <div class="label">機能誤記</div>
-            <div class="value"><span class="motion-count" data-count-to="100" data-decimals="0" data-suffix="%">100%</span></div>
-            <div class="sub">→ みんどり後 <strong style="color:var(--hero-orange)">0%</strong></div>
-          </div>
-          <div class="metric-card">
-            <div class="label">対象外を明言</div>
-            <div class="value"><span class="motion-count" data-count-to="0" data-decimals="0" data-suffix="/3問">0/3問</span></div>
-            <div class="sub">→ みんどり後 <strong style="color:var(--hero-orange)">3/3問</strong></div>
-          </div>
-        </div>
-
-        <div class="fact-bar fact-bar--highlight" style="margin-top:16px">
-          <span class="fact-bar__icon">💡</span>
-          <div><strong>実務的な意味：</strong>「中小企業向けではない」とAIが正しく説明することで、対象外のユーザーからの問い合わせが減り、来た問い合わせの事前理解が深まります。問い合わせ数よりも<strong>商談化率</strong>が上がる仕組みです。</div>
-        </div>
-
-        <div style="margin-top:12px; padding-top:10px; border-top:1px solid rgba(18,36,44,0.12); font-size:12px; color:var(--muted); line-height:1.7">
-          ※ CLOコンパスの委託実験ではなく Jag Yamamoto の自主実験。同社との提携関係なし。
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- B2B reference data from paper -->
+  <!-- Section 2: Problem -->
   <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">参考実績</span>
-      <h2>B2B専門サイト（研究データ）</h2>
-      <span class="ev-badge ev-badge--warn">📊 実務検証データ — 特定案件のみ、成果保証なし</span>
+    <div class="container container--narrow">
+      <span class="eyebrow">From Specification to Page</span>
+      <h2>意味仕様があっても、ページの各所でズレれば、判断材料になりません。</h2>
+      <p>対象顧客が決まっていても、Heroでは広く見せ、本文では機能だけを説明し、FAQでは対象外条件を省く。こうしたズレがあると、ページ全体は一つの商材を説明しているようで、別々の判断を促してしまいます。</p>
+      <p>高単価B2Bでは、見込み客が比較する対象、価値を裏付ける根拠、適さない条件までが、一つのページで矛盾なく読める必要があります。</p>
 
-      <div class="ev-box ev-box--warn">
-        <div class="metric-grid">
-          <div class="metric-card">
-            <div class="label">総セッション数</div>
-            <div class="value" style="font-size:22px"><span class="motion-count" data-count-to="31626" data-decimals="0" data-duration="1600">31,626</span></div>
-            <div class="sub">計測期間内</div>
-          </div>
-          <div class="metric-card">
-            <div class="label">商談件数</div>
-            <div class="value"><span class="motion-count" data-count-to="69" data-decimals="0" data-suffix="件">69件</span></div>
-            <div class="sub">有効リード</div>
-          </div>
-          <div class="metric-card">
-            <div class="label">受注確定</div>
-            <div class="value"><span class="motion-count" data-count-to="8" data-decimals="0" data-suffix="件">8件</span></div>
-            <div class="sub">受注単価500万〜2,000万円</div>
-          </div>
-          <div class="metric-card">
-            <div class="label">非広告流入比率</div>
-            <div class="value"><span class="motion-count" data-count-to="75.1" data-decimals="1" data-suffix="%">75.1%</span></div>
-            <div class="sub">広告停止期間中も26件問い合わせ</div>
-          </div>
-        </div>
-        <div style="margin-top:14px; padding-top:10px; border-top:1px solid rgba(199,125,49,0.25); font-size:12px; color:var(--muted); line-height:1.7">
-          ※ Jag Yamamoto の実務案件における参考データ。特定案件の観察値であり、同等の成果を保証しません。クライアント名・業界詳細は守秘。
-        </div>
+      <div class="grid grid--2 mt-4">
+        <div class="card"><h3>Heroと本文で、対象者が違う</h3><p style="margin-bottom:0">冒頭の広い表現だけが残ると、本来の対象ではない相手にも同じ期待を持たせます。</p></div>
+        <div class="card"><h3>価値と根拠が、離れている</h3><p style="margin-bottom:0">実績や技術が、どの導入判断を支えるものかが分からなければ、比較材料になりません。</p></div>
+        <div class="card"><h3>対象外条件が、最後まで出てこない</h3><p style="margin-bottom:0">ページの終わりまで条件が見えなければ、営業があとから期待を調整することになります。</p></div>
+        <div class="card"><h3>既存制作会社と、判断基準を共有できていない</h3><p style="margin-bottom:0">依頼内容が「分かりやすくしてほしい」だけでは、デザイン、本文、実装の優先順位が人によって変わります。</p></div>
       </div>
+
+      <p style="margin-top:20px">Meandle get leadは、文章だけを納品する仕事ではありません。<strong>意味仕様を、実装可能な1ページの要件と検収条件へ変える仕事</strong>です。</p>
     </div>
   </section>
 
-  <!-- Cost comparison -->
+  <!-- Section 3: Implementation Scope -->
   <section class="section">
-    <div class="container">
-      <span class="eyebrow">Cost Simulation</span>
-      <h2>リード獲得サービスとのコスト比較</h2>
-      <span class="ev-badge ev-badge--sim">⚠ SIMULATION — 参考試算値</span>
+    <div class="container container--narrow">
+      <span class="eyebrow">What Is Implemented</span>
+      <h2>1ページの「何を書くか」と「何を残すか」を、同じ意味で実装します。</h2>
+      <p>50万円〜のスプリントで定めた意味仕様を前提に、商談に必要な判断材料を一つのページへそろえます。実装範囲は既存環境と責任分担を確認して決めます。</p>
 
-      <div class="sim-box">
-        <span class="sim-label">前提：平均単価500万円のB2Bソリューション、月10〜15件商談リード目標</span>
+      <div class="grid grid--2 mt-4">
+        <div class="card"><h3>情報設計</h3><p style="margin-bottom:0">Hero、問題提起、提供価値、比較軸、根拠、対象外条件、FAQ、最終行動までの順番を設計します。</p></div>
+        <div class="card"><h3>本文と見出し</h3><p style="margin-bottom:0">各セクションで、誰に、何を、なぜ提供し、何ではないかが矛盾しないように反映します。</p></div>
+        <div class="card"><h3>比較軸と根拠</h3><p style="margin-bottom:0">競合との比較を煽るのではなく、顧客が自社に適合するかを判断できる条件と、主張を支える事実を近接して配置します。</p></div>
+        <div class="card"><h3>FAQとメタ情報</h3><p style="margin-bottom:0">購入前の確認事項をFAQへ整理し、title、description、構造化データなどの機械向け情報にも同じ意味を通します。</p></div>
+        <div class="card"><h3>実装・公開に向けた差分</h3><p style="margin-bottom:0">既存チームが実装する場合も、必要な変更、残す要素、確認条件を引き継げる形にします。</p></div>
+      </div>
 
-        <div class="table-wrap">
-          <table class="compare-table">
-            <thead>
-              <tr>
-                <th>手法</th>
-                <th>月額費用</th>
-                <th>特徴</th>
-                <th>年間概算</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Google広告（高額B2B）</td>
-                <td>100〜300万円</td>
-                <td>広告停止でゼロになる。AI Overview には掲載されない。</td>
-                <td>1,200〜3,600万円</td>
-              </tr>
-              <tr>
-                <td>資料一括請求サービス</td>
-                <td>20〜50万円+<br/>1.5〜3万円/件</td>
-                <td>横断比較で来るため、事前理解が薄く商談化率が低い</td>
-                <td>480〜900万円</td>
-              </tr>
-              <tr class="highlight">
-                <td><strong>Meandle Get Lead</strong></td>
-                <td><strong>初期費用のみ<br/>（月額なし）</strong></td>
-                <td>みんどりで「正しく理解した人」が来る。商談品質が高い。</td>
-                <td><strong>200万前後（初期のみ）</strong></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="sim-disclaimer">
-          ※ B2BリスティングCPC相場：300〜2,000円（2025〜2026年広告市場調査）。資料一括請求CPL相場：2〜5万円/件。試算値は参考値であり、個別結果を保証しません。
-        </div>
+      <div class="callout-note">
+        <strong>範囲外：</strong>複数ページの同時改修、ブランド刷新、広告運用、記事量産、順位計測だけの代行は含みません。追加のデザイン、開発、CMS改修、撮影、公開作業は、必要に応じて個別に範囲を決めます。
       </div>
     </div>
   </section>
 
-  <!-- Pricing -->
+  <!-- Section 4: Process -->
   <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">Pricing</span>
-      <h2>料金プラン</h2>
-      <div class="price-card">
-        <div class="price-label">Meandle Get Lead（標準プラン）</div>
-        <div class="price">¥2,000,000<span class="price-unit"> 前後</span></div>
-        <div class="price-note">
-          現状ページ診断・みんどりIndex構造化・ページ最適化実装・フォーム設置・リード管理フロー設計 一式<br/>
-          <small>※ 成果報酬プラン（1リードあたりフィーシェア型）も別途ご相談可</small>
-        </div>
+    <div class="container container--narrow">
+      <span class="eyebrow">One-Page Implementation</span>
+      <h2>決めた意味を、設計・実装・初回比較まで途切れさせません。</h2>
+      <p>実装を始める前に、意味仕様、対象ページ、事実確認の担当、既存制作体制、公開条件を確認します。実際の期間と分担は、対象ページの状態と実装環境により個別に決定します。</p>
+
+      <figure class="hero-figure">
+        <img
+          src="/images/get-lead/get-lead-implementation-comic-v2.webp"
+          alt="意味仕様の確認、ページ設計、既存チームとの実装、初回比較と引き継ぎを示す4段階の図"
+          width="1536" height="1024"
+          loading="lazy"
+        />
+        <figcaption>実装後に初回比較を行い、確認できたことと判断できないことを分けて引き継ぎます。</figcaption>
+      </figure>
+
+      <ol class="mt-4" style="font-size:15.5px; line-height:1.95">
+        <li><strong>そろえる</strong>：意味仕様、対象ページ、根拠、責任分担、公開条件をそろえます。</li>
+        <li><strong>設計する</strong>：情報設計、本文、比較軸、FAQ、メタ情報を、1ページの要件へ変えます。</li>
+        <li><strong>実装する</strong>：Meandleまたは既存制作チームが、合意した要件と差分に沿ってページへ反映します。</li>
+        <li><strong>初回比較して渡す</strong>：実装前に定めた条件で初回比較を行い、記録、変更履歴、次の更新判断を共有します。</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Section 5: Acceptance -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">What You Receive</span>
+      <h2>実装物だけでなく、次の更新を判断できる記録を残します。</h2>
+      <p>実装したページがあっても、何を意図して変えたのか、何を次に確かめるのかが残らなければ、更新時に意味のズレが戻ります。</p>
+      <p>Meandle get leadでは、実装物と確認条件を切り離さずに引き継ぎます。</p>
+
+      <ul class="mt-3" style="font-size:15.5px; line-height:1.95">
+        <li>実装対象1ページの情報設計と、意味仕様との対応表</li>
+        <li>確定した見出し、本文、比較軸、根拠、FAQ、メタ情報の原稿または差分</li>
+        <li>実装済みページ、または既存制作チームへ渡す実装差分・確認記録</li>
+        <li>実装前に定めた対象／対象外の確認条件</li>
+        <li>実装後の初回比較記録（条件、日時、観察内容、限界）</li>
+        <li>変更履歴と、次に更新を判断するための引き継ぎ事項</li>
+      </ul>
+
+      <div class="callout-note">
+        実装の担当範囲により、納品形式は変わります。公開前に、どの成果物をどの環境へ反映するか、誰が検収するかを合意します。
       </div>
     </div>
   </section>
 
+  <!-- Section 6: Existing Team -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Work with Your Existing Team</span>
+      <h2>既存の制作会社を替えずに、実装の判断基準をそろえられます。</h2>
+      <p>すでに制作会社、開発チーム、広報・営業チームがいる場合、Meandleはそれらを置き換えることが目的ではありません。</p>
+      <p>意味仕様を、ページの優先順位、具体的な差分、確認条件へ変え、各チームが同じ前提で作業できる状態をつくります。</p>
+
+      <div class="grid grid--2 mt-4">
+        <div class="card"><h3>Meandleが担うこと</h3><p style="margin-bottom:0">意味仕様の確認、情報設計、表現と根拠の整合、対象外条件、実装差分、初回比較の条件整理を担います。</p></div>
+        <div class="card"><h3>既存制作会社が担えること</h3><p style="margin-bottom:0">既存のデザインシステム、コンポーネント、CMS、公開運用を使い、合意した要件をページへ反映します。</p></div>
+        <div class="card"><h3>顧客チームが担うこと</h3><p style="margin-bottom:0">商材、顧客、実績、法務・ブランド表現の事実確認と、公開・検収の意思決定を担います。</p></div>
+      </div>
+
+      <p style="margin-top:20px">体制を変えることではなく、判断基準をそろえることから始めます。</p>
+    </div>
+  </section>
+
+  <!-- Section 7: Pricing -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">One Page, One Decision</span>
+      <h2>1ページ200万円前後で、意味仕様を実装と初回比較まで進めます。</h2>
+
+      <div class="price-card mt-3">
+        <div class="price-label">Meandle get lead</div>
+        <div class="price">¥2,000,000<span class="price-unit"> 前後 / ページ</span></div>
+        <p style="margin-bottom:0">対象は、優先順位が定まった1商材・1ページです。意味適合スプリントで定めた仕様を、実装、初回比較、引き継ぎまでつなげます。ページの状態、既存制作体制、デザイン・CMS・公開作業の範囲により、具体的な分担と条件を決めます。</p>
+      </div>
+
+      <div class="grid grid--2 mt-4">
+        <div class="card">
+          <h3>まだ意味仕様がない場合</h3>
+          <p>まず、do.meandle 意味適合スプリント（50万円〜）で、実装すべき対象、価値、根拠、対象外条件、差分案を定めます。</p>
+          <p style="margin-bottom:0"><a href="/do-meandle/">do.meandleを見る →</a></p>
+        </div>
+        <div class="card">
+          <h3>実装後も更新を続けたい場合</h3>
+          <p style="margin-bottom:0">複数ページや更新をまたぐ比較・更新は、do.meandle 伴走（月120万円〜）で個別に設計します。</p>
+        </div>
+      </div>
+
+      <div class="callout-note">
+        表示価格は目安です。対象商材、実装環境、責任分担、事実確認、公開範囲により個別に設計します。表示、応答、商談成果を保証するものではありません。
+      </div>
+
+      <div style="text-align:center; margin-top:24px">
+        <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 8: Fit and FAQ -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Fit Before Build</span>
+      <h2>Meandle get leadが向くページと、別の施策を先に行うページがあります。</h2>
+
+      <div class="grid grid--2 mt-4">
+        <div>
+          <h3 style="color:var(--hero-orange)">向いているページ</h3>
+          <ul>
+            <li>高単価B2B商材で、一件の商談価値が高い</li>
+            <li>意味適合スプリント、または同等に具体的な意味仕様がある</li>
+            <li>90日以内に優先して整えたい1ページが決まっている</li>
+            <li>対象顧客、対象外条件、比較軸、根拠を事実確認できる</li>
+            <li>既存制作会社または顧客内の実装担当と連携できる</li>
+            <li>事業責任者、営業責任者、マーケティング責任者のいずれかが検収に参加できる</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="color:var(--muted)">向いていないページ</h3>
+          <ul>
+            <li>何を売るページか、誰を対象にするかがまだ決まっていない</li>
+            <li>いきなり複数ページの全面改修やブランド刷新を求めている</li>
+            <li>デザインだけ、記事本数だけ、順位計測だけを求めている</li>
+            <li>公開前の事実確認、根拠の提示、対象外条件の合意ができない</li>
+            <li>リード数、商談数、検索順位、AI応答の保証を前提としている</li>
+            <li>1ページ200万円前後の実装投資から始める予算がない</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="margin-top:32px">FAQ</h3>
+      <details class="faq-item">
+        <summary class="faq-q">50万円〜の意味適合スプリントと何が違いますか。</summary>
+        <div class="faq-a">50万円〜のスプリントは、何をどう伝えるか、何を対象外にするか、実装で何を変えるかを定める段階です。Meandle get leadでは、その仕様を1ページへ実装し、実装後の初回比較と引き継ぎまで進めます。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">意味適合スプリントを受けていなくても依頼できますか。</summary>
+        <div class="faq-a">原則として、意味適合スプリントを実装の前提にします。すでに対象、価値、根拠、対象外条件、実装差分が具体的に定まっている場合は、既存の資料を確認し、実装の前提として使用できるかを判断します。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">既存の制作会社、開発チームと進められますか。</summary>
+        <div class="faq-a">はい。Meandleは、既存体制を置き換えることが目的ではありません。意味仕様を、情報設計、本文、メタ情報、実装差分、検収条件へ変え、既存チームと役割を分けて進めます。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Meandleがすべてのデザインや実装を担当しますか。</summary>
+        <div class="faq-a">担当範囲は、既存の制作環境、デザインシステム、実装体制、公開条件を確認して決めます。Meandleが担う意味設計と実装要件の範囲、既存チームが担う範囲を、公開前に明確にします。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">実装後の初回比較とは何ですか。</summary>
+        <div class="faq-a">実装前に定めた対象／対象外の確認条件を使い、実装後に同じ条件で確認します。確認日時、条件、観察内容、判断できないことを記録します。表示や商談成果を保証するものではありません。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">どのくらいの期間がかかりますか。</summary>
+        <div class="faq-a">期間は、対象ページの状態、既存制作体制、必要な事実確認、実装環境、公開条件により決定します。実装開始前に、責任分担と検収条件を含む計画をご案内します。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">新規ページでも対象ですか。</summary>
+        <div class="faq-a">初年度の標準対象は、意味適合スプリントで確認した既存URL 1本です。新規ページは、情報設計、制作体制、公開責任の範囲が既存ページの改修と異なるため、同じ条件で受けるとは限りません。まず既存資料と公開予定のページ要件を確認し、別途の対象になるかを判断します。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Section 9: Final -->
   <section class="cta-block">
-    <h2>現在のLPを1つ、教えてください。</h2>
-    <p>商談化率を阻んでいる箇所を、無理のない範囲で30分壁打ちします。</p>
-    <a href="/contact/" class="btn btn--primary">リード獲得を相談する</a>
+    <div class="container container--narrow">
+      <span class="eyebrow" style="color:var(--hero-orange)">Build One Priority Page</span>
+      <h2>実装したい優先ページを、1つに絞ってお知らせください。</h2>
+      <p>対象商材、実装したいページ、意味仕様の有無、既存制作体制、公開希望時期を確認します。</p>
+      <p>Meandle get leadで扱うべき段階かを判断し、適合する場合に、1ページ200万円前後の実装条件をご案内します。</p>
+
+      <div style="text-align:left; max-width:520px; margin:20px auto 0; font-size:14px; color:rgba(255,255,255,0.85)">
+        <strong>送信前の確認</strong>
+        <ul style="margin-top:8px">
+          <li>優先して整えたい商材と1ページが決まっている</li>
+          <li>意味適合スプリント、または同等の意味仕様がある</li>
+          <li>商材と根拠の事実確認を担う担当者がいる</li>
+          <li>既存制作会社または社内の実装担当と連携できる</li>
+          <li>1ページ200万円前後の実装であることを理解している</li>
+          <li>結果保証や記事量産ではなく、意味実装と初回比較を求めている</li>
+        </ul>
+      </div>
+
+      <a href="/contact/" class="btn btn--primary" style="margin-top:24px">既存URLで導入適合性を確認する</a>
+
+      <p style="color:rgba(255,255,255,0.65); font-size:12px; margin-top:20px">
+        Meandleは、Jag Yamamoto / Jag Projectが開発・監修するB2B意味設計ソリューションです。<br/>
+        意味設計と検索文脈の整合に関する方法は、特許出願中です。<br/>
+        運営元：<a href="https://jagproject.com/" target="_blank" rel="noopener" style="color:var(--hero-orange)">jagproject.com ↗</a>
+      </p>
+    </div>
   </section>
 </BaseLayout>
+
+<style is:inline>
+  .hero-figure { margin: 20px auto; max-width: 720px; background: var(--card); border: 1px solid rgba(18,36,44,0.12); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); }
+  .hero-figure img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  .hero-figure figcaption { font-size: 12.5px; color: var(--muted); margin-top: 10px; text-align: center; }
+  .faq-item { border-bottom: 1px solid rgba(18,36,44,0.12); padding: 16px 0; }
+  .faq-item[open] .faq-q { color: var(--hero-orange); }
+</style>
