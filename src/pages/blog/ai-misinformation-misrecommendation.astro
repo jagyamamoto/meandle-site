@@ -56,10 +56,11 @@ const structuredData = [
       <div style="margin-top:20px"><a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a></div>
       <p style="font-size:13px; color:var(--muted); margin-top:12px">初回は、1商材・1URLの意味適合スプリント 50万円〜です。AIの応答、引用、検索順位、商談成果を保証するものではありません。</p>
 
-      <figure class="hero-figure">
-        <img src="/images/blog/ai-misinformation-misrecommendation/hero-v1.webp" alt="既存ページに対して、根拠を確認する情報経路と対象外条件を定める情報経路を分けて整理する二人のビジネス担当者" width="1536" height="1024" loading="eager" fetchpriority="high" />
-        <figcaption>事実の確認と、誰に向くかの条件は、別々に確かめてから一つのページへ反映します。<br/><small>盾・チェックの意匠は「事業側の証拠確認」を示すもので、外部AIの訂正保証ではありません。</small></figcaption>
-      </figure>
+      <div class="article-plate">
+        <div class="article-plate__row"><span class="article-plate__key">Article</span><span class="article-plate__val">購入前ガイド · 誤認 vs 誤推薦の切り分け</span><span class="article-plate__meta">reading time · 6分</span></div>
+        <div class="article-plate__row"><span class="article-plate__key">Evidence</span><span class="article-plate__val">OpenAI / Google / Microsoft 一次情報 + Meandle 設計方針 (E0)</span><span class="article-plate__meta">取得日 2026-07-29</span></div>
+        <div class="article-plate__row"><span class="article-plate__key">Product</span><span class="article-plate__val">do.meandle 意味適合スプリント · 50万〜</span><span class="article-plate__meta">no correction/deletion of AI output</span></div>
+      </div>
 
       <h2>AIの出力を、重要な事実の最終根拠にはしない。</h2>
       <p>OpenAIは、言語モデルが誤った、または誤解を招く出力を生成し得ること、確信を持ったように見えても正しいとは限らないことを説明しています。重要な情報は信頼できる情報源で確認するよう案内しています。 <a href="https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth" target="_blank" rel="noopener noreferrer">OpenAI Help：Does ChatGPT tell the truth?</a></p>
@@ -119,9 +120,29 @@ const structuredData = [
       <h2>心配なAI回答を追い続ける前に、事業側で確かめられる条件を定めます。</h2>
       <p>画面上の一つの回答を正解・不正解と急いで判定しません。どの情報が根拠か、どの相手には適合するか、既存ページはそれを伝えられているかを順に確認します。</p>
 
-      <figure class="hero-figure">
-        <img src="/images/blog/ai-misinformation-misrecommendation/comic-v1.webp" alt="既存ページの根拠不足と条件の曖昧さを確認し、根拠と対象外条件を分け、意味仕様をつくり、実装前後のページを確認する4段階の図" width="1536" height="1024" loading="lazy" />
-      </figure>
+      <div class="algo-flow motion-flow">
+        <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="誤認/誤推薦を切り分ける4段階">
+          <defs><marker id="arrow-aim" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#12242C"/></marker></defs>
+          <g font-family="var(--font-mono)" font-size="12" fill="#12242C">
+            <text x="450" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#E98F22">Concern → Bounded decision</text>
+            <rect x="20"  y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="110" y="92"  text-anchor="middle" font-size="13" font-weight="700">① 分ける</text>
+            <text x="110" y="118" text-anchor="middle" font-size="11" fill="#6F7777">事実か / 対象条件か</text>
+            <line x1="200" y1="100" x2="213" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-aim)"/>
+            <rect x="235" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="325" y="92"  text-anchor="middle" font-size="13" font-weight="700">② 確かめる</text>
+            <text x="325" y="118" text-anchor="middle" font-size="11" fill="#6F7777">根拠と適合条件を別々に</text>
+            <line x1="415" y1="100" x2="428" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-aim)"/>
+            <rect x="450" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="540" y="92"  text-anchor="middle" font-size="13" font-weight="700">③ 意味仕様化</text>
+            <text x="540" y="118" text-anchor="middle" font-size="11" fill="#6F7777">8項目仕様＋対象外</text>
+            <line x1="630" y1="100" x2="643" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-aim)"/>
+            <rect x="665" y="60" width="215" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="772" y="92"  text-anchor="middle" font-size="13" font-weight="700">④ 実装方針にする</text>
+            <text x="772" y="118" text-anchor="middle" font-size="11" fill="#6F7777">見出し/本文/比較/根拠/FAQ</text>
+          </g>
+        </svg>
+      </div>
 
       <ol class="mt-3" style="font-size:15.5px; line-height:1.95">
         <li><strong>気になる説明を分ける</strong>：既存URLと事実資料を見て、事実の不足か、対象条件の不足かを分けます。</li>

@@ -50,9 +50,11 @@ const structuredData = [
       <p>ここで扱うのは、LLMへ<strong>直接入力した情報の条件付き比較</strong>です。公開されたWebページのクロール、AI検索での表示、引用、検索順位、流入、商談、売上を測るものではありません。外部環境での結果を、このテストだけから推定することもしません。</p>
       <p>本文では便宜上、この作業を「CLO」と呼びます。CLOは<strong>作業ラベル</strong>であり、公式標準や一般法則ではありません。</p>
 
-      <figure class="hero-figure">
-        <img src="/images/blog/clo/clo-conditional-test-hero-v1.webp" alt="同一の質問に対して、異なる入力情報を与えた二条件の応答テストを中立的に記録する抽象イラスト" width="1536" height="1024" loading="eager" fetchpriority="high" />
-      </figure>
+      <div class="article-plate">
+        <div class="article-plate__row"><span class="article-plate__key">Article</span><span class="article-plate__val">検証ノート · 条件付きLLM応答テスト設計</span><span class="article-plate__meta">reading time · 7分</span></div>
+        <div class="article-plate__row"><span class="article-plate__key">Evidence</span><span class="article-plate__val">Meandle 設計方針 (E0) · 結果掲載は原ログ台帳が揃うまで保留</span><span class="article-plate__meta">CLO = 作業ラベル</span></div>
+        <div class="article-plate__row"><span class="article-plate__key">Scope</span><span class="article-plate__val">LLMへ直接与える入力の比較 · 公開Web/AI検索の効果を示さない</span><span class="article-plate__meta">no rank/citation guarantees</span></div>
+      </div>
 
       <h2>最初に：このテストで言えること、言えないこと</h2>
       <h3>言える可能性があること</h3>
@@ -95,10 +97,29 @@ const structuredData = [
       </ol>
       <p>この構造は、LLMを操作するためではなく、事業の説明を曖昧なまま渡さないためのものです。</p>
 
-      <figure class="hero-figure">
-        <img src="/images/blog/clo/clo-conditional-test-four-panel-v1.webp" alt="同一質問、条件Aの入力、条件Bの構造化入力、二つの応答と記録を順に表す四コマの抽象イラスト" width="1536" height="1024" loading="lazy" />
-        <figcaption>同じ質問を用意し、入力条件を分け、応答と実行条件を中立的に記録する。比較の前に、記録の再現可能性を整えます。</figcaption>
-      </figure>
+      <div class="algo-flow motion-flow">
+        <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="条件付き応答テストの構造">
+          <defs><marker id="arrow-clo" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#12242C"/></marker></defs>
+          <g font-family="var(--font-mono)" font-size="12" fill="#12242C">
+            <text x="450" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#E98F22">Same question · different inputs · recorded conditions</text>
+            <rect x="20"  y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="110" y="92"  text-anchor="middle" font-size="13" font-weight="700">① 質問を固定</text>
+            <text x="110" y="118" text-anchor="middle" font-size="11" fill="#6F7777">Q · 順番 · 言語</text>
+            <line x1="200" y1="100" x2="213" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-clo)"/>
+            <rect x="235" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="325" y="92"  text-anchor="middle" font-size="13" font-weight="700">② 条件A（最小情報）</text>
+            <text x="325" y="118" text-anchor="middle" font-size="11" fill="#6F7777">名称のみ入力</text>
+            <line x1="415" y1="100" x2="428" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-clo)"/>
+            <rect x="450" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="540" y="92"  text-anchor="middle" font-size="13" font-weight="700">③ 条件B（構造化）</text>
+            <text x="540" y="118" text-anchor="middle" font-size="11" fill="#6F7777">対象/価値/根拠/対象外</text>
+            <line x1="630" y1="100" x2="643" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-clo)"/>
+            <rect x="665" y="60" width="215" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="772" y="92"  text-anchor="middle" font-size="13" font-weight="700">④ 応答と実行条件を記録</text>
+            <text x="772" y="118" text-anchor="middle" font-size="11" fill="#6F7777">モデル/温度/反復/ID</text>
+          </g>
+        </svg>
+      </div>
 
       <h2>現在のCLO記録で確認できることと、確認できないこと</h2>
       <p>既存の表示用記録には、特定モデル名、日付、1つの質問についての二条件の入力・応答断片、トークン数の一部が含まれています。しかし、公開用に再検証できる原ログ一式はリポジトリ内で確認できませんでした。</p>

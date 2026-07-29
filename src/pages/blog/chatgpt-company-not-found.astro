@@ -61,9 +61,11 @@ const structuredData = [
         <strong>この記事で扱うこと：</strong>技術条件を確認する順番と、Meandleが担う「意味設計」の境界を整理します。AIの応答、引用、掲載、順位、商談の発生を保証する記事ではありません。
       </div>
 
-      <figure class="hero-figure">
-        <img src="/images/blog/chatgpt-company-not-found/hero-v1.webp" alt="公開条件、事実の整合、意味仕様、外部環境という四つの確認領域を表す抽象イラスト" width="1536" height="1024" loading="eager" fetchpriority="high" />
-      </figure>
+      <div class="article-plate">
+        <div class="article-plate__row"><span class="article-plate__key">Article</span><span class="article-plate__val">購入前ガイド · 公開/意味/外部変動の切り分け</span><span class="article-plate__meta">reading time · 6分</span></div>
+        <div class="article-plate__row"><span class="article-plate__key">Evidence</span><span class="article-plate__val">Google / OpenAI 一次情報 + Meandle 設計方針 (E0)</span><span class="article-plate__meta">取得日 2026-07-29</span></div>
+        <div class="article-plate__row"><span class="article-plate__key">Product</span><span class="article-plate__val">do.meandle 意味適合スプリント · 50万〜</span><span class="article-plate__meta">no guarantee of AI response</span></div>
+      </div>
 
       <h2>まず、技術的に読み取れる状態かを切り分ける</h2>
       <p>Googleは、検索に掲載されるための最低限の技術条件として、Googlebotがブロックされていないこと、ページがHTTP 200で正常に動くこと、インデックス可能な内容があることを挙げています。ただし、条件を満たしてもクロール・インデックス・表示は保証されません。 <a href="https://developers.google.com/search/docs/essentials/technical?hl=ja" target="_blank" rel="noopener noreferrer">Google Search の技術要件</a></p>
@@ -97,10 +99,29 @@ const structuredData = [
       <p>利用者の質問、モデルや検索の仕組み、外部情報源、地域・時点・文脈などは変わります。ChatGPT Searchは、質問を別の検索語に書き換えたり、複数の検索提供者を利用したりする場合があるとOpenAIは説明しています。 <a href="https://help.openai.com/en/articles/9237897-chatgpt-search" target="_blank" rel="noopener noreferrer">ChatGPT Search（OpenAI）</a></p>
       <p>この領域は、サイト側が完全に制御できるものではありません。だからこそ、単発の応答を「成功」や「失敗」の証明にせず、技術条件と公式説明を分けて記録します。</p>
 
-      <figure class="hero-figure">
-        <img src="/images/blog/chatgpt-company-not-found/four-panel-v1.webp" alt="公開条件、事実の整合、意味仕様、外部環境の変動を順に確認する四コマの抽象イラスト" width="1536" height="1024" loading="lazy" />
-        <figcaption>1. 公開条件を確認する　2. 公式情報の整合を見る　3. 意味仕様を整える　4. 変動する外部環境と混同しない。</figcaption>
-      </figure>
+      <div class="algo-flow motion-flow">
+        <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="4つの確認領域">
+          <defs><marker id="arrow-ccnf" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#12242C"/></marker></defs>
+          <g font-family="var(--font-mono)" font-size="12" fill="#12242C">
+            <text x="450" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#E98F22">4 different check domains</text>
+            <rect x="20"  y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="110" y="92"  text-anchor="middle" font-size="13" font-weight="700">① 公開・アクセス</text>
+            <text x="110" y="118" text-anchor="middle" font-size="11" fill="#6F7777">技術/運用の領域</text>
+            <line x1="200" y1="100" x2="213" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-ccnf)"/>
+            <rect x="235" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="325" y="92"  text-anchor="middle" font-size="13" font-weight="700">② 事実整合</text>
+            <text x="325" y="118" text-anchor="middle" font-size="11" fill="#6F7777">公式情報が矛盾なくあるか</text>
+            <line x1="415" y1="100" x2="428" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-ccnf)"/>
+            <rect x="450" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="540" y="92"  text-anchor="middle" font-size="13" font-weight="700">③ 意味仕様</text>
+            <text x="540" y="118" text-anchor="middle" font-size="11" fill="#6F7777">対象/価値/根拠/対象外</text>
+            <line x1="630" y1="100" x2="643" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-ccnf)"/>
+            <rect x="665" y="60" width="215" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="772" y="92"  text-anchor="middle" font-size="13" font-weight="700">④ 外部環境の変動</text>
+            <text x="772" y="118" text-anchor="middle" font-size="11" fill="#6F7777">制御できない領域</text>
+          </g>
+        </svg>
+      </div>
 
       <h2>確認は、上から順に進める</h2>
 

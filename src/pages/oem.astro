@@ -41,45 +41,96 @@ const structuredData = [
   canonical="/oem/"
   ogTitle={ogTitle}
   ogDescription={ogDescription}
-  ogImage="/images/oem/oem-hero-v1.webp"
   structuredData={structuredData}
 >
-  <!-- Section 1: Hero -->
+  <!-- Section 1: Hero (C) -->
   <section class="hero hero--split">
     <div class="hero__bg-grid" aria-hidden="true"></div>
     <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
       <nav class="breadcrumb"><a href="/">ホーム</a>　/　OEM</nav>
-      <span class="eyebrow hero__eyebrow">Meandle OEM / For Service Providers</span>
-      <h1 class="hero-copy">貴社の診断を、<br/>実装できる意味仕様へ。</h1>
+      <div class="hero__split">
+        <div class="hero__left">
+          <span class="eyebrow hero__eyebrow">Meandle OEM / For Service Providers</span>
+          <h1 class="hero-copy">貴社の診断を、<br/>実装できる意味仕様へ。</h1>
 
-      <p class="lead" style="margin-top:20px">
-        言及、引用、競合差、誤認の可能性を見つけた後、顧客ページをどう直すか。<br/>
-        Meandleは、観測結果を対象、価値、根拠、対象外条件、実装差分、検収条件へ変え、貴社ブランドの提案、制作、再確認へつなぐ共同提供です。
-      </p>
-      <p>
-        測る。決める。実装する。確かめる。<br/>
-        観測と顧客ページの間にある「何をどう直すか」を、担当者の経験だけにしないためのOEMです。
-      </p>
+          <p class="lead" style="margin-top:20px">
+            言及、引用、競合差、誤認の可能性を見つけた後、顧客ページをどう直すか。<br/>
+            Meandleは、観測結果を対象、価値、根拠、対象外条件、実装差分、検収条件へ変え、貴社ブランドの提案、制作、再確認へつなぐ共同提供です。
+          </p>
+          <p>
+            測る。決める。実装する。確かめる。<br/>
+            観測と顧客ページの間にある「何をどう直すか」を、担当者の経験だけにしないためのOEMです。
+          </p>
 
-      <div class="hero__cta-group">
-        <a href="/contact/" class="btn btn--primary">OEM導入適合性を確認する</a>
+          <div class="hero__cta-group">
+            <a href="/contact/" class="btn btn--primary">OEM導入適合性を確認する</a>
+          </div>
+          <p style="font-size:13px; color:var(--muted); margin-top:12px">
+            共同検証では、対象用途、入出力、顧客への提供範囲、検収条件、運用責任を先に確認します。<br/>
+            API、SDK、ホワイトラベル等の連携方式は、要件と技術条件を確認した上で個別に設計します。
+          </p>
+        </div>
+
+        <aside class="proof-panel" aria-label="共同提供ワークフロー ライブ表示">
+          <div class="proof-panel__head">
+            <span class="proof-panel__led"></span>
+            <span class="proof-panel__label">CO-DELIVERY&nbsp;·&nbsp;OEM&nbsp;PoC</span>
+            <span class="proof-panel__timer"></span>
+          </div>
+          <div class="proof-stage">
+            <div class="proof-slide is-active">
+              <div class="proof-slide__type">Step 1</div>
+              <div class="proof-slide__num proof-slide__num--label">Observe</div>
+              <div class="proof-slide__name">貴社の観測を受け取る</div>
+              <div class="proof-slide__body">言及、引用、競合差、誤認の可能性を、対象質問／対象外質問と共に受け取ります。</div>
+              <div class="proof-slide__query">not a replacement for your tools</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Step 2</div>
+              <div class="proof-slide__num proof-slide__num--label">Meaning Spec</div>
+              <div class="proof-slide__name">実装可能な意味仕様へ</div>
+              <div class="proof-slide__body">対象、価値、根拠、比較軸、対象外条件を、顧客ページで使える共通仕様にします。</div>
+              <div class="proof-slide__query">8-field spec for your clients</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Step 3</div>
+              <div class="proof-slide__num proof-slide__num--label">Implement</div>
+              <div class="proof-slide__name">顧客ページへ実装</div>
+              <div class="proof-slide__body">パートナー、顧客、実装担当が変更範囲・役割・公開条件を確認し、既存ページやCMSへ反映します。</div>
+              <div class="proof-slide__query">clear roles before delivery</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Step 4</div>
+              <div class="proof-slide__num proof-slide__num--label">Verify</div>
+              <div class="proof-slide__name">比較記録と次の判断</div>
+              <div class="proof-slide__body">事前に定めた条件で確認し、観察記録、限界、次の更新判断を共有します。</div>
+              <div class="proof-slide__query">no rank/citation/lead guarantees</div>
+            </div>
+          </div>
+          <div class="proof-panel__dots">
+            <button class="proof-dot is-active" data-i="0" aria-label="Observe"></button>
+            <button class="proof-dot" data-i="1" aria-label="Spec"></button>
+            <button class="proof-dot" data-i="2" aria-label="Implement"></button>
+            <button class="proof-dot" data-i="3" aria-label="Verify"></button>
+          </div>
+        </aside>
       </div>
-      <p style="font-size:13px; color:var(--muted); margin-top:12px">
-        共同検証では、対象用途、入出力、顧客への提供範囲、検収条件、運用責任を先に確認します。<br/>
-        API、SDK、ホワイトラベル等の連携方式は、要件と技術条件を確認した上で個別に設計します。
-      </p>
 
-      <figure class="hero-figure">
-        <img
-          src="/images/oem/oem-hero-v1.webp"
-          alt="観測結果を意味仕様へ整理し、パートナーの顧客ページ実装と確認へつなぐ共同ワークフローのイメージ"
-          width="1536" height="1024"
-          loading="eager"
-          fetchpriority="high"
-        />
-        <figcaption>共同提供の構想図です。提供済みのAPIや即時連携画面を示すものではありません。観測結果を、顧客ページで実行できる判断と差分へ変える流れを表しています。</figcaption>
-      </figure>
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee__track">
+          <span class="hero-marquee__lead">◉ MEANDLE OEM · CO-DELIVERY</span>
+          <span>▸ observation → meaning spec → implementation</span>
+          <span>▸ PoC-first · 1 use case · scoped acceptance</span>
+          <span>▸ delivery formats designed per requirement</span>
+          <span>▸ patent pending</span>
+          <span class="hero-marquee__lead">◉ MEANDLE OEM · CO-DELIVERY</span>
+          <span>▸ observation → meaning spec → implementation</span>
+          <span>▸ PoC-first · 1 use case · scoped acceptance</span>
+          <span>▸ delivery formats designed per requirement</span>
+          <span>▸ patent pending</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -133,15 +184,29 @@ const structuredData = [
       <h2>観測から実装までを、貴社の既存提供へ接続できる形にします。</h2>
       <p>共同提供では、パートナーの観測・診断と、Meandleの意味仕様・実装判断を分けて持ち寄ります。顧客と制作担当を早い段階で含め、何を確認し、誰が実装し、何をもって検収するかを共有します。</p>
 
-      <figure class="hero-figure">
-        <img
-          src="/images/oem/oem-poc-comic-v2.webp"
-          alt="観測結果の確認、共同での意味仕様設計、顧客ページへの実装、比較記録と次の判断を示す4段階の図"
-          width="1536" height="1024"
-          loading="lazy"
-        />
-        <figcaption>共同検証の構想図です。結果より先に、対象用途、役割、比較条件、検収条件を固定します。</figcaption>
-      </figure>
+      <div class="algo-flow motion-flow">
+        <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OEM 共同ワークフロー 4段階">
+          <defs><marker id="arrow-oem" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#12242C"/></marker></defs>
+          <g font-family="var(--font-mono)" font-size="12" fill="#12242C">
+            <text x="450" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#E98F22">OEM PoC · 4-step Co-delivery</text>
+            <rect x="20"  y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="110" y="92"  text-anchor="middle" font-size="13" font-weight="700">① 観測</text>
+            <text x="110" y="118" text-anchor="middle" font-size="11" fill="#6F7777">パートナーの観測を受領</text>
+            <line x1="200" y1="100" x2="213" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-oem)"/>
+            <rect x="235" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="325" y="92"  text-anchor="middle" font-size="13" font-weight="700">② 意味仕様化</text>
+            <text x="325" y="118" text-anchor="middle" font-size="11" fill="#6F7777">対象・価値・根拠・対象外</text>
+            <line x1="415" y1="100" x2="428" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-oem)"/>
+            <rect x="450" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="540" y="92"  text-anchor="middle" font-size="13" font-weight="700">③ 承認・実装</text>
+            <text x="540" y="118" text-anchor="middle" font-size="11" fill="#6F7777">変更範囲/役割/公開条件</text>
+            <line x1="630" y1="100" x2="643" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-oem)"/>
+            <rect x="665" y="60" width="215" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="772" y="92"  text-anchor="middle" font-size="13" font-weight="700">④ 比較・次判断</text>
+            <text x="772" y="118" text-anchor="middle" font-size="11" fill="#6F7777">記録＋限界＋次のフェーズ</text>
+          </g>
+        </svg>
+      </div>
 
       <ol class="mt-4" style="font-size:15.5px; line-height:1.95">
         <li><strong>観測する</strong>：パートナーが持つ観測、診断、顧客課題を確認し、対象質問と対象外質問を定めます。</li>

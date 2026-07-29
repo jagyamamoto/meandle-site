@@ -35,39 +35,88 @@ const structuredData = [
   canonical="/pr/"
   ogTitle='発表の事実を、同じ意味で伝わる素材へ整える｜Meandle PR'
   ogDescription='PR配信・掲載・引用を約束するのではなく、製品事実からPR文、LP、記事化素材、観察条件までを一つの意味仕様で整えます。'
-  ogImage="/images/pr/meandle-pr-hero-v1.webp"
   structuredData={structuredData}
 >
-  <!-- Section 1: Hero -->
+  <!-- Section 1: Hero (C) -->
   <section class="hero hero--split">
     <div class="hero__bg-grid" aria-hidden="true"></div>
     <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
       <nav class="breadcrumb"><a href="/">ホーム</a>　/　Meandle PR</nav>
-      <span class="eyebrow hero__eyebrow">Meandle PR</span>
-      <h1 class="hero-copy">発表の事実を、<br/>同じ意味で伝わる素材へ整える。</h1>
+      <div class="hero__split">
+        <div class="hero__left">
+          <span class="eyebrow hero__eyebrow">Meandle PR</span>
+          <h1 class="hero-copy">発表の事実を、<br/>同じ意味で伝わる素材へ整える。</h1>
 
-      <p class="lead" style="margin-top:20px">
-        新商品、新技術、事業の転換を発表するとき、PR文、LP、営業資料、記事化素材で説明が少しずつ変わると、誰に何を提供するのかがぼやけます。高単価B2Bでは、配信より前に、製品事実と判断条件をそろえる必要があります。
-      </p>
-      <p>
-        Meandle PRは、対象、対象外、価値、根拠を意味仕様にし、PR文、LP、記事化素材へ一貫して反映するPR設計です。配信、掲載、引用、順位、問い合わせ、売上を保証するサービスではありません。
-      </p>
+          <p class="lead" style="margin-top:20px">
+            新商品、新技術、事業の転換を発表するとき、PR文、LP、営業資料、記事化素材で説明が少しずつ変わると、誰に何を提供するのかがぼやけます。高単価B2Bでは、配信より前に、製品事実と判断条件をそろえる必要があります。
+          </p>
+          <p>
+            Meandle PRは、対象、対象外、価値、根拠を意味仕様にし、PR文、LP、記事化素材へ一貫して反映するPR設計です。配信、掲載、引用、順位、問い合わせ、売上を保証するサービスではありません。
+          </p>
 
-      <p style="margin-top:16px"><strong>1 PRセット 50万円〜</strong></p>
+          <p style="margin-top:16px"><strong>1 PRセット 50万円〜</strong></p>
 
-      <div class="hero__cta-group">
-        <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+          <div class="hero__cta-group">
+            <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+          </div>
+          <p style="font-size:13px; color:var(--muted); margin-top:12px">
+            既存URL、製品・サービスの事実資料、発表する理由、来てほしい相手、対象外にしたい相手や用途を確認します。<br/>
+            お問い合わせ段階では、詳細な診断や配信優先順位の提案は行いません。
+          </p>
+        </div>
+
+        <aside class="proof-panel" aria-label="3 素材 ライブ表示">
+          <div class="proof-panel__head">
+            <span class="proof-panel__led"></span>
+            <span class="proof-panel__label">ONE&nbsp;FACT&nbsp;·&nbsp;THREE&nbsp;MATERIALS</span>
+            <span class="proof-panel__timer"></span>
+          </div>
+          <div class="proof-stage">
+            <div class="proof-slide is-active">
+              <div class="proof-slide__type">Material 1</div>
+              <div class="proof-slide__num proof-slide__num--label">PR 文</div>
+              <div class="proof-slide__name">Press release copy</div>
+              <div class="proof-slide__body">発表の理由、対象顧客、提供価値、根拠、条件を、一つの主張の流れにします。未確認の効果・比較・将来の約束は入れません。</div>
+              <div class="proof-slide__query">no premature promise</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Material 2</div>
+              <div class="proof-slide__num proof-slide__num--label">LP</div>
+              <div class="proof-slide__name">LP または既存ページのPR連携部分</div>
+              <div class="proof-slide__body">PR文で興味を持った相手が、対象、利用場面、価値、根拠、対象外条件を確認できる場所を整えます。</div>
+              <div class="proof-slide__query">full site rewrite not included</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Material 3</div>
+              <div class="proof-slide__num proof-slide__num--label">記事化素材</div>
+              <div class="proof-slide__name">Media-ready fact kit</div>
+              <div class="proof-slide__body">第三者が記事化を検討するときに確認できる、製品事実・背景・対象顧客・根拠・画像/資料の利用条件を整理します。</div>
+              <div class="proof-slide__query">editorial/transfer not controlled</div>
+            </div>
+          </div>
+          <div class="proof-panel__dots">
+            <button class="proof-dot is-active" data-i="0" aria-label="PR文"></button>
+            <button class="proof-dot" data-i="1" aria-label="LP"></button>
+            <button class="proof-dot" data-i="2" aria-label="記事化素材"></button>
+          </div>
+        </aside>
       </div>
-      <p style="font-size:13px; color:var(--muted); margin-top:12px">
-        既存URL、製品・サービスの事実資料、発表する理由、来てほしい相手、対象外にしたい相手や用途を確認します。<br/>
-        お問い合わせ段階では、詳細な診断や配信優先順位の提案は行いません。
-      </p>
 
-      <figure class="hero-figure">
-        <img src="/images/pr/meandle-pr-hero-v1.webp" alt="製品事実の資料から対象・価値・根拠・対象外条件を整理し、PR文、LP、記事化素材へ展開する二人のビジネス担当者" width="1536" height="1024" loading="eager" fetchpriority="high" />
-        <figcaption>発表の前に、誰に何を伝え、何を伝えないかを一つの仕様にします。</figcaption>
-      </figure>
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee__track">
+          <span class="hero-marquee__lead">◉ MEANDLE PR · ONE MEANING</span>
+          <span>▸ 1 PR SET · 50万〜</span>
+          <span>▸ PR / LP / 記事化素材 に同じ意味を通す</span>
+          <span>▸ no distribution / no citation / no rank guarantees</span>
+          <span>▸ observation is not the goal</span>
+          <span class="hero-marquee__lead">◉ MEANDLE PR · ONE MEANING</span>
+          <span>▸ 1 PR SET · 50万〜</span>
+          <span>▸ PR / LP / 記事化素材 に同じ意味を通す</span>
+          <span>▸ no distribution / no citation / no rank guarantees</span>
+          <span>▸ observation is not the goal</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -140,9 +189,29 @@ const structuredData = [
       <h2>製品事実から観察記録まで、確認できる範囲を分けます。</h2>
       <p>公開結果を先に約束しません。製品事実を確認し、意味仕様をつくり、発表素材へ反映したうえで、必要な場合だけ条件を明示した観察記録を残します。</p>
 
-      <figure class="hero-figure">
-        <img src="/images/pr/meandle-pr-meaning-flow-comic-v1.webp" alt="製品事実の資料を確認し、対象・価値・根拠・対象外条件の意味仕様をつくり、PR文・LP・記事化素材をまとめ、観察条件を記録する4段階の図" width="1536" height="1024" loading="lazy" />
-      </figure>
+      <div class="algo-flow motion-flow">
+        <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PR 4段階">
+          <defs><marker id="arrow-pr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#12242C"/></marker></defs>
+          <g font-family="var(--font-mono)" font-size="12" fill="#12242C">
+            <text x="450" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#E98F22">Product Facts → Conditional Record</text>
+            <rect x="20"  y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="110" y="92"  text-anchor="middle" font-size="13" font-weight="700">① 製品事実確認</text>
+            <text x="110" y="118" text-anchor="middle" font-size="11" fill="#6F7777">仕様/根拠/更新日/権利</text>
+            <line x1="200" y1="100" x2="213" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-pr)"/>
+            <rect x="235" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="325" y="92"  text-anchor="middle" font-size="13" font-weight="700">② 意味仕様化</text>
+            <text x="325" y="118" text-anchor="middle" font-size="11" fill="#6F7777">対象・価値・根拠・対象外</text>
+            <line x1="415" y1="100" x2="428" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-pr)"/>
+            <rect x="450" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="540" y="92"  text-anchor="middle" font-size="13" font-weight="700">③ 素材へ反映</text>
+            <text x="540" y="118" text-anchor="middle" font-size="11" fill="#6F7777">PR文 / LP / 記事化素材</text>
+            <line x1="630" y1="100" x2="643" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-pr)"/>
+            <rect x="665" y="60" width="215" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="772" y="92"  text-anchor="middle" font-size="13" font-weight="700">④ 条件付き観察</text>
+            <text x="772" y="118" text-anchor="middle" font-size="11" fill="#6F7777">URL/日時/質問/画面/限界</text>
+          </g>
+        </svg>
+      </div>
 
       <ol class="mt-4" style="font-size:15.5px; line-height:1.95">
         <li><strong>製品事実を確認する</strong>：公開できる仕様、根拠、更新日、画像・資料の利用条件を事業側と確認します。</li>

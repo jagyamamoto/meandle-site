@@ -85,53 +85,95 @@ const structuredData = [
   canonical="/"
   ogTitle={ogTitle}
   ogDescription={ogDescription}
-  ogImage="/images/home/meandle-home-hero-v2.webp"
   structuredData={structuredData}
 >
-  <!-- Section 1: Hero -->
+  <!-- Section 1: Hero (C: no image, motion + proof-panel + marquee) -->
   <section class="hero hero--split">
     <div class="hero__bg-grid" aria-hidden="true"></div>
     <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
-      <span class="eyebrow hero__eyebrow">複雑なB2B商材のための意味設計</span>
-      <h1 class="hero-copy">広告費を増やす前に、<br/>AIと見込み客が拾える「売る意味」を整える。</h1>
+      <div class="hero__split">
+        <div class="hero__left">
+          <span class="eyebrow hero__eyebrow">複雑なB2B商材のための意味設計</span>
+          <h1 class="hero-copy">広告費を増やす前に、<br/>AIと見込み客が拾える「売る意味」を整える。</h1>
 
-      <p class="lead" style="margin-top:24px">
-        高単価で説明の難しいB2B商材ほど、ページに情報があっても、「誰の、どの課題に、なぜ必要か」が伝わりきりません。
-      </p>
-      <p>
-        Meandleは、複雑な商材の対象、価値、根拠、対象外条件を意味仕様にし、既存ページへ実装するB2Bソリューションです。
-      </p>
-      <p style="color:var(--muted)">
-        AI検索への露出を増やす前に、見込み客が比較に使う意味を整えます。新しいサイトを一から作ることではなく、すでにある事業とページの間にあるズレを見つけることから始めます。
-      </p>
+          <p class="lead" style="margin-top:20px">
+            高単価で説明の難しいB2B商材ほど、ページに情報があっても、「誰の、どの課題に、なぜ必要か」が伝わりきりません。
+          </p>
+          <p>
+            Meandleは、複雑な商材の対象、価値、根拠、対象外条件を意味仕様にし、既存ページへ実装するB2Bソリューションです。
+          </p>
+          <p style="color:var(--muted); font-size:14px">
+            AI検索への露出を増やす前に、見込み客が比較に使う意味を整えます。新しいサイトを一から作ることではなく、すでにある事業とページの間にあるズレを見つけることから始めます。
+          </p>
 
-      <p style="margin-top:20px"><strong>初回は、1商材・1URLの意味適合スプリント 50万円〜。</strong></p>
+          <p style="margin-top:16px"><strong>初回は、1商材・1URLの意味適合スプリント 50万円〜。</strong></p>
 
-      <div class="hero__cta-group">
-        <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
-        <a href="#how-it-works" class="btn btn--secondary">進め方を見る</a>
+          <div class="hero__cta-group">
+            <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+            <a href="#how-it-works" class="btn btn--secondary">進め方を見る</a>
+          </div>
+          <p style="font-size:13px; color:var(--muted); margin-top:12px">
+            URLと、来てほしい顧客像をお送りください。50万円〜の意味適合スプリントの対象条件を確認します。
+          </p>
+        </div>
+
+        <!-- Live Meaning-Design panel (3 tiers cycling) -->
+        <aside class="proof-panel" aria-label="サービス3階段 ライブ表示">
+          <div class="proof-panel__head">
+            <span class="proof-panel__led"></span>
+            <span class="proof-panel__label">MEANING&nbsp;DESIGN</span>
+            <span class="proof-panel__timer"></span>
+          </div>
+          <div class="proof-stage">
+            <div class="proof-slide is-active">
+              <div class="proof-slide__type">① 意味適合スプリント</div>
+              <div class="proof-slide__num proof-slide__num--label">50万円〜</div>
+              <div class="proof-slide__name">do.meandle｜1商材・1URL</div>
+              <div class="proof-slide__body">対象／対象外、8項目の意味仕様、実装方針・差分案、基準値と検証計画。<strong>実装は含みません。</strong></div>
+              <div class="proof-slide__query">Read → Decide → Diff → Verify</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">② 1ページの意味実装</div>
+              <div class="proof-slide__num proof-slide__num--label">200万円前後</div>
+              <div class="proof-slide__name">Meandle get lead</div>
+              <div class="proof-slide__body">情報設計、本文、比較軸、根拠、FAQ、メタ情報まで一貫させ、実装後の<strong>初回比較記録</strong>を残します。</div>
+              <div class="proof-slide__query">One page · one meaning · one record</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">③ 回帰検証と更新</div>
+              <div class="proof-slide__num proof-slide__num--label">月120万円〜</div>
+              <div class="proof-slide__name">do.meandle 伴走</div>
+              <div class="proof-slide__body">複数商材・複数ページに広げ、公開情報と対象条件の変化を確認して更新します。</div>
+              <div class="proof-slide__query">Continuous meaning alignment</div>
+            </div>
+          </div>
+          <div class="proof-panel__dots">
+            <button class="proof-dot is-active" data-i="0" aria-label="スプリント"></button>
+            <button class="proof-dot" data-i="1" aria-label="1ページ実装"></button>
+            <button class="proof-dot" data-i="2" aria-label="伴走"></button>
+          </div>
+        </aside>
       </div>
-      <p style="font-size:13px; color:var(--muted); margin-top:12px">
-        URLと、来てほしい顧客像をお送りください。50万円〜の意味適合スプリントの対象条件を確認します。
-      </p>
 
-      <p style="margin-top:24px; text-align:center; font-size:14px">
-        商材の説明を増やす前に、伝わるべき意味を分けます。
-      </p>
-      <figure class="hero-figure">
-        <img
-          src="/images/home/meandle-home-hero-v2.webp"
-          alt="複数の経路を、対象となるティール色の経路と対象外となる灰色の経路へ整理するMeandleの意味設計イメージ"
-          width="1200" height="800"
-          loading="eager"
-          fetchpriority="high"
-        />
-      </figure>
-      <p style="text-align:center; font-size:14px; margin-top:14px">
-        対象となる経路だけでなく、対象外となる条件も分けて整えます。
-      </p>
-      <p style="text-align:center; font-size:12.5px; color:var(--muted); margin-top:8px">
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee__track">
+          <span class="hero-marquee__lead">◉ MEANDLE · MEANING DESIGN</span>
+          <span>▸ 8-field spec · target / non-target</span>
+          <span>▸ 対象・価値・根拠・対象外条件</span>
+          <span>▸ patent pending</span>
+          <span>▸ operated by Jag Yamamoto / Jag Project</span>
+          <span>▸ do.meandle 50万〜 · get lead 200万〜 · 伴走 120万〜/月</span>
+          <span class="hero-marquee__lead">◉ MEANDLE · MEANING DESIGN</span>
+          <span>▸ 8-field spec · target / non-target</span>
+          <span>▸ 対象・価値・根拠・対象外条件</span>
+          <span>▸ patent pending</span>
+          <span>▸ operated by Jag Yamamoto / Jag Project</span>
+          <span>▸ do.meandle 50万〜 · get lead 200万〜 · 伴走 120万〜/月</span>
+        </div>
+      </div>
+
+      <p style="text-align:center; font-size:12.5px; color:var(--muted); margin-top:20px">
         意味設計と検索文脈の整合に関する方法は、特許出願中です。MeandleはJag Yamamoto / Jag Projectが開発・監修しています。
       </p>
     </div>
@@ -205,14 +247,38 @@ const structuredData = [
       <p style="text-align:center; font-size:14px; margin-top:24px">
         既存ページを捨てずに、「読む・決める・実装方針にする・実装後に確かめる」の順で進めます。
       </p>
-      <figure class="hero-figure">
-        <img
-          src="/images/home/meandle-home-meaning-flow-comic-v3.webp"
-          alt="既存URLと営業資料の確認、意味仕様の設計、実装方針への反映、対象と対象外の質問による確認を示す4段階の図"
-          width="1200" height="1200"
-          loading="lazy"
-        />
-      </figure>
+
+      <div class="algo-flow motion-flow">
+        <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="意味設計の4段階フロー">
+          <defs>
+            <marker id="arrow-idx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#12242C"/></marker>
+          </defs>
+          <g font-family="var(--font-mono)" font-size="12" fill="#12242C">
+            <text x="450" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#E98F22">Meandle · 4-step meaning flow</text>
+            <g>
+              <rect x="20"  y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+              <text x="110" y="92" text-anchor="middle" font-size="13" font-weight="700">① 読む</text>
+              <text x="110" y="118" text-anchor="middle" font-size="11" fill="#6F7777">既存URL/資料の意味確認</text>
+              <line x1="200" y1="100" x2="213" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-idx)"/>
+
+              <rect x="235" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+              <text x="325" y="92" text-anchor="middle" font-size="13" font-weight="700">② 決める</text>
+              <text x="325" y="118" text-anchor="middle" font-size="11" fill="#6F7777">対象・価値・根拠・対象外</text>
+              <line x1="415" y1="100" x2="428" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-idx)"/>
+
+              <rect x="450" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+              <text x="540" y="92" text-anchor="middle" font-size="13" font-weight="700">③ 実装方針にする</text>
+              <text x="540" y="118" text-anchor="middle" font-size="11" fill="#6F7777">見出し/本文/FAQ/メタ差分</text>
+              <line x1="630" y1="100" x2="643" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-idx)"/>
+
+              <rect x="665" y="60" width="215" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+              <text x="772" y="92" text-anchor="middle" font-size="13" font-weight="700">④ 実装後に確かめる</text>
+              <text x="772" y="118" text-anchor="middle" font-size="11" fill="#6F7777">対象/対象外の質問で確認</text>
+            </g>
+            <text x="450" y="172" text-anchor="middle" font-size="11" fill="#6F7777">50万〜のスプリントは①〜③、200万〜のget leadで④を実装後初回比較として実行</text>
+          </g>
+        </svg>
+      </div>
 
       <ol class="mt-4" style="font-size:15.5px; line-height:1.95">
         <li><strong>読む</strong>：既存URL、営業資料、実際の問い合わせから、現在伝わっている意味を確認します。</li>

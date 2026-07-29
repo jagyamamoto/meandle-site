@@ -40,44 +40,87 @@ const structuredData = [
   canonical="/contact/"
   ogTitle={ogTitle}
   ogDescription={ogDescription}
-  ogImage="/images/contact/meandle-contact-fit-hero-v1.webp"
   structuredData={structuredData}
 >
-  <!-- Section 1: Hero -->
+  <!-- Section 1: Hero (C: no image) -->
   <section class="hero hero--split">
     <div class="hero__bg-grid" aria-hidden="true"></div>
     <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
       <nav class="breadcrumb"><a href="/">ホーム</a>　/　導入適合性の確認</nav>
-      <span class="eyebrow hero__eyebrow">Meaning Fit Check</span>
-      <h1 class="hero-copy">そのページは、正しい相手に、<br/>正しい理由で伝わっていますか。</h1>
+      <div class="hero__split">
+        <div class="hero__left">
+          <span class="eyebrow hero__eyebrow">Meaning Fit Check</span>
+          <h1 class="hero-copy">そのページは、正しい相手に、<br/>正しい理由で伝わっていますか。</h1>
 
-      <p class="lead" style="margin-top:20px">
-        高単価で説明が複雑なB2B商材は、情報を増やすだけでは伝わりません。誰の、どの場面に必要か。何と比べられ、何ではないのか。既存URLを起点に、その境界を確認します。
-      </p>
-      <p>
-        このフォームは、お問い合わせ段階で詳細診断を行うためのものではありません。Meandleで扱うべき課題かを確認し、適合する場合に初回有償スプリントをご案内するための入口です。
-      </p>
+          <p class="lead" style="margin-top:20px">
+            高単価で説明が複雑なB2B商材は、情報を増やすだけでは伝わりません。誰の、どの場面に必要か。何と比べられ、何ではないのか。既存URLを起点に、その境界を確認します。
+          </p>
+          <p>
+            このフォームは、お問い合わせ段階で詳細診断を行うためのものではありません。Meandleで扱うべき課題かを確認し、適合する場合に初回有償スプリントをご案内するための入口です。
+          </p>
 
-      <p style="margin-top:16px"><strong>初回は、1商材・1URLの意味適合スプリント 50万円〜です。</strong></p>
+          <p style="margin-top:16px"><strong>初回は、1商材・1URLの意味適合スプリント 50万円〜です。</strong></p>
 
-      <div class="hero__cta-group">
-        <a href="#fit-form" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+          <div class="hero__cta-group">
+            <a href="#fit-form" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+          </div>
+          <p style="font-size:13px; color:var(--muted); margin-top:12px">
+            対象URL、来てほしい顧客、対象外にしたい顧客や用途をお知らせください。順位、AI応答、商談成果を保証する支援や、記事の量産は行いません。
+          </p>
+        </div>
+
+        <aside class="proof-panel" aria-label="適合確認フロー ライブ表示">
+          <div class="proof-panel__head">
+            <span class="proof-panel__led"></span>
+            <span class="proof-panel__label">FIT&nbsp;CHECK&nbsp;FLOW</span>
+            <span class="proof-panel__timer"></span>
+          </div>
+          <div class="proof-stage">
+            <div class="proof-slide is-active">
+              <div class="proof-slide__type">Step 1</div>
+              <div class="proof-slide__num proof-slide__num--label">URL 送信</div>
+              <div class="proof-slide__name">1つの既存URL＋基本情報</div>
+              <div class="proof-slide__body">既存URL、商材、来てほしい相手、対象外にしたい用途、現在のズレを送信いただきます。</div>
+              <div class="proof-slide__query">not a diagnosis request</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Step 2</div>
+              <div class="proof-slide__num proof-slide__num--label">前提確認</div>
+              <div class="proof-slide__name">対象外条件・根拠・時期・予算</div>
+              <div class="proof-slide__body">対象・対象外の条件、根拠資料、意思決定への関与、時期と予算を確認します。</div>
+              <div class="proof-slide__query">50万円〜の有償スプリント前提</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Step 3</div>
+              <div class="proof-slide__num proof-slide__num--label">Go / Hold</div>
+              <div class="proof-slide__name">適合回答をお返しします</div>
+              <div class="proof-slide__body">適合する場合に有償スプリントの進め方を、しない場合はHoldの理由と別施策の候補をご案内します。</div>
+              <div class="proof-slide__query">日程予約は自動開放しません</div>
+            </div>
+          </div>
+          <div class="proof-panel__dots">
+            <button class="proof-dot is-active" data-i="0" aria-label="送信"></button>
+            <button class="proof-dot" data-i="1" aria-label="前提確認"></button>
+            <button class="proof-dot" data-i="2" aria-label="Go/Hold"></button>
+          </div>
+        </aside>
       </div>
-      <p style="font-size:13px; color:var(--muted); margin-top:12px">
-        対象URL、来てほしい顧客、対象外にしたい顧客や用途をお知らせください。順位、AI応答、商談成果を保証する支援や、記事の量産は行いません。
-      </p>
 
-      <figure class="hero-figure">
-        <img
-          src="/images/contact/meandle-contact-fit-hero-v1.webp"
-          alt="既存のWebページと顧客条件を見ながら、導入対象を慎重に確認する二人のビジネス担当者"
-          width="1536" height="1024"
-          loading="eager"
-          fetchpriority="high"
-        />
-        <figcaption>対象、価値、根拠、対象外条件がそろうかを、既存URLから確認します。</figcaption>
-      </figure>
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee__track">
+          <span class="hero-marquee__lead">◉ MEANING FIT CHECK</span>
+          <span>▸ 50万円〜のスプリント適合確認</span>
+          <span>▸ お問い合わせ段階での詳細診断は行いません</span>
+          <span>▸ 対象・対象外・価値・根拠</span>
+          <span>▸ patent pending</span>
+          <span class="hero-marquee__lead">◉ MEANING FIT CHECK</span>
+          <span>▸ 50万円〜のスプリント適合確認</span>
+          <span>▸ お問い合わせ段階での詳細診断は行いません</span>
+          <span>▸ 対象・対象外・価値・根拠</span>
+          <span>▸ patent pending</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -158,14 +201,29 @@ const structuredData = [
       <h2>送信前提を確認し、有償スプリントの対象かを判断します。</h2>
       <p>このフォームでは、詳細な意味診断やページの改善案は作りません。対象URLと基本条件を確認し、50万円〜の意味適合スプリントで扱うべき案件かを判断します。</p>
 
-      <figure class="hero-figure">
-        <img
-          src="/images/contact/meandle-contact-fit-flow-comic-v2.webp"
-          alt="既存URLと基本情報を送り、有償スプリントの対象条件を確認し、Go・Holdの適合回答を受け取る4段階の図"
-          width="1536" height="1024"
-          loading="lazy"
-        />
-      </figure>
+      <div class="algo-flow motion-flow">
+        <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="適合確認の4段階">
+          <defs><marker id="arrow-ct" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#12242C"/></marker></defs>
+          <g font-family="var(--font-mono)" font-size="12" fill="#12242C">
+            <text x="450" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#E98F22">Fit Check · 4-step</text>
+            <rect x="20"  y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="110" y="92"  text-anchor="middle" font-size="13" font-weight="700">① URL送信</text>
+            <text x="110" y="118" text-anchor="middle" font-size="11" fill="#6F7777">既存URL＋基本情報</text>
+            <line x1="200" y1="100" x2="213" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-ct)"/>
+            <rect x="235" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="325" y="92"  text-anchor="middle" font-size="13" font-weight="700">② 前提確認</text>
+            <text x="325" y="118" text-anchor="middle" font-size="11" fill="#6F7777">対象外・根拠・時期</text>
+            <line x1="415" y1="100" x2="428" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-ct)"/>
+            <rect x="450" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="540" y="92"  text-anchor="middle" font-size="13" font-weight="700">③ 適合判定</text>
+            <text x="540" y="118" text-anchor="middle" font-size="11" fill="#6F7777">Jag が確認</text>
+            <line x1="630" y1="100" x2="643" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-ct)"/>
+            <rect x="665" y="60" width="215" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="772" y="92"  text-anchor="middle" font-size="13" font-weight="700">④ Go / Hold 回答</text>
+            <text x="772" y="118" text-anchor="middle" font-size="11" fill="#6F7777">スプリント案内 or 別施策提案</text>
+          </g>
+        </svg>
+      </div>
 
       <ol class="mt-4" style="font-size:15.5px; line-height:1.95">
         <li><strong>URLと基本情報を送る</strong>：既存URL、商材、来てほしい相手、現在のズレをお知らせください。</li>

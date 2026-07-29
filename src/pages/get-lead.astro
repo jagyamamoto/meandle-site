@@ -41,46 +41,105 @@ const structuredData = [
   canonical="/get-lead/"
   ogTitle={ogTitle}
   ogDescription={ogDescription}
-  ogImage="/images/get-lead/get-lead-hero-v2.webp"
   structuredData={structuredData}
 >
-  <!-- Section 1: Hero -->
+  <!-- Section 1: Hero (C) -->
   <section class="hero hero--split">
     <div class="hero__bg-grid" aria-hidden="true"></div>
     <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
       <nav class="breadcrumb"><a href="/">ホーム</a>　/　Meandle get lead</nav>
-      <span class="eyebrow hero__eyebrow">Meandle get lead / Meaning Implementation</span>
-      <h1 class="hero-copy">商談に必要な「売る意味」を、<br/>1ページへ実装する。</h1>
+      <div class="hero__split">
+        <div class="hero__left">
+          <span class="eyebrow hero__eyebrow">Meandle get lead / Meaning Implementation</span>
+          <h1 class="hero-copy">商談に必要な「売る意味」を、<br/>1ページへ実装する。</h1>
 
-      <p class="lead" style="margin-top:20px">
-        だれに、何を、なぜ提供し、何ではないか。<br/>
-        Meandle get leadは、意味仕様を情報設計、本文、比較軸、根拠、FAQ、メタ情報へ一貫して反映し、実装後の初回比較まで行う高単価B2B向けの1ページ実装です。
-      </p>
-      <p>
-        広告費を増やす前に、AIと見込み客が拾える「売る意味」を整える。その前提が定まった商材だけを、商談で判断される1ページへ実装します。
-      </p>
+          <p class="lead" style="margin-top:20px">
+            だれに、何を、なぜ提供し、何ではないか。<br/>
+            Meandle get leadは、意味仕様を情報設計、本文、比較軸、根拠、FAQ、メタ情報へ一貫して反映し、実装後の初回比較まで行う高単価B2B向けの1ページ実装です。
+          </p>
+          <p>
+            広告費を増やす前に、AIと見込み客が拾える「売る意味」を整える。その前提が定まった商材だけを、商談で判断される1ページへ実装します。
+          </p>
 
-      <p style="margin-top:16px"><strong>1ページ実装＋実装後初回比較｜200万円前後</strong></p>
+          <p style="margin-top:16px"><strong>1ページ実装＋実装後初回比較｜200万円前後</strong></p>
 
-      <div class="hero__cta-group">
-        <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+          <div class="hero__cta-group">
+            <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+          </div>
+          <p style="font-size:13px; color:var(--muted); margin-top:12px">
+            原則として、do.meandleの意味適合スプリント完了後に進みます。<br/>
+            既存の意味仕様がある場合は、実装の前提として使用できるかを確認します。
+          </p>
+        </div>
+
+        <aside class="proof-panel" aria-label="実装対象 5 要素 ライブ表示">
+          <div class="proof-panel__head">
+            <span class="proof-panel__led"></span>
+            <span class="proof-panel__label">IMPLEMENTATION&nbsp;SCOPE</span>
+            <span class="proof-panel__timer"></span>
+          </div>
+          <div class="proof-stage">
+            <div class="proof-slide is-active">
+              <div class="proof-slide__type">Scope 1</div>
+              <div class="proof-slide__num proof-slide__num--label">情報設計</div>
+              <div class="proof-slide__name">Information Design</div>
+              <div class="proof-slide__body">Hero → 問題提起 → 価値 → 比較軸 → 根拠 → 対象外 → FAQ → 最終行動までの順番を設計します。</div>
+              <div class="proof-slide__query">One page, one meaning</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Scope 2</div>
+              <div class="proof-slide__num proof-slide__num--label">本文・見出し</div>
+              <div class="proof-slide__name">Copy alignment</div>
+              <div class="proof-slide__body">各セクションで、誰に、何を、なぜ提供し、何ではないかが矛盾しないように反映します。</div>
+              <div class="proof-slide__query">No contradiction across sections</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Scope 3</div>
+              <div class="proof-slide__num proof-slide__num--label">比較・根拠</div>
+              <div class="proof-slide__name">Comparison & Evidence</div>
+              <div class="proof-slide__body">価値の主張と、それを裏付ける事実を近接して配置します。競合を煽る比較ではなく、適合判断のための条件と根拠。</div>
+              <div class="proof-slide__query">Claim adjacent to its evidence</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Scope 4</div>
+              <div class="proof-slide__num proof-slide__num--label">FAQ・meta</div>
+              <div class="proof-slide__name">FAQ + Metadata</div>
+              <div class="proof-slide__body">購入前の確認事項をFAQへ整理し、title / description / 構造化データにも同じ意味を通します。</div>
+              <div class="proof-slide__query">Machine-readable consistency</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Scope 5</div>
+              <div class="proof-slide__num proof-slide__num--label">初回比較</div>
+              <div class="proof-slide__name">First-run Comparison</div>
+              <div class="proof-slide__body">実装前に定めた対象／対象外の確認条件で、実装後に同じ条件で確認。日時・条件・観察・限界を残します。</div>
+              <div class="proof-slide__query">not a guarantee of results</div>
+            </div>
+          </div>
+          <div class="proof-panel__dots">
+            <button class="proof-dot is-active" data-i="0" aria-label="1"></button>
+            <button class="proof-dot" data-i="1" aria-label="2"></button>
+            <button class="proof-dot" data-i="2" aria-label="3"></button>
+            <button class="proof-dot" data-i="3" aria-label="4"></button>
+            <button class="proof-dot" data-i="4" aria-label="5"></button>
+          </div>
+        </aside>
       </div>
-      <p style="font-size:13px; color:var(--muted); margin-top:12px">
-        原則として、do.meandleの意味適合スプリント完了後に進みます。<br/>
-        既存の意味仕様がある場合は、実装の前提として使用できるかを確認します。
-      </p>
 
-      <figure class="hero-figure">
-        <img
-          src="/images/get-lead/get-lead-hero-v2.webp"
-          alt="複数の意味仕様の層が、一つのB2Bページへ実装され、意思決定者の検討材料になるイメージ"
-          width="1536" height="1024"
-          loading="eager"
-          fetchpriority="high"
-        />
-        <figcaption>定めた意味を、1ページの全ての判断材料へ通します。</figcaption>
-      </figure>
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee__track">
+          <span class="hero-marquee__lead">◉ MEANDLE GET LEAD</span>
+          <span>▸ ONE PAGE MEANING IMPLEMENTATION · 200万〜</span>
+          <span>▸ 実装＋実装後初回比較</span>
+          <span>▸ 既存制作会社と役割分担可能</span>
+          <span>▸ no ranking / no citation / no lead guarantees</span>
+          <span class="hero-marquee__lead">◉ MEANDLE GET LEAD</span>
+          <span>▸ ONE PAGE MEANING IMPLEMENTATION · 200万〜</span>
+          <span>▸ 実装＋実装後初回比較</span>
+          <span>▸ 既存制作会社と役割分担可能</span>
+          <span>▸ no ranking / no citation / no lead guarantees</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -131,15 +190,29 @@ const structuredData = [
       <h2>決めた意味を、設計・実装・初回比較まで途切れさせません。</h2>
       <p>実装を始める前に、意味仕様、対象ページ、事実確認の担当、既存制作体制、公開条件を確認します。実際の期間と分担は、対象ページの状態と実装環境により個別に決定します。</p>
 
-      <figure class="hero-figure">
-        <img
-          src="/images/get-lead/get-lead-implementation-comic-v2.webp"
-          alt="意味仕様の確認、ページ設計、既存チームとの実装、初回比較と引き継ぎを示す4段階の図"
-          width="1536" height="1024"
-          loading="lazy"
-        />
-        <figcaption>実装後に初回比較を行い、確認できたことと判断できないことを分けて引き継ぎます。</figcaption>
-      </figure>
+      <div class="algo-flow motion-flow">
+        <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="実装 4 段階">
+          <defs><marker id="arrow-gl" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#12242C"/></marker></defs>
+          <g font-family="var(--font-mono)" font-size="12" fill="#12242C">
+            <text x="450" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#E98F22">One-page Implementation · 4-step</text>
+            <rect x="20"  y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="110" y="92"  text-anchor="middle" font-size="13" font-weight="700">① そろえる</text>
+            <text x="110" y="118" text-anchor="middle" font-size="11" fill="#6F7777">仕様/根拠/責任分担</text>
+            <line x1="200" y1="100" x2="213" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-gl)"/>
+            <rect x="235" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="325" y="92"  text-anchor="middle" font-size="13" font-weight="700">② 設計する</text>
+            <text x="325" y="118" text-anchor="middle" font-size="11" fill="#6F7777">情報設計/本文/FAQ/メタ</text>
+            <line x1="415" y1="100" x2="428" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-gl)"/>
+            <rect x="450" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="540" y="92"  text-anchor="middle" font-size="13" font-weight="700">③ 実装する</text>
+            <text x="540" y="118" text-anchor="middle" font-size="11" fill="#6F7777">Meandle or 既存チーム</text>
+            <line x1="630" y1="100" x2="643" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-gl)"/>
+            <rect x="665" y="60" width="215" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="772" y="92"  text-anchor="middle" font-size="13" font-weight="700">④ 初回比較・渡す</text>
+            <text x="772" y="118" text-anchor="middle" font-size="11" fill="#6F7777">記録＋変更履歴＋引継ぎ</text>
+          </g>
+        </svg>
+      </div>
 
       <ol class="mt-4" style="font-size:15.5px; line-height:1.95">
         <li><strong>そろえる</strong>：意味仕様、対象ページ、根拠、責任分担、公開条件をそろえます。</li>

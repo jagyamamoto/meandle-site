@@ -50,9 +50,11 @@ const structuredData = [
       <p>発注前に分けるべきなのは、サービス名ではありません。<strong>観測する仕事、判断する仕事、作る仕事、実装する仕事、見直し続ける仕事</strong>です。どこまでを社内で持ち、どこからを外部に任せるのかが決まれば、比較の軸がはっきりします。</p>
       <p>この記事は、AIの回答、引用、掲載、順位、流入、商談、売上を約束するものではありません。高単価B2Bが、事業の説明責任を残したまま外部パートナーを選ぶための購入ガイドです。</p>
 
-      <figure class="hero-figure">
-        <img src="/images/blog/how-to-choose-ai-search-support/hero-v1.webp" alt="AIO・LLMO・GEOと呼ばれる支援の責任範囲を分ける発注前の比較の場面" width="1536" height="1024" loading="eager" fetchpriority="high" />
-      </figure>
+      <div class="article-plate">
+        <div class="article-plate__row"><span class="article-plate__key">Article</span><span class="article-plate__val">購入前ガイド · AIO/LLMO/GEO 支援を責任範囲で選ぶ</span><span class="article-plate__meta">reading time · 8分</span></div>
+        <div class="article-plate__row"><span class="article-plate__key">Evidence</span><span class="article-plate__val">Google 一次情報 + 競合公式ページ 4社 (RankQuest/CINC/ミエルカ/ipe)</span><span class="article-plate__meta">取得日 2026-07-29</span></div>
+        <div class="article-plate__row"><span class="article-plate__key">Product</span><span class="article-plate__val">Meandle 3-tier · 50万〜 / 200万〜 / 120万〜/月</span><span class="article-plate__meta">意味設計 = Meandleの担当層</span></div>
+      </div>
 
       <h2>先に結論：比較するのは「名称」ではなく、5つの責任範囲</h2>
       <p>AI検索支援は、次の5つを一社がすべて扱う場合も、複数社で分担する場合もあります。ここを混ぜると、観測だけの契約に実装まで期待したり、記事制作の費用に事業戦略まで含まれると考えたりしやすくなります。</p>
@@ -97,10 +99,29 @@ const structuredData = [
       <p>ページ実装は、意味仕様をデザイン、コピー、CMS、技術、公開確認まで反映する仕事です。設計と実装は密接ですが、責任は同じではありません。既存ページの状態、ブランド承認、法務、技術環境、フォーム・計測、公開権限で工数が変わります。</p>
       <p>「実装支援」と書かれている場合も、実際に誰がコードを変更し、公開し、公開後の表示・計測を確認するのかを契約前に明文化してください。</p>
 
-      <figure class="hero-figure">
-        <img src="/images/blog/how-to-choose-ai-search-support/four-panel-v2.webp" alt="観測、戦略、意味仕様、ページ実装と継続確認を順に表す四コマの抽象イラスト" width="1536" height="1024" loading="lazy" />
-        <figcaption>観測する、優先度を決める、意味を仕様にする、ページへ反映し確認する。四つは連続しますが、責任は別々に置けます。</figcaption>
-      </figure>
+      <div class="algo-flow motion-flow">
+        <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="4つの責任範囲">
+          <defs><marker id="arrow-hcs" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#12242C"/></marker></defs>
+          <g font-family="var(--font-mono)" font-size="12" fill="#12242C">
+            <text x="450" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#E98F22">Observe → Decide → Meaning → Implement</text>
+            <rect x="20"  y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="110" y="92"  text-anchor="middle" font-size="13" font-weight="700">① 観測する</text>
+            <text x="110" y="118" text-anchor="middle" font-size="11" fill="#6F7777">ツール型サービスの領域</text>
+            <line x1="200" y1="100" x2="213" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-hcs)"/>
+            <rect x="235" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="325" y="92"  text-anchor="middle" font-size="13" font-weight="700">② 優先度を決める</text>
+            <text x="325" y="118" text-anchor="middle" font-size="11" fill="#6F7777">コンサルティングの領域</text>
+            <line x1="415" y1="100" x2="428" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-hcs)"/>
+            <rect x="450" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="540" y="92"  text-anchor="middle" font-size="13" font-weight="700">③ 意味を仕様にする</text>
+            <text x="540" y="118" text-anchor="middle" font-size="11" fill="#6F7777">Meandleの担当層</text>
+            <line x1="630" y1="100" x2="643" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-hcs)"/>
+            <rect x="665" y="60" width="215" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="772" y="92"  text-anchor="middle" font-size="13" font-weight="700">④ 反映し確認する</text>
+            <text x="772" y="118" text-anchor="middle" font-size="11" fill="#6F7777">制作会社/顧客/Meandle 分担</text>
+          </g>
+        </svg>
+      </div>
 
       <h2>費用は「単価」より、受け取る成果物と責任で読む</h2>
       <p>比較表の月額・初期費用・制作費は入口にすぎません。次の順に確認すると、安く見える契約に必要な仕事が抜けることを避けやすくなります。</p>

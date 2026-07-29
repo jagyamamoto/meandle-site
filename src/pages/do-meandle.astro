@@ -41,46 +41,105 @@ const structuredData = [
   canonical="/do-meandle/"
   ogTitle={ogTitle}
   ogDescription={ogDescription}
-  ogImage="/images/do-meandle/do-meandle-hero-v2.webp"
   structuredData={structuredData}
 >
-  <!-- Section 1: Hero -->
+  <!-- Section 1: Hero (C) -->
   <section class="hero hero--split">
     <div class="hero__bg-grid" aria-hidden="true"></div>
     <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
       <nav class="breadcrumb"><a href="/">ホーム</a>　/　do.meandle</nav>
-      <span class="eyebrow hero__eyebrow">do.meandle / Meaning Fit Sprint</span>
-      <h1 class="hero-copy">複雑なB2B商材の「売る意味」を、<br/>既存ページから整える。</h1>
+      <div class="hero__split">
+        <div class="hero__left">
+          <span class="eyebrow hero__eyebrow">do.meandle / Meaning Fit Sprint</span>
+          <h1 class="hero-copy">複雑なB2B商材の「売る意味」を、<br/>既存ページから整える。</h1>
 
-      <p class="lead" style="margin-top:20px">
-        広告費を増やす前に、AIと見込み客が拾える「売る意味」を整える。<br/>
-        do.meandleは、既存の1 URLを読み、誰に、何を、なぜ提供し、何ではないかを意味仕様にする有償スプリントです。
-      </p>
-      <p>
-        情報を増やす前に、現在のページが何として読まれているかを確認します。対象、価値、根拠、比較軸、対象外条件を整理し、次に実装すべきことを決めます。
-      </p>
+          <p class="lead" style="margin-top:20px">
+            広告費を増やす前に、AIと見込み客が拾える「売る意味」を整える。<br/>
+            do.meandleは、既存の1 URLを読み、誰に、何を、なぜ提供し、何ではないかを意味仕様にする有償スプリントです。
+          </p>
+          <p>
+            情報を増やす前に、現在のページが何として読まれているかを確認します。対象、価値、根拠、比較軸、対象外条件を整理し、次に実装すべきことを決めます。
+          </p>
 
-      <p style="margin-top:16px"><strong>1商材・既存URL 1本｜50万円〜</strong></p>
+          <p style="margin-top:16px"><strong>1商材・既存URL 1本｜50万円〜</strong></p>
 
-      <div class="hero__cta-group">
-        <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+          <div class="hero__cta-group">
+            <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+          </div>
+          <p style="font-size:13px; color:var(--muted); margin-top:12px">
+            送信内容を確認し、Meandleで扱うべき課題かをお返しします。<br/>
+            検索順位、AI応答、商談成果を保証するサービスではありません。
+          </p>
+        </div>
+
+        <aside class="proof-panel" aria-label="5 成果物 ライブ表示">
+          <div class="proof-panel__head">
+            <span class="proof-panel__led"></span>
+            <span class="proof-panel__label">5&nbsp;DELIVERABLES</span>
+            <span class="proof-panel__timer"></span>
+          </div>
+          <div class="proof-stage">
+            <div class="proof-slide is-active">
+              <div class="proof-slide__type">Deliverable 1</div>
+              <div class="proof-slide__num proof-slide__num--label">意味診断</div>
+              <div class="proof-slide__name">現状の意味診断</div>
+              <div class="proof-slide__body">現在のページが、どの対象に、どの価値で、どの比較軸で読まれるかを整理します。</div>
+              <div class="proof-slide__query">Read the existing URL</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Deliverable 2</div>
+              <div class="proof-slide__num proof-slide__num--label">対象／対象外</div>
+              <div class="proof-slide__name">対象／対象外の質問設計</div>
+              <div class="proof-slide__body">出てほしい質問と、対象にしない質問を分けます。問い合わせと営業の基準になります。</div>
+              <div class="proof-slide__query">Target × non-target design</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Deliverable 3</div>
+              <div class="proof-slide__num proof-slide__num--label">8 項目仕様</div>
+              <div class="proof-slide__name">8項目の意味仕様</div>
+              <div class="proof-slide__body">役割、利用場面、比較対象、比較軸、価値、根拠、必須条件、対象外条件を一つにまとめます。</div>
+              <div class="proof-slide__query">One spec, many touchpoints</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Deliverable 4</div>
+              <div class="proof-slide__num proof-slide__num--label">実装差分</div>
+              <div class="proof-slide__name">実装方針と差分案</div>
+              <div class="proof-slide__body">title、H1、見出し、本文、FAQ、メタ情報について、何を残し何を変えるかを優先順位とともに示します。</div>
+              <div class="proof-slide__query">Prioritized implementation diff</div>
+            </div>
+            <div class="proof-slide">
+              <div class="proof-slide__type">Deliverable 5</div>
+              <div class="proof-slide__num proof-slide__num--label">検証計画</div>
+              <div class="proof-slide__name">基準値と検証計画</div>
+              <div class="proof-slide__body">実装前に何を確認し、実装後に何と比べるかを定めます。判断できること・できないことを分けます。</div>
+              <div class="proof-slide__query">What we can and cannot verify</div>
+            </div>
+          </div>
+          <div class="proof-panel__dots">
+            <button class="proof-dot is-active" data-i="0" aria-label="1"></button>
+            <button class="proof-dot" data-i="1" aria-label="2"></button>
+            <button class="proof-dot" data-i="2" aria-label="3"></button>
+            <button class="proof-dot" data-i="3" aria-label="4"></button>
+            <button class="proof-dot" data-i="4" aria-label="5"></button>
+          </div>
+        </aside>
       </div>
-      <p style="font-size:13px; color:var(--muted); margin-top:12px">
-        送信内容を確認し、Meandleで扱うべき課題かをお返しします。<br/>
-        検索順位、AI応答、商談成果を保証するサービスではありません。
-      </p>
 
-      <figure class="hero-figure">
-        <img
-          src="/images/do-meandle/do-meandle-hero-v2.webp"
-          alt="既存のB2Bページを読み、意味仕様フォルダ、実装差分案、比較計画とGo・Hold判断へ整理するイメージ"
-          width="1536" height="1024"
-          loading="eager"
-          fetchpriority="high"
-        />
-        <figcaption>既存ページの内容を増やす前に、誰に何として伝えるかを整理します。</figcaption>
-      </figure>
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee__track">
+          <span class="hero-marquee__lead">◉ MEANING FIT SPRINT</span>
+          <span>▸ 1 商材・1URL · 50万〜</span>
+          <span>▸ 5 deliverables · no implementation included</span>
+          <span>▸ 8-field spec · target/non-target</span>
+          <span>▸ patent pending</span>
+          <span class="hero-marquee__lead">◉ MEANING FIT SPRINT</span>
+          <span>▸ 1 商材・1URL · 50万〜</span>
+          <span>▸ 5 deliverables · no implementation included</span>
+          <span>▸ 8-field spec · target/non-target</span>
+          <span>▸ patent pending</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -131,15 +190,29 @@ const structuredData = [
       <h2>既存ページを捨てずに、読む・決める・比べる・渡す。</h2>
       <p>標準的には2週間で進めます。公開情報と提供資料を読み、事実確認を行い、実装に進むための判断材料をまとめます。開始時期は、確認事項と稼働状況により個別にご案内します。</p>
 
-      <figure class="hero-figure">
-        <img
-          src="/images/do-meandle/do-meandle-sprint-comic-v2.webp"
-          alt="既存ページを読み、対象と対象外を定め、実装差分と比較方法を設計して、意味仕様を渡す4段階の図"
-          width="1536" height="1024"
-          loading="lazy"
-        />
-        <figcaption>スプリントの終了時点では、実装済みのページではなく、実装の判断に使える意味仕様と差分案が残ります。</figcaption>
-      </figure>
+      <div class="algo-flow motion-flow">
+        <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="スプリント 4 段階">
+          <defs><marker id="arrow-dm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#12242C"/></marker></defs>
+          <g font-family="var(--font-mono)" font-size="12" fill="#12242C">
+            <text x="450" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#E98F22">2-week Sprint · Read → Decide → Diff → Handoff</text>
+            <rect x="20"  y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="110" y="92"  text-anchor="middle" font-size="13" font-weight="700">① 読む</text>
+            <text x="110" y="118" text-anchor="middle" font-size="11" fill="#6F7777">URL/資料/問い合わせ</text>
+            <line x1="200" y1="100" x2="213" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-dm)"/>
+            <rect x="235" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="325" y="92"  text-anchor="middle" font-size="13" font-weight="700">② 決める</text>
+            <text x="325" y="118" text-anchor="middle" font-size="11" fill="#6F7777">対象・価値・根拠・対象外</text>
+            <line x1="415" y1="100" x2="428" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-dm)"/>
+            <rect x="450" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="540" y="92"  text-anchor="middle" font-size="13" font-weight="700">③ 比べる</text>
+            <text x="540" y="118" text-anchor="middle" font-size="11" fill="#6F7777">現行 vs 仕様 差分整理</text>
+            <line x1="630" y1="100" x2="643" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-dm)"/>
+            <rect x="665" y="60" width="215" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="772" y="92"  text-anchor="middle" font-size="13" font-weight="700">④ 渡す</text>
+            <text x="772" y="118" text-anchor="middle" font-size="11" fill="#6F7777">仕様＋差分案＋検証計画</text>
+          </g>
+        </svg>
+      </div>
 
       <ol class="mt-4" style="font-size:15.5px; line-height:1.95">
         <li><strong>読む</strong>：既存URL、営業資料、実際の問い合わせから、現在伝わっている意味を確認します。</li>

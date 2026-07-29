@@ -55,10 +55,11 @@ const structuredData = [
       <div style="margin-top:12px"><a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a></div>
       <p style="font-size:13px; color:var(--muted); margin-top:12px">原則として、対象・対象外・価値・根拠を定めた意味仕様を前提にします。意味仕様がない場合は、先に1商材・1URLの意味適合スプリント 50万円〜で実装の前提を確認します。</p>
 
-      <figure class="hero-figure">
-        <img src="/images/blog/monitoring-to-implementation/hero-v1.webp" alt="観測メモと根拠カードから、対象・価値・根拠・対象外条件の意味仕様をつくり、既存ページの実装差分を確認する二人のビジネス担当者" width="1536" height="1024" loading="eager" fetchpriority="high" />
-        <figcaption>観測は入力です。実装は、対象・価値・根拠・対象外条件を定めた後に進めます。</figcaption>
-      </figure>
+      <div class="article-plate">
+        <div class="article-plate__row"><span class="article-plate__key">Article</span><span class="article-plate__val">実装ガイド · 観測→意味仕様→実装→初回比較</span><span class="article-plate__meta">reading time · 7分</span></div>
+        <div class="article-plate__row"><span class="article-plate__key">Evidence</span><span class="article-plate__val">Microsoft 一次情報 + Meandle 設計方針 (E0)</span><span class="article-plate__meta">取得日 2026-07-29</span></div>
+        <div class="article-plate__row"><span class="article-plate__key">Product</span><span class="article-plate__val">Meandle get lead · 200万〜/1ページ</span><span class="article-plate__meta">for use after meaning fit sprint</span></div>
+      </div>
 
       <h2>観測結果、意味仕様、ページ実装は、同じ仕事ではありません。</h2>
       <p>観測は「どのURLや質問が参照されているか」「どの説明が不足しているように見えるか」を知る材料になります。しかし、数字や引用の有無だけで、誰を対象にするか、何を比較から外すか、どの根拠を前に出すかは決まりません。</p>
@@ -114,9 +115,29 @@ const structuredData = [
       <h2>事実を受け取り、意味を定め、差分にして、1ページへ反映します。</h2>
       <p>観測から実装までを、一つの担当者の勘に依存させません。何を受け取り、何を事業側で確認し、どの差分を実装し、何を初回記録として残すかを明確にします。</p>
 
-      <figure class="hero-figure">
-        <img src="/images/blog/monitoring-to-implementation/comic-v1.webp" alt="観測メモと根拠カードを受け取り、対象・価値・根拠・対象外条件の意味仕様を組み、1ページの説明項目の差分を定め、初回比較記録と引き継ぎを確認する4段階の図" width="1536" height="1024" loading="lazy" />
-      </figure>
+      <div class="algo-flow motion-flow">
+        <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="観測→実装 4段階">
+          <defs><marker id="arrow-mti" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#12242C"/></marker></defs>
+          <g font-family="var(--font-mono)" font-size="12" fill="#12242C">
+            <text x="450" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#E98F22">Observation → 1-page Implementation</text>
+            <rect x="20"  y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="110" y="92"  text-anchor="middle" font-size="13" font-weight="700">① 観測を受け取る</text>
+            <text x="110" y="118" text-anchor="middle" font-size="11" fill="#6F7777">URL/日時/質問/参照</text>
+            <line x1="200" y1="100" x2="213" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-mti)"/>
+            <rect x="235" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="325" y="92"  text-anchor="middle" font-size="13" font-weight="700">② 意味仕様</text>
+            <text x="325" y="118" text-anchor="middle" font-size="11" fill="#6F7777">対象/対象外/価値/根拠</text>
+            <line x1="415" y1="100" x2="428" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-mti)"/>
+            <rect x="450" y="60" width="180" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="540" y="92"  text-anchor="middle" font-size="13" font-weight="700">③ 実装差分</text>
+            <text x="540" y="118" text-anchor="middle" font-size="11" fill="#6F7777">H1/本文/比較/FAQ/メタ</text>
+            <line x1="630" y1="100" x2="643" y2="100" stroke="#12242C" stroke-width="1.5" marker-end="url(#arrow-mti)"/>
+            <rect x="665" y="60" width="215" height="80" rx="8" fill="#FFF9ED" stroke="#12242C" stroke-width="1.5"/>
+            <text x="772" y="92"  text-anchor="middle" font-size="13" font-weight="700">④ 初回比較・記録</text>
+            <text x="772" y="118" text-anchor="middle" font-size="11" fill="#6F7777">対象/対象外/日時/限界</text>
+          </g>
+        </svg>
+      </div>
 
       <ol class="mt-3" style="font-size:15.5px; line-height:1.95">
         <li><strong>観測事実を受け取る</strong>：対象URL、質問、日時、参照データなど、確認できる事実を受け取ります。</li>
