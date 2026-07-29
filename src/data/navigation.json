@@ -1,4 +1,5 @@
 [
+  { "label": "ホーム", "href": "/" },
   { "label": "仕組み", "href": "/how-it-works/" },
   { "label": "do.meandle", "href": "/do-meandle/" },
   { "label": "PR", "href": "/pr/" },

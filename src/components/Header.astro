@@ -11,7 +11,11 @@ const currentPath = Astro.url.pathname;
       {navItems.map((item) => (
         <a
           href={item.href}
-          class={`site-header__nav-link ${currentPath.startsWith(item.href) && item.href !== '/' ? 'is-active' : ''}`}
+          class={`site-header__nav-link ${
+            item.href === '/'
+              ? (currentPath === '/' ? 'is-active' : '')
+              : (currentPath.startsWith(item.href) ? 'is-active' : '')
+          }`}
         >
           {item.label}
         </a>
