@@ -36,6 +36,20 @@ export const DEMO_LEDGER = {
   startConflicts: 2,
 } as const;
 
+/**
+ * 語られ方の観測指標（観測回数 12回＝質問4件×3回）。
+ * %・ポイント差は分子・分母からその場で導出する。%のハードコード禁止。
+ */
+export const DEMO_OBSERVATION_METRICS = [
+  { id: 'obs-mention', label: '商品名の言及率', before: 3, after: 10, total: 12 },
+  { id: 'obs-no1', label: '「業界No.1」表現の再現', before: 2, after: 0, total: 12 },
+  { id: 'obs-confusion', label: '対象外用途の混同（医療系）', before: 4, after: 1, total: 12 },
+] as const;
+
+/** 分母0を成功扱いしないための丸めヘルパ */
+export const toPercent = (n: number, total: number): number =>
+  total === 0 ? 0 : Math.round((n / total) * 100);
+
 export type SourceAuthority = '参考資料' | '正式資料候補' | '正式資料として確認';
 export type SourceState = '待機' | '読み取り中' | '抽出中' | '要確認' | '準備完了' | '一部成功' | '失敗' | '隔離中';
 

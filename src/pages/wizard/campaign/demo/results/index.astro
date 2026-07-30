@@ -4,7 +4,15 @@ import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaig
 import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
 import WizardStageThreshold from '../../../../../components/wizard/WizardStageThreshold.astro';
 import WizardReportPanel from '../../../../../components/wizard/WizardReportPanel.astro';
-import { DEMO_TARGET_RESULTS } from '../../../../../data/wizard-prototype';
+import { DEMO_TARGET_RESULTS, DEMO_OBSERVATION_METRICS, DEMO_LEDGER, toPercent } from '../../../../../data/wizard-prototype';
+
+const obsRows = DEMO_OBSERVATION_METRICS.map((m) => {
+  const beforePct = toPercent(m.before, m.total);
+  const afterPct = toPercent(m.after, m.total);
+  const delta = afterPct - beforePct;
+  return { ...m, beforePct, afterPct, deltaLabel: `${delta >= 0 ? '+' : '−'}${Math.abs(delta)}ポイント` };
+});
+const mentionRow = obsRows[0];
 ---
 <WizardPrototypeLayout title="結果と次の一手" description="Meandle Wizard 操作デモ — 結果と次の一手" stage="results">
   <WizardCampaignHeader slot="header" status="観測中" />
@@ -106,8 +114,8 @@ import { DEMO_TARGET_RESULTS } from '../../../../../data/wizard-prototype';
     </div>
     <div class="wp-metric">
       <p class="wp-metric__label">語られ方 — AI応答での商品名一致</p>
-      <p class="wp-metric__value">10 / 12</p>
-      <p style="font-size:12px;color:var(--wp-ink-muted);">取得: 2026-09-20 / 方法: 質問4×3回 / 限界: 単発調査</p>
+      <p class="wp-metric__value">{mentionRow.after}/{mentionRow.total}（{mentionRow.afterPct}%）</p>
+      <p style="font-size:12px;color:var(--wp-ink-muted);">取得: {DEMO_LEDGER.followupDate} / 方法: 質問4×3回 / 限界: 単発調査</p>
     </div>
     <div class="wp-metric">
       <p class="wp-metric__label">外部結果 — 独立記事</p>
@@ -128,11 +136,13 @@ import { DEMO_TARGET_RESULTS } from '../../../../../data/wizard-prototype';
     <section class="wp-card">
       <h3>語られ方</h3>
       <div data-wp-when-observation="baseline">
-        <p style="font-size:13px;color:var(--wp-ink-muted);">公開前後の比較（観測手順の版: 第1版）：</p>
+        <p style="font-size:13px;color:var(--wp-ink-muted);">公開前後の比較（観測手順の版: 第1版・観測回数 12回＝質問4件×3回）：</p>
         <ul class="wp-list" style="font-size:13px;">
-          <li>商品名の言及率: 公開前 3/12 → 公開後 10/12</li>
-          <li>「業界No.1」表現の再現: 公開前 2/12 → 公開後 0/12</li>
-          <li>対象外用途の混同（医療系）: 公開前 4/12 → 公開後 1/12</li>
+          {obsRows.map((m) => (
+            <li>
+              {m.label}: 公開前 {m.before}/{m.total}（{m.beforePct}%） → 公開後 {m.after}/{m.total}（{m.afterPct}%）・<strong>{m.deltaLabel}</strong>
+            </li>
+          ))}
         </ul>
       </div>
       <div data-wp-when-observation="no-comparison">
@@ -140,9 +150,9 @@ import { DEMO_TARGET_RESULTS } from '../../../../../data/wizard-prototype';
           <strong>公開後スナップショット</strong>（比較可能な測定値なし）：
         </p>
         <ul class="wp-list" style="font-size:13px;">
-          <li>商品名の言及率: 10/12</li>
-          <li>「業界No.1」表現の再現: 0/12</li>
-          <li>対象外用途の混同（医療系）: 1/12</li>
+          {obsRows.map((m) => (
+            <li>{m.label}: {m.after}/{m.total}（{m.afterPct}%）</li>
+          ))}
         </ul>
         <p style="font-size:12px;color:var(--wp-ink-muted);">
           「公開前後の比較」ではありません。事前観測条件が確定されていなかったため、公開前との差分は算出できません。

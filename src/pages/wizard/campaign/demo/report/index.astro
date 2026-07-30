@@ -14,6 +14,8 @@ import {
   DEMO_APPROVERS,
   TOTAL_PREFLIGHT_FINDINGS,
   DEMO_FINDINGS,
+  DEMO_OBSERVATION_METRICS,
+  toPercent,
 } from '../../../../../data/wizard-prototype';
 
 function targetName(id: string) {
@@ -25,6 +27,15 @@ const supporting = DEMO_TARGET_EVIDENCE.filter((e) => e.stance === '支持');
 const opposing = DEMO_TARGET_EVIDENCE.filter((e) => e.stance === '反対');
 const approverNames = DEMO_APPROVERS.map((a) => a.name).join('／');
 const blockerFindings = DEMO_FINDINGS.filter((f) => f.severity === '公開前に直す');
+
+const obsRows = DEMO_OBSERVATION_METRICS.map((m) => {
+  const beforePct = toPercent(m.before, m.total);
+  const afterPct = toPercent(m.after, m.total);
+  const delta = afterPct - beforePct;
+  return { ...m, beforePct, afterPct, deltaLabel: `${delta >= 0 ? '+' : '−'}${Math.abs(delta)}ポイント` };
+});
+const mentionRow = obsRows[0];
+const confusionRow = obsRows[2];
 ---
 <WizardPrototypeLayout title="レポートプレビュー" description="Meandle Wizard 操作デモ — レポートプレビュー" stage="report">
   <WizardCampaignHeader slot="header" status="完了" />
@@ -69,7 +80,7 @@ const blockerFindings = DEMO_FINDINGS.filter((f) => f.severity === '公開前に
     <h2>1. 要約</h2>
     <p>
       RelayOne 新サービス発表について、公開前に事実と約束の統一を行い、営業資料に含まれていた「業界No.1」表現と、料金の食い違い（25万円／30万円）を整理しました。
-      公開後の観測では、AI応答での商品名一致 10/12、対象外用途の混同 1/12 まで抑えられました。
+      公開後の観測では、AI応答での商品名一致 {mentionRow.after}/{mentionRow.total}（{mentionRow.afterPct}%）、対象外用途の混同 {confusionRow.after}/{confusionRow.total}（{confusionRow.afterPct}%）でした。
     </p>
 
     <h2>2. 経緯</h2>
@@ -112,14 +123,19 @@ const blockerFindings = DEMO_FINDINGS.filter((f) => f.severity === '公開前に
     </ul>
 
     <h2>7. 観測</h2>
-    <p data-wp-when-observation="baseline">
-      比較可能な公開前の測定値（第1版）と、公開7日後の記録で比較しました。
-      商品名の言及率: 公開前 3/12 → 公開後 10/12。
-      「業界No.1」表現の再現: 公開前 2/12 → 公開後 0/12。
-      対象外用途の混同: 公開前 4/12 → 公開後 1/12。
-    </p>
+    <div data-wp-when-observation="baseline">
+      <p>比較可能な公開前の測定値（第1版）と、公開7日後の記録で比較しました（観測回数 12回＝質問4件×3回）。</p>
+      <ul>
+        {obsRows.map((m) => (
+          <li>
+            {m.label}: 公開前 {m.before}/{m.total}（{m.beforePct}%） → 公開後 {m.after}/{m.total}（{m.afterPct}%）・<strong>{m.deltaLabel}</strong>
+          </li>
+        ))}
+      </ul>
+      <p style="font-size:12px;color:var(--wp-ink-muted);">単発調査であり、因果効果は保証しません。※デモ用の架空データです</p>
+    </div>
     <p data-wp-when-observation="no-comparison">
-      比較可能な事前観測なし。公開7日後のスナップショットとして次を記録しました：商品名の言及率 10/12、対象外用途の混同 1/12。
+      比較可能な事前観測なし。公開7日後のスナップショットとして次を記録しました：商品名の言及率 {mentionRow.after}/{mentionRow.total}（{mentionRow.afterPct}%）、対象外用途の混同 {confusionRow.after}/{confusionRow.total}（{confusionRow.afterPct}%）。
       これは「公開前後の比較」ではなく、公開後スナップショットです。
     </p>
     <p data-wp-when-no-observation>観測条件は設定されていません。</p>
