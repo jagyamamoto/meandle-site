@@ -1,0 +1,21 @@
+---
+// レポートの現在形パネル — 全agency画面に置く、折りたたみ式の進捗表示。
+// 「1画面あたり常設進捗装置は1系統まで」の、その1系統はこれ。
+// 満ち方は静的テキストのみ（転記行が増える・目次の章が埋まる）。アニメーションは使わない。
+import { DEMO_STAGE_LABELS } from '../../data/wizard-prototype';
+---
+<details class="wp-report-panel" data-wp-report-panel>
+  <summary class="wp-report-panel__summary">
+    <span data-wp-report-panel-summary>レポート 0/5段階が埋まっています</span>
+  </summary>
+  <ul class="wp-report-panel__list">
+    {DEMO_STAGE_LABELS.map((s) => (
+      <li data-wp-report-panel-item={s.key} class="wp-report-panel__item">
+        <span class="wp-report-panel__mark" aria-hidden="true">○</span>
+        <span class="wp-report-panel__label">{s.label.replace(/^\d+\.\s*/, '')}</span>
+        <span class="wp-report-panel__deliverable">{s.makes}</span>
+      </li>
+    ))}
+  </ul>
+  <p class="wp-report-panel__note">※デモ用の架空データです</p>
+</details>

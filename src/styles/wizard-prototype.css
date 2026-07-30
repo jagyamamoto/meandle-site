@@ -420,6 +420,7 @@
   border: 1px solid transparent;
   line-height: 1.4;
   white-space: nowrap;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
 }
 .wp-badge--success {
   background: var(--wp-success-soft);
@@ -845,6 +846,13 @@
   .wp-save[data-state='saving'] .wp-save__dot {
     animation: none;
   }
+  .wp-report-panel__summary::before {
+    transition: none;
+  }
+  .wp-badge,
+  .wp-draft-line {
+    transition: none;
+  }
 }
 
 /* ==== CALLOUTS ==== */
@@ -1224,7 +1232,9 @@
   .wp-report-controls,
   .wp-page-header__actions,
   .wp-campaign-header,
-  .wp-stage-nav {
+  .wp-stage-nav,
+  .wp-report-panel,
+  .wp-threshold {
     display: none !important;
   }
   .wp-shell {
@@ -1469,6 +1479,139 @@
   margin: 8px 0 0;
   padding-left: 20px;
   font-size: 13px;
+}
+
+/* ==== ENTRY REVEAL (最後に受け取るものカード・初回のみ一拍遅れて表示) ==== */
+@keyframes wp-entry-reveal {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.wp-entry-reveal {
+  animation: wp-entry-reveal 240ms ease-out 120ms both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wp-entry-reveal {
+    animation: none;
+  }
+}
+
+/* ==== DRAFT LINE (レポートに載る言い方・下書き) ==== */
+.wp-draft-line {
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--wp-border);
+  color: var(--wp-ink-muted);
+  transition: color 120ms ease, border-bottom-style 120ms ease;
+}
+.wp-draft-line:last-child {
+  border-bottom: none;
+}
+.wp-draft-line strong {
+  color: inherit;
+}
+.wp-draft-line--confirmed {
+  color: var(--wp-ink-strong);
+  border-bottom-style: solid;
+}
+
+/* ==== STAGE THRESHOLD (段階の敷居) ==== */
+.wp-threshold {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: 13px;
+  color: var(--wp-ink-muted);
+  background: var(--wp-page);
+  border: 1px solid var(--wp-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 0 0 16px;
+}
+.wp-threshold__line strong {
+  color: var(--wp-ink-strong);
+  font-weight: 600;
+}
+
+/* ==== RECEIPT LINE (受領行) ==== */
+.wp-receipt {
+  font-size: 13px;
+  color: var(--wp-success);
+  background: var(--wp-success-soft);
+  border: 1px solid #a7dabe;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 16px 0;
+}
+
+/* ==== REPORT PANEL (レポートの現在形パネル) ==== */
+.wp-report-panel {
+  background: var(--wp-card);
+  border: 1px solid var(--wp-border);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+.wp-report-panel__summary {
+  cursor: pointer;
+  padding: 10px 16px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: var(--wp-ink-strong);
+  list-style: none;
+}
+.wp-report-panel__summary::-webkit-details-marker {
+  display: none;
+}
+.wp-report-panel__summary::before {
+  content: '▸';
+  margin-right: 8px;
+  color: var(--wp-ink-muted);
+  transition: transform 120ms ease;
+}
+.wp-report-panel[open] .wp-report-panel__summary::before {
+  transform: rotate(90deg);
+}
+.wp-report-panel__list {
+  list-style: none;
+  margin: 0;
+  padding: 0 16px 12px;
+  border-top: 1px solid var(--wp-border);
+}
+.wp-report-panel__item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 0;
+  color: var(--wp-ink-muted);
+  border-bottom: 1px solid var(--wp-border);
+}
+.wp-report-panel__item:last-child {
+  border-bottom: none;
+}
+.wp-report-panel__item--filled {
+  color: var(--wp-ink-strong);
+}
+.wp-report-panel__mark {
+  color: var(--wp-border-strong);
+  font-size: 10px;
+}
+.wp-report-panel__item--filled .wp-report-panel__mark {
+  color: var(--wp-success);
+}
+.wp-report-panel__label {
+  font-weight: 600;
+  white-space: nowrap;
+}
+.wp-report-panel__deliverable {
+  font-size: 12px;
+  color: var(--wp-ink-muted);
+}
+.wp-report-panel__note {
+  margin: 0;
+  padding: 0 16px 12px;
+  font-size: 11px;
+  color: var(--wp-ink-muted);
 }
 
 /* ==== RESPONSIVE ==== */

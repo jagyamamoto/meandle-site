@@ -2,11 +2,16 @@
 import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
 import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
 import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
+import WizardStageThreshold from '../../../../../components/wizard/WizardStageThreshold.astro';
+import WizardReportPanel from '../../../../../components/wizard/WizardReportPanel.astro';
 import { DEMO_TARGET_RESULTS } from '../../../../../data/wizard-prototype';
 ---
 <WizardPrototypeLayout title="結果と次の一手" description="Meandle Wizard 操作デモ — 結果と次の一手" stage="results">
   <WizardCampaignHeader slot="header" status="観測中" />
   <WizardStageNav slot="stage" current="results" />
+
+  <WizardReportPanel />
+  <WizardStageThreshold makes="クライアントに渡せるレポート＋次回への一手1件" receivedFrom="承認記録つきの公開版" />
 
   <section class="wp-card">
     <h2>次に直すもの（3つまで）</h2>
@@ -84,7 +89,7 @@ import { DEMO_TARGET_RESULTS } from '../../../../../data/wizard-prototype';
     <strong>総合スコアは表示しません。</strong>
     <p>
       3つの層（業務結果／語られ方／外部結果）を別々に見ます。因果効果は保証しません。
-      「実数 / 母数 / 取得日 / source / method / limitation」を各指標に併記します。
+      「実数 / 母数 / 取得日 / 出典 / 方法 / 限界」を各指標に併記します。
     </p>
   </div>
 
@@ -92,7 +97,7 @@ import { DEMO_TARGET_RESULTS } from '../../../../../data/wizard-prototype';
     <div class="wp-metric">
       <p class="wp-metric__label">業務結果 — 承認までの往復</p>
       <p class="wp-metric__value">3回</p>
-      <p style="font-size:12px;color:var(--wp-ink-muted);">/ 案件平均 5.2回（method: 過去4案件、限界: サンプル少）</p>
+      <p style="font-size:12px;color:var(--wp-ink-muted);">/ 案件平均 5.2回（方法: 過去4案件、限界: サンプル少）</p>
     </div>
     <div class="wp-metric">
       <p class="wp-metric__label">業務結果 — 公開前に見つけた問題</p>
@@ -102,7 +107,7 @@ import { DEMO_TARGET_RESULTS } from '../../../../../data/wizard-prototype';
     <div class="wp-metric">
       <p class="wp-metric__label">語られ方 — AI応答での商品名一致</p>
       <p class="wp-metric__value">10 / 12</p>
-      <p style="font-size:12px;color:var(--wp-ink-muted);">取得: 2026-09-20 / method: 質問4×3回 / 限界: 単発調査</p>
+      <p style="font-size:12px;color:var(--wp-ink-muted);">取得: 2026-09-20 / 方法: 質問4×3回 / 限界: 単発調査</p>
     </div>
     <div class="wp-metric">
       <p class="wp-metric__label">外部結果 — 独立記事</p>
@@ -123,16 +128,16 @@ import { DEMO_TARGET_RESULTS } from '../../../../../data/wizard-prototype';
     <section class="wp-card">
       <h3>語られ方</h3>
       <div data-wp-when-observation="baseline">
-        <p style="font-size:13px;color:var(--wp-ink-muted);">公開前後の比較（protocol version obs-v1）：</p>
+        <p style="font-size:13px;color:var(--wp-ink-muted);">公開前後の比較（観測手順の版: 第1版）：</p>
         <ul class="wp-list" style="font-size:13px;">
-          <li>商品名の言及率: baseline 3/12 → follow-up 10/12</li>
-          <li>「業界No.1」表現の再現: baseline 2/12 → follow-up 0/12</li>
-          <li>対象外用途の混同（医療系）: baseline 4/12 → follow-up 1/12</li>
+          <li>商品名の言及率: 公開前 3/12 → 公開後 10/12</li>
+          <li>「業界No.1」表現の再現: 公開前 2/12 → 公開後 0/12</li>
+          <li>対象外用途の混同（医療系）: 公開前 4/12 → 公開後 1/12</li>
         </ul>
       </div>
       <div data-wp-when-observation="no-comparison">
         <p style="font-size:13px;color:var(--wp-warning);">
-          <strong>公開後スナップショット</strong>（比較可能なbaselineなし）：
+          <strong>公開後スナップショット</strong>（比較可能な測定値なし）：
         </p>
         <ul class="wp-list" style="font-size:13px;">
           <li>商品名の言及率: 10/12</li>
@@ -155,7 +160,7 @@ import { DEMO_TARGET_RESULTS } from '../../../../../data/wizard-prototype';
       <ul class="wp-list" style="font-size:13px;">
         <li>独立記事: 1件（NIKKEI Digital）</li>
         <li>配信リリース転載: 3件（別区分）</li>
-        <li>問い合わせ: 12件（source: 自社CRM / 期間 9/15-9/22 / 限界: attribution 不明）</li>
+        <li>問い合わせ: 12件（出典: 自社CRM / 期間 9/15-9/22 / 限界: どの施策によるかは不明）</li>
       </ul>
     </section>
   </div>
@@ -169,6 +174,6 @@ import { DEMO_TARGET_RESULTS } from '../../../../../data/wizard-prototype';
 
   <div style="display:flex;justify-content:space-between;margin-top:24px;flex-wrap:wrap;gap:8px;">
     <a class="wp-btn wp-btn--secondary" href="/wizard/campaign/demo/publication/">← 公開版の記録に戻る</a>
-    <a class="wp-btn wp-btn--primary" href="/wizard/campaign/demo/report/">レポートプレビューを作成 →</a>
+    <a class="wp-btn wp-btn--primary" href="/wizard/campaign/demo/report/">クライアントに渡せるレポートにまとめる →</a>
   </div>
 </WizardPrototypeLayout>

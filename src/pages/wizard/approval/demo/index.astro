@@ -7,6 +7,8 @@ import {
   DEMO_TARGET_APPROVAL_ITEM,
   DEMO_TARGETS,
   DEMO_TARGET_ARTIFACTS,
+  DEMO_PUBLISH_DATE,
+  DEMO_AGENCY_OWNER,
 } from '../../../../data/wizard-prototype';
 
 function approverName(id: string) {
@@ -66,7 +68,7 @@ const approvalItems = [DEMO_TARGET_APPROVAL_ITEM, ...DEMO_APPROVAL_ITEMS];
       </p>
       <h1>RelayOne 新サービス発表 の確認依頼</h1>
       <p class="wp-client-header__meta">
-        公開予定: 2026年9月15日 · 担当代理店: デモ代理店 山田 花子
+        公開予定: {DEMO_PUBLISH_DATE} · 担当代理店: デモ代理店 {DEMO_AGENCY_OWNER}
       </p>
     </header>
 

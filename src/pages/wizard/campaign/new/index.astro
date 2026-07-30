@@ -2,7 +2,8 @@
 import WizardPrototypeLayout from '../../../../layouts/WizardPrototypeLayout.astro';
 import WizardSaveState from '../../../../components/wizard/WizardSaveState.astro';
 import WizardStateSwitcher from '../../../../components/wizard/WizardStateSwitcher.astro';
-import { DEMO_CLIENT, DEMO_BRAND, DEMO_CAMPAIGN, DEMO_PUBLISH_DATE, DEMO_AGENCY_OWNER } from '../../../../data/wizard-prototype';
+import WizardReportPanel from '../../../../components/wizard/WizardReportPanel.astro';
+import { DEMO_CLIENT, DEMO_BRAND, DEMO_CAMPAIGN, DEMO_PUBLISH_DATE, DEMO_AGENCY_OWNER, DEMO_REPORT_CHAPTERS } from '../../../../data/wizard-prototype';
 ---
 <WizardPrototypeLayout title="案件を作成" description="Meandle Wizard 操作デモ — 案件を作成">
   <header class="wp-page-header" slot="header">
@@ -19,16 +20,19 @@ import { DEMO_CLIENT, DEMO_BRAND, DEMO_CAMPAIGN, DEMO_PUBLISH_DATE, DEMO_AGENCY_
       </div>
     </div>
     <p class="wp-page-header__sub">
-      案件の基本情報を入力してください。実在企業の情報は入力しないでください（このデモは架空データを使用しています）。
+      この案件を最後まで進めると、承認記録つきの公開版と、クライアントに渡せるレポートが残ります。まずは基本情報からです。（このデモは架空データ専用です。実在企業の情報は入力しないでください）
     </p>
   </header>
+
+  <WizardReportPanel />
 
   <div class="wp-callout wp-callout--info">
     <strong>初期値は固定デモデータです</strong>
     <p>このプロトタイプでは、以下のデモデータで案件が作成されます。実データは送信されません。</p>
   </div>
 
-  <form class="wp-card" onsubmit="event.preventDefault(); window.location.href='/wizard/campaign/demo/materials/';" novalidate>
+  <div class="wp-split">
+  <form class="wp-card" onsubmit="event.preventDefault(); window.location.href='/wizard/campaign/demo/materials/?created=1';" novalidate>
     <h2>案件の基本情報</h2>
     <div class="wp-form-grid">
       <label class="wp-field">
@@ -99,10 +103,23 @@ import { DEMO_CLIENT, DEMO_BRAND, DEMO_CAMPAIGN, DEMO_PUBLISH_DATE, DEMO_AGENCY_
     </div>
 
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
-      <button type="submit" class="wp-btn wp-btn--primary">案件を作成して資料を追加</button>
+      <button type="submit" class="wp-btn wp-btn--primary">案件を作成し、根拠を揃える</button>
       <a href="/wizard/" class="wp-btn wp-btn--secondary">下書きとして保存して戻る</a>
     </div>
   </form>
+
+  <div class="wp-entry-reveal">
+    <h2 style="font-size:16px;margin:0 0 8px;">この案件で用意されるレポートの構成</h2>
+    <div class="wp-card wp-card--tight">
+      <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 10px;">
+        作成すると、以下の章立てを持つレポートの骨組みと、クライアント確認画面の骨組みが用意されます。基本情報の3項目（クライアント・案件名・担当）はすでに転記済みです。以後の各操作がこの骨組みを満たします。
+      </p>
+      <ol style="margin:0;padding-left:20px;font-size:12px;color:var(--wp-ink-muted);line-height:1.9;">
+        {DEMO_REPORT_CHAPTERS.map((c) => (<li>{c}</li>))}
+      </ol>
+    </div>
+  </div>
+  </div>
 
   <div data-when-state="conflict" hidden>
     <div class="wp-callout wp-callout--warning">

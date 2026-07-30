@@ -13,6 +13,29 @@ export const DEMO_APPROVERS = [
   { id: 'tanaka', name: '田中 健', role: '法務担当' },
 ];
 
+/**
+ * 正準デモ台帳 — 全画面の日付・数値はここから引く。ハードコード禁止。
+ * 数値の食い違いを検出する製品のデモ自体に食い違いがあると、商談デモで信頼を失う。
+ */
+export const DEMO_LEDGER = {
+  campaignStart: '2026年7月22日',
+  evidenceDone: '2026年7月25日',
+  meaningDone: '2026年7月26日',
+  preflightDone: '2026年7月28日',
+  approvalSent: '2026年7月30日',
+  approvalDeadline: '2026年8月2日 17:00',
+  approvalDone: '2026年8月2日',
+  baselineDate: '2026年9月10日',
+  publishDate: '2026年9月15日 10:00',
+  followupDate: '2026年9月22日',
+  reportDate: '2026年9月22日 15:00',
+  /** 主張の総数（原稿・LP・営業資料からの抽出数）。架空のデモ推計。 */
+  claimsTotal: 12,
+  /** 開始時（案件作成直後）の状態。すべて固定のデモ開始値。 */
+  startSourcedClaims: 0,
+  startConflicts: 2,
+} as const;
+
 export type SourceAuthority = '参考資料' | '正式資料候補' | '正式資料として確認';
 export type SourceState = '待機' | '読み取り中' | '抽出中' | '要確認' | '準備完了' | '一部成功' | '失敗' | '隔離中';
 
@@ -333,6 +356,24 @@ export const DEMO_TARGET_FINDINGS: DemoFinding[] = [
   },
 ];
 
+/** 点検の総項目数（DEMO_FINDINGS + DEMO_TARGET_FINDINGS）。裏づけ帯・受領行で使用。 */
+export const TOTAL_PREFLIGHT_FINDINGS = DEMO_FINDINGS.length + DEMO_TARGET_FINDINGS.length;
+
+/** レポートの章構成。入口の見本カードと実際のレポート画面で共有し、数のずれを防ぐ。 */
+export const DEMO_REPORT_CHAPTERS = [
+  '要約',
+  '経緯',
+  '確認した範囲',
+  '決定と根拠',
+  '公開前に直した記録',
+  '公開記録',
+  '観測',
+  '対象戦略比較レポート',
+  '限界と不足データ',
+  '次の3アクション',
+  '方法と出典',
+] as const;
+
 export interface DemoApprovalItem {
   id: string;
   scope: string;
@@ -381,11 +422,18 @@ export const DEMO_APPROVAL_ITEMS: DemoApprovalItem[] = [
 ];
 
 export const DEMO_STAGE_LABELS = [
-  { key: 'materials', label: '1. 材料', href: '/wizard/campaign/demo/materials/' },
-  { key: 'meaning', label: '2. 伝え方', href: '/wizard/campaign/demo/meaning/' },
-  { key: 'preflight', label: '3. 公開前チェック', href: '/wizard/campaign/demo/preflight/' },
-  { key: 'approval', label: '4. 確認・公開', href: '/wizard/campaign/demo/approval/preview/' },
-  { key: 'results', label: '5. 結果と次の一手', href: '/wizard/campaign/demo/results/' },
+  { key: 'materials', label: '1. 根拠を揃える', href: '/wizard/campaign/demo/materials/', makes: '確認済みの根拠リスト' },
+  { key: 'meaning', label: '2. 伝え方を決める', href: '/wizard/campaign/demo/meaning/', makes: '確定した判断カード6枚' },
+  { key: 'preflight', label: '3. 公開前に点検する', href: '/wizard/campaign/demo/preflight/', makes: '点検済みの原稿' },
+  { key: 'approval', label: '4. 承認を得て公開', href: '/wizard/campaign/demo/approval/preview/', makes: '承認記録つきの公開版' },
+  { key: 'results', label: '5. レポートと次の一手', href: '/wizard/campaign/demo/results/', makes: 'クライアントに渡せるレポート＋次回への一手1件' },
+] as const;
+
+/** 出典5種（材料の3資料 + 利用規約 + よくある質問）。承認プレビュー・レポートの裏づけ帯で使用。 */
+export const DEMO_SOURCE_TYPE_LABELS = [
+  ...DEMO_SOURCES.map((s) => s.title),
+  '利用規約',
+  'よくある質問',
 ] as const;
 
 export const DEMO_STATES = [
@@ -1051,7 +1099,7 @@ export const DEMO_TARGET_OBSERVATION = [
     questions: ['受電の一次対応を自動化するには', '問い合わせが増えたときの対応方法'],
     adoptionSignals: ['料金ページの閲覧', '導入事例の閲覧', '問い合わせフォーム到達'],
     comparedWith: ['汎用チャットボット', 'コールセンター外部委託'],
-    successCondition: '商品名の言及率が baseline を上回り、対象外用途の混同が減ること',
+    successCondition: '商品名の言及率が公開前の測定値を上回り、対象外用途の混同が減ること',
   },
   {
     targetId: 'tg-multisite',

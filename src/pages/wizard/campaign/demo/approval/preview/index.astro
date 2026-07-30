@@ -2,12 +2,17 @@
 import WizardPrototypeLayout from '../../../../../../layouts/WizardPrototypeLayout.astro';
 import WizardCampaignHeader from '../../../../../../components/wizard/WizardCampaignHeader.astro';
 import WizardStageNav from '../../../../../../components/wizard/WizardStageNav.astro';
+import WizardStageThreshold from '../../../../../../components/wizard/WizardStageThreshold.astro';
+import WizardReportPanel from '../../../../../../components/wizard/WizardReportPanel.astro';
 import {
   DEMO_APPROVAL_ITEMS,
   DEMO_APPROVERS,
   DEMO_TARGET_APPROVAL_ITEM,
   DEMO_TARGETS,
   DEMO_TARGET_ARTIFACTS,
+  DEMO_LEDGER,
+  DEMO_SOURCE_TYPE_LABELS,
+  TOTAL_PREFLIGHT_FINDINGS,
 } from '../../../../../../data/wizard-prototype';
 
 function approverName(id: string) {
@@ -20,10 +25,26 @@ function targetName(id: string) {
 
 const approvalItems = [DEMO_TARGET_APPROVAL_ITEM, ...DEMO_APPROVAL_ITEMS];
 const approverCount = new Set(approvalItems.flatMap((i) => i.assignedTo)).size;
+const approverNames = DEMO_APPROVERS.map((a) => a.name).join('／');
 ---
 <WizardPrototypeLayout title="クライアント確認の作成" description="Meandle Wizard 操作デモ — クライアント確認の作成・プレビュー" stage="approval">
   <WizardCampaignHeader slot="header" />
   <WizardStageNav slot="stage" current="approval" />
+
+  <WizardReportPanel />
+  <WizardStageThreshold makes="承認記録つきの公開版" receivedFrom="点検済みの原稿" />
+
+  <div class="wp-card wp-card--tight" style="background:var(--wp-page);">
+    <p style="font-size:13px;margin:0;">
+      この文書の裏づけ: 確認済みの根拠 <span data-wp-confirmed-evidence-count>3</span>件 ・
+      出典 {DEMO_SOURCE_TYPE_LABELS.length}種 ・
+      承認 {DEMO_APPROVERS.length}名（{approverNames}・{DEMO_LEDGER.approvalDone}） ・
+      点検 {TOTAL_PREFLIGHT_FINDINGS}項目 記録済み
+    </p>
+    <p style="font-size:12px;color:var(--wp-ink-muted);margin:6px 0 0;">
+      総合スコアは表示しません。裏づけは上記の内訳のとおりです。※デモ用の架空データです
+    </p>
+  </div>
 
   <div class="wp-callout wp-callout--info">
     <strong>クライアントに送る前に、内容と表示を確認してください</strong>
@@ -144,6 +165,25 @@ const approverCount = new Set(approvalItems.flatMap((i) => i.assignedTo)).size;
         <p style="font-size:12px;color:var(--wp-ink-muted);text-align:center;margin-top:12px;">
           モバイル 420px 幅のプレビュー — デスクトップでも同じ最大幅で表示されます
         </p>
+      </div>
+
+      <div class="wp-card" style="margin-top:16px;">
+        <h3>クライアント側の画面（プレビュー）</h3>
+        <p style="font-size:13px;color:var(--wp-ink-muted);">
+          クライアント側の画面ではこのように表示されます。冒頭に裏づけの記録が添付された状態で届きます。本文の数値には出典番号が付き、末尾に承認記録欄が残ります。
+        </p>
+        <h4 style="font-size:13px;margin:16px 0 8px;">聞かれやすい質問と、答えがある場所</h4>
+        <ul class="wp-list" style="font-size:13px;">
+          <li style="padding:8px 12px;border:1px solid var(--wp-border);border-radius:6px;">
+            「月額25万円の出典は？」→ 根拠リスト ev-price-25（料金表_2026.pdf・2026年6月1日時点）に記載があります。
+          </li>
+          <li style="padding:8px 12px;border:1px solid var(--wp-border);border-radius:6px;">
+            「対象外の条件は？」→ 「向かないケース・言い切れないこと」の判断カードに記載があります。
+          </li>
+          <li style="padding:8px 12px;border:1px solid var(--wp-border);border-radius:6px;">
+            「新しい対象候補はどう扱う？」→ 対象方針の項目に、採用しなかった理由とともに記載があります。
+          </li>
+        </ul>
       </div>
     </div>
   </div>

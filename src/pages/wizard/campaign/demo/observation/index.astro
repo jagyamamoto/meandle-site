@@ -2,24 +2,27 @@
 import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
 import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
 import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
+import WizardReportPanel from '../../../../../components/wizard/WizardReportPanel.astro';
 import { DEMO_TARGET_OBSERVATION } from '../../../../../data/wizard-prototype';
 ---
 <WizardPrototypeLayout title="公開前の観測条件" description="Meandle Wizard 操作デモ — 公開前の観測条件" stage="observation">
   <WizardCampaignHeader slot="header" />
   <WizardStageNav slot="stage" current="approval" />
 
+  <WizardReportPanel />
+
   <div class="wp-callout wp-callout--info">
-    <strong>公開前に「比較可能な観測条件」を確定してください</strong>
+    <strong>公開の前と後で何が変わったかを、同じ条件で測って報告できるようにします。</strong>
     <p>
-      公開後の変化を検証するには、公開前と後で同じ質問・同じ条件で観測する必要があります。
+      その観測条件をここで確定します。
       比較可能な事前観測を作らない場合、公開後のデータは「公開後スナップショット」として記録されます（<strong>公開前後の比較ではありません</strong>）。
     </p>
   </div>
 
   <div data-wp-when-observation="baseline">
     <div class="wp-callout wp-callout--success">
-      <strong>比較可能な baseline を保存しました</strong>
-      <p>公開後は「公開前後を比べる」がこの protocol version に対して実施されます。</p>
+      <strong>公開前の測定値を記録しました。</strong>
+      <p>公開後の変化は、この値と比べてレポートに載ります（観測手順の版に対して実施されます）。</p>
     </div>
   </div>
 
@@ -34,12 +37,12 @@ import { DEMO_TARGET_OBSERVATION } from '../../../../../data/wizard-prototype';
     <div>
       <h2 style="font-size:18px;margin:0 0 12px;">選択肢</h2>
       <div class="wp-card">
-        <h3>1. 比較可能な baseline を作る</h3>
+        <h3>1. 比較可能な測定値を作る</h3>
         <p style="font-size:13px;color:var(--wp-ink-muted);">
           質問セット、プロバイダ、地域、取得日時、サンプル数、分類規則を確定し、公開前のスナップショットを保存します。
         </p>
         <button class="wp-btn wp-btn--primary" type="button" data-wp-observation="baseline" style="margin-top:8px;">
-          観測条件を確定（baseline あり）
+          観測条件を確定（測定値あり）
         </button>
       </div>
       <div class="wp-card">
@@ -54,7 +57,7 @@ import { DEMO_TARGET_OBSERVATION } from '../../../../../data/wizard-prototype';
     </div>
 
     <div>
-      <h2 style="font-size:18px;margin:0 0 12px;">確定する条件（baseline を作る場合）</h2>
+      <h2 style="font-size:18px;margin:0 0 12px;">確定する条件（測定値を作る場合）</h2>
       <div class="wp-card">
         <div class="wp-form-grid">
           <label class="wp-field">
@@ -62,24 +65,24 @@ import { DEMO_TARGET_OBSERVATION } from '../../../../../data/wizard-prototype';
             <textarea>「RelayOne は何をするサービスですか」「対象企業は」「月額料金は」「対応しない用途は」</textarea>
           </label>
           <label class="wp-field">
-            <span class="wp-field__label">プロバイダ / product surface</span>
+            <span class="wp-field__label">プロバイダ / 観測対象の画面</span>
             <input type="text" value="ChatGPT (無料版) / Google AI Overview" />
           </label>
           <label class="wp-field">
-            <span class="wp-field__label">locale / region</span>
+            <span class="wp-field__label">対象の地域と言語</span>
             <input type="text" value="ja-JP / 日本" />
           </label>
           <label class="wp-field">
-            <span class="wp-field__label">sample count</span>
+            <span class="wp-field__label">観測回数</span>
             <input type="text" value="質問4件 × 3回 = 12回" />
           </label>
           <label class="wp-field">
-            <span class="wp-field__label">取得日時（baseline）</span>
+            <span class="wp-field__label">取得日時（公開前の測定値）</span>
             <input type="text" value="2026年9月10日 10:00-11:00 JST（公開の 5 日前）" />
           </label>
           <label class="wp-field">
             <span class="wp-field__label">分類規則</span>
-            <textarea>言及／引用元／リリース転載／独立記事の 4 区分。分類基準は method note に固定。</textarea>
+            <textarea>言及／引用元／リリース転載／独立記事の 4 区分。分類基準は観測メモとして固定します。</textarea>
           </label>
         </div>
         <p style="font-size:12px;color:var(--wp-ink-muted);margin-top:8px;">

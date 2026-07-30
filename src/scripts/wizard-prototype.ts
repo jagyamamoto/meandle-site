@@ -2,8 +2,16 @@
 // Persists demo state in localStorage under a single key.
 // Emits DOM events so components can update.
 
+import { DEMO_FINDINGS, DEMO_TARGET_FINDINGS, DEMO_EVIDENCE, DEMO_STAGE_LABELS } from '../data/wizard-prototype';
+
 const STORAGE_KEY_V1 = 'meandle-wizard-prototype-v1';
 const STORAGE_KEY = 'meandle-wizard-prototype-v2';
+
+// 表示する計数はすべて実データから導出する（ハードコード禁止）。
+const ALL_FINDINGS_FOR_COUNT = [...DEMO_FINDINGS, ...DEMO_TARGET_FINDINGS];
+const BLOCKER_FINDING_IDS = ALL_FINDINGS_FOR_COUNT.filter((f) => f.severity === '公開前に直す').map((f) => f.id);
+const STATICALLY_CONFIRMED_EVIDENCE_COUNT = DEMO_EVIDENCE.filter((e) => e.state === '確認済み').length;
+const TOTAL_EVIDENCE_COUNT = DEMO_EVIDENCE.length;
 
 type TargetStrategyMode =
   | 'main_only'
@@ -155,7 +163,7 @@ function loadState(): WizardState {
   }
 }
 
-function saveState(state: WizardState) {
+function saveState(state: WizardState, savedLabel?: string) {
   if (typeof window === 'undefined') return;
   try {
     state.version = 2;
@@ -165,23 +173,45 @@ function saveState(state: WizardState) {
     if (window.localStorage.getItem(STORAGE_KEY_V1)) {
       window.localStorage.removeItem(STORAGE_KEY_V1);
     }
-    setSaveIndicator('saved');
+    setSaveIndicator('saved', savedLabel);
     document.dispatchEvent(new CustomEvent('wizard:state', { detail: state }));
   } catch {
     setSaveIndicator('offline');
   }
 }
 
-function setSaveIndicator(state: 'saved' | 'saving' | 'offline') {
+let saveLabelTimer: number | undefined;
+
+function timestampLabel(): string {
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2, '0');
+  const mm = String(now.getMinutes()).padStart(2, '0');
+  return `このブラウザに保存 ${hh}:${mm}`;
+}
+
+/**
+ * 保存チップの表示。savedLabel を渡すと「何を保存したか」を約2.5秒名指しし、
+ * その後タイムスタンプ表示へ戻る（aria-live で読み上げも通知）。
+ */
+function setSaveIndicator(state: 'saved' | 'saving' | 'offline', savedLabel?: string) {
+  if (typeof window !== 'undefined' && saveLabelTimer) {
+    window.clearTimeout(saveLabelTimer);
+    saveLabelTimer = undefined;
+  }
   document.querySelectorAll<HTMLElement>('[data-wp-save]').forEach((el) => {
     el.setAttribute('data-state', state);
     const label = el.querySelector<HTMLElement>('.wp-save__label');
     if (!label) return;
     if (state === 'saved') {
-      const now = new Date();
-      const hh = String(now.getHours()).padStart(2, '0');
-      const mm = String(now.getMinutes()).padStart(2, '0');
-      label.textContent = `このブラウザに保存 ${hh}:${mm}`;
+      if (savedLabel) {
+        label.textContent = savedLabel;
+        saveLabelTimer = window.setTimeout(() => {
+          label.textContent = timestampLabel();
+          document.querySelectorAll<HTMLElement>('[data-wp-save]').forEach((e) => e.setAttribute('data-state', 'saved'));
+        }, 2500);
+      } else {
+        label.textContent = timestampLabel();
+      }
     } else if (state === 'saving') {
       label.textContent = '保存中…';
     } else {
@@ -209,6 +239,19 @@ function bindResetButtons() {
   document.querySelectorAll<HTMLButtonElement>('[data-wp-reset]').forEach((btn) => {
     btn.addEventListener('click', resetState);
   });
+}
+
+/** 案件作成直後の遷移先だけに帰結メッセージを表示し、URLからは即座に消す。 */
+function bindCreatedNotice() {
+  const el = document.querySelector<HTMLElement>('[data-wp-when-created]');
+  if (!el) return;
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('created') === '1') {
+    el.hidden = false;
+    params.delete('created');
+    const next = window.location.pathname + (params.toString() ? `?${params}` : '');
+    window.history.replaceState(null, '', next);
+  }
 }
 
 function bindStateSwitcher() {
@@ -261,12 +304,13 @@ function bindResolveButtons() {
         setSaveIndicator('saving');
         const s = loadState();
         const list = s.campaign.mustFixResolved;
+        const nowResolved = !list.includes(id);
         if (list.includes(id)) {
           s.campaign.mustFixResolved = list.filter((x) => x !== id);
         } else {
           s.campaign.mustFixResolved = [...list, id];
         }
-        saveState(s);
+        saveState(s, nowResolved ? '点検1件を保存しました（このブラウザ内・デモ）' : undefined);
         window.setTimeout(() => window.location.reload(), 200);
       });
     });
@@ -281,7 +325,7 @@ function bindPriceButtons() {
         setSaveIndicator('saving');
         const s = loadState();
         s.campaign.priceConfirmed = price;
-        saveState(s);
+        saveState(s, '根拠1件を保存しました（このブラウザ内・デモ）');
         window.setTimeout(() => window.location.reload(), 200);
       });
     });
@@ -308,12 +352,13 @@ function bindApprovalButtons() {
       }
       approveBtn?.addEventListener('click', () => {
         const state = loadState();
+        const nowApproved = state.approval.itemDecisions[itemId] !== 'approved';
         if (state.approval.itemDecisions[itemId] === 'approved') {
           delete state.approval.itemDecisions[itemId];
         } else {
           state.approval.itemDecisions[itemId] = 'approved';
         }
-        saveState(state);
+        saveState(state, nowApproved ? '承認1件を保存しました（このブラウザ内・デモ）' : undefined);
         updateApprovalProgress();
         window.setTimeout(() => window.location.reload(), 150);
       });
@@ -342,7 +387,7 @@ function bindApprovalButtons() {
         const state = loadState();
         state.approval.itemDecisions[itemId] = 'change-requested';
         state.approval.changeReasons[itemId] = reason;
-        saveState(state);
+        saveState(state, '修正依頼を保存しました（このブラウザ内・デモ）');
         window.setTimeout(() => window.location.reload(), 150);
       });
     });
@@ -383,7 +428,7 @@ function bindMeaningActions() {
         const id = btn.getAttribute('data-wp-meaning-confirm') || '';
         const s = loadState();
         s.meaning[id] = { status: '確認済み' };
-        saveState(s);
+        saveState(s, '判断カード1枚を保存しました（このブラウザ内・デモ）');
         window.setTimeout(() => window.location.reload(), 150);
       });
     });
@@ -394,7 +439,7 @@ function bindMeaningActions() {
         const id = btn.getAttribute('data-wp-meaning-client') || '';
         const s = loadState();
         s.meaning[id] = { status: 'クライアント確認が必要' };
-        saveState(s);
+        saveState(s, '判断カード1枚を保存しました（このブラウザ内・デモ）');
         window.setTimeout(() => window.location.reload(), 150);
       });
     });
@@ -421,7 +466,7 @@ function bindPublicationMismatch() {
           | 'external-approval';
         const state = loadState();
         state.publication.resolvedAs = kind;
-        saveState(state);
+        saveState(state, '公開版の記録を保存しました（このブラウザ内・デモ）');
         window.setTimeout(() => window.location.reload(), 150);
       });
     });
@@ -436,7 +481,7 @@ function bindObservationProtocol() {
         const state = loadState();
         state.observation.protocol = kind;
         state.observation.protocolConfirmedAt = new Date().toISOString();
-        saveState(state);
+        saveState(state, '観測条件を保存しました（このブラウザ内・デモ）');
         window.setTimeout(() => window.location.reload(), 150);
       });
     });
@@ -453,7 +498,7 @@ function bindReportToggle() {
   btn.addEventListener('click', () => {
     const state = loadState();
     state.reportInternalVisible = !state.reportInternalVisible;
-    saveState(state);
+    saveState(state, '表示設定を保存しました（このブラウザ内・デモ）');
     window.setTimeout(() => window.location.reload(), 100);
   });
 
@@ -729,7 +774,7 @@ function bindTargetPortfolio() {
       next.targetPortfolio.staleAfterTargetChange = [];
     }
 
-    saveState(next);
+    saveState(next, '対象方針を保存しました（このブラウザ内・デモ）');
     window.setTimeout(() => window.location.reload(), 200);
   });
 
@@ -840,6 +885,139 @@ function reflectTargetStateOnPage() {
   });
 }
 
+/**
+ * 価格が確認された対象のバッジを「確認済み」へ、対立するもう一方を「使用しない」へ
+ * 差し替える（120ms のクロスフェードはCSS側で処理）。
+ */
+function reflectEvidenceBadges() {
+  const s = loadState();
+  const confirmed = s.campaign.priceConfirmed;
+  if (!confirmed) return;
+  const winnerIds = confirmed === '25' ? ['ev-price-25', 'ev-price-25-detail'] : ['ev-price-30', 'ev-price-30-detail'];
+  const loserIds = confirmed === '25' ? ['ev-price-30', 'ev-price-30-detail'] : ['ev-price-25', 'ev-price-25-detail'];
+  winnerIds.forEach((id) => {
+    document.querySelectorAll<HTMLElement>(`[data-wp-evidence-badge="${id}"]`).forEach((el) => {
+      el.className = 'wp-badge wp-badge--success';
+      el.textContent = '確認済み';
+    });
+  });
+  loserIds.forEach((id) => {
+    document.querySelectorAll<HTMLElement>(`[data-wp-evidence-badge="${id}"]`).forEach((el) => {
+      el.className = 'wp-badge wp-badge--neutral';
+      el.textContent = '使用しない';
+    });
+  });
+}
+
+/* ==== 集計の反映（裏づけ帯・受領行・段階の敷居・伝え方の進捗） ==== */
+
+function reflectCounters() {
+  const s = loadState();
+
+  // 伝え方: 6枚中n枚確認済み
+  const meaningTotal = document.querySelectorAll<HTMLElement>('[data-wp-decision-select]').length;
+  const meaningConfirmed = Object.values(s.meaning).filter((m) => m.status === '確認済み').length;
+  document.querySelectorAll<HTMLElement>('[data-wp-meaning-tally]').forEach((el) => {
+    el.textContent = `${meaningConfirmed}`;
+  });
+  document.querySelectorAll<HTMLElement>('[data-wp-meaning-tally-total]').forEach((el) => {
+    el.textContent = `${meaningTotal}`;
+  });
+  document.querySelectorAll<HTMLElement>('[data-wp-meaning-remaining]').forEach((el) => {
+    el.textContent = `${Math.max(meaningTotal - meaningConfirmed, 0)}`;
+  });
+  const meaningAllDone = meaningTotal > 0 && meaningConfirmed === meaningTotal;
+  document.querySelectorAll<HTMLElement>('[data-wp-when-meaning-complete]').forEach((el) => {
+    el.hidden = !meaningAllDone;
+  });
+  document.querySelectorAll<HTMLElement>('[data-wp-when-meaning-incomplete]').forEach((el) => {
+    el.hidden = meaningAllDone;
+  });
+
+  // 根拠リスト: 確認済み n/6件（静的確認済み3件 + 価格確定で+1）
+  const confirmedEvidence = STATICALLY_CONFIRMED_EVIDENCE_COUNT + (s.campaign.priceConfirmed ? 1 : 0);
+  document.querySelectorAll<HTMLElement>('[data-wp-evidence-tally]').forEach((el) => {
+    el.textContent = `確認済み ${confirmedEvidence}/${TOTAL_EVIDENCE_COUNT}件`;
+  });
+  document.querySelectorAll<HTMLElement>('[data-wp-confirmed-evidence-count]').forEach((el) => {
+    el.textContent = `${confirmedEvidence}`;
+  });
+
+  // 公開前チェック: 公開前に直す項目のうち対応済みの件数
+  const resolvedBlockers = BLOCKER_FINDING_IDS.filter((id) => s.campaign.mustFixResolved.includes(id)).length;
+  document.querySelectorAll<HTMLElement>('[data-wp-resolved-blockers]').forEach((el) => {
+    el.textContent = `${resolvedBlockers}`;
+  });
+  document.querySelectorAll<HTMLElement>('[data-wp-remaining-blockers]').forEach((el) => {
+    el.textContent = `${Math.max(BLOCKER_FINDING_IDS.length - resolvedBlockers, 0)}`;
+  });
+
+  // 伝え方: 右レール「レポートに載る言い方（下書き）」の確定状態
+  const draftLines = document.querySelectorAll<HTMLElement>('[data-wp-draft-line]');
+  draftLines.forEach((el) => {
+    const id = el.getAttribute('data-wp-draft-line') || '';
+    const isConfirmed = s.meaning[id]?.status === '確認済み';
+    el.classList.toggle('wp-draft-line--confirmed', isConfirmed);
+  });
+  if (draftLines.length) {
+    const heading = document.querySelector<HTMLElement>('[data-wp-draft-heading]');
+    if (heading) {
+      heading.textContent = meaningAllDone ? 'この案件の言い方（確定）' : 'レポートに載る言い方（下書き）';
+    }
+  }
+}
+
+/**
+ * レポートの現在形パネル。5段階それぞれについて、代表的な到達条件を目安として判定する。
+ * 章単位の内容有無ではなく、段階の到達状況を近似する簡易な指標。
+ */
+function stageIsFilled(key: string, s: WizardState): boolean {
+  switch (key) {
+    case 'materials':
+      return !!s.campaign.priceConfirmed;
+    case 'meaning': {
+      // 判断カードは全6枚固定。localStorage の確認済み件数が6枚に達したかで判定する。
+      const confirmed = Object.values(s.meaning).filter((m) => m.status === '確認済み').length;
+      return confirmed >= 6;
+    }
+    case 'preflight': {
+      const resolved = BLOCKER_FINDING_IDS.filter((id) => s.campaign.mustFixResolved.includes(id)).length;
+      return BLOCKER_FINDING_IDS.length > 0 && resolved === BLOCKER_FINDING_IDS.length;
+    }
+    case 'approval':
+      return !!s.targetPortfolio.decision;
+    case 'results':
+      return !!s.observation.protocol;
+    default:
+      return false;
+  }
+}
+
+function reflectReportPanel() {
+  const s = loadState();
+  let filledCount = 0;
+  const panel = document.querySelector<HTMLElement>('[data-wp-report-panel]');
+  DEMO_STAGE_LABELS.forEach((stage) => {
+    const filled = stageIsFilled(stage.key, s);
+    if (filled) filledCount += 1;
+    if (!panel) return;
+    const item = panel.querySelector<HTMLElement>(`[data-wp-report-panel-item="${stage.key}"]`);
+    if (!item) return;
+    item.classList.toggle('wp-report-panel__item--filled', filled);
+    const mark = item.querySelector<HTMLElement>('.wp-report-panel__mark');
+    if (mark) mark.textContent = filled ? '●' : '○';
+  });
+  if (panel) {
+    const summary = panel.querySelector<HTMLElement>('[data-wp-report-panel-summary]');
+    if (summary) summary.textContent = `レポート ${filledCount}/${DEMO_STAGE_LABELS.length}段階が埋まっています`;
+  }
+
+  const remaining = Math.max(DEMO_STAGE_LABELS.length - filledCount, 0);
+  document.querySelectorAll<HTMLElement>('[data-wp-stage-distance]').forEach((el) => {
+    el.textContent = remaining === 0 ? 'レポート完成' : `あと${remaining}段階`;
+  });
+}
+
 function modeLabel(mode: TargetStrategyMode): string {
   switch (mode) {
     case 'main_only':
@@ -859,6 +1037,7 @@ function modeLabel(mode: TargetStrategyMode): string {
 
 function initAll() {
   bindResetButtons();
+  bindCreatedNotice();
   bindStateSwitcher();
   bindSaveIndicators();
   bindResolveButtons();
@@ -874,6 +1053,9 @@ function initAll() {
   bindTargetPortfolio();
   reflectStateOnPage();
   reflectTargetStateOnPage();
+  reflectCounters();
+  reflectReportPanel();
+  reflectEvidenceBadges();
 }
 
 if (typeof window !== 'undefined') {

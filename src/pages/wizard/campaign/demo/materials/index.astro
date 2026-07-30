@@ -2,15 +2,28 @@
 import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
 import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
 import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
-import { DEMO_SOURCES, DEMO_SOURCE_KINDS } from '../../../../../data/wizard-prototype';
+import WizardStageThreshold from '../../../../../components/wizard/WizardStageThreshold.astro';
+import WizardReportPanel from '../../../../../components/wizard/WizardReportPanel.astro';
+import { DEMO_SOURCES, DEMO_SOURCE_KINDS, DEMO_CAMPAIGN } from '../../../../../data/wizard-prototype';
 ---
 <WizardPrototypeLayout title="材料" description="Meandle Wizard 操作デモ — 材料" stage="materials">
   <WizardCampaignHeader slot="header" />
   <WizardStageNav slot="stage" current="materials" />
 
+  <WizardReportPanel />
+  <WizardStageThreshold makes="確認済みの根拠リスト" receivedFrom="案件の基本情報（案件作成で入力済み）" />
+
+  <div data-wp-when-created hidden class="wp-receipt" role="status" aria-live="polite">
+    案件「{DEMO_CAMPAIGN}」を作成しました。まず資料から、判定の土台になる根拠を揃えます。
+  </div>
+
+  <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 16px;">
+    ここで揃えた事実・数値・注意点が、確認済みの根拠リストになります。公開前の点検もレポートも、すべてこのリストを土台にします。
+  </p>
+
   <div data-when-state="loading" hidden class="wp-job-banner">
     <span class="wp-job-banner__icon">◐</span>
-    <span>3つの資料を読み取っています。この画面を閉じても処理は続きます。</span>
+    <span>資料 2/3件目:『料金表_2026.pdf』から数値と日付を書き出しています。（画面を離れても続きます）</span>
   </div>
 
   <div data-when-state="empty" hidden>

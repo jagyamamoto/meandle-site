@@ -2,12 +2,18 @@
 import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
 import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
 import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
+import WizardReportPanel from '../../../../../components/wizard/WizardReportPanel.astro';
 import {
   DEMO_TARGETS,
   DEMO_TARGET_COMPARISON,
   DEMO_TARGET_EVIDENCE,
   DEMO_TARGET_ARTIFACTS,
   TARGET_TYPE_LABEL,
+  DEMO_LEDGER,
+  DEMO_SOURCE_TYPE_LABELS,
+  DEMO_APPROVERS,
+  TOTAL_PREFLIGHT_FINDINGS,
+  DEMO_FINDINGS,
 } from '../../../../../data/wizard-prototype';
 
 function targetName(id: string) {
@@ -17,10 +23,14 @@ function targetName(id: string) {
 const discovered = DEMO_TARGETS.filter((t) => t.kind !== 'current');
 const supporting = DEMO_TARGET_EVIDENCE.filter((e) => e.stance === '支持');
 const opposing = DEMO_TARGET_EVIDENCE.filter((e) => e.stance === '反対');
+const approverNames = DEMO_APPROVERS.map((a) => a.name).join('／');
+const blockerFindings = DEMO_FINDINGS.filter((f) => f.severity === '公開前に直す');
 ---
 <WizardPrototypeLayout title="レポートプレビュー" description="Meandle Wizard 操作デモ — レポートプレビュー" stage="report">
   <WizardCampaignHeader slot="header" status="完了" />
   <WizardStageNav slot="stage" current="results" />
+
+  <WizardReportPanel />
 
   <div class="wp-report-controls">
     <button class="wp-btn wp-btn--secondary" type="button" data-wp-report-internal-toggle>
@@ -33,7 +43,7 @@ const opposing = DEMO_TARGET_EVIDENCE.filter((e) => e.stance === '反対');
       デモ共有リンクをコピー
     </button>
     <span style="margin-left:auto;font-size:12px;color:var(--wp-ink-muted);">
-      プロトタイプではPDF生成・access log・期限リンクはシミュレーションです。
+      プロトタイプでは、PDF保存・閲覧記録・期限つきリンクは動作の再現です。
     </span>
   </div>
 
@@ -44,8 +54,16 @@ const opposing = DEMO_TARGET_EVIDENCE.filter((e) => e.stance === '反対');
     <h1>RelayOne 新サービス発表 レポート</h1>
     <p class="wp-report__meta">
       対象クライアント: 北辰産業デモ株式会社 / ブランド: RelayOne<br />
-      レポート版: report-v1（snapshot 2026-09-22 15:00 JST）<br />
+      レポート第1版（{DEMO_LEDGER.reportDate}時点の記録）<br />
       作成者: デモ代理店 山田 花子
+    </p>
+
+    <p style="font-size:13px;background:var(--wp-page);border:1px solid var(--wp-border);border-radius:8px;padding:12px 16px;">
+      この文書の裏づけ: 確認済みの根拠 <span data-wp-confirmed-evidence-count>3</span>件 ・
+      出典 {DEMO_SOURCE_TYPE_LABELS.length}種 ・
+      承認 {DEMO_APPROVERS.length}名（{approverNames}・{DEMO_LEDGER.approvalDone}） ・
+      点検 {TOTAL_PREFLIGHT_FINDINGS}項目 記録済み<br />
+      <span style="font-size:12px;color:var(--wp-ink-muted);">総合スコアは表示しません。裏づけは上記の内訳のとおりです。※デモ用の架空データです</span>
     </p>
 
     <h2>1. 要約</h2>
@@ -54,41 +72,51 @@ const opposing = DEMO_TARGET_EVIDENCE.filter((e) => e.stance === '反対');
       公開後の観測では、AI応答での商品名一致 10/12、対象外用途の混同 1/12 まで抑えられました。
     </p>
 
-    <h2>2. 確認した範囲</h2>
+    <h2>2. 経緯</h2>
+    <p>
+      開始時（{DEMO_LEDGER.campaignStart}）: 主張{DEMO_LEDGER.claimsTotal}件のうち出典の記録があるもの {DEMO_LEDGER.startSourcedClaims}件・数値の食い違い {DEMO_LEDGER.startConflicts}件
+      → 現在（{DEMO_LEDGER.reportDate}）: 確認済みの根拠 <span data-wp-confirmed-evidence-count>3</span>件・食い違い 0件
+    </p>
+    <p style="font-size:12px;color:var(--wp-ink-muted);">※デモ用の架空データです</p>
+
+    <h2>3. 確認した範囲</h2>
     <ul>
       <li>資料: RelayOne 公式サービスページ、料金表_2026.pdf、営業資料_最新版.pdf の 3 点</li>
       <li>成果物: プレスリリース、LP、営業資料</li>
       <li>期間: 2026年7月20日〜9月20日</li>
     </ul>
 
-    <h2>3. 決定と根拠</h2>
+    <h2>4. 決定と根拠</h2>
     <ul>
       <li>月額料金: <strong>25万円</strong>（RelayOne 公式サービスページ / 料金表_2026.pdf を根拠として確認済み）</li>
       <li>約束: 中堅B2B企業の受電・チャット一次対応の自動化（商談化は保証しない）</li>
       <li>対象外: 医療診断用途 / 完全自動での商談化</li>
     </ul>
 
-    <h2>4. 公開前に見つけた問題と対応</h2>
+    <h2>5. 公開前に直した記録</h2>
+    <p style="font-size:12px;color:var(--wp-ink-muted);">
+      過去形の記録です。因果効果は保証しません。※デモ用の架空データです
+    </p>
     <ul>
-      <li><strong>「業界No.1」（公開前に直す）</strong> → 「導入企業へのヒアリングで高評価をいただいた」へ差し替え</li>
-      <li><strong>月額料金の食い違い（確認が必要）</strong> → 25万円で統一、営業資料の 30万円 表記を修正</li>
-      <li><strong>対象条件の未明記（改善候補）</strong> → 「中堅B2B / 医療診断用途を除く」の一文をリリースに追記</li>
+      <li><strong>① 根拠の記録がない優越表現「業界No.1」1件</strong>（{DEMO_LEDGER.preflightDone}） → 「導入企業へのヒアリングで高評価をいただいた」へ差し替えました</li>
+      <li><strong>② 月額料金の食い違い 1件</strong>（{DEMO_LEDGER.preflightDone}） → 25万円で統一し、営業資料の 30万円 表記を修正しました</li>
+      <li><strong>③ 対象条件の未明記 1件</strong>（{DEMO_LEDGER.preflightDone}） → 「中堅B2B / 医療診断用途を除く」の一文をリリースに追記しました</li>
     </ul>
 
-    <h2>5. 公開記録</h2>
+    <h2>6. 公開記録</h2>
     <ul>
-      <li>公開日時: 2026年9月15日 10:00 JST</li>
+      <li>公開日時: {DEMO_LEDGER.publishDate} JST</li>
       <li>公開URL: https://example.co.jp/news/relayone-launch/</li>
       <li>配信先: PR TIMES / 自社ニュースルーム</li>
-      <li>承認済みasset version: release-v2.1 / lp-v1.4 / sales-deck-v3.0</li>
+      <li>承認済みの版: release-v2.1 / lp-v1.4 / sales-deck-v3.0</li>
     </ul>
 
-    <h2>6. 観測</h2>
+    <h2>7. 観測</h2>
     <p data-wp-when-observation="baseline">
-      比較可能な baseline（obs-v1）と、公開7日後のfollow-upで比較しました。
-      商品名の言及率: baseline 3/12 → follow-up 10/12。
-      「業界No.1」表現の再現: baseline 2/12 → follow-up 0/12。
-      対象外用途の混同: baseline 4/12 → follow-up 1/12。
+      比較可能な公開前の測定値（第1版）と、公開7日後の記録で比較しました。
+      商品名の言及率: 公開前 3/12 → 公開後 10/12。
+      「業界No.1」表現の再現: 公開前 2/12 → 公開後 0/12。
+      対象外用途の混同: 公開前 4/12 → 公開後 1/12。
     </p>
     <p data-wp-when-observation="no-comparison">
       比較可能な事前観測なし。公開7日後のスナップショットとして次を記録しました：商品名の言及率 10/12、対象外用途の混同 1/12。
@@ -96,7 +124,7 @@ const opposing = DEMO_TARGET_EVIDENCE.filter((e) => e.stance === '反対');
     </p>
     <p data-wp-when-no-observation>観測条件は設定されていません。</p>
 
-    <h2>7. 対象戦略比較レポート</h2>
+    <h2>8. 対象戦略比較レポート</h2>
 
     <h3>現在の主対象</h3>
     <p>{targetName('tg-main')}（検証済み）</p>
@@ -191,27 +219,35 @@ const opposing = DEMO_TARGET_EVIDENCE.filter((e) => e.stance === '反対');
       <span data-wp-when-no-target-decision hidden>未決定</span>
     </p>
 
-    <h2>8. 限界と不足データ</h2>
+    <h2>9. 限界と不足データ</h2>
     <ul>
       <li>問い合わせ数（12件）は複数要因を含み、Meandle 単独の効果とはできません。</li>
-      <li>AI応答の観測は単発調査です（method: 質問4件×3回）。継続監視は次フェーズで検討します。</li>
+      <li>AI応答の観測は単発調査です（方法: 質問4件×3回）。継続監視は次フェーズで検討します。</li>
       <li>営業資料の1ページは画像化されており、その部分は今回の解析対象外です。</li>
     </ul>
 
-    <h2>9. 次の3アクション</h2>
+    <h2>10. 次の3アクション</h2>
+    <p style="font-size:13px;">
+      この案件の記録 — 公開前に直した記述: {blockerFindings.length}件 ／ 新しく見つかった候補: {discovered.length}件〔未検証の仮説〕
+    </p>
     <ol>
       <li>料金条件の根拠をFAQへ追加</li>
       <li>LPとリリースの対象表現を統一</li>
       <li>独立した導入事例を1件追加</li>
     </ol>
 
-    <h2>10. 方法と出典</h2>
+    <h2>11. 方法と出典</h2>
     <ul>
-      <li>意味整理: 6枚の判断カード（audience_context / discovery_language / promise / proof / boundaries / differentiation）</li>
-      <li>公開前チェック: severity 3段階（公開前に直す / 確認が必要 / 改善候補）</li>
-      <li>観測: 質問セット固定、prompt version 1、locale ja-JP、sample = 4×3</li>
+      <li>意味整理: 6枚の判断カード（対象候補と、必要になる場面 / どんな相談や課題から探されるか / 何を解決すると約束できるか / 何を根拠に言えるか / 向かないケース・言い切れないこと / 何と混同されやすく、違いは何か）</li>
+      <li>公開前チェック: 重大度3段階（公開前に直す / 確認が必要 / 改善候補）</li>
+      <li>観測: 質問セット固定、質問セットの版 第1版、地域・言語 ja-JP（日本）、観測回数 4×3</li>
       <li>出典: RelayOne 公式サービスページ、料金表_2026.pdf、営業資料_最新版.pdf、利用規約</li>
     </ul>
+
+    <p style="font-size:12px;color:var(--wp-ink-muted);">
+      この文書の作成過程: 出典参照 {DEMO_SOURCE_TYPE_LABELS.length}種・食い違い解消 1件・修正 {blockerFindings.length}件・承認 {DEMO_APPROVERS.length}名<br />
+      ※デモ用の架空データです
+    </p>
 
     <aside class="wp-report__internal">
       <strong>社内向けメモ（内部セクション）</strong>
@@ -222,7 +258,7 @@ const opposing = DEMO_TARGET_EVIDENCE.filter((e) => e.stance === '反対');
     </aside>
 
     <p class="wp-report__note">
-      本レポートは Meandle Wizard により snapshot として生成されました。方法・出典・限界の記載を削除することはできません。
+      本レポートは Meandle Wizard により保存時点の記録として生成されました。方法・出典・限界の記載を削除することはできません。
       レポート内の数値は、記載の方法・母数・取得日時の範囲においてのみ解釈できます。
       売上、AI引用、検索順位の因果効果は保証されません。
     </p>

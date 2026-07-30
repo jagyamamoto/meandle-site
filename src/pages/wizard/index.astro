@@ -2,7 +2,17 @@
 import WizardPrototypeLayout from '../../layouts/WizardPrototypeLayout.astro';
 import WizardSaveState from '../../components/wizard/WizardSaveState.astro';
 import WizardStateSwitcher from '../../components/wizard/WizardStateSwitcher.astro';
-import { DEMO_CLIENT, DEMO_CAMPAIGN, DEMO_PUBLISH_DATE, DEMO_AGENCY_OWNER } from '../../data/wizard-prototype';
+import WizardReportPanel from '../../components/wizard/WizardReportPanel.astro';
+import {
+  DEMO_CLIENT,
+  DEMO_CAMPAIGN,
+  DEMO_PUBLISH_DATE,
+  DEMO_AGENCY_OWNER,
+  DEMO_REPORT_CHAPTERS,
+  TOTAL_PREFLIGHT_FINDINGS,
+  DEMO_SOURCE_TYPE_LABELS,
+  DEMO_APPROVERS,
+} from '../../data/wizard-prototype';
 ---
 <WizardPrototypeLayout title="今日の作業" description="Meandle Wizard 操作デモ — 今日の作業">
   <header class="wp-page-header" slot="header">
@@ -16,14 +26,36 @@ import { DEMO_CLIENT, DEMO_CAMPAIGN, DEMO_PUBLISH_DATE, DEMO_AGENCY_OWNER } from
       </div>
     </div>
     <p class="wp-page-header__sub">
-      案件はいまどこにあるか、何が進行を止めているか、誰の対応が必要か、次に押すボタンは何かをここで確認します。
+      各案件がめざすのは、承認記録つきの公開版と、クライアントにそのまま渡せるレポートです。ここでは、その完成までにいま何が止まっていて、誰の対応が必要かを確認します。
     </p>
   </header>
 
-  <div data-when-state="loading" hidden class="wp-job-banner">
-    <span class="wp-job-banner__icon">◐</span>
-    <span>案件を読み込んでいます。ほかの画面へ移動しても処理は続きます。</span>
-  </div>
+  <WizardReportPanel />
+
+  <section class="wp-card wp-entry-reveal" aria-labelledby="entry-preview-heading">
+    <h2 id="entry-preview-heading" style="font-size:16px;">この案件で最後に受け取るもの</h2>
+    <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 12px;">
+      確認済みの根拠リスト／クライアントの承認記録／公開前後の記録を同じ条件で比べるレポート。案件を進めるほど、この3つが確定していきます。
+    </p>
+    <div class="wp-form-grid">
+      <div>
+        <p style="font-size:12px;color:var(--wp-ink-muted);letter-spacing:0.04em;margin:0 0 8px;text-transform:uppercase;">
+          レポートの構成（{DEMO_REPORT_CHAPTERS.length}章）
+        </p>
+        <ol style="margin:0;padding-left:20px;font-size:12px;color:var(--wp-ink-muted);line-height:1.9;">
+          {DEMO_REPORT_CHAPTERS.map((c) => (<li>{c}</li>))}
+        </ol>
+      </div>
+      <div>
+        <p style="font-size:12px;color:var(--wp-ink-muted);letter-spacing:0.04em;margin:0 0 8px;text-transform:uppercase;">
+          見本（架空データ・RelayOneデモ案件）
+        </p>
+        <p style="font-size:13px;color:var(--wp-ink-muted);background:var(--wp-page);border:1px solid var(--wp-border);border-radius:8px;padding:12px 16px;">
+          根拠 0件 ・ 出典 0/{DEMO_SOURCE_TYPE_LABELS.length}種 ・ 承認 0/{DEMO_APPROVERS.length}名 ・ 点検 0/{TOTAL_PREFLIGHT_FINDINGS}項目
+        </p>
+      </div>
+    </div>
+  </section>
 
   <div data-when-state="empty" hidden>
     <div class="wp-empty">
@@ -50,7 +82,7 @@ import { DEMO_CLIENT, DEMO_CAMPAIGN, DEMO_PUBLISH_DATE, DEMO_AGENCY_OWNER } from
     </div>
   </div>
 
-  <div data-hide-when-state="loading,empty,error">
+  <div data-hide-when-state="empty,error">
     <div class="wp-metric-row">
       <div class="wp-metric">
         <p class="wp-metric__label">公開前に直す</p>
@@ -70,6 +102,10 @@ import { DEMO_CLIENT, DEMO_CAMPAIGN, DEMO_PUBLISH_DATE, DEMO_AGENCY_OWNER } from
       </div>
     </div>
 
+    <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 16px;">
+      完了した案件の記録: 承認までの往復 3回（それまでの案件平均は 5.2回でした）
+    </p>
+
     <section class="wp-card" aria-labelledby="attention-heading">
       <h2 id="attention-heading">優先して対応</h2>
       <div class="wp-table--scroll">
@@ -81,6 +117,7 @@ import { DEMO_CLIENT, DEMO_CAMPAIGN, DEMO_PUBLISH_DATE, DEMO_AGENCY_OWNER } from
               <th>担当</th>
               <th>期限</th>
               <th>次にすること</th>
+              <th>レポートまで</th>
             </tr>
           </thead>
           <tbody>
@@ -97,6 +134,7 @@ import { DEMO_CLIENT, DEMO_CAMPAIGN, DEMO_PUBLISH_DATE, DEMO_AGENCY_OWNER } from
               <td class="wp-table__next">
                 <a href="/wizard/campaign/demo/evidence/" style="color:inherit;">根拠リストを確認</a>
               </td>
+              <td style="font-size:12px;color:var(--wp-ink-muted);" data-wp-stage-distance>あと4段階</td>
             </tr>
             <tr data-when-state="partial" hidden>
               <td>
@@ -111,6 +149,7 @@ import { DEMO_CLIENT, DEMO_CAMPAIGN, DEMO_PUBLISH_DATE, DEMO_AGENCY_OWNER } from
               <td class="wp-table__next">
                 <a href="/wizard/campaign/demo/materials/" style="color:inherit;">材料を確認</a>
               </td>
+              <td style="font-size:12px;color:var(--wp-ink-muted);">あと5段階</td>
             </tr>
           </tbody>
         </table>
@@ -129,6 +168,7 @@ import { DEMO_CLIENT, DEMO_CAMPAIGN, DEMO_PUBLISH_DATE, DEMO_AGENCY_OWNER } from
               <th>担当</th>
               <th>期限</th>
               <th>次にすること</th>
+              <th>レポートまで</th>
             </tr>
           </thead>
           <tbody>
@@ -145,6 +185,7 @@ import { DEMO_CLIENT, DEMO_CAMPAIGN, DEMO_PUBLISH_DATE, DEMO_AGENCY_OWNER } from
               <td class="wp-table__next">
                 <a href="/wizard/campaign/demo/evidence/" style="color:inherit;">根拠リストを確認</a>
               </td>
+              <td style="font-size:12px;color:var(--wp-ink-muted);" data-wp-stage-distance>あと4段階</td>
             </tr>
           </tbody>
         </table>

@@ -2,10 +2,17 @@
 import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
 import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
 import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
+import WizardReportPanel from '../../../../../components/wizard/WizardReportPanel.astro';
 ---
 <WizardPrototypeLayout title="公開版の記録" description="Meandle Wizard 操作デモ — 公開版の記録" stage="publication">
   <WizardCampaignHeader slot="header" />
   <WizardStageNav slot="stage" current="approval" />
+
+  <WizardReportPanel />
+
+  <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 16px;">
+    ここで記録した公開版に、以降の観測とレポートが紐づきます。どの版について何を測ったかを、あとから誰でも辿れます。
+  </p>
 
   <div class="wp-card">
     <label style="display:flex;gap:8px;align-items:center;padding:8px;background:var(--wp-warning-soft);border-radius:6px;">
@@ -37,7 +44,7 @@ import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astr
       <div class="wp-callout wp-callout--info">
         <strong>公開内容を新版として取り込みました</strong>
         <p>
-          新しい asset version が作成されました。関連する公開前チェックが再確認になり、
+          新しい版が作成されました。関連する公開前チェックが再確認になり、
           影響のある承認項目のみ再依頼される予定です。他の承認は維持されます。
         </p>
       </div>
@@ -71,12 +78,12 @@ import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astr
           <input type="text" value="PR TIMES / 自社ニュースルーム" />
         </label>
         <label class="wp-field">
-          <span class="wp-field__label">承認済みasset version</span>
+          <span class="wp-field__label">公開版の番号</span>
           <input type="text" value="release-v2.1 / lp-v1.4 / sales-deck-v3.0" readonly />
         </label>
         <label class="wp-field">
-          <span class="wp-field__label">観測protocol version</span>
-          <input type="text" value="obs-v1（baseline あり）" readonly data-wp-when-observation="baseline" />
+          <span class="wp-field__label">観測手順の版</span>
+          <input type="text" value="第1版（測定値あり）" readonly data-wp-when-observation="baseline" />
           <input type="text" value="比較可能な事前観測なし" readonly data-wp-when-observation="no-comparison" />
           <input type="text" value="（観測条件が未確定）" readonly data-wp-when-no-observation />
         </label>

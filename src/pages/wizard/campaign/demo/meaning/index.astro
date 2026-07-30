@@ -3,18 +3,33 @@ import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.
 import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
 import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
 import WizardTargetCard from '../../../../../components/wizard/WizardTargetCard.astro';
+import WizardStageThreshold from '../../../../../components/wizard/WizardStageThreshold.astro';
+import WizardReportPanel from '../../../../../components/wizard/WizardReportPanel.astro';
 import { DEMO_MEANING_CARDS } from '../../../../../data/wizard-prototype';
 ---
 <WizardPrototypeLayout title="伝え方の基準" description="Meandle Wizard 操作デモ — 伝え方の基準" stage="meaning">
   <WizardCampaignHeader slot="header" />
   <WizardStageNav slot="stage" current="meaning" />
 
+  <WizardReportPanel />
+  <WizardStageThreshold makes="確定した判断カード6枚" receivedFrom="確認済みの根拠リスト" />
+
   <div class="wp-callout wp-callout--info">
-    <strong>AI は候補を出すだけです。</strong>
+    <strong>
+      ここで決める基準が、原稿・LP・営業資料の言い方を案件内で揃え、公開前の点検の判定基準になります。
+    </strong>
     <p>
-      「確認済み」にするのは人だけです。
+      AI は候補を出すだけです。「確認済み」にするのは人だけです。
       <strong>該当なし</strong>を選ぶ場合は、その理由を必ず入力してください（AIは自動選択できません）。
     </p>
+  </div>
+
+  <p class="wp-callout wp-callout--info" style="display:inline-flex;gap:6px;">
+    <span data-wp-meaning-tally>0</span>枚中<span data-wp-meaning-tally-total>6</span>枚を確認済みです。残り<span data-wp-meaning-remaining>6</span>枚で、伝え方の基準が確定します。
+  </p>
+
+  <div data-wp-when-meaning-complete hidden class="wp-receipt">
+    伝え方の基準が確定しました。公開前の点検は、この基準に沿って行われます。
   </div>
 
   <div class="wp-decision">
@@ -88,6 +103,18 @@ import { DEMO_MEANING_CARDS } from '../../../../../data/wizard-prototype';
           <span style="color:var(--wp-warning);font-size:12px;">正式資料候補 / 一部成功</span>
         </li>
       </ul>
+
+      <details class="wp-target__details" style="margin-top:16px;" open>
+        <summary data-wp-draft-heading>レポートに載る言い方（下書き）</summary>
+        <ul class="wp-list" style="margin-top:8px;">
+          {DEMO_MEANING_CARDS.map((c) => (
+            <li data-wp-draft-line={c.id} class="wp-draft-line">
+              <strong style="font-size:12px;display:block;">{c.heading}</strong>
+              <span style="font-size:12px;">{c.aiDraft}</span>
+            </li>
+          ))}
+        </ul>
+      </details>
     </div>
   </div>
 

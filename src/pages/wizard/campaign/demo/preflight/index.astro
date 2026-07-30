@@ -2,7 +2,9 @@
 import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
 import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
 import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
-import { DEMO_FINDINGS, DEMO_TARGET_FINDINGS } from '../../../../../data/wizard-prototype';
+import WizardStageThreshold from '../../../../../components/wizard/WizardStageThreshold.astro';
+import WizardReportPanel from '../../../../../components/wizard/WizardReportPanel.astro';
+import { DEMO_FINDINGS, DEMO_TARGET_FINDINGS, DEMO_LEDGER } from '../../../../../data/wizard-prototype';
 
 const allFindings = [...DEMO_FINDINGS, ...DEMO_TARGET_FINDINGS];
 const countBySeverity = (severity: string) =>
@@ -14,6 +16,9 @@ const suggestCount = countBySeverity('改善候補');
 <WizardPrototypeLayout title="公開前チェック" description="Meandle Wizard 操作デモ — 公開前チェック" stage="preflight">
   <WizardCampaignHeader slot="header" />
   <WizardStageNav slot="stage" current="preflight" />
+
+  <WizardReportPanel />
+  <WizardStageThreshold makes="点検済みの原稿" receivedFrom="確定した判断カード6枚" />
 
   <div data-wp-when-resolved="f-industry-no1">
     <div class="wp-callout wp-callout--success">
@@ -150,13 +155,36 @@ const suggestCount = countBySeverity('改善候補');
     </div>
   </div>
 
+  <section class="wp-card" style="margin-top:24px;">
+    <h2 style="font-size:18px;">点検前後の対比</h2>
+    <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 12px;">
+      点検前の原稿にあった表現（{DEMO_LEDGER.preflightDone}時点の控え）と、点検後の記述を並べます。
+    </p>
+    {DEMO_FINDINGS.map((f) => (
+      <div class="wp-diff" style="margin-bottom:12px;">
+        <div class="wp-diff__row" style="background:var(--wp-page);font-family:inherit;">
+          <span class="wp-badge" style={f.severity === '公開前に直す' ? 'background:var(--wp-danger-soft);color:var(--wp-danger);' : f.severity === '確認が必要' ? 'background:var(--wp-warning-soft);color:var(--wp-warning);' : 'background:#f2f5f8;color:var(--wp-ink-muted);'}>{f.severity}</span>
+          <strong style="font-size:13px;">{f.title}</strong>
+        </div>
+        <div class="wp-diff__row wp-diff__row--removed" style="font-family:inherit;font-size:13px;">
+          <span class="wp-diff__mark">点検前</span>
+          <span>{f.currentText}</span>
+        </div>
+        <div class="wp-diff__row wp-diff__row--added" style="font-family:inherit;font-size:13px;">
+          <span class="wp-diff__mark">点検後</span>
+          <span>{f.suggestedFix}</span>
+        </div>
+      </div>
+    ))}
+  </section>
+
   <div style="display:flex;justify-content:space-between;margin-top:24px;flex-wrap:wrap;gap:8px;">
     <a class="wp-btn wp-btn--secondary" href="/wizard/campaign/demo/meaning/">← 伝え方の基準に戻る</a>
     <a class="wp-btn wp-btn--primary" href="/wizard/campaign/demo/approval/preview/" data-wp-when-resolved="f-industry-no1">
       クライアント確認画面を作成 →
     </a>
     <span data-wp-when-unresolved="f-industry-no1" class="wp-btn wp-btn--secondary" aria-disabled="true" style="opacity:0.6;cursor:not-allowed;">
-      公開前に直す項目を対応するまで進めません
+      残り<span data-wp-remaining-blockers>{blockerCount}</span>件を直すと、公開しても守れる原稿になります。クライアント確認は、その後に進めます。
     </span>
   </div>
 </WizardPrototypeLayout>

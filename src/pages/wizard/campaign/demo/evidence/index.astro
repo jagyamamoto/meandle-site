@@ -2,6 +2,7 @@
 import WizardPrototypeLayout from '../../../../../layouts/WizardPrototypeLayout.astro';
 import WizardCampaignHeader from '../../../../../components/wizard/WizardCampaignHeader.astro';
 import WizardStageNav from '../../../../../components/wizard/WizardStageNav.astro';
+import WizardReportPanel from '../../../../../components/wizard/WizardReportPanel.astro';
 import {
   DEMO_EVIDENCE,
   DEMO_SOURCES,
@@ -9,6 +10,8 @@ import {
   DEMO_TARGETS,
   DEMO_TARGET_COMPARISON,
   EVIDENCE_LEVEL_LABEL,
+  DEMO_LEDGER,
+  DEMO_AGENCY_OWNER,
 } from '../../../../../data/wizard-prototype';
 
 function sourceTitle(id: string) {
@@ -25,6 +28,8 @@ const numericRows = DEMO_TARGET_COMPARISON.filter((r) => r.formula);
   <WizardCampaignHeader slot="header" />
   <WizardStageNav slot="stage" current="materials" />
 
+  <WizardReportPanel />
+
   <div class="wp-callout wp-callout--danger">
     <strong>価格の食い違いがあります</strong>
     <p>「月額料金」について、公式サービスページ／料金表は <strong>25万円</strong>、営業資料は <strong>30万円</strong> と記載されています。正しい価格を確認してから、伝え方の基準を確定してください。</p>
@@ -40,16 +45,21 @@ const numericRows = DEMO_TARGET_COMPARISON.filter((r) => r.formula);
       </button>
     </div>
     <p data-wp-when-price="25" hidden style="margin-top:12px;color:var(--wp-success);">
-      ✓ 「月額25万円」が確認済みになりました。営業資料の 30万円 表記は<strong>使用しない</strong>として保存されます。
+      ✓ 「月額25万円」が確認済みになりました。営業資料の 30万円 表記は<strong>使用しない</strong>として保存されます。<br />
+      <span style="font-size:12px;color:var(--wp-ink-muted);">担当者（デモ）: {DEMO_AGENCY_OWNER} · {DEMO_LEDGER.evidenceDone}</span><br />
+      <span style="font-size:12px;color:var(--wp-ink-muted);">この根拠は公開前の点検の照合先になります。</span>
     </p>
     <p data-wp-when-price="30" hidden style="margin-top:12px;color:var(--wp-success);">
-      ✓ 「月額30万円」が確認済みになりました。他資料の 25万円 表記は<strong>使用しない</strong>として保存されます。
+      ✓ 「月額30万円」が確認済みになりました。他資料の 25万円 表記は<strong>使用しない</strong>として保存されます。<br />
+      <span style="font-size:12px;color:var(--wp-ink-muted);">担当者（デモ）: {DEMO_AGENCY_OWNER} · {DEMO_LEDGER.evidenceDone}</span><br />
+      <span style="font-size:12px;color:var(--wp-ink-muted);">この根拠は公開前の点検の照合先になります。</span>
     </p>
   </div>
 
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center;">
     <h2 style="margin:0;font-size:20px;">根拠リスト</h2>
     <span class="wp-badge wp-badge--neutral">種類 × 確認状態</span>
+    <span class="wp-badge wp-badge--success" data-wp-evidence-tally>確認済み 3/6件</span>
     <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/meaning/" style="margin-left:auto;">伝え方の基準へ →</a>
   </div>
 
@@ -74,12 +84,12 @@ const numericRows = DEMO_TARGET_COMPARISON.filter((r) => r.formula);
             </td>
             <td style="font-size:12px;color:var(--wp-ink-muted);">{ev.origin}</td>
             <td>
-              {ev.state === '確認済み' && <span class="wp-badge wp-badge--success">{ev.state}</span>}
-              {ev.state === '食い違いあり' && <span class="wp-badge wp-badge--danger">{ev.state}</span>}
-              {ev.state === '確認待ち' && <span class="wp-badge wp-badge--warning">{ev.state}</span>}
-              {ev.state === 'AI候補' && <span class="wp-badge wp-badge--info">{ev.state}</span>}
-              {ev.state === '使用しない' && <span class="wp-badge wp-badge--neutral">{ev.state}</span>}
-              {ev.state === '期限切れ' && <span class="wp-badge wp-badge--neutral">{ev.state}</span>}
+              {ev.state === '確認済み' && <span class="wp-badge wp-badge--success" data-wp-evidence-badge={ev.id}>{ev.state}</span>}
+              {ev.state === '食い違いあり' && <span class="wp-badge wp-badge--danger" data-wp-evidence-badge={ev.id}>{ev.state}</span>}
+              {ev.state === '確認待ち' && <span class="wp-badge wp-badge--warning" data-wp-evidence-badge={ev.id}>{ev.state}</span>}
+              {ev.state === 'AI候補' && <span class="wp-badge wp-badge--info" data-wp-evidence-badge={ev.id}>{ev.state}</span>}
+              {ev.state === '使用しない' && <span class="wp-badge wp-badge--neutral" data-wp-evidence-badge={ev.id}>{ev.state}</span>}
+              {ev.state === '期限切れ' && <span class="wp-badge wp-badge--neutral" data-wp-evidence-badge={ev.id}>{ev.state}</span>}
             </td>
             <td style="font-size:12px;color:var(--wp-ink-muted);">{sourceTitle(ev.sourceId)}</td>
             <td style="font-size:12px;">{ev.assignedTo ?? '—'}</td>
@@ -95,7 +105,7 @@ const numericRows = DEMO_TARGET_COMPARISON.filter((r) => r.formula);
     <div class="wp-evidence wp-evidence--conflict">
       <div class="wp-evidence__head">
         <span class="wp-evidence__statement">RelayOne の月額料金は 25万円</span>
-        <span class="wp-badge wp-badge--danger">食い違いあり</span>
+        <span class="wp-badge wp-badge--danger" data-wp-evidence-badge="ev-price-25-detail">食い違いあり</span>
       </div>
       <div class="wp-evidence__excerpt">
         「月額 250,000 円（税別）」— RelayOne 公式サービスページ 第2セクション
@@ -246,6 +256,13 @@ const numericRows = DEMO_TARGET_COMPARISON.filter((r) => r.formula);
       </ul>
     </details>
   </section>
+
+  <div data-wp-when-price="25" hidden class="wp-receipt">
+    確認済みの根拠リストが確定しました。次の段階（伝え方を決める）では、この根拠が判断カードの出典として使われます。
+  </div>
+  <div data-wp-when-price="30" hidden class="wp-receipt">
+    確認済みの根拠リストが確定しました。次の段階（伝え方を決める）では、この根拠が判断カードの出典として使われます。
+  </div>
 
   <div style="display:flex;justify-content:flex-end;margin-top:24px;gap:8px;">
     <a class="wp-btn wp-btn--secondary" href="/wizard/campaign/demo/materials/">← 材料に戻る</a>
