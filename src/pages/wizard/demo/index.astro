@@ -1,0 +1,210 @@
+---
+import WizardPrototypeLayout from '../../../layouts/WizardPrototypeLayout.astro';
+import WizardSaveState from '../../../components/wizard/WizardSaveState.astro';
+import WizardStateSwitcher from '../../../components/wizard/WizardStateSwitcher.astro';
+import WizardReportPanel from '../../../components/wizard/WizardReportPanel.astro';
+import {
+  DEMO_CLIENT,
+  DEMO_CAMPAIGN,
+  DEMO_PUBLISH_DATE,
+  DEMO_AGENCY_OWNER,
+  DEMO_REPORT_CHAPTERS,
+  TOTAL_PREFLIGHT_FINDINGS,
+  DEMO_SOURCE_TYPE_LABELS,
+  DEMO_APPROVERS,
+} from '../../../data/wizard-prototype';
+---
+<WizardPrototypeLayout title="今日の作業" description="Meandle Wizard Partner 操作デモ — 今日の作業">
+  <header class="wp-page-header" slot="header">
+    <div class="wp-page-header__breadcrumb">
+      <a href="/wizard/" style="color:inherit;text-decoration:none;">Meandle Wizard Partner</a>
+      <span aria-hidden="true"> › </span>
+      <span>今日の作業</span>
+    </div>
+    <div class="wp-page-header__top">
+      <h1>今日の作業</h1>
+      <div class="wp-page-header__actions">
+        <WizardSaveState />
+        <WizardStateSwitcher />
+        <a class="wp-btn wp-btn--primary" href="/wizard/campaign/new/">案件を作成</a>
+      </div>
+    </div>
+    <p class="wp-page-header__sub">
+      各案件がめざすのは、承認記録つきの公開版と、クライアントにそのまま渡せるレポートです。ここでは、その完成までにいま何が止まっていて、誰の対応が必要かを確認します。
+    </p>
+  </header>
+
+  <WizardReportPanel />
+
+  <section class="wp-card wp-entry-reveal" aria-labelledby="entry-preview-heading">
+    <h2 id="entry-preview-heading" style="font-size:16px;">この案件で最後に受け取るもの</h2>
+    <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 12px;">
+      確認済みの根拠リスト／クライアントの承認記録／公開前後の記録を同じ条件で比べるレポート。案件を進めるほど、この3つが確定していきます。
+    </p>
+    <div class="wp-form-grid">
+      <div>
+        <p style="font-size:12px;color:var(--wp-ink-muted);letter-spacing:0.04em;margin:0 0 8px;text-transform:uppercase;">
+          レポートの構成（{DEMO_REPORT_CHAPTERS.length}章）
+        </p>
+        <ol style="margin:0;padding-left:20px;font-size:12px;color:var(--wp-ink-muted);line-height:1.9;">
+          {DEMO_REPORT_CHAPTERS.map((c) => (<li>{c}</li>))}
+        </ol>
+      </div>
+      <div>
+        <p style="font-size:12px;color:var(--wp-ink-muted);letter-spacing:0.04em;margin:0 0 8px;text-transform:uppercase;">
+          見本（架空データ・RelayOneデモ案件）
+        </p>
+        <p style="font-size:13px;color:var(--wp-ink-muted);background:var(--wp-page);border:1px solid var(--wp-border);border-radius:8px;padding:12px 16px;">
+          根拠 0件 ・ 出典 0/{DEMO_SOURCE_TYPE_LABELS.length}種 ・ 承認 0/{DEMO_APPROVERS.length}名 ・ 点検 0/{TOTAL_PREFLIGHT_FINDINGS}項目
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div data-when-state="empty" hidden>
+    <div class="wp-empty">
+      <h3>案件はまだありません</h3>
+      <p>
+        最初の案件にURLまたは資料を1件追加すると、伝え方の整理を始められます。
+      </p>
+      <a class="wp-btn wp-btn--primary" href="/wizard/campaign/new/">最初の案件を作成</a>
+    </div>
+  </div>
+
+  <div data-when-state="error" hidden>
+    <div class="wp-callout wp-callout--danger">
+      <strong>案件一覧を取得できませんでした</strong>
+      <p>これまでの入力と操作はブラウザに保存されています。時間をおいてもう一度お試しください。</p>
+      <button class="wp-btn wp-btn--secondary" type="button" onclick="window.location.reload()">もう一度試す</button>
+    </div>
+  </div>
+
+  <div data-when-state="offline" hidden>
+    <div class="wp-callout wp-callout--warning">
+      <strong>オフラインで動作中です</strong>
+      <p>接続復旧後に3件の変更を保存します。この間も進行できます。</p>
+    </div>
+  </div>
+
+  <div data-hide-when-state="empty,error">
+    <div class="wp-metric-row">
+      <div class="wp-metric">
+        <p class="wp-metric__label">公開前に直す</p>
+        <p class="wp-metric__value wp-metric__value--danger">1件</p>
+      </div>
+      <div class="wp-metric">
+        <p class="wp-metric__label">クライアント確認待ち</p>
+        <p class="wp-metric__value wp-metric__value--warning">2件</p>
+      </div>
+      <div class="wp-metric">
+        <p class="wp-metric__label">今週公開</p>
+        <p class="wp-metric__value">1件</p>
+      </div>
+      <div class="wp-metric">
+        <p class="wp-metric__label">担当者の確認待ち</p>
+        <p class="wp-metric__value">1件</p>
+      </div>
+    </div>
+
+    <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 16px;">
+      完了した案件の記録: 承認までの往復 3回（それまでの案件平均は 5.2回でした）
+    </p>
+
+    <section class="wp-card" aria-labelledby="attention-heading">
+      <h2 id="attention-heading">優先して対応</h2>
+      <div class="wp-table--scroll">
+        <table class="wp-table">
+          <thead>
+            <tr>
+              <th>案件</th>
+              <th>種類</th>
+              <th>担当</th>
+              <th>期限</th>
+              <th>次にすること</th>
+              <th>レポートまで</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div>{DEMO_CLIENT}</div>
+                <div style="color:var(--wp-ink-muted);font-size:12px;">{DEMO_CAMPAIGN}</div>
+              </td>
+              <td>
+                <span class="wp-badge wp-badge--danger">公開前に直す 1件</span>
+              </td>
+              <td>{DEMO_AGENCY_OWNER}</td>
+              <td>{DEMO_PUBLISH_DATE}</td>
+              <td class="wp-table__next">
+                <a href="/wizard/campaign/demo/evidence/" style="color:inherit;">根拠リストを確認</a>
+              </td>
+              <td style="font-size:12px;color:var(--wp-ink-muted);" data-wp-stage-distance>あと4段階</td>
+            </tr>
+            <tr data-when-state="partial" hidden>
+              <td>
+                <div>{DEMO_CLIENT}</div>
+                <div style="color:var(--wp-ink-muted);font-size:12px;">一部の資料が読み取れません</div>
+              </td>
+              <td>
+                <span class="wp-badge wp-badge--warning">一部成功</span>
+              </td>
+              <td>{DEMO_AGENCY_OWNER}</td>
+              <td>{DEMO_PUBLISH_DATE}</td>
+              <td class="wp-table__next">
+                <a href="/wizard/campaign/demo/materials/" style="color:inherit;">材料を確認</a>
+              </td>
+              <td style="font-size:12px;color:var(--wp-ink-muted);">あと5段階</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="wp-card" aria-labelledby="all-campaigns">
+      <h2 id="all-campaigns">案件</h2>
+      <div class="wp-table--scroll">
+        <table class="wp-table">
+          <thead>
+            <tr>
+              <th>クライアント</th>
+              <th>案件</th>
+              <th>段階</th>
+              <th>担当</th>
+              <th>期限</th>
+              <th>次にすること</th>
+              <th>レポートまで</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{DEMO_CLIENT}</td>
+              <td>
+                <a href="/wizard/campaign/demo/materials/">{DEMO_CAMPAIGN}</a>
+              </td>
+              <td>
+                <span class="wp-badge wp-badge--info">社内確認</span>
+              </td>
+              <td>{DEMO_AGENCY_OWNER}</td>
+              <td>{DEMO_PUBLISH_DATE}</td>
+              <td class="wp-table__next">
+                <a href="/wizard/campaign/demo/evidence/" style="color:inherit;">根拠リストを確認</a>
+              </td>
+              <td style="font-size:12px;color:var(--wp-ink-muted);" data-wp-stage-distance>あと4段階</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div data-when-state="conflict" hidden>
+      <div class="wp-callout wp-callout--warning">
+        <strong>ほかの担当者が同じ案件を更新しました</strong>
+        <p>あなたの入力は保持されています。最新版との差分を比較してから反映してください。</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+          <button class="wp-btn wp-btn--secondary" type="button">最新版に自分の変更を反映</button>
+          <button class="wp-btn wp-btn--ghost" type="button">自分の入力をコピー</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</WizardPrototypeLayout>

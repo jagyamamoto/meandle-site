@@ -12,13 +12,18 @@ interface Props {
 
 const {
   title,
-  description = 'Meandle Wizard Partner v1 — 操作デモ',
+  description = 'Meandle Wizard Partner — 操作デモ',
   stage = null,
 } = Astro.props;
 
 const railLinks = [
-  { href: '/wizard/', label: '今日の作業' },
-  { href: '/wizard/campaign/demo/materials/', label: '案件（RelayOne デモ）' },
+  { href: '/wizard/', label: 'はじめに・使い方', match: (p: string) => p === '/wizard/' },
+  { href: '/wizard/demo/', label: '今日の作業', match: (p: string) => p === '/wizard/demo/' },
+  {
+    href: '/wizard/campaign/demo/materials/',
+    label: '案件（RelayOne デモ）',
+    match: (p: string) => p.startsWith('/wizard/campaign/') || p.startsWith('/wizard/approval/'),
+  },
 ];
 ---
 <!doctype html>
@@ -27,7 +32,7 @@ const railLinks = [
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} | Meandle Wizard</title>
+    <title>{title} | Meandle Wizard Partner</title>
     <meta name="description" content={description} />
     <meta name="robots" content="noindex,nofollow" />
     <meta name="referrer" content="no-referrer" />
@@ -41,15 +46,15 @@ const railLinks = [
 
     <div class="wp-shell">
       <nav class="wp-rail" aria-label="Meandle Wizard ナビゲーション">
-        <div class="wp-rail__brand">
-          MEANDLE WIZARD
+        <a class="wp-rail__brand" href="/wizard/" style="text-decoration:none;">
+          MEANDLE WIZARD PARTNER
           <small>PROTOTYPE v1</small>
-        </div>
+        </a>
         {railLinks.map((link) => (
           <a
             class="wp-rail__link"
             href={link.href}
-            aria-current={Astro.url.pathname.startsWith(link.href) && link.href !== '/wizard/' ? 'page' : (Astro.url.pathname === link.href ? 'page' : undefined)}
+            aria-current={link.match(Astro.url.pathname) ? 'page' : undefined}
           >
             {link.label}
           </a>

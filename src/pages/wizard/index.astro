@@ -1,206 +1,210 @@
 ---
 import WizardPrototypeLayout from '../../layouts/WizardPrototypeLayout.astro';
-import WizardSaveState from '../../components/wizard/WizardSaveState.astro';
-import WizardStateSwitcher from '../../components/wizard/WizardStateSwitcher.astro';
-import WizardReportPanel from '../../components/wizard/WizardReportPanel.astro';
-import {
-  DEMO_CLIENT,
-  DEMO_CAMPAIGN,
-  DEMO_PUBLISH_DATE,
-  DEMO_AGENCY_OWNER,
-  DEMO_REPORT_CHAPTERS,
-  TOTAL_PREFLIGHT_FINDINGS,
-  DEMO_SOURCE_TYPE_LABELS,
-  DEMO_APPROVERS,
-} from '../../data/wizard-prototype';
+import { DEMO_STAGE_LABELS } from '../../data/wizard-prototype';
+
+const STAGE_DESCRIPTIONS: Record<string, string> = {
+  materials:
+    '資料を読み込み、主張の裏づけとなる根拠を1件ずつ確認します。価格など資料間の食い違いも、ここで検出されます。',
+  meaning:
+    'AIが候補を出しますが、「確認済み」にするのは人だけです。対象読者の判断も含め、言い方を6枚の判断カードで確定します。',
+  preflight:
+    '根拠のない優越表現や、対象外用途との混同などを検出します。直すか、代理店レビュー担当が理由付きで例外受容するまで、先には進めません。',
+  approval:
+    '根拠・出典・点検結果をまとめてクライアントに提示し、承認を記録してから公開します。',
+  results:
+    '公開前後の変化を、測定条件つきで記録します。因果効果は保証せず、次に直すことを最大3件示します。',
+};
+
+const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_DESCRIPTIONS[s.key] }));
 ---
-<WizardPrototypeLayout title="今日の作業" description="Meandle Wizard 操作デモ — 今日の作業">
+<WizardPrototypeLayout title="はじめに・使い方" description="Meandle Wizard Partner の概要・使い方・よくある質問">
   <header class="wp-page-header" slot="header">
-    <div class="wp-page-header__breadcrumb">Meandle Wizard</div>
     <div class="wp-page-header__top">
-      <h1>今日の作業</h1>
-      <div class="wp-page-header__actions">
-        <WizardSaveState />
-        <WizardStateSwitcher />
-        <a class="wp-btn wp-btn--primary" href="/wizard/campaign/new/">案件を作成</a>
-      </div>
+      <h1>Meandle Wizard Partner</h1>
     </div>
     <p class="wp-page-header__sub">
-      各案件がめざすのは、承認記録つきの公開版と、クライアントにそのまま渡せるレポートです。ここでは、その完成までにいま何が止まっていて、誰の対応が必要かを確認します。
+      代理店パートナーが、AIと見込み客が拾える「売る意味」を、根拠を残しながら整えるための操作ツールです。案件ごとに、根拠を揃える→伝え方を決める→公開前に点検する→承認を得て公開→レポートと次の一手、の5段階を記録しながら進みます。
     </p>
   </header>
 
-  <WizardReportPanel />
+  <div class="wp-next-action">
+    <p class="wp-next-action__label">操作デモ・架空データ</p>
+    <h2>まずは動かしてみる</h2>
+    <p>
+      RelayOneという架空のB2B案件で、5段階の流れを実際に操作できます。ブラウザのlocalStorageにのみ保存され、サーバーへは送信されません。いつでも「デモを初期状態に戻す」で最初からやり直せます。
+    </p>
+    <a class="wp-btn wp-btn--on-dark" href="/wizard/demo/">操作デモを試す →</a>
+  </div>
 
-  <section class="wp-card wp-entry-reveal" aria-labelledby="entry-preview-heading">
-    <h2 id="entry-preview-heading" style="font-size:16px;">この案件で最後に受け取るもの</h2>
-    <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 12px;">
-      確認済みの根拠リスト／クライアントの承認記録／公開前後の記録を同じ条件で比べるレポート。案件を進めるほど、この3つが確定していきます。
+  <section class="wp-card" aria-labelledby="overview-heading">
+    <h2 id="overview-heading">何ができるのか</h2>
+    <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 16px;">
+      1つの案件を、次の5段階で進めます。各段階が終わると、次の段階に必要なものができあがります。承認や公開そのものを自動化するものではなく、判断のための記録と点検を助けるツールです。
     </p>
     <div class="wp-form-grid">
-      <div>
-        <p style="font-size:12px;color:var(--wp-ink-muted);letter-spacing:0.04em;margin:0 0 8px;text-transform:uppercase;">
-          レポートの構成（{DEMO_REPORT_CHAPTERS.length}章）
-        </p>
-        <ol style="margin:0;padding-left:20px;font-size:12px;color:var(--wp-ink-muted);line-height:1.9;">
-          {DEMO_REPORT_CHAPTERS.map((c) => (<li>{c}</li>))}
-        </ol>
-      </div>
-      <div>
-        <p style="font-size:12px;color:var(--wp-ink-muted);letter-spacing:0.04em;margin:0 0 8px;text-transform:uppercase;">
-          見本（架空データ・RelayOneデモ案件）
-        </p>
-        <p style="font-size:13px;color:var(--wp-ink-muted);background:var(--wp-page);border:1px solid var(--wp-border);border-radius:8px;padding:12px 16px;">
-          根拠 0件 ・ 出典 0/{DEMO_SOURCE_TYPE_LABELS.length}種 ・ 承認 0/{DEMO_APPROVERS.length}名 ・ 点検 0/{TOTAL_PREFLIGHT_FINDINGS}項目
-        </p>
-      </div>
+      {stageOverview.map((s) => (
+        <div class="wp-card wp-card--tight">
+          <h3 style="font-size:14px;">{s.label}</h3>
+          <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 8px;">{s.description}</p>
+          <p style="font-size:12px;color:var(--wp-ink-muted);">
+            この段階で作るもの: <strong style="color:var(--wp-ink-strong);">{s.makes}</strong>
+          </p>
+        </div>
+      ))}
     </div>
   </section>
 
-  <div data-when-state="empty" hidden>
-    <div class="wp-empty">
-      <h3>案件はまだありません</h3>
-      <p>
-        最初の案件にURLまたは資料を1件追加すると、伝え方の整理を始められます。
-      </p>
-      <a class="wp-btn wp-btn--primary" href="/wizard/campaign/new/">最初の案件を作成</a>
-    </div>
-  </div>
+  <section class="wp-card" aria-labelledby="usecase-heading">
+    <h2 id="usecase-heading">どういうときに活用できるのか</h2>
+    <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 12px;">
+      次のような場面で使うことを想定しています。
+    </p>
+    <ul class="wp-list" style="font-size:14px;">
+      <li>資料間で数字や表現が食い違っている案件（例：LPと営業資料で価格が違う）</li>
+      <li>「業界No.1」などの優越表現を使いたいが、根拠が揃っているか自信がない案件</li>
+      <li>クライアントへの承認依頼・差し戻しのやり取りを、あとから追跡できる形にしたい案件</li>
+      <li>公開後にAIの応答や検索でどう扱われたかを確認し、次の一手につなげたい案件</li>
+    </ul>
+  </section>
 
-  <div data-when-state="error" hidden>
-    <div class="wp-callout wp-callout--danger">
-      <strong>案件一覧を取得できませんでした</strong>
-      <p>これまでの入力と操作はブラウザに保存されています。時間をおいてもう一度お試しください。</p>
-      <button class="wp-btn wp-btn--secondary" type="button" onclick="window.location.reload()">もう一度試す</button>
-    </div>
-  </div>
-
-  <div data-when-state="offline" hidden>
-    <div class="wp-callout wp-callout--warning">
-      <strong>オフラインで動作中です</strong>
-      <p>接続復旧後に3件の変更を保存します。この間も進行できます。</p>
-    </div>
-  </div>
-
-  <div data-hide-when-state="empty,error">
-    <div class="wp-metric-row">
-      <div class="wp-metric">
-        <p class="wp-metric__label">公開前に直す</p>
-        <p class="wp-metric__value wp-metric__value--danger">1件</p>
-      </div>
-      <div class="wp-metric">
-        <p class="wp-metric__label">クライアント確認待ち</p>
-        <p class="wp-metric__value wp-metric__value--warning">2件</p>
-      </div>
-      <div class="wp-metric">
-        <p class="wp-metric__label">今週公開</p>
-        <p class="wp-metric__value">1件</p>
-      </div>
-      <div class="wp-metric">
-        <p class="wp-metric__label">担当者の確認待ち</p>
-        <p class="wp-metric__value">1件</p>
-      </div>
-    </div>
-
+  <section class="wp-card" aria-labelledby="tutorial-heading">
+    <h2 id="tutorial-heading">はじめての操作（チュートリアル）</h2>
     <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 16px;">
-      完了した案件の記録: 承認までの往復 3回（それまでの案件平均は 5.2回でした）
+      架空データ（RelayOneデモ案件）のみで動作する操作デモです。各ステップの説明の下から、実際の画面へ移動できます。
     </p>
 
-    <section class="wp-card" aria-labelledby="attention-heading">
-      <h2 id="attention-heading">優先して対応</h2>
-      <div class="wp-table--scroll">
-        <table class="wp-table">
-          <thead>
-            <tr>
-              <th>案件</th>
-              <th>種類</th>
-              <th>担当</th>
-              <th>期限</th>
-              <th>次にすること</th>
-              <th>レポートまで</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div>{DEMO_CLIENT}</div>
-                <div style="color:var(--wp-ink-muted);font-size:12px;">{DEMO_CAMPAIGN}</div>
-              </td>
-              <td>
-                <span class="wp-badge wp-badge--danger">公開前に直す 1件</span>
-              </td>
-              <td>{DEMO_AGENCY_OWNER}</td>
-              <td>{DEMO_PUBLISH_DATE}</td>
-              <td class="wp-table__next">
-                <a href="/wizard/campaign/demo/evidence/" style="color:inherit;">根拠リストを確認</a>
-              </td>
-              <td style="font-size:12px;color:var(--wp-ink-muted);" data-wp-stage-distance>あと4段階</td>
-            </tr>
-            <tr data-when-state="partial" hidden>
-              <td>
-                <div>{DEMO_CLIENT}</div>
-                <div style="color:var(--wp-ink-muted);font-size:12px;">一部の資料が読み取れません</div>
-              </td>
-              <td>
-                <span class="wp-badge wp-badge--warning">一部成功</span>
-              </td>
-              <td>{DEMO_AGENCY_OWNER}</td>
-              <td>{DEMO_PUBLISH_DATE}</td>
-              <td class="wp-table__next">
-                <a href="/wizard/campaign/demo/materials/" style="color:inherit;">材料を確認</a>
-              </td>
-              <td style="font-size:12px;color:var(--wp-ink-muted);">あと5段階</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="wp-card" aria-labelledby="all-campaigns">
-      <h2 id="all-campaigns">案件</h2>
-      <div class="wp-table--scroll">
-        <table class="wp-table">
-          <thead>
-            <tr>
-              <th>クライアント</th>
-              <th>案件</th>
-              <th>段階</th>
-              <th>担当</th>
-              <th>期限</th>
-              <th>次にすること</th>
-              <th>レポートまで</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{DEMO_CLIENT}</td>
-              <td>
-                <a href="/wizard/campaign/demo/materials/">{DEMO_CAMPAIGN}</a>
-              </td>
-              <td>
-                <span class="wp-badge wp-badge--info">社内確認</span>
-              </td>
-              <td>{DEMO_AGENCY_OWNER}</td>
-              <td>{DEMO_PUBLISH_DATE}</td>
-              <td class="wp-table__next">
-                <a href="/wizard/campaign/demo/evidence/" style="color:inherit;">根拠リストを確認</a>
-              </td>
-              <td style="font-size:12px;color:var(--wp-ink-muted);" data-wp-stage-distance>あと4段階</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <div data-when-state="conflict" hidden>
-      <div class="wp-callout wp-callout--warning">
-        <strong>ほかの担当者が同じ案件を更新しました</strong>
-        <p>あなたの入力は保持されています。最新版との差分を比較してから反映してください。</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
-          <button class="wp-btn wp-btn--secondary" type="button">最新版に自分の変更を反映</button>
-          <button class="wp-btn wp-btn--ghost" type="button">自分の入力をコピー</button>
+    <div class="wp-card wp-card--tight" style="margin-bottom:12px;">
+      <div class="wp-tutorial-step">
+        <span class="wp-tutorial-step__mark" aria-hidden="true">1</span>
+        <div class="wp-tutorial-step__body">
+          <h3>案件を作成する</h3>
+          <p>クライアント・ブランド・担当・公開予定日などの基本情報を入力し、案件を開始します。</p>
+          <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/new/">案件作成画面を見る →</a>
         </div>
       </div>
     </div>
-  </div>
+
+    <div class="wp-card wp-card--tight" style="margin-bottom:12px;">
+      <div class="wp-tutorial-step">
+        <span class="wp-tutorial-step__mark" aria-hidden="true">2</span>
+        <div class="wp-tutorial-step__body">
+          <h3>根拠を揃える</h3>
+          <p>資料を読み込み、主張の裏づけとなる根拠を1件ずつ確認します。価格など資料間の食い違いも、ここで検出されます。</p>
+          <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/materials/">根拠を揃える画面を見る →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="wp-card wp-card--tight" style="margin-bottom:12px;">
+      <div class="wp-tutorial-step">
+        <span class="wp-tutorial-step__mark" aria-hidden="true">3</span>
+        <div class="wp-tutorial-step__body">
+          <h3>伝え方を決める</h3>
+          <p>AIが候補を出しますが、「確認済み」にするのは人だけです。言い方を6枚の判断カードで確定します。</p>
+          <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/meaning/">伝え方を決める画面を見る →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="wp-card wp-card--tight" style="margin-bottom:12px;">
+      <div class="wp-tutorial-step">
+        <span class="wp-tutorial-step__mark" aria-hidden="true">4</span>
+        <div class="wp-tutorial-step__body">
+          <h3>公開前に点検する</h3>
+          <p>根拠のない優越表現や、対象外用途との混同などを検出します。直すか、理由付きで例外受容するまで、先には進めません。</p>
+          <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/preflight/">公開前チェック画面を見る →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="wp-card wp-card--tight" style="margin-bottom:12px;">
+      <div class="wp-tutorial-step">
+        <span class="wp-tutorial-step__mark" aria-hidden="true">5</span>
+        <div class="wp-tutorial-step__body">
+          <h3>承認を得て公開する</h3>
+          <p>根拠・出典・点検結果をまとめてクライアントに提示します。クライアント側の確認画面は、代理店側の操作画面とは別に用意されています。</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/approval/preview/">代理店側のプレビューを見る →</a>
+            <a class="wp-btn wp-btn--ghost" href="/wizard/approval/demo/">クライアント側の確認画面を見る →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wp-card wp-card--tight" style="margin-bottom:16px;">
+      <div class="wp-tutorial-step">
+        <span class="wp-tutorial-step__mark" aria-hidden="true">6</span>
+        <div class="wp-tutorial-step__body">
+          <h3>レポートと次の一手</h3>
+          <p>公開前後の変化を測定条件つきで記録し、クライアントに渡せるレポートにまとめます。次に直すことを最大3件示します。</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/results/">結果画面を見る →</a>
+            <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/report/">レポート画面を見る →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a class="wp-btn wp-btn--primary" href="/wizard/demo/">続きはダッシュボード（今日の作業）から →</a>
+  </section>
+
+  <section class="wp-card" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">よくある質問</h2>
+
+    <details class="wp-faq-item">
+      <summary>これは何をするツールですか？</summary>
+      <div class="wp-faq-item__body">
+        <p>代理店パートナー向けの制作支援ツールです。根拠を揃える→伝え方を決める→公開前に点検する→承認を得て公開→レポートと次の一手、という一連の作業を、案件ごとに記録しながら進められます。</p>
+      </div>
+    </details>
+
+    <details class="wp-faq-item">
+      <summary>AIが自動で文章を作ってくれますか？</summary>
+      <div class="wp-faq-item__body">
+        <p>AIは候補を出しますが、「確認済み」にするのは人だけです。該当なしを選ぶ場合も、理由の入力が必須です。</p>
+      </div>
+    </details>
+
+    <details class="wp-faq-item">
+      <summary>入力したデータはどこに保存されますか？</summary>
+      <div class="wp-faq-item__body">
+        <p>このブラウザのlocalStorageにのみ保存され、サーバーへは送信されません。この操作デモは架空データ専用です。実在企業の資料や機密情報は入力しないでください。</p>
+      </div>
+    </details>
+
+    <details class="wp-faq-item">
+      <summary>「業界No.1」のような表現は使えませんか？</summary>
+      <div class="wp-faq-item__body">
+        <p>根拠（第三者調査・出典など）があれば使えます。根拠のない優越表現は公開前チェックで検出され、修正するか、代理店レビュー担当が理由付きで例外として受け入れるまで、先には進めません。</p>
+      </div>
+    </details>
+
+    <details class="wp-faq-item">
+      <summary>承認や点検の記録はどこに残りますか？</summary>
+      <div class="wp-faq-item__body">
+        <p>承認者・承認日時・点検結果は、クライアントに渡せるレポートにまとめて記録されます。</p>
+      </div>
+    </details>
+
+    <details class="wp-faq-item">
+      <summary>効果は保証されますか？</summary>
+      <div class="wp-faq-item__body">
+        <p>因果効果は保証しません。問い合わせ数などの変化には複数の要因が影響するため、レポートでも実数・母数・取得日・出典・方法・限界をあわせて記載します。</p>
+      </div>
+    </details>
+
+    <details class="wp-faq-item">
+      <summary>今はどの案件で試せますか？</summary>
+      <div class="wp-faq-item__body">
+        <p>現在はRelayOneデモ案件（架空データ）で一連の流れを確認できます。「デモを初期状態に戻す」で、いつでも最初からやり直せます。</p>
+      </div>
+    </details>
+
+    <details class="wp-faq-item">
+      <summary>他のMeandleサービスとの違いは？</summary>
+      <div class="wp-faq-item__body">
+        <p>do.meandle・Meandle PR・Meandle get leadなどは、制作物そのものをMeandleが手がけるサービスです。Meandle Wizard Partnerは、その制作物を代理店パートナーが根拠を残しながら仕上げるための操作ツールです。</p>
+      </div>
+    </details>
+  </section>
 </WizardPrototypeLayout>

@@ -1614,6 +1614,89 @@
   color: var(--wp-ink-muted);
 }
 
+/* ==== TUTORIAL STEP (はじめに・使い方) ==== */
+.wp-tutorial-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.wp-tutorial-step__mark {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--wp-success-soft);
+  color: var(--wp-primary);
+  font-family: var(--wp-mono);
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wp-tutorial-step__body {
+  flex: 1;
+  min-width: 0;
+}
+.wp-tutorial-step__body h3 {
+  margin: 2px 0 6px;
+  font-size: 15px;
+}
+.wp-tutorial-step__body p {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--wp-ink-muted);
+}
+
+/* ==== FAQ ==== */
+.wp-faq-item {
+  background: var(--wp-card);
+  border: 1px solid var(--wp-border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.wp-faq-item summary {
+  cursor: pointer;
+  padding: 14px 16px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: var(--wp-ink-strong);
+  font-size: 14px;
+  list-style: none;
+}
+.wp-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.wp-faq-item summary::before {
+  content: '▸';
+  margin-right: 10px;
+  color: var(--wp-ink-muted);
+  transition: transform 120ms ease;
+  flex: none;
+}
+.wp-faq-item[open] summary::before {
+  transform: rotate(90deg);
+}
+.wp-faq-item__body {
+  padding: 0 16px 16px 42px;
+  font-size: 13px;
+  color: var(--wp-ink-muted);
+  line-height: 1.8;
+}
+.wp-faq-item__body p {
+  margin: 0;
+}
+.wp-faq-item__body p + p {
+  margin-top: 8px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wp-faq-item summary::before {
+    transition: none;
+  }
+}
+
 /* ==== RESPONSIVE ==== */
 @media (max-width: 1099px) {
   .wp-shell {
