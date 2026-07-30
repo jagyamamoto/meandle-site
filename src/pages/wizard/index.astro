@@ -1,18 +1,19 @@
 ---
 import WizardPrototypeLayout from '../../layouts/WizardPrototypeLayout.astro';
-import { DEMO_STAGE_LABELS } from '../../data/wizard-prototype';
+import {
+  DEMO_STAGE_LABELS,
+  DEMO_REPORT_CHAPTERS,
+  DEMO_SOURCE_TYPE_LABELS,
+  DEMO_APPROVERS,
+  TOTAL_PREFLIGHT_FINDINGS,
+} from '../../data/wizard-prototype';
 
 const STAGE_DESCRIPTIONS: Record<string, string> = {
-  materials:
-    '資料を読み込み、主張の裏づけとなる根拠を1件ずつ確認します。価格など資料間の食い違いも、ここで検出されます。',
-  meaning:
-    'AIが候補を出しますが、「確認済み」にするのは人だけです。対象読者の判断も含め、言い方を6枚の判断カードで確定します。',
-  preflight:
-    '根拠のない優越表現や、対象外用途との混同などを検出します。直すか、代理店レビュー担当が理由付きで例外受容するまで、先には進めません。',
-  approval:
-    '根拠・出典・点検結果をまとめてクライアントに提示し、承認を記録してから公開します。',
-  results:
-    '公開前後の変化を、測定条件つきで記録します。因果効果は保証せず、次に直すことを最大3件示します。',
+  materials: '資料間の食い違いが解消され、主張の裏づけとなる根拠リストができます。',
+  meaning: '確認した言い方が、6枚の判断カードとして、この案件の基準になります。',
+  preflight: '根拠のない優越表現や、対象外用途との混同が、公開前に見つかります。',
+  approval: '根拠・出典・点検結果がそろった状態で、クライアントに提示されます。承認は記録として残ります。',
+  results: '公開前後の変化が記録され、次にすべきことも最大3件に絞られます。',
 };
 
 const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_DESCRIPTIONS[s.key] }));
@@ -23,15 +24,40 @@ const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_D
       <h1>Meandle Wizard Partner</h1>
     </div>
     <p class="wp-page-header__sub">
-      代理店パートナーが、AIと見込み客が拾える「売る意味」を、根拠を残しながら整えるための操作ツールです。案件ごとに、根拠を揃える→伝え方を決める→公開前に点検する→承認を得て公開→レポートと次の一手、の5段階を記録しながら進みます。
+      案件がめざすのは、承認記録つきの公開版と、クライアントにそのまま渡せるレポートです。代理店パートナーが、AIと見込み客が拾える「売る意味」を、根拠を残しながらそこまで整えるための操作ツールです。
     </p>
   </header>
+
+  <section class="wp-card wp-entry-reveal" aria-labelledby="entry-preview-heading">
+    <h2 id="entry-preview-heading" style="font-size:16px;">案件が最後に手渡すもの</h2>
+    <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 12px;">
+      確認済みの根拠リスト／クライアントの承認記録／公開前後の記録を同じ条件で比べるレポート。進めるほど、この3つが確定していきます。
+    </p>
+    <div class="wp-form-grid">
+      <div>
+        <p style="font-size:12px;color:var(--wp-ink-muted);letter-spacing:0.04em;margin:0 0 8px;text-transform:uppercase;">
+          レポートの構成（{DEMO_REPORT_CHAPTERS.length}章）
+        </p>
+        <ol style="margin:0;padding-left:20px;font-size:12px;color:var(--wp-ink-muted);line-height:1.9;">
+          {DEMO_REPORT_CHAPTERS.map((c) => (<li>{c}</li>))}
+        </ol>
+      </div>
+      <div>
+        <p style="font-size:12px;color:var(--wp-ink-muted);letter-spacing:0.04em;margin:0 0 8px;text-transform:uppercase;">
+          見本（架空データ・RelayOneデモ案件）
+        </p>
+        <p style="font-size:13px;color:var(--wp-ink-muted);background:var(--wp-page);border:1px solid var(--wp-border);border-radius:8px;padding:12px 16px;">
+          根拠 0件 ・ 出典 0/{DEMO_SOURCE_TYPE_LABELS.length}種 ・ 承認 0/{DEMO_APPROVERS.length}名 ・ 点検 0/{TOTAL_PREFLIGHT_FINDINGS}項目
+        </p>
+      </div>
+    </div>
+  </section>
 
   <div class="wp-next-action">
     <p class="wp-next-action__label">操作デモ・架空データ</p>
     <h2>まずは動かしてみる</h2>
     <p>
-      RelayOneという架空のB2B案件で、5段階の流れを実際に操作できます。ブラウザのlocalStorageにのみ保存され、サーバーへは送信されません。いつでも「デモを初期状態に戻す」で最初からやり直せます。
+      RelayOneという架空のB2B案件で、上のレポートができあがるまでの5段階を実際に操作できます。ブラウザのlocalStorageにのみ保存され、サーバーへは送信されません。いつでも「デモを初期状態に戻す」で最初からやり直せます。
     </p>
     <a class="wp-btn wp-btn--on-dark" href="/wizard/demo/">操作デモを試す →</a>
   </div>
@@ -39,7 +65,7 @@ const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_D
   <section class="wp-card" aria-labelledby="overview-heading">
     <h2 id="overview-heading">何ができるのか</h2>
     <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 16px;">
-      1つの案件を、次の5段階で進めます。各段階が終わると、次の段階に必要なものができあがります。承認や公開そのものを自動化するものではなく、判断のための記録と点検を助けるツールです。
+      上のレポートができあがるまでに、次の5つが積み上がっていきます。承認や公開そのものを自動化するものではなく、判断のための記録と点検を助けるツールです。
     </p>
     <div class="wp-form-grid">
       {stageOverview.map((s) => (
@@ -70,7 +96,7 @@ const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_D
   <section class="wp-card" aria-labelledby="tutorial-heading">
     <h2 id="tutorial-heading">はじめての操作（チュートリアル）</h2>
     <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 16px;">
-      架空データ（RelayOneデモ案件）のみで動作する操作デモです。各ステップの説明の下から、実際の画面へ移動できます。
+      実際に触ると、6段階が下の説明のとおりに進み、レポートへ積み上がっていくのを確認できます。架空データ（RelayOneデモ案件）で動作します。
     </p>
 
     <div class="wp-card wp-card--tight" style="margin-bottom:12px;">
@@ -78,7 +104,7 @@ const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_D
         <span class="wp-tutorial-step__mark" aria-hidden="true">1</span>
         <div class="wp-tutorial-step__body">
           <h3>案件を作成する</h3>
-          <p>クライアント・ブランド・担当・公開予定日などの基本情報を入力し、案件を開始します。</p>
+          <p>基本情報を入力すると、この案件のレポートの構成がすぐに用意されます。</p>
           <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/new/">案件作成画面を見る →</a>
         </div>
       </div>
@@ -89,7 +115,7 @@ const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_D
         <span class="wp-tutorial-step__mark" aria-hidden="true">2</span>
         <div class="wp-tutorial-step__body">
           <h3>根拠を揃える</h3>
-          <p>資料を読み込み、主張の裏づけとなる根拠を1件ずつ確認します。価格など資料間の食い違いも、ここで検出されます。</p>
+          <p>資料間の食い違いが解消され、主張の裏づけとなる根拠リストができます。</p>
           <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/materials/">根拠を揃える画面を見る →</a>
         </div>
       </div>
@@ -100,7 +126,7 @@ const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_D
         <span class="wp-tutorial-step__mark" aria-hidden="true">3</span>
         <div class="wp-tutorial-step__body">
           <h3>伝え方を決める</h3>
-          <p>AIが候補を出しますが、「確認済み」にするのは人だけです。言い方を6枚の判断カードで確定します。</p>
+          <p>確認した言い方が、6枚の判断カードとして、この案件の基準になります。</p>
           <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/meaning/">伝え方を決める画面を見る →</a>
         </div>
       </div>
@@ -111,7 +137,7 @@ const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_D
         <span class="wp-tutorial-step__mark" aria-hidden="true">4</span>
         <div class="wp-tutorial-step__body">
           <h3>公開前に点検する</h3>
-          <p>根拠のない優越表現や、対象外用途との混同などを検出します。直すか、理由付きで例外受容するまで、先には進めません。</p>
+          <p>根拠のない優越表現や、対象外用途との混同が、公開前に見つかります。</p>
           <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/preflight/">公開前チェック画面を見る →</a>
         </div>
       </div>
@@ -122,7 +148,7 @@ const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_D
         <span class="wp-tutorial-step__mark" aria-hidden="true">5</span>
         <div class="wp-tutorial-step__body">
           <h3>承認を得て公開する</h3>
-          <p>根拠・出典・点検結果をまとめてクライアントに提示します。クライアント側の確認画面は、代理店側の操作画面とは別に用意されています。</p>
+          <p>根拠・出典・点検結果がそろった状態で、クライアントに提示されます。承認は記録として残ります。</p>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/approval/preview/">代理店側のプレビューを見る →</a>
             <a class="wp-btn wp-btn--ghost" href="/wizard/approval/demo/">クライアント側の確認画面を見る →</a>
@@ -136,7 +162,7 @@ const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_D
         <span class="wp-tutorial-step__mark" aria-hidden="true">6</span>
         <div class="wp-tutorial-step__body">
           <h3>レポートと次の一手</h3>
-          <p>公開前後の変化を測定条件つきで記録し、クライアントに渡せるレポートにまとめます。次に直すことを最大3件示します。</p>
+          <p>公開前後の変化が記録され、クライアントに渡せるレポートになります。次にすべきことは、最大3件に絞られます。</p>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/results/">結果画面を見る →</a>
             <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/report/">レポート画面を見る →</a>
