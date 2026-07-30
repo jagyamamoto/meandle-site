@@ -9,11 +9,16 @@ import {
 } from '../../data/wizard-prototype';
 
 const STAGE_DESCRIPTIONS: Record<string, string> = {
-  materials: '資料間の食い違いが解消され、主張の裏づけとなる根拠リストができます。',
-  meaning: '確認した言い方が、6枚の判断カードとして、この案件の基準になります。',
-  preflight: '根拠のない優越表現や、対象外用途との混同が、公開前に見つかります。',
-  approval: '根拠・出典・点検結果がそろった状態で、クライアントに提示されます。承認は記録として残ります。',
-  results: '公開前後の変化が記録され、次にすべきことも最大3件に絞られます。',
+  materials:
+    '「数字の食い違い」「出典が出せない」をここで引き受けます。資料から根拠を書き出して確認し、主張の裏づけとなる根拠リストを作ります。',
+  meaning:
+    '資料ごとの言い方のブレをここで揃えます。確認した言い方が6枚の判断カードになり、以降の原稿と点検の基準になります。',
+  preflight:
+    '根拠のない優越表現や、対象外用途との混同を、公開前に検出します。直すか、理由付きで例外受容するまで、クライアント確認には進みません。',
+  approval:
+    '「誰がいつ、どの版を承認したか」をここで記録します。根拠・出典・点検結果がそろった状態でクライアントに提示します。',
+  results:
+    '「効果はどうでしたか」に、公開前後の記録で答えます。因果効果は保証せず、実測の記録と、次にすべきこと最大3件を残します。',
 };
 
 const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_DESCRIPTIONS[s.key] }));
@@ -24,9 +29,26 @@ const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_D
       <h1>Meandle Wizard Partner</h1>
     </div>
     <p class="wp-page-header__sub">
-      案件がめざすのは、承認記録つきの公開版と、クライアントにそのまま渡せるレポートです。代理店パートナーが、AIと見込み客が拾える「売る意味」を、根拠を残しながらそこまで整えるための操作ツールです。
+      プレスリリース・LP・営業資料を「根拠つきで公開できる状態」に整え、承認の記録からクライアントへの報告までを一つの流れで残す、代理店パートナー向けの操作ツールです。「広告費を増やす前に、AIと見込み客が拾える『売る意味』を整える」というMeandleの考え方を、日々の案件の手順にしたものです。
     </p>
   </header>
+
+  <section class="wp-card" aria-labelledby="problem-heading">
+    <h2 id="problem-heading">こんな場面のためのツールです</h2>
+    <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 12px;">
+      B2Bの制作現場で繰り返される、次のような場面を想定しています。
+    </p>
+    <ul class="wp-list" style="font-size:14px;line-height:1.8;">
+      <li>LPでは月額25万円、営業資料では30万円——資料ごとに数字が食い違ったまま、公開予定日が近づいている</li>
+      <li>原稿の「業界No.1」について、クライアントに「出典は？」と聞かれて出せる記録がない</li>
+      <li>承認のやり取りがメールとチャットに散らばり、どの版を誰がいつ承認したのか、あとから辿れない</li>
+      <li>公開のあと「効果はどうでしたか」と聞かれても、公開前と比べられる記録がない</li>
+      <li>AIに商品のことを尋ねると、対象外の用途や古い情報と混ざった説明が返ってくる</li>
+    </ul>
+    <p style="font-size:13px;color:var(--wp-ink-muted);margin:16px 0 0;">
+      こうした場面の多くは、根拠の確認・言い方の統一・承認の記録が、人の記憶とメール箱に散らばったまま進むことから生まれます。Meandle Wizard Partner は、その全部を案件ごとの一つの流れに集め、進めるたびに記録として残します。
+    </p>
+  </section>
 
   <section class="wp-card wp-entry-reveal" aria-labelledby="entry-preview-heading">
     <h2 id="entry-preview-heading" style="font-size:16px;">案件が最後に手渡すもの</h2>
@@ -57,15 +79,15 @@ const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_D
     <p class="wp-next-action__label">操作デモ・架空データ</p>
     <h2>まずは動かしてみる</h2>
     <p>
-      RelayOneという架空のB2B案件で、上のレポートができあがるまでの5段階を実際に操作できます。ブラウザのlocalStorageにのみ保存され、サーバーへは送信されません。いつでも「デモを初期状態に戻す」で最初からやり直せます。
+      RelayOneという架空のB2B案件で、上のレポートができあがるまでの流れを実際に操作できます。ブラウザのlocalStorageにのみ保存され、サーバーへは送信されません。いつでも「デモを初期状態に戻す」で最初からやり直せます。
     </p>
     <a class="wp-btn wp-btn--on-dark" href="/wizard/demo/">操作デモを試す →</a>
   </div>
 
   <section class="wp-card" aria-labelledby="overview-heading">
-    <h2 id="overview-heading">何ができるのか</h2>
+    <h2 id="overview-heading">どう解決するのか — 5つの段階</h2>
     <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 16px;">
-      上のレポートができあがるまでに、次の5つが積み上がっていきます。承認や公開そのものを自動化するものではなく、判断のための記録と点検を助けるツールです。
+      案件は次の5段階で進みます。それぞれが冒頭の場面のどれかを引き受け、終わるたびに成果物が一つ残ります。承認や公開そのものを自動化するものではなく、判断のための記録と点検を助けるツールです。
     </p>
     <div class="wp-form-grid">
       {stageOverview.map((s) => (
@@ -80,23 +102,10 @@ const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_D
     </div>
   </section>
 
-  <section class="wp-card" aria-labelledby="usecase-heading">
-    <h2 id="usecase-heading">どういうときに活用できるのか</h2>
-    <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 12px;">
-      次のような場面で使うことを想定しています。
-    </p>
-    <ul class="wp-list" style="font-size:14px;">
-      <li>資料間で数字や表現が食い違っている案件（例：LPと営業資料で価格が違う）</li>
-      <li>「業界No.1」などの優越表現を使いたいが、根拠が揃っているか自信がない案件</li>
-      <li>クライアントへの承認依頼・差し戻しのやり取りを、あとから追跡できる形にしたい案件</li>
-      <li>公開後にAIの応答や検索でどう扱われたかを確認し、次の一手につなげたい案件</li>
-    </ul>
-  </section>
-
   <section class="wp-card" aria-labelledby="tutorial-heading">
     <h2 id="tutorial-heading">はじめての操作（チュートリアル）</h2>
     <p style="font-size:13px;color:var(--wp-ink-muted);margin:0 0 16px;">
-      実際に触ると、6段階が下の説明のとおりに進み、レポートへ積み上がっていくのを確認できます。架空データ（RelayOneデモ案件）で動作します。
+      実際に触ると、6つのステップが下の説明のとおりに進み、レポートへ積み上がっていくのを確認できます。架空データ（RelayOneデモ案件）で動作します。
     </p>
 
     <div class="wp-card wp-card--tight" style="margin-bottom:12px;">
@@ -148,7 +157,7 @@ const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_D
         <span class="wp-tutorial-step__mark" aria-hidden="true">5</span>
         <div class="wp-tutorial-step__body">
           <h3>承認を得て公開する</h3>
-          <p>根拠・出典・点検結果がそろった状態で、クライアントに提示されます。承認は記録として残ります。</p>
+          <p>根拠・出典・点検結果がそろった状態で、クライアントに提示されます。承認は氏名と日時つきの記録として残ります。</p>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <a class="wp-btn wp-btn--ghost" href="/wizard/campaign/demo/approval/preview/">代理店側のプレビューを見る →</a>
             <a class="wp-btn wp-btn--ghost" href="/wizard/approval/demo/">クライアント側の確認画面を見る →</a>
@@ -176,6 +185,13 @@ const stageOverview = DEMO_STAGE_LABELS.map((s) => ({ ...s, description: STAGE_D
 
   <section class="wp-card" aria-labelledby="faq-heading">
     <h2 id="faq-heading">よくある質問</h2>
+
+    <details class="wp-faq-item">
+      <summary>誰のためのツールですか？</summary>
+      <div class="wp-faq-item__body">
+        <p>Meandleの代理店パートナー（PR会社・広告代理店・制作会社）向けです。クライアント案件のプレスリリース・LP・営業資料を、根拠を残しながら仕上げる場面を想定しています。</p>
+      </div>
+    </details>
 
     <details class="wp-faq-item">
       <summary>これは何をするツールですか？</summary>
