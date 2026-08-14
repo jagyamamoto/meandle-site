@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const title = '温度×時間センシングインクは、AIに「食べ頃予測の技術」として届くか｜Meandle';
-const description = '日立産機システムの「温度×時間センシングインク」を題材に、meandle Index による文脈追加がスコアと LLM 応答をどう変えるかを検証。目標クエリ3/3で1位、非主対象3/3でスコアゼロ以下。';
+const description = '日立産機システムの「温度×時間センシングインク」を題材にした、文字バイグラム照合による仮説シミュレーション（Jag Yamamotoの自主実験）。文脈追加でスコアがどう変わるかの設計上の比較であり、実際の検索順位やLLM評価の測定ではありません。';
 
 // Target queries: before vs after
 const targetQueries = [
@@ -36,7 +36,7 @@ const bScale = (v) => v * 7; // px per point
       <div class="article-meta">
         <span class="badge">実験 #2</span>
         <span class="badge">仮説シミュレーション</span>
-        <span class="badge">meandle Index 効果検証</span>
+        <span class="badge">meandle Index 仮説シミュレーション</span>
         <span style="margin-left:auto">2026-06</span>
       </div>
 

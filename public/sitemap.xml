@@ -2,7 +2,7 @@
 <!--
   Meandle sitemap
   Note: The site is currently pre-launch. Basic Auth + noindex,nofollow are active.
-  This sitemap lists the 13 core revenue pages plus the blog index.
+  This sitemap lists all public pages (services, blog).
   Loc URLs use trailing slashes to match astro.config trailingSlash: 'always'.
   <lastmod> is intentionally omitted until Jag confirms actual publish/update dates.
 -->
@@ -15,10 +15,14 @@
   <url><loc>https://meandle.jp/oem/</loc><priority>0.8</priority></url>
   <url><loc>https://meandle.jp/ai-search-optimization/</loc><priority>0.8</priority></url>
   <url><loc>https://meandle.jp/pr/</loc><priority>0.8</priority></url>
+  <url><loc>https://meandle.jp/recruit/</loc><priority>0.8</priority></url>
+  <url><loc>https://meandle.jp/partner/</loc><priority>0.7</priority></url>
   <url><loc>https://meandle.jp/blog/</loc><priority>0.7</priority></url>
   <url><loc>https://meandle.jp/blog/chatgpt-company-not-found/</loc><priority>0.6</priority></url>
   <url><loc>https://meandle.jp/blog/ai-misinformation-misrecommendation/</loc><priority>0.6</priority></url>
   <url><loc>https://meandle.jp/blog/how-to-choose-ai-search-support/</loc><priority>0.6</priority></url>
   <url><loc>https://meandle.jp/blog/monitoring-to-implementation/</loc><priority>0.6</priority></url>
   <url><loc>https://meandle.jp/blog/clo/</loc><priority>0.6</priority></url>
+  <url><loc>https://meandle.jp/blog/temperature-sensing-ink/</loc><priority>0.6</priority></url>
+  <url><loc>https://meandle.jp/blog/hitachi/</loc><priority>0.6</priority></url>
 </urlset>
