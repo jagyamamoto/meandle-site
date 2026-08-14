@@ -54,7 +54,7 @@ Meandle は、**Jag Yamamoto / Jag Project が提唱する「意味へのハン�
 | `/recruit/` | `src/pages/recruit.astro` | Meandle recruit |
 | `/oem/` | `src/pages/oem.astro` | Meandle OEM |
 | `/partner/` | `src/pages/partner.astro` | 認定代理店制度 |
-| `/contact/` | `src/pages/contact.astro` | SSGform 相談窓口 |
+| `/contact/` | `src/pages/contact.astro` | 相談窓口（自前 Pages Function 送信） |
 | `/contact/thanks/` | `src/pages/contact/thanks.astro` | 送信完了 |
 | `/blog/` | `src/pages/blog/index.astro` | 検証ノート一覧（Self Do.meandle） |
 | `/blog/…/` | `src/pages/blog/*.astro` | 記事（一覧は `blog/index.astro` の articles 配列で管理） |
@@ -150,6 +150,18 @@ OG だけ別文を出したい場合は `ogTitle` `ogDescription` props を使�
 - 商談になる理由を増やす
 - AIに誤解されにくい形へ
 - **「ます／です」調統一**
+
+---
+
+## 7.5 お問い合わせフォーム（自前 Pages Function）
+
+- 送信経路：`/contact/` の form → `functions/api/contact.ts`（同一オリジン）→ Resend REST → `CONTACT_TO`
+- panam.travelsim-japan.com の `/api/support/contact` と同方式（ハニーポット／タイムトラップ／検証／リンクスパム判定／KVレート制限）
+- **必要な環境変数（Pages ダッシュボード）**：
+  - `RESEND_API_KEY`（secret・必須。未設定時は送信時に案内つき500）
+  - `EMAIL_FROM`（任意。ResendでDKIM認証済みドメインのアドレス。未設定時 `onboarding@resend.dev`）
+  - `CONTACT_TO`（任意。既定 `danke@jagproject.com`）
+- ローカル検証：`npx wrangler pages dev dist --port 8788`（Basic認証ヘッダ必須）
 
 ---
 

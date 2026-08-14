@@ -2,11 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 /**
- * Form endpoint — resolved from PUBLIC_FORM_ENDPOINT env var at build time.
- * Kept as '#' until Jag provides the live endpoint (SSGform / Formspree /
- * Cloudflare Worker etc.). Publishing gate: do not release with '#'.
+ * Form endpoint — same-origin Pages Function（functions/api/contact.ts）。
+ * panam.travelsim-japan.com で実運用中の方式の移植。Resend REST で
+ * CONTACT_TO（既定 danke@jagproject.com）へ送る。
+ * Publishing gate: Pages の環境変数 RESEND_API_KEY 未設定のままでは
+ * 送信時に案内つき500を返す（フォーム自体は表示される）。
  */
-const FORM_ENDPOINT = (import.meta.env.PUBLIC_FORM_ENDPOINT ?? '#').trim();
+const FORM_ENDPOINT = '/api/contact';
 
 const title = '既存URLの導入適合性を確認する｜Meandle';
 const description = 'Meandleの導入適合性を、既存URLから確認します。対象・価値・根拠・対象外条件を整理する初回の意味適合スプリントは、1商材・1URLで50万円〜です。';
@@ -278,17 +280,13 @@ const structuredData = [
         <strong>初回商品：</strong>意味適合スプリント 50万円〜。この送信だけで詳細診断や実装を開始することはありません。
       </div>
 
-      {FORM_ENDPOINT === '#' && (
-        <div class="callout-note" style="background:rgba(226,75,74,0.10); border-left-color:#E24B4A; color:#A32D2D">
-          <strong>[Jag確認事項]</strong> このフォームの送信先エンドポイント <code>PUBLIC_FORM_ENDPOINT</code> が未設定のため、実送信は行われません。公開前に環境変数を設定してください。
-        </div>
-      )}
-
       <form class="form" style="margin-top:24px" action={FORM_ENDPOINT} method="POST" aria-describedby="form-notice">
         <!-- Honeypot (visually hidden, screen-reader-hidden) -->
         <div style="position:absolute; left:-9999px; opacity:0" aria-hidden="true">
           <label>この欄は空欄のままにしてください<input type="text" name="honeypot" tabindex="-1" autocomplete="off"/></label>
         </div>
+        <!-- タイムトラップ用（描画時刻。JS無効時は空のまま＝判定を素通し） -->
+        <input type="hidden" name="t" id="form-t" value=""/>
 
         <div class="form-field">
           <label for="company">会社名 <span class="req">必須</span></label>
@@ -447,6 +445,12 @@ const structuredData = [
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline>
+  // タイムトラップ：フォーム描画時刻を記録（2.5秒未満の即送信をボットとみなす）
+  var _t = document.getElementById('form-t');
+  if (_t) _t.value = String(Date.now());
+</script>
 
 <style is:inline>
   .hero-figure {
