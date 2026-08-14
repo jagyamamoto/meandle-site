@@ -1,142 +1,273 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Meandle recruit｜求める人物像を、求人情報の意味から整える｜Meandle';
+const description = 'Meandle recruitは、求人の対象・活躍場面・期待・対象外条件を意味仕様にし、求人ページへ反映するB2B意味設計です。1求人項目50万円〜。応募数や採用成果を保証するものではありません。';
+const ogTitle = '求める人を、求人票の意味から整える｜Meandle recruit';
+const ogDescription = '仕事内容、活躍場面、期待、対象外条件を一つの意味仕様にし、求人情報へ一貫して反映します。';
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://meandle.jp/recruit/#webpage',
+    url: 'https://meandle.jp/recruit/',
+    name: title,
+    description: description,
+    inLanguage: 'ja',
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    about: { '@id': 'https://meandle.jp/recruit/#service' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': 'https://meandle.jp/recruit/#service',
+    name: 'Meandle recruit',
+    serviceType: 'B2B意味設計 / 求人情報の意味整合',
+    url: 'https://meandle.jp/recruit/',
+    description: '求人の対象・活躍場面・期待・対象外条件を意味仕様にし、求人ページへ反映するサービスです。応募数、採用数、採用成果を保証しません。',
+    provider: { '@id': 'https://meandle.jp/#organization' },
+    areaServed: 'JP',
+  },
+];
 ---
 <BaseLayout
-  title='Meandle Recruit — 転職エージェントに頼む前に、AIに「最適な候補者」を見つけてもらう｜Meandle'
-  description="求人ページをみんどることで、潜在的な最適候補者とAI経由でマッチング。転職エージェント3名採用約525万円に対し、Meandle Recruit 3職種150万円。375万円のコスト削減試算。"
+  title={title}
+  description={description}
+  canonical="/recruit/"
+  ogTitle={ogTitle}
+  ogDescription={ogDescription}
+  structuredData={structuredData}
 >
+  <!-- Section 1: Hero -->
   <section class="hero hero--split">
     <div class="hero__bg-grid" aria-hidden="true"></div>
     <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　Meandle recruit</nav>
       <div class="hero__split">
         <div class="hero__left">
-          <span class="eyebrow hero__eyebrow">Meandle Recruit</span>
-          <h1 class="hero-copy">転職エージェントに頼む前に、<br/>AIに「最適な候補者」を見つけてもらう。</h1>
-          <p style="margin-top:20px">採用コストが高い最大の理由は、<strong>求める人材像がAIに正確に伝わっていないから</strong>です。Meandle Recruit は求人ページをみんどることで、潜在的な最適候補者と AI 経由でマッチングさせます。</p>
+          <span class="eyebrow hero__eyebrow">Meandle recruit</span>
+          <h1 class="hero-copy">求める人を、<br/>求人票の意味から整える。</h1>
+
+          <p class="lead" style="margin-top:20px">
+            応募は来るのに、求める人が来ない。多くの場合、原因は露出の量ではなく、求人情報の意味にあります。仕事内容、活躍場面、期待、対象外条件がそろっていない求人は、読む人にも、求人を扱う検索やAIにも、別の仕事として伝わります。
+          </p>
+          <p>
+            Meandle recruitは、求める人物像を「誰に、どの場面で、何を任せ、何は求めないか」という意味仕様にし、求人ページへ一貫して反映するB2B意味設計です。応募数、採用数、採用成果を保証するサービスではありません。
+          </p>
+
+          <p style="margin-top:16px"><strong>1求人項目 50万円〜</strong></p>
+
+          <div class="hero__cta-group">
+            <a href="/contact/" class="btn btn--primary">既存URLで導入適合性を確認する</a>
+          </div>
+          <p style="font-size:13px; color:var(--muted); margin-top:12px">
+            既存の求人ページまたは求人票のURL、求める人物像、対象外にしたい応募をお知らせください。
+          </p>
         </div>
 
-        <aside class="proof-panel" aria-label="採用コスト試算 ライブ表示">
+        <aside class="proof-panel" aria-label="求人の意味設計 3要素 ライブ表示">
           <div class="proof-panel__head">
             <span class="proof-panel__led"></span>
-            <span class="proof-panel__label">COST&nbsp;SIMULATION</span>
+            <span class="proof-panel__label">JOB&nbsp;MEANING&nbsp;DESIGN</span>
             <span class="proof-panel__timer"></span>
           </div>
           <div class="proof-stage">
             <div class="proof-slide is-active">
-              <div class="proof-slide__type">💰 3名採用の場合 コスト削減試算</div>
-              <div class="proof-slide__num"><span class="proof-num" data-count-to="375">375</span><span class="proof-slide__unit">万円削減</span></div>
-              <div class="proof-slide__name">エージェント525万 → Meandle 150万</div>
-              <div class="proof-slide__body">年収500万人材×3名。転職エージェント <strong>150〜175万/人</strong> の相場から比較。ミスマッチ・早期退職の再採用コストも回避。</div>
-              <div class="proof-slide__query">前提：エージェント経由フィー30〜35%</div>
+              <div class="proof-slide__type">Element 1</div>
+              <div class="proof-slide__num proof-slide__num--label">対象</div>
+              <div class="proof-slide__name">誰に来てほしいか</div>
+              <div class="proof-slide__body">職種名や経験年数だけでなく、<strong>どの場面で力を発揮してきた人か</strong>を定めます。</div>
+              <div class="proof-slide__query">role ≠ job title</div>
             </div>
             <div class="proof-slide">
-              <div class="proof-slide__type">🔴 従来手法：転職エージェント</div>
-              <div class="proof-slide__num"><span class="proof-num" data-count-to="525">525</span><span class="proof-slide__unit">万円</span></div>
-              <div class="proof-slide__name">3名採用時のフィー上限</div>
-              <div class="proof-slide__body">早期退職しても支払い済み。ミスマッチのやり直しでコストが倍増する構造。<strong>採用の質は制御しきれない</strong>。</div>
-              <div class="proof-slide__query">1名あたり 150〜175 万円</div>
+              <div class="proof-slide__type">Element 2</div>
+              <div class="proof-slide__num proof-slide__num--label">期待</div>
+              <div class="proof-slide__name">何を任せ、何が変わるか</div>
+              <div class="proof-slide__body">入社後に任せる仕事と、期待する変化を、確認できる事実の範囲で書きます。</div>
+              <div class="proof-slide__query">facts, not slogans</div>
             </div>
             <div class="proof-slide">
-              <div class="proof-slide__type">🟠 Meandle Recruit：3職種一括</div>
-              <div class="proof-slide__num"><span class="proof-num" data-count-to="150">150</span><span class="proof-slide__unit">万円</span></div>
-              <div class="proof-slide__name">求人3職種の運用込み</div>
-              <div class="proof-slide__body">求人ページを<strong>みんどりIndex 化</strong>して、AI経由の適合候補者を招き寄せる仕組み。運用は月次で継続改善。</div>
-              <div class="proof-slide__query">1職種 50万円 × 3</div>
+              <div class="proof-slide__type">Element 3</div>
+              <div class="proof-slide__num proof-slide__num--label">対象外</div>
+              <div class="proof-slide__name">何は求めないか</div>
+              <div class="proof-slide__body">この求人で扱わない仕事、合わない働き方の希望を明示し、<strong>入社後のミスマッチの種</strong>を先に減らします。</div>
+              <div class="proof-slide__query">non-fit stated up front</div>
             </div>
           </div>
           <div class="proof-panel__dots">
-            <button class="proof-dot is-active" data-i="0" aria-label="削減額"></button>
-            <button class="proof-dot" data-i="1" aria-label="従来手法"></button>
-            <button class="proof-dot" data-i="2" aria-label="Meandle Recruit"></button>
+            <button class="proof-dot is-active" data-i="0" aria-label="対象"></button>
+            <button class="proof-dot" data-i="1" aria-label="期待"></button>
+            <button class="proof-dot" data-i="2" aria-label="対象外"></button>
           </div>
         </aside>
       </div>
 
       <div class="hero-marquee" aria-hidden="true">
         <div class="hero-marquee__track">
-          <span class="hero-marquee__lead">◉ SIMULATION</span>
-          <span>▸ 3-hire cost saving: −375 万円</span>
-          <span>▸ 転職エージェントフィー 30〜35%</span>
-          <span>▸ Meandle Recruit 50万/求人項目</span>
-          <span>▸ AI マッチング＝事前理解の質向上</span>
-          <span>▸ MNDR-2026-001 · patent pending</span>
-          <span class="hero-marquee__lead">◉ SIMULATION</span>
-          <span>▸ 3-hire cost saving: −375 万円</span>
-          <span>▸ 転職エージェントフィー 30〜35%</span>
-          <span>▸ Meandle Recruit 50万/求人項目</span>
-          <span>▸ AI マッチング＝事前理解の質向上</span>
-          <span>▸ MNDR-2026-001 · patent pending</span>
+          <span class="hero-marquee__lead">◉ MEANDLE RECRUIT</span>
+          <span>▸ 1求人項目 · 50万〜</span>
+          <span>▸ 対象・場面・期待・対象外を1つの仕様に</span>
+          <span>▸ no applicant / no hiring guarantees</span>
+          <span>▸ patent pending</span>
+          <span class="hero-marquee__lead">◉ MEANDLE RECRUIT</span>
+          <span>▸ 1求人項目 · 50万〜</span>
+          <span>▸ 対象・場面・期待・対象外を1つの仕様に</span>
+          <span>▸ no applicant / no hiring guarantees</span>
+          <span>▸ patent pending</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <span class="eyebrow">Cost Simulation</span>
-      <h2>採用コスト比較シミュレーション</h2>
-      <span class="ev-badge ev-badge--sim">⚠ SIMULATION — 参考試算値</span>
-
-      <div class="sim-box">
-        <span class="sim-label">前提：年収500万円の人材を3名採用する場合</span>
-
-        <div class="table-wrap">
-          <table class="compare-table">
-            <thead>
-              <tr>
-                <th>手法</th>
-                <th>費用</th>
-                <th>課題</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>転職エージェント</td>
-                <td>150〜175万円/人<br/>3名で450〜525万円</td>
-                <td>ミスマッチで早期退職しても費用発生</td>
-              </tr>
-              <tr>
-                <td>求人広告（Indeed等）</td>
-                <td>3〜30万円/月＋工数</td>
-                <td>的外れな応募が多くスクリーニング工数大</td>
-              </tr>
-              <tr class="highlight">
-                <td><strong>Meandle Recruit</strong></td>
-                <td><strong>50万円/求人項目<br/>3職種で150万円</strong></td>
-                <td>AIが「この会社が本当に求める人」を正確に伝達</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="fact-bar fact-bar--highlight" style="margin-top:14px">
-          <span class="fact-bar__icon">💡</span>
-          <div>試算：エージェント3名採用（525万円）vs Meandle Recruit 3職種（150万円）→ <strong>375万円のコスト削減</strong>の試算。ミスマッチ減による採用やり直しコストも低減。</div>
-        </div>
-
-        <div class="sim-disclaimer">
-          ※ 採用1名あたりコストは職種・業種・市場により大幅に変動します。試算は参考値。同等の採用成果を保証しません。
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <!-- Section 2: Problem -->
   <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">Pricing</span>
-      <h2>料金</h2>
-      <div class="price-card">
-        <div class="price-label">Meandle Recruit</div>
-        <div class="price">¥500,000<span class="price-unit">〜 /求人項目</span></div>
-        <div class="price-note">求人ページみんどりIndex構造化＋コンテンツ最適化＋人事PR設計一式</div>
+    <div class="container container--narrow">
+      <span class="eyebrow">Why Job Posts Misfire</span>
+      <h2>求人が読まれても、求める人に「自分のことだ」と伝わるとは限りません。</h2>
+      <p>職種名、業務リスト、待遇だけの求人は、同じ職種名のあらゆる仕事と同じに見えます。その結果、条件だけで比較され、合わない応募が増え、選考と入社後の調整に工数がかかります。</p>
+
+      <div class="grid grid--2 mt-4">
+        <div class="card"><h3>職種名が広すぎる</h3><p style="margin-bottom:0">同じ「営業」「エンジニア」でも、任せる仕事と必要な経験は会社ごとに違います。名前だけでは区別されません。</p></div>
+        <div class="card"><h3>活躍場面が書かれていない</h3><p style="margin-bottom:0">どの状況で、誰と、何を判断する仕事かが無いと、読む人は自分に合うかを判断できません。</p></div>
+        <div class="card"><h3>期待が標語になっている</h3><p style="margin-bottom:0">「裁量がある」「成長できる」だけでは、何を任せるのかが伝わりません。確認できる事実が必要です。</p></div>
+        <div class="card"><h3>対象外が書かれていない</h3><p style="margin-bottom:0">扱わない仕事や合わない希望を示さないと、ミスマッチは選考と入社後に持ち越されます。</p></div>
+      </div>
+
+      <p style="margin-top:20px">Meandle recruitが整えるのは、露出の量ではありません。<strong>求める人が、正しい理由で応募を判断できる求人情報の意味</strong>です。</p>
+    </div>
+  </section>
+
+  <!-- Section 3: What is delivered -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">The Job Meaning Specification</span>
+      <h2>1求人項目ごとに、意味仕様と求人ページへの反映案を作ります。</h2>
+      <p>対象は、優先順位の高い1求人項目（1職種・1求人ページ）です。商材ページと同じ方法を、求人情報に適用します。</p>
+
+      <div class="table-wrap mt-3">
+        <table class="compare-table">
+          <thead><tr><th scope="col">項目</th><th scope="col">求人で決めること</th><th scope="col">反映先</th></tr></thead>
+          <tbody>
+            <tr><td>役割</td><td>この仕事は、事業の何を担うか</td><td>求人タイトル、冒頭</td></tr>
+            <tr><td>活躍場面</td><td>どの状況で、誰と、何を判断する仕事か</td><td>仕事内容、1日の流れ</td></tr>
+            <tr><td>期待</td><td>入社後に任せる仕事と、期待する変化</td><td>ミッション、評価の説明</td></tr>
+            <tr><td>根拠</td><td>働き方や環境の説明を裏付ける事実</td><td>制度、実例、数値と出典</td></tr>
+            <tr><td>必須条件</td><td>応募に必要な経験・状況</td><td>応募要件</td></tr>
+            <tr><td>対象外条件</td><td>この求人で扱わない仕事、合わない希望</td><td>応募要件、FAQ</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout-note">
+        <strong>含まれないこと：</strong>求人媒体の運用代行、スカウト送信、応募者対応、選考代行、採用広報の記事量産は含みません。応募数、採用数、採用成果、掲載順位は保証しません。
       </div>
     </div>
   </section>
 
+  <!-- Section 4: Cost context (facts only) -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Where This Fits</span>
+      <h2>エージェントや求人広告の代わりではなく、その前に行う仕事です。</h2>
+      <p>転職エージェントは候補者の紹介を、求人広告は露出を担います。Meandle recruitはどちらも代替しません。どの経路で応募が来る場合でも、最後に読まれるのは求人情報です。その意味がそろっていなければ、経路への投資は合わない応募にも使われます。</p>
+      <p>採用単価は職種、市場、時期により大きく変わるため、当ページでは他手法との費用比較を掲載していません。自社の実費と比較する場合は、経路ごとの費用と、選考・入社後の調整工数を分けて確認することをお勧めします。</p>
+    </div>
+  </section>
+
+  <!-- Section 5: Pricing -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Pricing</span>
+      <h2>1求人項目50万円〜で、意味仕様と反映案まで進めます。</h2>
+      <div class="price-card mt-3">
+        <div class="price-label">Meandle recruit</div>
+        <div class="price">¥500,000<span class="price-unit">〜 / 求人項目</span></div>
+        <p style="margin-bottom:0">1職種・1求人ページを対象に、現状の読まれ方の確認、意味仕様、求人ページへの反映案、公開後に確認する条件を整理します。複数職種は項目ごとに個別設計します。</p>
+      </div>
+      <div class="callout-note">
+        表示価格は下限です。対象職種数、事実確認、反映範囲により個別に設計します。応募数や採用成果を保証するものではありません。
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Fit -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Fit Before Spend</span>
+      <h2>Meandle recruitが向く求人と、別の施策を先に行う求人があります。</h2>
+
+      <div class="grid grid--2 mt-4">
+        <div>
+          <h3 style="color:var(--hero-orange)">向いている求人</h3>
+          <ul>
+            <li>専門性が高く、職種名だけでは仕事の中身が伝わらない</li>
+            <li>応募は来るが、求める経験・状況と合わない応募が多い</li>
+            <li>採用する1名の影響が大きく、ミスマッチの損失が大きい</li>
+            <li>仕事内容と働き方の事実確認に、現場と人事が協力できる</li>
+            <li>対象外の条件（扱わない仕事、合わない希望）を決める意思がある</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="color:var(--muted)">別の施策を先に行う求人</h3>
+          <ul>
+            <li>とにかく短期間で多くの母集団が必要（求人広告やエージェントの活用が合理的です）</li>
+            <li>採用条件・仕事内容がまだ社内で決まっていない</li>
+            <li>応募数や採用数の保証を前提としている</li>
+            <li>求人情報の事実確認に協力できない</li>
+          </ul>
+        </div>
+      </div>
+
+      <p style="margin-top:20px">適さない場合は、求人広告、エージェント、採用体制の整備を先に行う方が合理的です。適合する場合に、1求人項目50万円〜の進め方をご案内します。</p>
+    </div>
+  </section>
+
+  <!-- Section 7: FAQ -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">FAQ</span>
+      <h2>ご相談前によくある確認</h2>
+      <details class="faq-item">
+        <summary class="faq-q">応募数は増えますか。</summary>
+        <div class="faq-a">保証できません。Meandle recruitが整えるのは、求人情報の意味です。合わない応募が減ることはあり、その場合は応募総数が減ることもあります。件数ではなく、求める人が判断しやすい状態を目的とします。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">転職エージェントや求人媒体と併用できますか。</summary>
+        <div class="faq-a">はい。どの経路でも最後に読まれるのは求人情報です。エージェントへの依頼内容や媒体の原稿と、自社の求人ページの説明がそろうように、同じ意味仕様を使えます。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">求人票を書く作業も含まれますか。</summary>
+        <div class="faq-a">意味仕様と、求人ページの見出し・本文・要件・FAQへの反映案まで含みます。媒体入稿や運用代行は含みません。既存の採用担当・制作会社が反映する場合は、引き継げる差分の形で渡します。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">AIが求人を扱うことに対応していますか。</summary>
+        <div class="faq-a">求人情報が検索やAIに読まれる前提で、対象、場面、期待、対象外条件を明確な構造で書きます。ただし、特定のサービスでの表示、推薦、順位を保証するものではありません。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Section 8: Final -->
   <section class="cta-block">
-    <h2>いま難航している求人を、1つ教えてください。</h2>
-    <p>求人票の意味の作りを、無理のない範囲で30分壁打ちします。</p>
-    <a href="/contact/" class="btn btn--primary">採用を相談する</a>
+    <div class="container container--narrow">
+      <span class="eyebrow" style="color:var(--hero-orange)">Start with One Job Post</span>
+      <h2>いま難航している求人を、1つ教えてください。</h2>
+      <p>求人ページのURL、求める人物像、対象外にしたい応募、現在起きているズレを確認します。Meandle recruitで扱うべき課題かを判断し、適合する場合に1求人項目50万円〜の進め方をご案内します。</p>
+
+      <a href="/contact/" class="btn btn--primary" style="margin-top:20px">既存URLで導入適合性を確認する</a>
+      <p style="color:rgba(255,255,255,0.75); font-size:13px; margin-top:12px">
+        応募数、採用数、採用成果、掲載順位を保証するものではありません。
+      </p>
+      <p style="color:rgba(255,255,255,0.65); font-size:12px; margin-top:20px">
+        Meandleは、Jag Yamamoto / Jag Projectが開発・監修するB2B意味設計ソリューションです。<br/>
+        運営元：<a href="https://jagproject.com/" target="_blank" rel="noopener" style="color:var(--hero-orange)">jagproject.com ↗</a>
+      </p>
+    </div>
   </section>
 </BaseLayout>
+
+<style is:inline>
+  .faq-item { border-bottom: 1px solid rgba(18,36,44,0.12); padding: 16px 0; }
+  .faq-item[open] .faq-q { color: var(--hero-orange); }
+</style>
