@@ -57,7 +57,7 @@ Meandle は、**Jag Yamamoto / Jag Project が提唱する「意味へのハン�
 | `/contact/` | `src/pages/contact.astro` | SSGform 相談窓口 |
 | `/contact/thanks/` | `src/pages/contact/thanks.astro` | 送信完了 |
 | `/blog/` | `src/pages/blog/index.astro` | 検証ノート一覧（Self Do.meandle） |
-| `/blog/temperature-sensing-ink/` | `src/pages/blog/temperature-sensing-ink.astro` | 第 1 記事 |
+| `/blog/…/` | `src/pages/blog/*.astro` | 記事（一覧は `blog/index.astro` の articles 配列で管理） |
 | `/404` | `src/pages/404.astro` | エラー |
 
 `astro.config.mjs` の `trailingSlash: 'always'`。リンクは必ず末尾スラッシュ付き。
@@ -66,7 +66,7 @@ Meandle は、**Jag Yamamoto / Jag Project が提唱する「意味へのハン�
 
 ## 4. ファイル構成と一元管理
 
-- **メニュー項目**：`src/data/navigation.json`（primary / services / footer.services / footer.more / blog の 5 配列）
+- **メニュー項目**：`src/data/navigation.json`（フラットな1配列。ヘッダー・フッター共通で使用）
 - **共通レイアウト**：`src/layouts/BaseLayout.astro`（title / description / ogTitle / ogDescription / canonical / OGP）
 - **ヘッダー**：`src/components/Header.astro`（**ロゴ画像 `/images/meandle-logo.png` 32px** ＋ナビ。背景 #fff）
 - **フッター**：`src/components/Footer.astro`（必須表記：Meandleは Jag Yamamoto / Jag Project が開発・監修）
