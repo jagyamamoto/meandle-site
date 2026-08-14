@@ -1,22 +1,72 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Meandle認定代理店制度|既存クライアントへ意味設計を提供する|Meandle';
+const description = 'Meandle認定代理店制度は、Web制作・広告・PR・採用支援・BtoBコンサルティング事業者が、既存クライアントへMeandleの意味設計を提案・提供するための制度です。条件は個別設計。成果を保証するものではありません。';
+const ogTitle = '既存クライアントへ、意味設計を提供する|Meandle認定代理店制度';
+const ogDescription = '研修、提供物、共同提案の範囲を先に定め、認定のうえで展開いただく制度です。';
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://meandle.jp/partner/#webpage',
+    url: 'https://meandle.jp/partner/',
+    name: title,
+    description: description,
+    inLanguage: 'ja',
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    about: { '@id': 'https://meandle.jp/partner/#service' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': 'https://meandle.jp/partner/#service',
+    name: 'Meandle認定代理店制度',
+    serviceType: 'B2B意味設計のパートナー制度',
+    url: 'https://meandle.jp/partner/',
+    description: '事業者が既存クライアントへMeandleの意味設計を提案・提供するための認定制度です。条件は個別設計します。',
+    provider: { '@id': 'https://meandle.jp/#organization' },
+    areaServed: 'JP',
+  },
+];
 ---
 <BaseLayout
-  title="Meandle認定代理店制度｜Meandle"
-  description="Meandle技術を習得し、みんどるツールの提供を受けて代理店として展開いただけます。Web制作会社・マーケティング会社・PR会社の方に特にお勧めです。"
+  title={title}
+  description={description}
+  canonical="/partner/"
+  ogTitle={ogTitle}
+  ogDescription={ogDescription}
+  structuredData={structuredData}
 >
+  <!-- Section 1: Hero -->
   <section class="hero hero--split">
     <div class="hero__bg-grid" aria-hidden="true"></div>
     <div class="hero__bg-noise" aria-hidden="true"></div>
     <div class="container">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　認定代理店制度</nav>
       <div class="hero__split">
         <div class="hero__left">
-          <span class="eyebrow hero__eyebrow">Partner</span>
-          <h1 class="hero-copy">Meandle認定代理店制度</h1>
-          <p style="margin-top:20px">Meandle 技術を習得し、みんどるツールの提供を受けて代理店として展開していただけます。<strong>Web制作会社・マーケティング会社・PR会社</strong>の方に特にお勧めです。</p>
+          <span class="eyebrow hero__eyebrow">Certified Partner Program</span>
+          <h1 class="hero-copy">既存クライアントへ、<br/>意味設計を提供する。</h1>
+
+          <p class="lead" style="margin-top:20px">
+            制作、広告、PR、採用支援の現場では、「ページはあるのに、誰に何を売るのかが決まっていない」案件に必ず出会います。そこで必要なのは、もう一つの制作メニューではなく、対象、価値、根拠、対象外条件を決める工程です。
+          </p>
+          <p>
+            Meandle認定代理店制度は、貴社が既存クライアントへMeandleの意味設計を提案・提供するための制度です。研修と提供物の範囲、共同提案の進め方、名乗り方を先に定め、認定のうえで展開いただきます。
+          </p>
+
+          <div class="hero__cta-group">
+            <a href="/contact/" class="btn btn--primary">代理店制度の適合性を確認する</a>
+          </div>
+          <p style="font-size:13px; color:var(--muted); margin-top:12px">
+            業態、規模、主なクライアント像を確認し、適合する場合に条件をご案内します。<br/>
+            クライアントの成果（順位、AI応答、リード数、売上）を保証する制度ではありません。
+          </p>
         </div>
 
-        <aside class="proof-panel" aria-label="認定代理店プログラム ライブ表示">
+        <aside class="proof-panel" aria-label="制度の3要素 ライブ表示">
           <div class="proof-panel__head">
             <span class="proof-panel__led"></span>
             <span class="proof-panel__label">CERTIFIED&nbsp;PROGRAM</span>
@@ -24,31 +74,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
           <div class="proof-stage">
             <div class="proof-slide is-active">
-              <div class="proof-slide__type">🎓 認定パートナー制度</div>
-              <div class="proof-slide__num proof-slide__num--label">CERTIFIED</div>
-              <div class="proof-slide__name">Web制作／広告／PR／採用支援</div>
-              <div class="proof-slide__body">既存クライアントに対して「みんどり値」で改善提案ができるようになります。<strong>純粋な追加提案軸</strong>として、既存業務を拡張。</div>
-              <div class="proof-slide__query">対象：Web／広告／PR／採用／BtoBコンサル</div>
+              <div class="proof-slide__type">Element 1</div>
+              <div class="proof-slide__num proof-slide__num--label">研修</div>
+              <div class="proof-slide__name">立ち上げ研修</div>
+              <div class="proof-slide__body">意味仕様の作り方、対象外条件の扱い、保証しない表現の規律を、社内チーム向けに研修します。標準2〜4週間。</div>
+              <div class="proof-slide__query">method before sales</div>
             </div>
             <div class="proof-slide">
-              <div class="proof-slide__type">🧰 提供ツール／テンプレート</div>
-              <div class="proof-slide__num proof-slide__num--label">TOOLS</div>
-              <div class="proof-slide__name">パートナー版みんどりIndex</div>
-              <div class="proof-slide__body">Index テンプレート、運用ガイド、チェックリスト、社内向け研修コンテンツを提供。<strong>納品物レベルで再現可能</strong>な形式に整理済み。</div>
-              <div class="proof-slide__query">Index template / Ops guide / Checklist</div>
+              <div class="proof-slide__type">Element 2</div>
+              <div class="proof-slide__num proof-slide__num--label">提供物</div>
+              <div class="proof-slide__name">テンプレートと運用ガイド</div>
+              <div class="proof-slide__body">意味仕様のテンプレート、運用ガイド、チェックリストを提供します。提供範囲は認定条件で定めます。</div>
+              <div class="proof-slide__query">scope fixed in agreement</div>
             </div>
             <div class="proof-slide">
-              <div class="proof-slide__type">🚀 初期研修＋共同提案</div>
-              <div class="proof-slide__num"><span class="proof-num" data-count-to="4">4</span><span class="proof-slide__unit">週間</span></div>
-              <div class="proof-slide__name">2〜4週間の社内研修</div>
-              <div class="proof-slide__body">立ち上げ2〜4週間の集中研修＋<strong>年数件の共同提案サポート</strong>。技術・営業の両面で並走します。</div>
-              <div class="proof-slide__query">Kickoff = 2〜4 週 / 共同案件年数件</div>
+              <div class="proof-slide__type">Element 3</div>
+              <div class="proof-slide__num proof-slide__num--label">共同提案</div>
+              <div class="proof-slide__name">初期案件の並走</div>
+              <div class="proof-slide__body">立ち上げ期の提案・納品にMeandleが並走します。件数と範囲は個別に定めます。</div>
+              <div class="proof-slide__query">joint delivery at start</div>
             </div>
           </div>
           <div class="proof-panel__dots">
-            <button class="proof-dot is-active" data-i="0" aria-label="制度"></button>
-            <button class="proof-dot" data-i="1" aria-label="ツール"></button>
-            <button class="proof-dot" data-i="2" aria-label="研修"></button>
+            <button class="proof-dot is-active" data-i="0" aria-label="研修"></button>
+            <button class="proof-dot" data-i="1" aria-label="提供物"></button>
+            <button class="proof-dot" data-i="2" aria-label="共同提案"></button>
           </div>
         </aside>
       </div>
@@ -56,26 +106,41 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="hero-marquee" aria-hidden="true">
         <div class="hero-marquee__track">
           <span class="hero-marquee__lead">◉ CERTIFIED PARTNER</span>
-          <span>▸ みんどりIndex template (partner ed.)</span>
-          <span>▸ Ops guide + Checklist</span>
-          <span>▸ Kickoff training 2〜4 weeks</span>
-          <span>▸ Joint proposal support</span>
-          <span>▸ MNDR-2026-001 · patent pending</span>
+          <span>▸ 研修 + テンプレート + 共同提案</span>
+          <span>▸ 対象：制作 / 広告 / PR / 採用支援 / BtoBコンサル</span>
+          <span>▸ 条件は個別設計</span>
+          <span>▸ no client-result guarantees</span>
           <span class="hero-marquee__lead">◉ CERTIFIED PARTNER</span>
-          <span>▸ みんどりIndex template (partner ed.)</span>
-          <span>▸ Ops guide + Checklist</span>
-          <span>▸ Kickoff training 2〜4 weeks</span>
-          <span>▸ Joint proposal support</span>
-          <span>▸ MNDR-2026-001 · patent pending</span>
+          <span>▸ 研修 + テンプレート + 共同提案</span>
+          <span>▸ 対象：制作 / 広告 / PR / 採用支援 / BtoBコンサル</span>
+          <span>▸ 条件は個別設計</span>
+          <span>▸ no client-result guarantees</span>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Section 2: Why -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Why Partners</span>
+      <h2>制作や運用の前に、「何を伝えるか」を決める工程を商品にできます。</h2>
+      <p>クライアントの依頼が「分かりやすくしてほしい」「問い合わせを増やしたい」で止まっているとき、制作・広告・PRの各社は、判断基準がないまま作ることになります。担当者の経験で補っている部分を、意味仕様という共通の工程に変えることで、提案の根拠と検収の基準がそろいます。</p>
+
+      <div class="grid grid--2 mt-4">
+        <div class="card"><h3>提案の前段を商品化する</h3><p style="margin-bottom:0">「まず対象と対象外を決める」工程を、有償の前段として提案できます。</p></div>
+        <div class="card"><h3>検収の基準がそろう</h3><p style="margin-bottom:0">対象・対象外の確認条件が先に決まるため、制作後の評価が担当者の感覚に依存しにくくなります。</p></div>
+        <div class="card"><h3>既存メニューと競合しない</h3><p style="margin-bottom:0">制作、広告運用、PR配信、採用支援はそのまま。意味設計はその前工程です。</p></div>
+        <div class="card"><h3>説明の規律を共有する</h3><p style="margin-bottom:0">保証しない表現、根拠の示し方、対象外の書き方など、Meandleと同じ規律で提案できます。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Who -->
   <section class="section">
-    <div class="container">
-      <span class="eyebrow">For whom</span>
-      <h2>対象</h2>
+    <div class="container container--narrow">
+      <span class="eyebrow">For Whom</span>
+      <h2>対象となる事業者</h2>
       <ul style="font-size:15.5px; line-height:2; margin-top:12px">
         <li>Web制作会社</li>
         <li>広告代理店</li>
@@ -83,40 +148,83 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <li>採用支援会社</li>
         <li>BtoBコンサルティング会社</li>
       </ul>
+      <p class="muted" style="margin-top:8px">上記以外の業態は、扱う案件と体制を確認のうえ個別に判断します。</p>
     </div>
   </section>
 
+  <!-- Section 4: What you get -->
   <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">Value</span>
-      <h2>認定でできること</h2>
+    <div class="container container--narrow">
+      <span class="eyebrow">What Is Provided</span>
+      <h2>認定で提供するもの</h2>
       <ul style="font-size:15.5px; line-height:2; margin-top:12px">
-        <li>クライアント提案時に、ページ改善を<strong>みんどり値で説明できる</strong></li>
-        <li>みんどりIndex テンプレート（パートナー版）の提供</li>
-        <li>運用ガイド・チェックリスト</li>
-        <li>初期研修（2〜4 週間、社内向け）</li>
-        <li>共同提案サポート（年数件）</li>
+        <li>立ち上げ研修（標準2〜4週間・社内向け）</li>
+        <li>意味仕様のテンプレートと運用ガイド、チェックリスト</li>
+        <li>立ち上げ期の共同提案・共同納品（件数と範囲は個別に定めます）</li>
+        <li>認定パートナーとしての名乗り方と表記の規律</li>
       </ul>
+      <div class="callout-note">
+        <strong>含まれないこと：</strong>クライアント成果（順位、AI応答、リード数、採用数、売上）の保証、無制限の再販売権、Meandleブランドの自由な使用は含みません。提供物の範囲と利用条件は、認定契約で定めます。
+      </div>
     </div>
   </section>
 
+  <!-- Section 5: Pricing -->
   <section class="section">
-    <div class="container">
+    <div class="container container--narrow">
       <span class="eyebrow">Pricing</span>
       <h2>料金</h2>
       <div class="price-card">
         <div class="price-label">Meandle認定代理店制度</div>
-        <div class="price">要見積もり</div>
+        <div class="price">個別見積もり</div>
         <div class="price-note">
-          業態・規模・主なクライアント像に応じて個別に組みます。
+          業態、規模、主なクライアント像、研修と共同提案の範囲に応じて個別に組みます。
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Section 6: Fit -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <span class="eyebrow">Fit Before Certification</span>
+      <h2>向いている事業者と、向いていない事業者があります。</h2>
+
+      <div class="grid grid--2 mt-4">
+        <div>
+          <h3 style="color:var(--hero-orange)">向いている事業者</h3>
+          <ul>
+            <li>高単価B2Bのクライアントを継続的に支援している</li>
+            <li>制作・運用の前に「何を伝えるか」を決める工程の必要性を感じている</li>
+            <li>保証しない表現の規律に同意できる</li>
+            <li>研修と初期の共同提案に時間を割ける</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="color:var(--muted)">向いていない事業者</h3>
+          <ul>
+            <li>クライアントへの成果保証を前提に販売したい</li>
+            <li>テンプレートだけを入手して単独で名乗りたい</li>
+            <li>記事量産や順位改善の販売材料を探している</li>
+          </ul>
+        </div>
+      </div>
+
+      <p style="margin-top:20px">適さない場合は、通常の外注・協業（案件単位のOEM）の方が合理的です。<a href="/oem/">Meandle OEM</a> もご覧ください。</p>
+    </div>
+  </section>
+
+  <!-- Section 7: Final -->
   <section class="cta-block">
-    <h2>パートナー要件を、お送りください。</h2>
-    <p>業態・規模・主なクライアント像を伺ったうえで、最適な制度を組みます。</p>
-    <a href="/contact/" class="btn btn--primary">代理店制度を相談する</a>
+    <div class="container container--narrow">
+      <span class="eyebrow" style="color:var(--hero-orange)">Become a Partner</span>
+      <h2>業態と、主なクライアント像をお知らせください。</h2>
+      <p>業態、規模、主なクライアント像、想定する提供の形を確認し、認定制度で扱うべきかを判断します。適合する場合に、研修と共同提案の条件をご案内します。</p>
+      <a href="/contact/" class="btn btn--primary" style="margin-top:20px">代理店制度の適合性を確認する</a>
+      <p style="color:rgba(255,255,255,0.65); font-size:12px; margin-top:20px">
+        Meandleは、Jag Yamamoto / Jag Projectが開発・監修するB2B意味設計ソリューションです。<br/>
+        運営元：<a href="https://jagproject.com/" target="_blank" rel="noopener" style="color:var(--hero-orange)">jagproject.com ↗</a>
+      </p>
+    </div>
   </section>
 </BaseLayout>
