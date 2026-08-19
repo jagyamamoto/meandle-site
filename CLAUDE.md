@@ -172,8 +172,11 @@ OG だけ別文を出したい場合は `ogTitle` `ogDescription` props を使�
 
 - meandle.jp ゾーンに MX×3（route1〜3.mx.cloudflare.net）＋ SPF ＋ DKIM(cf2024-1) を追加済み
 - 設定は **wrangler の OAuth トークン**（`email_routing:write` 権限）で API から実施。通常の Cloudflare API トークンには DNS 編集権限が無い
-- 送信の差出人は当面 `meandle@panam.travelsim-japan.com`（Resend認証済みドメイン）。
-  meandle.jp を Resend で認証したら、Pages 環境変数 `EMAIL_FROM` に `contact@meandle.jp` を設定するだけで切替（コード変更不要）
+- **送信の差出人は `contact@meandle.jp`**（2026-08-15 開通・delivered確認済み）
+  - meandle専用の Resend アカウント（ログイン `danke@jagproject.com`）を使用。panam とは**アカウントごと分離**しており、片方の障害・送信上限・キー漏洩がもう片方に波及しない
+  - meandle.jp は DKIM(`resend._domainkey`)＋SPF(`send` の MX/TXT) で verified
+  - Pages secret `RESEND_API_KEY` は **meandle.jp 限定の送信専用キー**（最小権限）
+  - 変更したい場合は Pages 環境変数 `EMAIL_FROM` を設定（コード変更不要）
 
 ---
 

@@ -12,7 +12,7 @@
 //
 // 必要な環境変数（Pagesダッシュボード → Settings → Environment variables）:
 //   RESEND_API_KEY … Resend のAPIキー（secret）。未設定時は 500 を返し、画面に案内を出す
-//   EMAIL_FROM     … 送信元。Resend でDKIM認証済みドメインのアドレス。未設定時は meandle@panam.travelsim-japan.com（認証済み）
+//   EMAIL_FROM     … 送信元。Resend でDKIM認証済みドメインのアドレス。未設定時は contact@meandle.jp（認証済み）
 //   CONTACT_TO     … 届け先。未設定時は danke@jagproject.com
 
 interface Env {
@@ -102,10 +102,10 @@ export const onRequestPost: PagesFunction<Env> = async (ctx) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      // panam.travelsim-japan.com はこのResendアカウントでDKIM認証済み（実送信で確認 2026-08-15）。
-      // jagproject.com のDKIMは別アカウントのため使えない。meandle.jp を認証したら
-      // EMAIL_FROM 環境変数で contact@meandle.jp 等へ差し替える。
-      from: ctx.env.EMAIL_FROM || 'Meandle <meandle@panam.travelsim-japan.com>',
+      // meandle.jp は専用Resendアカウント（danke@jagproject.com）でDKIM/SPF認証済み
+      // （2026-08-15 verified）。panam とはアカウントを分けてあるので、片方の障害や
+      // 送信上限がもう片方に波及しない。
+      from: ctx.env.EMAIL_FROM || 'Meandle <contact@meandle.jp>',
       to: [ctx.env.CONTACT_TO || 'danke@jagproject.com'],
       reply_to: email,
       subject: `[meandle][適合確認] ${company} ${name}`,

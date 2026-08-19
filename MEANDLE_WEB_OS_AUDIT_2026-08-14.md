@@ -252,3 +252,16 @@ Jag への確認事項：
 | webos-v1 の改修 | main へマージ・**本番デプロイ済み**（トップの状況ルーター／recruit・partner 書き直し／孤児記事の正式掲載／tech-plate 削除） |
 | AIボット遮断（P0-3b） | 未着手。公開時に解除（Jag実施） |
 | Basic認証（P0-3c） | 継続中（Jag判断） |
+
+## 追記3：メール送受信の完成（2026-08-15）
+
+| 項目 | 状態 |
+|---|---|
+| 受信 `contact@meandle.jp` / `jag@meandle.jp` | Cloudflare Email Routing で danke@jagproject.com へ転送。認証・ルールとも稼働 |
+| 送信の差出人 | **`contact@meandle.jp`**。本番フォームから実送信し Resend で `delivered` を確認 |
+| Resend アカウント分離 | meandle専用アカウント（`danke@jagproject.com`）を新設。panam とは無関係に運用でき、障害・上限・キー漏洩が波及しない |
+| ドメイン認証 | meandle.jp = verified（DKIM＋SPF MX/TXT の3レコード。Cloudflare へ API で追加） |
+| Pages secret | meandle.jp 限定の**送信専用キー**へ差し替え（production / preview 両方） |
+
+作業はすべて API 経由で実施（Cloudflare の DNS 編集トークンと Resend の管理キーを使用）。
+ブラウザ自動操作は使用していない。
