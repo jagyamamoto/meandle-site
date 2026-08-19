@@ -67,6 +67,7 @@ Meandle は、**Jag Yamamoto / Jag Project が提唱する「意味へのハン�
 ## 4. ファイル構成と一元管理
 
 - **メニュー項目**：`src/data/navigation.json`（フラットな1配列。ヘッダー・フッター共通で使用）
+- **KVバインディング**：`KV` = 名前空間 `meandle-contact-rate`（フォームのIPレート制限用。production/preview両方）
 - **共通レイアウト**：`src/layouts/BaseLayout.astro`（title / description / ogTitle / ogDescription / canonical / OGP）
 - **ヘッダー**：`src/components/Header.astro`（**ロゴ画像 `/images/meandle-logo.png` 32px** ＋ナビ。背景 #fff）
 - **フッター**：`src/components/Footer.astro`（必須表記：Meandleは Jag Yamamoto / Jag Project が開発・監修）
@@ -190,7 +191,8 @@ OG だけ別文を出したい場合は `ogTitle` `ogDescription` props を使�
 - 全ページに `<meta name="robots" content="noindex,nofollow">`
 - `public/robots.txt` は `User-agent: * / Disallow: /`
 
-公開時は `functions/_middleware.ts` を削除 → `noindex` 行を `index, follow` に → `robots.txt` を Allow に → ビルド＆デプロイ。
+公開時の手順は **[`PUBLISH.md`](./PUBLISH.md)** に集約（コード側の3変更＋Cloudflare側のAIボット遮断解除＋公開後の確認）。
+準備（フォーム開通・メール・KVレート制限・公開前監査）は 2026-08-15 に完了済み。**公開のタイミングだけが未確定**。
 
 ---
 
