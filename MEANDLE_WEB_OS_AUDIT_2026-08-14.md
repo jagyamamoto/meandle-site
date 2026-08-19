@@ -241,3 +241,14 @@ Jag への確認事項：
 | Basic認証 | このまま（公開時期は別途判断） | 変更なし |
 | highprofilm（pr.astro） | 許諾あり | 現状維持 |
 | visible_text 素材 | 今後提供 | ヒーロー読者語化は素材受領後の別コミット |
+
+## 追記2：公開ゲートの進捗（2026-08-15）
+
+| 項目 | 状態 |
+|---|---|
+| フォーム送信先（P0-3a） | **解消**。自前 Pages Function → Resend → danke@jagproject.com。本番実送信で着信確認済み |
+| メールアドレス | `contact@meandle.jp` / `jag@meandle.jp` を Cloudflare Email Routing で danke@ へ転送（DNS: MX×3＋SPF＋DKIM）。転送先の認証・ルール作成まで完了 |
+| 差出人ドメイン | 暫定 `meandle@panam.travelsim-japan.com`（Resend認証済み）。meandle.jp の Resend 認証は保留（Jag判断：案A＝現状維持） |
+| webos-v1 の改修 | main へマージ・**本番デプロイ済み**（トップの状況ルーター／recruit・partner 書き直し／孤児記事の正式掲載／tech-plate 削除） |
+| AIボット遮断（P0-3b） | 未着手。公開時に解除（Jag実施） |
+| Basic認証（P0-3c） | 継続中（Jag判断） |

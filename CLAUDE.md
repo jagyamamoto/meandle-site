@@ -163,6 +163,18 @@ OG だけ別文を出したい場合は `ogTitle` `ogDescription` props を使�
   - `CONTACT_TO`（任意。既定 `danke@jagproject.com`）
 - ローカル検証：`npx wrangler pages dev dist --port 8788`（Basic認証ヘッダ必須）
 
+### メールアドレス（受信＝Cloudflare Email Routing・2026-08-15開通）
+
+| アドレス | 転送先 |
+|---|---|
+| `contact@meandle.jp` | danke@jagproject.com |
+| `jag@meandle.jp` | danke@jagproject.com |
+
+- meandle.jp ゾーンに MX×3（route1〜3.mx.cloudflare.net）＋ SPF ＋ DKIM(cf2024-1) を追加済み
+- 設定は **wrangler の OAuth トークン**（`email_routing:write` 権限）で API から実施。通常の Cloudflare API トークンには DNS 編集権限が無い
+- 送信の差出人は当面 `meandle@panam.travelsim-japan.com`（Resend認証済みドメイン）。
+  meandle.jp を Resend で認証したら、Pages 環境変数 `EMAIL_FROM` に `contact@meandle.jp` を設定するだけで切替（コード変更不要）
+
 ---
 
 ## 8. Preview モード（Basic 認証）
