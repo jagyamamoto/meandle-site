@@ -62,7 +62,8 @@ const structuredData = [
           </div>
           <p style="font-size:13px; color:var(--muted); margin-top:12px">
             既存URL、製品・サービスの事実資料、発表する理由、来てほしい相手、対象外にしたい相手や用途を確認します。<br/>
-            お問い合わせ段階では、詳細な診断や配信優先順位の提案は行いません。
+            お問い合わせ段階では、詳細な診断や配信優先順位の提案は行いません。<br/>
+            <a href="#observation">実際にAIの回答へ現れた例（条件つきの観察記録）を見る</a>
           </p>
         </div>
 
@@ -224,27 +225,94 @@ const structuredData = [
     </div>
   </section>
 
-  <!-- Section 6: Observation module -->
-  <section class="section section--alt">
+  <!-- Section 6: Observation record (E3) — highprofilm -->
+  <section class="section section--alt" id="observation">
     <div class="container container--narrow">
       <span class="eyebrow">Public Observation Record</span>
-      <h2>highprofilmの観察は、証拠台帳が揃った後だけ公開します。</h2>
+      <h2>商品名を含まない質問に、商品名が答えとして現れた例。</h2>
+      <span class="ev-badge ev-badge--real">🟢 公開環境での観察記録（E3）</span>
 
-      <div class="callout-note">
-        現時点では、元URL、公開日時、観察日時、質問、地域・端末、画像の原本、実施施策、許諾を一つに結びつける証拠台帳がそろっていません。このため、表示・所要時間・因果関係・成果を本文へ掲載していません。証拠が確認され、Jagの公開承認が得られた場合にだけ、この場所に <code>公開環境での観察記録（E3）</code> モジュールを追加します。
+      <p style="margin-top:14px">
+        Meandle PRで意味を整えた発表が、ニュース記事として掲載されたあとの観察です。
+        Googleで<strong>商品名もブランド名も含まない質問</strong>を入力したところ、
+        「AIによる概要」の本文に、その商品名が<strong>代表的なサービスとして現れました</strong>。
+      </p>
+
+      <div class="ev-box ev-box--real">
+        <table class="compare-table" style="margin-bottom:14px">
+          <tbody>
+            <tr><th scope="row" style="width:34%">入力した質問</th><td><code>スマホフィルム 在庫リスク少ないもの教えて</code></td></tr>
+            <tr><th scope="row">画面</th><td>Google 検索の「AIによる概要」</td></tr>
+            <tr><th scope="row">ログイン状態</th><td>未ログイン</td></tr>
+            <tr><th scope="row">回答に現れた表現</th><td>「代表的なサービス：BELEXの『ハイプロフィルム』などが展開されています」</td></tr>
+            <tr><th scope="row">AIが示した出典</th><td>Yahoo!ニュース（掲載記事「在庫ゼロで6万機種に対応、スマホ保護フィルムの常識が…」／記事日付 2026年5月30日）</td></tr>
+            <tr><th scope="row">観察日時・地域・端末</th><td class="muted">記録を確認のうえ追記します</td></tr>
+          </tbody>
+        </table>
+
+        <figure class="ai-overview-shot">
+          <img
+            src="/images/highpro.jpg"
+            alt="Googleで「スマホフィルム 在庫リスク少ないもの教えて」と検索した結果。AIによる概要の本文に、代表的なサービスとしてBELEXの「ハイプロフィルム」が挙げられ、出典としてYahoo!ニュースが示されている画面"
+            loading="lazy"
+          />
+          <figcaption>実際の表示。質問には商品名が含まれていませんが、回答本文に商品名が現れています。</figcaption>
+        </figure>
       </div>
 
-      <h3 style="margin-top:16px">公開するために必要な証拠</h3>
-      <ul>
-        <li>元URLと公開時点の保存記録</li>
-        <li>PRまたは対象ページの公開日時とタイムゾーン</li>
-        <li>観察日時、観察者、質問文、検索・回答画面の種類</li>
-        <li>地域、言語、端末、ログイン状態など再現条件</li>
-        <li>日時が確認できる画像原本と、掲載許諾・権利関係</li>
-        <li>実施施策の時系列と、外部施策・変更の有無</li>
-        <li>「観察した」範囲を超えて因果を断定しない注記</li>
-      </ul>
-      <p style="margin-top:12px">条件が揃った場合も、<code>公開環境での観察記録（E3）</code>と表示します。「Meandleだけが原因」「同じ結果が出る」「AIが推薦した」とは書きません。観察日時、質問、URL、地域・端末、画面、限界を近接して表示します。</p>
+      <div class="grid grid--2 mt-4">
+        <div>
+          <h3 style="color:var(--hero-orange)">この観察から言えること</h3>
+          <ul>
+            <li>「在庫リスクが少ないものを教えて」という<strong>課題側の言葉</strong>に対して、商品名が答えの中に置かれました</li>
+            <li>AIが示した出典は、発表が掲載された<strong>ニュース記事</strong>でした。発表素材の意味が、記事を経由してAIの回答に届いています</li>
+            <li>商品名で検索した結果ではありません。買い手が困りごとの言葉で尋ねた場面での表示です</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="color:var(--muted)">この観察から言えないこと</h3>
+          <ul>
+            <li>Meandleの施策がこの表示の原因である、とは断定できません。掲載媒体、記事の内容、時期など、他の要因も同時に働いています</li>
+            <li>同じ質問で誰にでも同じ表示が出る、とは言えません。AIによる概要は質問、地域、端末、時期、ログイン状態で変わります</li>
+            <li>この表示が売上や問い合わせにつながった、という記録ではありません</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout-note">
+        これは条件を記録した1件の観察です。同等の表示や成果を保証するものではありません。観察日時・地域・端末の記録を確認しだい、この欄に追記します。
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6.5: Simulation (E1) — 流通の検証ケース -->
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Simulation Case</span>
+      <h2>発表前に確かめる方法もあります（流通分野の検証）。</h2>
+      <span class="ev-badge ev-badge--sim">🔵 仮説シミュレーション（E1）— 自主実験</span>
+
+      <p style="margin-top:14px">
+        公開後の観察だけが手がかりではありません。公開されているPRリリースを題材に、
+        <strong>名称だけを置いた場合と、対象・場面・根拠・対象外条件を加えた場合</strong>で、
+        課題側の質問との照合がどう変わるかを、自社方式で計算した検証ノートがあります。
+      </p>
+
+      <p>
+        題材は、日立産機システムの「温度×時間センシングインク」です。
+        農産物輸出、青果流通、コールドチェーン、店舗の品出しといった<strong>流通の現場</strong>で、
+        温度ロガーや賞味期限ラベルと混同されやすい技術を、どう書き分けるかを扱っています。
+        Meandle PRで行う「対象外条件を先に決める」作業が、照合にどう効くかを示した例です。
+      </p>
+
+      <div class="callout-note">
+        これは設計上の比較（自社方式の照合計算）であり、実際の検索順位やAIの評価を測定したものではありません。日立産機システムからの委託ではなく、公開情報を用いたJag Yamamotoの自主実験です。
+      </div>
+
+      <p style="margin-top:14px">
+        <a href="/blog/hitachi/">流通分野の検証ノートを読む →</a>
+        <a href="/blog/clo/">条件付き応答テストの設計ノート（E2）→</a>
+      </p>
     </div>
   </section>
 
@@ -307,8 +375,8 @@ const structuredData = [
         <div class="faq-a">はい。Meandleは、既存の体制を置き換えることが目的ではありません。事業側が確認した製品事実と意味仕様を、PR文、LP、記事化素材、公開責任、観察条件へ変え、各担当が同じ判断基準で進められる状態をつくります。</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-q">highprofilmの観察結果は見られますか？</summary>
-        <div class="faq-a">現時点では、公開に必要な証拠台帳と許諾が揃っていないため、結果としては掲載しません。必要な条件が確認され、Jagの承認が得られた場合だけ、観察日時、質問、URL、再現条件、画面、限界を併記した公開環境での観察記録として掲載します。</div>
+        <summary class="faq-q">実際にAIの回答へ現れた例はありますか？</summary>
+        <div class="faq-a">はい。商品名を含まない質問に対して、Googleの「AIによる概要」の本文に商品名が代表例として現れた画面を、条件とともに掲載しています（公開環境での観察記録・E3）。ただしこれは1件の観察であり、Meandleの施策が原因であるとは断定していません。AIによる概要の表示は質問、地域、端末、時期、ログイン状態で変わるため、同等の表示や成果を保証するものではありません。あわせて、公開前に確かめる方法として、流通分野を題材にした仮説シミュレーション（E1）と条件付き応答テスト（E2）の検証ノートも公開しています。</div>
       </details>
       <details class="faq-item">
         <summary class="faq-q">配信前に何を用意すればよいですか？</summary>
