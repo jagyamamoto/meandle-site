@@ -288,30 +288,47 @@ const structuredData = [
   <!-- Section 6.5: Simulation (E1) — 流通の検証ケース -->
   <section class="section">
     <div class="container container--narrow">
-      <span class="eyebrow">Simulation Case</span>
-      <h2>発表前に確かめる方法もあります（流通分野の検証）。</h2>
-      <span class="ev-badge ev-badge--sim">🔵 仮説シミュレーション（E1）— 自主実験</span>
+      <span class="eyebrow">Before You Publish</span>
+      <h2>発表の前に、確かめる方法もあります。</h2>
 
       <p style="margin-top:14px">
-        公開後の観察だけが手がかりではありません。公開されているPRリリースを題材に、
+        公開後の観察だけが手がかりではありません。発表する前に、
         <strong>名称だけを置いた場合と、対象・場面・根拠・対象外条件を加えた場合</strong>で、
-        課題側の質問との照合がどう変わるかを、自社方式で計算した検証ノートがあります。
+        説明のされ方がどう変わるかを確かめる方法があります。
+        Meandle PRで行う「対象外条件を先に決める」作業が、実際にどう効くかを記録した2件です。
       </p>
 
-      <p>
-        題材は、日立産機システムの「温度×時間センシングインク」です。
-        農産物輸出、青果流通、コールドチェーン、店舗の品出しといった<strong>流通の現場</strong>で、
-        温度ロガーや賞味期限ラベルと混同されやすい技術を、どう書き分けるかを扱っています。
-        Meandle PRで行う「対象外条件を先に決める」作業が、照合にどう効くかを示した例です。
-      </p>
+      <div class="grid grid--2 mt-4">
+        <a href="/blog/clocompass/" class="service-card">
+          <span class="ev-badge ev-badge--sim">🔵 条件付き応答テスト（E2）</span>
+          <h3 style="margin-top:10px">物流：CLOコンパス</h3>
+          <p>
+            同じ質問を、名称のみと、対象・対象外条件つきの2条件でLLMに答えさせた実測です。
+            名称だけの条件では「中小企業向け」「在庫管理機能がある」といった、
+            <strong>対象外条件に反する説明</strong>が3問すべてで出ました。条件を加えた側では出ませんでした。
+          </p>
+          <span>検証ノートを読む →</span>
+        </a>
+        <a href="/blog/hitachi/" class="service-card">
+          <span class="ev-badge ev-badge--sim">🔵 仮説シミュレーション（E1）</span>
+          <h3 style="margin-top:10px">青果流通：センシングインク</h3>
+          <p>
+            公開されているPRリリースを題材に、課題側の質問との照合がどう変わるかを自社方式で計算しました。
+            農産物輸出やコールドチェーンの現場で、<strong>温度ロガーや賞味期限ラベルと混同されやすい</strong>技術を、
+            どう書き分けるかを扱っています。
+          </p>
+          <span>検証ノートを読む →</span>
+        </a>
+      </div>
 
       <div class="callout-note">
-        これは設計上の比較（自社方式の照合計算）であり、実際の検索順位やAIの評価を測定したものではありません。日立産機システムからの委託ではなく、公開情報を用いたJag Yamamotoの自主実験です。
+        いずれも公開情報をもとにしたJag Yamamotoの自主的な検証であり、掲載企業からの委託ではありません。
+        LLMへ情報を直接与えた条件下の比較、または設計上の照合計算です。
+        公開Webのクロール、AI検索での表示、引用、検索順位、商談、売上への効果を示すものではありません。
       </div>
 
       <p style="margin-top:14px">
-        <a href="/blog/hitachi/">流通分野の検証ノートを読む →</a>
-        <a href="/blog/clo/">条件付き応答テストの設計ノート（E2）→</a>
+        <a href="/blog/clo/">条件付き応答テストの方法と限界（設計ノート）→</a>
       </p>
     </div>
   </section>

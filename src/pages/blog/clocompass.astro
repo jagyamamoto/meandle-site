@@ -1,0 +1,205 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = '対象外を書くと、AIの説明はどう変わるか｜CLOコンパスでの条件付き応答テスト｜Meandle';
+const description = '物流統括管理者向けサービス「CLOコンパス」を題材に、名称のみを渡した場合と、対象・対象外条件を加えた場合で、LLMの応答がどう変わるかを同一質問で比較した記録です。公開WebやAI検索での効果を示すものではありません。';
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://meandle.jp/blog/clocompass/#webpage',
+    url: 'https://meandle.jp/blog/clocompass/',
+    name: title,
+    description: description,
+    inLanguage: 'ja-JP',
+    isPartOf: { '@id': 'https://meandle.jp/#website' },
+    about: { '@id': 'https://meandle.jp/pr/#service' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': 'https://meandle.jp/blog/clocompass/#article',
+    mainEntityOfPage: { '@id': 'https://meandle.jp/blog/clocompass/#webpage' },
+    headline: '対象外を書くと、AIの説明はどう変わるか：CLOコンパスでの条件付き応答テスト',
+    description: description,
+    author: { '@type': 'Person', name: 'Jag Yamamoto', url: 'https://jagproject.com/' },
+    publisher: { '@id': 'https://meandle.jp/#organization' },
+    inLanguage: 'ja-JP',
+    datePublished: '2026-06-02',
+  },
+];
+
+// 条件付き応答テスト（実API）：同一質問 × 2条件
+const qa = [
+  {
+    q: 'CLOコンパスはWMSですか？どのような企業に向いていますか？',
+    a: '「WMSではなく物流DXプラットフォームです。向いている企業：中小物流企業・3PL企業、急速に成長中の企業、複数拠点を運営する企業…」',
+    aNg: '対象外条件（中小企業向けではない／運送会社向けではない）に反する説明になりました。',
+    b: '「WMSではありません。CLO向けの経営意思決定支援ツールです。大規模荷主企業の経営層・CLOが対象。複数物流拠点を運営し、法令対応や定期報告、全社KPI一元管理が必要な企業。」',
+    bOk: '対象と対象外の両方が説明に反映されました。',
+  },
+  {
+    q: 'CLOコンパスは中小企業でも使えますか？',
+    a: '「企業規模による制限についての情報は提供いただいていないため、詳細は確認が必要です。提供元に直接お問い合わせください…」',
+    aNg: '対象外を明言せず、判断を先送りする回答になりました。適さない相手の問い合わせを誘発しやすい状態です。',
+    b: '「CLOコンパスは中小企業向けではありません。大規模荷主の特定事業者向けの経営管理基盤です。中小企業での検討が必要な場合は、別の選択肢（一般的なWMS／TMSなど）をご検討ください。」',
+    bOk: '冒頭で対象外を明言し、適さない相手に代替経路を示しました。',
+  },
+  {
+    q: '物流管理システムを検討中です。CLOコンパスの特徴を教えてください。',
+    a: '「物流業務の可視化と最適化、リアルタイムデータ分析、配送管理、在庫管理などの物流機能を統合…」',
+    aNg: '対象外条件（配送最適化ではない／在庫管理ではない）に反し、WMS／TMSと混同されました。',
+    b: '「①全社横断KPIの可視化 ②法令対応・報告書の自動生成 ③既存システム（WMS・TMS）とのデータ連携。WMS／TMS本体ではなく、大規模荷主の特定事業者向け。」',
+    bOk: '在庫管理・配送管理への言及がなくなり、混同が起きませんでした。',
+  },
+];
+---
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="/blog/clocompass/"
+  ogTitle='対象外を書くと、AIの説明はどう変わるか｜CLOコンパスでの条件付き応答テスト'
+  ogDescription='同一質問に、名称のみと、対象・対象外条件つきの2条件で答えさせた比較記録。3問すべてで説明が変わりました。'
+  ogType="article"
+  structuredData={structuredData}
+>
+  <article class="section">
+    <div class="article container container--narrow">
+      <nav class="breadcrumb"><a href="/">ホーム</a>　/　<a href="/blog/">Blog</a>　/　CLOコンパスでの条件付き応答テスト</nav>
+
+      <h1>対象外を書くと、AIの説明はどう変わるか<br/><span style="font-size:0.7em">CLOコンパスでの条件付き応答テスト</span></h1>
+
+      <p class="lead" style="margin-top:16px">
+        物流統括管理者（CLO）向けの意思決定支援サービス「CLOコンパス」を題材に、
+        <strong>サービス名だけを渡した場合</strong>と、<strong>対象・対象外条件を加えた場合</strong>で、
+        LLMの応答がどう変わるかを、同一質問のもとで比較しました。
+      </p>
+
+      <div class="article-plate">
+        <div class="article-plate__row"><span class="article-plate__key">Article</span><span class="article-plate__val">検証ノート · 条件付き応答テストの実施記録</span><span class="article-plate__meta">実施 2026-06-02</span></div>
+        <div class="article-plate__row"><span class="article-plate__key">Evidence</span><span class="article-plate__val">条件付き応答テスト (E2) ＋ 照合シミュレーション (E1)</span><span class="article-plate__meta">公開Web/AI検索の効果ではない</span></div>
+        <div class="article-plate__row"><span class="article-plate__key">Scope</span><span class="article-plate__val">LLMへ直接与えた入力の比較 · 元ページの本文は未変更</span><span class="article-plate__meta">no rank/citation guarantees</span></div>
+      </div>
+
+      <div class="callout-note">
+        <strong>このテストで言えないこと：</strong>ここで扱うのは、LLMへ<strong>直接入力した情報</strong>の条件付き比較です。
+        公開されたWebページのクロール、AI検索での表示、引用、検索順位、流入、商談、売上を測るものではありません。
+        外部環境での結果を、このテストだけから推定することもしません。
+        方法と限界の全体像は<a href="/blog/clo/">条件付きLLM応答テストの設計ノート</a>にまとめています。
+      </div>
+
+      <h2>題材：説明を取り違えられやすいサービス</h2>
+      <p>
+        CLOコンパスは、株式会社アイディオットが提供する、物流統括管理者（CLO）向けの意思決定支援ツールです。
+        全社横断でのKPI可視化、法令対応の報告書自動生成、既存のWMS／TMSとのデータ連携を担います。
+      </p>
+      <p>
+        この商材は、<strong>名前だけでは取り違えられやすい</strong>という性質を持っています。
+        「物流」という語を共有する近い商品が多く、WMS（倉庫管理システム）、TMS（輸配送管理）、
+        配送最適化ツール、物流コンサルティングなどと同じ棚に置かれがちです。
+        しかし対象顧客も、解く課題も違います。
+      </p>
+
+      <h2>何を加えたか（元ページは一字も変えていません）</h2>
+      <p>
+        元のサービスページの本文は変更していません。次の意味仕様を<strong>追加しただけ</strong>です。
+      </p>
+
+      <div class="table-wrap mt-3">
+        <table class="compare-table">
+          <thead><tr><th scope="col" style="width:22%">項目</th><th scope="col">加えた内容</th></tr></thead>
+          <tbody>
+            <tr><td>必須条件</td><td>CLO／物流統括管理者向け・全社横断KPI可視化・法令対応レポート自動生成・WMS／TMSとのデータ連携・経営意思決定支援</td></tr>
+            <tr><td><strong>対象外条件</strong></td><td>WMSではない・TMSではない・現場オペレーションツールではない・中小企業向けではない・運送会社向けではない・配送最適化ツールではない</td></tr>
+            <tr><td>典型例</td><td>CLO報告書の作成・全社KPIダッシュボード・所管官庁への定期報告・取締役会向けの物流改革報告</td></tr>
+            <tr><td>当てはまらない例</td><td>WMS各種・TMS・物流コンサルティング・配送最適化ツール</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>条件付き応答テスト（実APIでの比較）</h2>
+      <span class="ev-badge ev-badge--sim">🔵 条件付き応答テスト（E2）— 実APIでの実測</span>
+
+      <p style="margin-top:14px">
+        同一の質問を、条件A（名称のみ）と条件B（上の意味仕様つき）でLLMに投げ、応答を比較しました。
+        3問 × 2条件 = 6回の呼び出しです。使用モデルは <code>claude-haiku-4-5-20251001</code>、実施日は2026年6月2日です。
+      </p>
+
+      {qa.map((item, i) => (
+        <div class="ev-box" style="margin-top:20px">
+          <h3 style="margin-top:0">質問{i + 1}：{item.q}</h3>
+
+          <p style="margin-bottom:4px"><strong>条件A（名称のみ）の応答</strong></p>
+          <p style="font-size:14px; margin-bottom:6px">{item.a}</p>
+          <p style="font-size:13px; color:var(--warn); margin-bottom:16px">→ {item.aNg}</p>
+
+          <p style="margin-bottom:4px"><strong>条件B（対象・対象外つき）の応答</strong></p>
+          <p style="font-size:14px; margin-bottom:6px">{item.b}</p>
+          <p style="font-size:13px; color:var(--accent); margin-bottom:0">→ {item.bOk}</p>
+        </div>
+      ))}
+
+      <h2>結果の読み方</h2>
+      <p>
+        3問すべてで、条件Aの応答は<strong>対象外条件に反する説明</strong>を含みました。
+        条件Bでは、3問すべてでその説明が現れませんでした。
+      </p>
+      <p>
+        とくに質問2は、実務上の意味がはっきりしています。
+        条件Aは「詳細は確認が必要です。提供元にお問い合わせください」と答えました。
+        これは一見して丁寧ですが、<strong>適さない相手に問い合わせを促す</strong>回答です。
+        営業が後から説明し直す工数は、ここで発生します。
+        条件Bは冒頭で対象外を伝え、そのうえで別の選択肢を案内しました。
+      </p>
+
+      <h3>照合シミュレーション（参考）</h3>
+      <span class="ev-badge ev-badge--sim">🔵 仮説シミュレーション（E1）</span>
+      <p style="margin-top:12px">
+        あわせて、自社方式の照合計算でも確認しています。
+        課題側の言葉で書いた質問（「法令対応レポート自動生成」「物流KPI横断分析」など4件）では、
+        意味仕様を加えた側が名称のみを上回りました。
+        逆に、本来この商材を薦めるべきでない質問（「WMS比較」「配送最適化」など3件）では、
+        対象外条件が働き、スコアがゼロ以下に下がりました。
+      </p>
+      <div class="callout-note">
+        これは設計上の比較（自社方式の照合計算）であり、実際の検索順位やAIの評価を測定したものではありません。
+        数値の絶対値そのものより、<strong>対象外条件を書くと「薦めない方向」にも効く</strong>という構造をご確認ください。
+      </div>
+
+      <h2>この記録の限界</h2>
+      <ul>
+        <li>1つの商材、3問、1つのモデル、1回の実施です。反復検証や他モデルでの再現は行っていません</li>
+        <li>LLMへ情報を<strong>直接与えた</strong>条件下の比較です。公開ページがクロールされた場合に同じことが起きる、とは言えません</li>
+        <li>検索順位、AI検索での表示、引用、問い合わせ数、売上への効果を示すものではありません</li>
+        <li>条件Aの応答が「誤り」であると、提供元や第三者が認定したものではありません。あくまで、この商材について定めた対象外条件との照らし合わせです</li>
+      </ul>
+
+      <div class="callout-note">
+        本件は株式会社アイディオットからの委託による検証ではなく、公開情報をもとにしたJag Yamamotoの自主的な検証です。
+        同等の結果を保証するものではありません。
+      </div>
+
+      <h2>同じことを、自社の商材で確かめる</h2>
+      <p>
+        サービス名やカテゴリ名だけでは、AIも見込み客も「誰向けか」「何ではないか」を判断できません。
+        Meandleでは、既存URLを起点に対象・価値・根拠・対象外条件を意味仕様にし、既存ページへ実装します。
+        初回は1商材・1URLの意味適合スプリント、50万円〜です。
+      </p>
+      <p>
+        <a href="/blog/clo/">条件付きLLM応答テストの設計ノート（方法と限界）→</a><br/>
+        <a href="/blog/hitachi/">流通分野での照合シミュレーション →</a><br/>
+        <a href="/do-meandle/">do.meandle の詳細を見る →</a>
+      </p>
+    </div>
+  </article>
+
+  <section class="cta-block">
+    <div class="container container--narrow">
+      <span class="eyebrow" style="color:var(--hero-orange)">Start with One URL</span>
+      <h2>既存URLで導入適合性を確認する。</h2>
+      <p>対象URL、来てほしい顧客、対象外にしたい顧客や用途をお知らせください。</p>
+      <a href="/contact/" class="btn btn--primary" style="margin-top:16px">既存URLで導入適合性を確認する</a>
+    </div>
+  </section>
+</BaseLayout>
